@@ -1,0 +1,44 @@
+modLoader = "javafml"
+loaderVersion = "[31,)"
+issueTrackerURL = "https://github.com/cofh/feedback"
+
+[[mods]]
+modId = "thermal_innovation"
+version = "${file.jarVersion}"
+displayName = "Thermal Innovation"
+displayURL = "https://teamcofh.com/"
+logoFile = "logo.png"
+credits = "Team CoFH"
+authors = "King Lemming"
+description = '''
+Thermal Technology marches on. Adds Thermal-style tools and equipment!
+
+Contains a number of useful tools, gadgets, and armor.
+'''
+[[dependencies.thermal_innovation]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.15.2]"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.thermal_innovation]]
+modId = "forge"
+mandatory = true
+versionRange = "[31.2.30,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.thermal_innovation]]
+modId = "cofh_core"
+mandatory = true
+versionRange = "[0.7,0.8]"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.thermal_innovation]]
+modId = "thermal"
+mandatory = true
+versionRange = "[0.3,0.4]"
+ordering = "AFTER"
+side = "BOTH"
