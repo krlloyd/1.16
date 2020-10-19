@@ -4,6 +4,7 @@ import cofh.thermal.core.plugins.jei.Drawables;
 import cofh.thermal.core.plugins.jei.ThermalFuelCategory;
 import cofh.thermal.expansion.client.gui.dynamo.DynamoMagmaticScreen;
 import cofh.thermal.expansion.util.recipes.dynamo.MagmaticFuel;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -70,11 +71,11 @@ public class MagmaticFuelCategory extends ThermalFuelCategory<MagmaticFuel> {
     }
 
     @Override
-    public void draw(MagmaticFuel fuel, double mouseX, double mouseY) {
+    public void draw(MagmaticFuel fuel, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(fuel, mouseX, mouseY);
+        super.draw(fuel, matrixStack, mouseX, mouseY);
 
-        tankBackground.draw(33, 10);
+        tankBackground.draw(matrixStack, 33, 10);
     }
 
 }

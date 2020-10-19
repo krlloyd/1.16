@@ -9,7 +9,6 @@ import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import com.google.common.collect.Iterables;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -34,6 +33,7 @@ import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.getAttributeFromAugmentMax;
 import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
+import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.*;
 
 public class RFCapacitorItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
@@ -48,7 +48,7 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
 
         super(builder, maxEnergy, maxTransfer);
 
-        this.addPropertyOverride(new ResourceLocation("state"), (stack, world, entity) -> getMode(stack) / 6.0F + (isActive(stack) ? 0.5F : 0));
+        //        this.addPropertyOverride(new ResourceLocation("state"), (stack, world, entity) -> getMode(stack) / 6.0F + (isActive(stack) ? 0.5F : 0));
     }
 
     public RFCapacitorItem setNumSlots(IntSupplier numSlots) {
@@ -68,11 +68,11 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
         tooltip.add(isActive(stack)
-                ? new TranslationTextComponent("info.cofh_use_sneak_deactivate").applyTextStyle(TextFormatting.DARK_GRAY)
-                : new TranslationTextComponent("info.cofh.use_sneak_activate").applyTextStyle(TextFormatting.DARK_GRAY));
+                ? new TranslationTextComponent("info.cofh_use_sneak_deactivate").mergeStyle(TextFormatting.DARK_GRAY)
+                : new TranslationTextComponent("info.cofh.use_sneak_activate").mergeStyle(TextFormatting.DARK_GRAY));
 
-        tooltip.add(getTextComponent("info.thermal.capacitor.mode." + getMode(stack)).applyTextStyle(TextFormatting.ITALIC));
-        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", InputMappings.getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).applyTextStyle(TextFormatting.YELLOW));
+        tooltip.add(getTextComponent("info.thermal.capacitor.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
+        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
 
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(getTextComponent(localize("info.cofh.transfer") + ": " + getScaledNumber(getExtract(stack)) + " RF/t"));

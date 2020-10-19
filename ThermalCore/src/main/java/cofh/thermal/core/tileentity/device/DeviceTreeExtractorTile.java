@@ -280,9 +280,9 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
 
     // region NBT
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(BlockState state, CompoundNBT nbt) {
 
-        super.read(nbt);
+        super.read(state, nbt);
 
         boostMult = nbt.getFloat("BoostMult");
         boostCycles = nbt.getInt("BoostCycles");

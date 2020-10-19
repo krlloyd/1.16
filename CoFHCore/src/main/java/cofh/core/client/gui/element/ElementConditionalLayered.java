@@ -2,6 +2,7 @@ package cofh.core.client.gui.element;
 
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.tuple.Pair;
@@ -46,11 +47,11 @@ public class ElementConditionalLayered extends ElementBase {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         for (Pair<Supplier<TextureAtlasSprite>, BooleanSupplier> entry : conditionalTextures) {
             if (entry.getRight().getAsBoolean()) {
-                gui.drawIcon(entry.getLeft().get(), posX(), posY());
+                gui.drawIcon(matrixStack, entry.getLeft().get(), posX(), posY());
             }
         }
     }

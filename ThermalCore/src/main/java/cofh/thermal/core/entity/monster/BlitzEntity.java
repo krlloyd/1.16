@@ -3,8 +3,9 @@ package cofh.thermal.core.entity.monster;
 import cofh.thermal.core.entity.projectile.BlitzProjectileEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
@@ -37,7 +38,7 @@ public class BlitzEntity extends MonsterEntity {
     private int heightOffsetUpdateTime;
     private static final DataParameter<Byte> ANGRY = EntityDataManager.createKey(BlitzEntity.class, DataSerializers.BYTE);
 
-    public static boolean canSpawn(EntityType<BlitzEntity> entityType, IWorld world, SpawnReason reason, BlockPos pos, Random rand) {
+    public static boolean canSpawn(EntityType<BlitzEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random rand) {
 
         return getFeature(FLAG_MOB_BLITZ).getAsBoolean() && MonsterEntity.canMonsterSpawnInLight(entityType, world, reason, pos, rand);
     }
@@ -62,13 +63,12 @@ public class BlitzEntity extends MonsterEntity {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
-    @Override
-    protected void registerAttributes() {
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
 
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4F);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64.0D);
+        return MonsterEntity.func_234295_eP_()
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 48.0D);
     }
 
     @Override
@@ -242,7 +242,7 @@ public class BlitzEntity extends MonsterEntity {
                         }
                         if (this.attackStep > 1) {
                             float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
-                            this.blitz.world.playEvent(null, 1018, new BlockPos(this.blitz), 0);
+                            this.blitz.world.playEvent(null, 1018, this.blitz.getPosition(), 0);
                             // this.blitz.world.playSound(blitz.getPosX() + 0.5D, blitz.getPosY() + 0.5D, blitz.getPosZ() + 0.5D, SOUND_BLITZ_SHOOT, SoundCategory.HOSTILE, 1.0F, (blitz.rand.nextFloat() - blitz.rand.nextFloat()) * 0.2F + 1.0F, false);
                             BlitzProjectileEntity projectile = new BlitzProjectileEntity(this.blitz, d1 + this.blitz.rand.nextGaussian() * (double) f, d2, d3 + this.blitz.rand.nextGaussian() * (double) f, this.blitz.world);
                             projectile.setPosition(projectile.getPosX(), this.blitz.getPosYHeight(0.5D) + 0.5D, projectile.getPosZ());
@@ -259,7 +259,7 @@ public class BlitzEntity extends MonsterEntity {
 
         private double getFollowDistance() {
 
-            return this.blitz.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getValue();
+            return this.blitz.getAttributeValue(Attributes.FOLLOW_RANGE);
         }
 
     }

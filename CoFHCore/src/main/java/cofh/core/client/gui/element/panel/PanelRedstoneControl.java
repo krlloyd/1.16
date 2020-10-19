@@ -4,6 +4,7 @@ import cofh.core.client.gui.CoreTextures;
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.control.IRedstoneControllable;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -49,49 +50,49 @@ public class PanelRedstoneControl extends PanelBase {
 
     // TODO: Fully support new Redstone Control system.
     @Override
-    protected void drawForeground() {
+    protected void drawForeground(MatrixStack matrixStack) {
 
-        drawPanelIcon(CoreTextures.ICON_REDSTONE_ON);
+        drawPanelIcon(matrixStack, CoreTextures.ICON_REDSTONE_ON);
         if (!fullyOpen) {
             return;
         }
-        getFontRenderer().drawStringWithShadow(localize("info.cofh.redstone_control"), sideOffset() + 18, 6, headerColor);
-        getFontRenderer().drawStringWithShadow(localize("info.cofh.control_status") + ":", sideOffset() + 6, 42, subheaderColor);
-        getFontRenderer().drawStringWithShadow(localize("info.cofh.signal_required") + ":", sideOffset() + 6, 66, subheaderColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, localize("info.cofh.redstone_control"), sideOffset() + 18, 6, headerColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, localize("info.cofh.control_status") + ":", sideOffset() + 6, 42, subheaderColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, localize("info.cofh.signal_required") + ":", sideOffset() + 6, 66, subheaderColor);
 
-        gui.drawIcon(ICON_BUTTON, 28, 20);
-        gui.drawIcon(ICON_BUTTON, 48, 20);
-        gui.drawIcon(ICON_BUTTON, 68, 20);
+        gui.drawIcon(matrixStack, ICON_BUTTON, 28, 20);
+        gui.drawIcon(matrixStack, ICON_BUTTON, 48, 20);
+        gui.drawIcon(matrixStack, ICON_BUTTON, 68, 20);
 
         switch (myRSControllable.getMode()) {
             case DISABLED:
-                gui.drawIcon(ICON_BUTTON_HIGHLIGHT, 28, 20);
-                getFontRenderer().drawString(localize("info.cofh.disabled"), sideOffset() + 14, 54, textColor);
-                getFontRenderer().drawString(localize("info.cofh.ignored"), sideOffset() + 14, 78, textColor);
+                gui.drawIcon(matrixStack, ICON_BUTTON_HIGHLIGHT, 28, 20);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.disabled"), sideOffset() + 14, 54, textColor);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.ignored"), sideOffset() + 14, 78, textColor);
                 break;
             case LOW:
-                gui.drawIcon(ICON_BUTTON_HIGHLIGHT, 48, 20);
-                getFontRenderer().drawString(localize("info.cofh.enabled"), sideOffset() + 14, 54, textColor);
-                getFontRenderer().drawString(localize("info.cofh.low"), sideOffset() + 14, 78, textColor);
+                gui.drawIcon(matrixStack, ICON_BUTTON_HIGHLIGHT, 48, 20);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.enabled"), sideOffset() + 14, 54, textColor);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.low"), sideOffset() + 14, 78, textColor);
                 break;
             case HIGH:
-                gui.drawIcon(ICON_BUTTON_HIGHLIGHT, 68, 20);
-                getFontRenderer().drawString(localize("info.cofh.enabled"), sideOffset() + 14, 54, textColor);
-                getFontRenderer().drawString(localize("info.cofh.high"), sideOffset() + 14, 78, textColor);
+                gui.drawIcon(matrixStack, ICON_BUTTON_HIGHLIGHT, 68, 20);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.enabled"), sideOffset() + 14, 54, textColor);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.high"), sideOffset() + 14, 78, textColor);
                 break;
             default:
         }
-        gui.drawIcon(ICON_REDSTONE_OFF, 28, 20);
-        gui.drawIcon(ICON_RS_TORCH_OFF, 48, 20);
-        gui.drawIcon(ICON_RS_TORCH_ON, 68, 20);
+        gui.drawIcon(matrixStack, ICON_REDSTONE_OFF, 28, 20);
+        gui.drawIcon(matrixStack, ICON_RS_TORCH_OFF, 48, 20);
+        gui.drawIcon(matrixStack, ICON_RS_TORCH_ON, 68, 20);
 
         RenderHelper.resetColor();
     }
 
     @Override
-    protected void drawBackground() {
+    protected void drawBackground(MatrixStack matrixStack) {
 
-        super.drawBackground();
+        super.drawBackground(matrixStack);
 
         if (!fullyOpen) {
             return;
@@ -112,18 +113,18 @@ public class PanelRedstoneControl extends PanelBase {
 
             switch (myRSControllable.getMode()) {
                 case DISABLED:
-                    tooltipList.add(new TranslationTextComponent("info.cofh.disabled").applyTextStyle(TextFormatting.YELLOW));
+                    tooltipList.add(new TranslationTextComponent("info.cofh.disabled").mergeStyle(TextFormatting.YELLOW));
                     break;
                 case LOW:
-                    tooltipList.add(new TranslationTextComponent("info.cofh.low").applyTextStyle(TextFormatting.YELLOW));
+                    tooltipList.add(new TranslationTextComponent("info.cofh.low").mergeStyle(TextFormatting.YELLOW));
                     break;
                 case HIGH:
-                    tooltipList.add(new TranslationTextComponent("info.cofh.high").applyTextStyle(TextFormatting.YELLOW));
+                    tooltipList.add(new TranslationTextComponent("info.cofh.high").mergeStyle(TextFormatting.YELLOW));
                     break;
                 default:
             }
             tooltipList.add(new TranslationTextComponent("info.cofh.current_signal", myRSControllable.getPower())
-                    .applyTextStyle(myRSControllable.getMode() == DISABLED
+                    .mergeStyle(myRSControllable.getMode() == DISABLED
                             ? TextFormatting.YELLOW
                             : myRSControllable.getState()
                             ? TextFormatting.GREEN

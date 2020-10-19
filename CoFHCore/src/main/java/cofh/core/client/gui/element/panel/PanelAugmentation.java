@@ -5,6 +5,7 @@ import cofh.core.client.gui.IGuiAccess;
 import cofh.core.client.gui.element.ElementAugmentSlots;
 import cofh.core.inventory.container.slot.SlotCoFH;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -49,21 +50,21 @@ public class PanelAugmentation extends PanelBase {
     }
 
     @Override
-    protected void drawForeground() {
+    protected void drawForeground(MatrixStack matrixStack) {
 
-        drawPanelIcon(CoreTextures.ICON_AUGMENT);
+        drawPanelIcon(matrixStack, CoreTextures.ICON_AUGMENT);
         if (!fullyOpen) {
             return;
         }
-        getFontRenderer().drawStringWithShadow(localize("info.cofh.augmentation"), sideOffset() + 18, 6, headerColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, localize("info.cofh.augmentation"), sideOffset() + 18, 6, headerColor);
 
         RenderHelper.resetColor();
     }
 
     @Override
-    protected void drawBackground() {
+    protected void drawBackground(MatrixStack matrixStack) {
 
-        super.drawBackground();
+        super.drawBackground(matrixStack);
 
         if (!fullyOpen) {
             return;

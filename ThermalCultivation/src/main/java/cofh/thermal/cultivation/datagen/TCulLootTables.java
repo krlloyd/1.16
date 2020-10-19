@@ -8,11 +8,11 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
-import net.minecraft.world.storage.loot.*;
-import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
-import net.minecraft.world.storage.loot.functions.ApplyBonus;
-import net.minecraft.world.storage.loot.functions.LimitCount;
-import net.minecraft.world.storage.loot.functions.SetCount;
+import net.minecraft.loot.*;
+import net.minecraft.loot.conditions.SurvivesExplosion;
+import net.minecraft.loot.functions.ApplyBonus;
+import net.minecraft.loot.functions.LimitCount;
+import net.minecraft.loot.functions.SetCount;
 
 import static cofh.core.util.constants.Constants.AGE;
 import static cofh.core.util.constants.Constants.AGE_PERENNIAL;
@@ -71,7 +71,7 @@ public class TCulLootTables extends LootTableProviderCoFH {
                         regItems.get(seeds(ID_FROST_MELON))));
 
         lootTables.put(regBlocks.get(ID_FROST_MELON_STEM_ATTACHED),
-                BlockLootTables.func_229435_c_(regBlocks.get(ID_FROST_MELON_STEM),
+                BlockLootTables.dropSeedsForStem(regBlocks.get(ID_FROST_MELON_STEM),
                         regItems.get(seeds(ID_FROST_MELON))));
 
         lootTables.put(regBlocks.get(ID_PHYTOSOIL), createSimpleDropTable(regBlocks.get(ID_PHYTOSOIL)));

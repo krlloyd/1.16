@@ -12,7 +12,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -141,8 +140,8 @@ public class HorseEnchEvents {
             // FROST WALKER
             int encFrostWalker = getEnchantmentLevel(FROST_WALKER, armor);
             if (encFrostWalker > 0) {
-                FrostWalkerEnchantment.freezeNearby(entity, entity.world, new BlockPos(entity), encFrostWalker);
-                FrostWalkerEnchantmentImp.freezeNearby(entity, entity.world, new BlockPos(entity), encFrostWalker);
+                FrostWalkerEnchantment.freezeNearby(entity, entity.world, entity.getPosition(), encFrostWalker);
+                FrostWalkerEnchantmentImp.freezeNearby(entity, entity.world, entity.getPosition(), encFrostWalker);
             }
         }
     }

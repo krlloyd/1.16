@@ -5,6 +5,7 @@ import cofh.thermal.core.plugins.jei.Drawables;
 import cofh.thermal.core.plugins.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachineCentrifugeScreen;
 import cofh.thermal.expansion.util.recipes.machine.CentrifugeRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -102,22 +103,22 @@ public class CentrifugeRecipeCategory extends ThermalRecipeCategory<CentrifugeRe
     }
 
     @Override
-    public void draw(CentrifugeRecipe recipe, double mouseX, double mouseY) {
+    public void draw(CentrifugeRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(recipe, mouseX, mouseY);
+        super.draw(recipe, matrixStack, mouseX, mouseY);
 
-        progressBackground.draw(62, 23);
-        tankBackground.draw(140, 10);
-        speedBackground.draw(34, 33);
+        progressBackground.draw(matrixStack, 62, 23);
+        tankBackground.draw(matrixStack, 140, 10);
+        speedBackground.draw(matrixStack, 34, 33);
 
         if (!recipe.getOutputFluids().isEmpty()) {
             RenderHelper.drawFluid(62, 23, recipe.getOutputFluids().get(0), 24, 16);
-            progressFluidBackground.draw(62, 23);
-            progressFluid.draw(62, 23);
+            progressFluidBackground.draw(matrixStack, 62, 23);
+            progressFluid.draw(matrixStack, 62, 23);
         } else {
-            progress.draw(62, 23);
+            progress.draw(matrixStack, 62, 23);
         }
-        speed.draw(34, 33);
+        speed.draw(matrixStack, 34, 33);
     }
 
 }

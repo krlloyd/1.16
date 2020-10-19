@@ -41,15 +41,15 @@ public class CoFHCore {
 
     public static final Logger LOG = LogManager.getLogger(ID_COFH_CORE);
     public static final PacketHandler PACKET_HANDLER = new PacketHandler(new ResourceLocation(ID_COFH_CORE, "general"));
-    public static final Proxy PROXY = DistExecutor.runForDist(() -> ProxyClient::new, () -> Proxy::new);
+    public static final Proxy PROXY = DistExecutor.safeRunForDist(() -> ProxyClient::new, () -> Proxy::new);
 
-    public static final DeferredRegisterCoFH<Attribute> ATTRIBUTES = new DeferredRegisterCoFH<>(ForgeRegistries.ATTRIBUTES, ID_COFH_CORE);
-    public static final DeferredRegisterCoFH<Block> BLOCKS = new DeferredRegisterCoFH<>(ForgeRegistries.BLOCKS, ID_COFH_CORE);
-    public static final DeferredRegisterCoFH<Fluid> FLUIDS = new DeferredRegisterCoFH<>(ForgeRegistries.FLUIDS, ID_COFH_CORE);
-    public static final DeferredRegisterCoFH<Effect> EFFECTS = new DeferredRegisterCoFH<>(ForgeRegistries.POTIONS, ID_COFH_CORE);
-    public static final DeferredRegisterCoFH<Item> ITEMS = new DeferredRegisterCoFH<>(ForgeRegistries.ITEMS, ID_COFH_CORE);
-    public static final DeferredRegisterCoFH<ParticleType<?>> PARTICLES = new DeferredRegisterCoFH<>(ForgeRegistries.PARTICLE_TYPES, ID_COFH_CORE);
-    public static final DeferredRegisterCoFH<TileEntityType<?>> TILE_ENTITIES = new DeferredRegisterCoFH<>(ForgeRegistries.TILE_ENTITIES, ID_COFH_CORE);
+    public static final DeferredRegisterCoFH<Attribute> ATTRIBUTES = DeferredRegisterCoFH.create(ForgeRegistries.ATTRIBUTES, ID_COFH_CORE);
+    public static final DeferredRegisterCoFH<Block> BLOCKS = DeferredRegisterCoFH.create(ForgeRegistries.BLOCKS, ID_COFH_CORE);
+    public static final DeferredRegisterCoFH<Fluid> FLUIDS = DeferredRegisterCoFH.create(ForgeRegistries.FLUIDS, ID_COFH_CORE);
+    public static final DeferredRegisterCoFH<Effect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.POTIONS, ID_COFH_CORE);
+    public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_COFH_CORE);
+    public static final DeferredRegisterCoFH<ParticleType<?>> PARTICLES = DeferredRegisterCoFH.create(ForgeRegistries.PARTICLE_TYPES, ID_COFH_CORE);
+    public static final DeferredRegisterCoFH<TileEntityType<?>> TILE_ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.TILE_ENTITIES, ID_COFH_CORE);
 
     public CoFHCore() {
 

@@ -4,10 +4,11 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.DimensionType;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.LogicalSidedProvider;
@@ -80,26 +81,26 @@ public interface IPacketClient extends IPacket {
 
     /**
      * Sends this packet to all players around the specified point.
-     * This method is an overload of {@link #sendToAllAround(double, double, double, double, DimensionType)}
+     * This method is an overload of {@link #sendToAllAround(double, double, double, double, RegistryKey<World>)}
      *
      * @param pos   The pos.
      * @param range The range.
      * @param dim   The dimension
      */
-    default void sendToAllAround(BlockPos pos, double range, DimensionType dim) {
+    default void sendToAllAround(BlockPos pos, double range, RegistryKey<World> dim) {
 
         sendToAllAround(pos.getX(), pos.getY(), pos.getZ(), range, dim);
     }
 
     /**
      * Sends this packet to all players around the specified point.
-     * This method is an overload of {@link #sendToAllAround(double, double, double, double, DimensionType)}
+     * This method is an overload of {@link #sendToAllAround(double, double, double, double, RegistryKey<World>)}
      *
      * @param pos   The pos.
      * @param range The range.
      * @param dim   The dimension
      */
-    default void sendToAllAround(Vector3d pos, double range, DimensionType dim) {
+    default void sendToAllAround(Vector3d pos, double range, RegistryKey<World> dim) {
 
         sendToAllAround(pos.x, pos.y, pos.z, range, dim);
     }
@@ -113,7 +114,7 @@ public interface IPacketClient extends IPacket {
      * @param range The range.
      * @param dim   The dimension
      */
-    default void sendToAllAround(double x, double y, double z, double range, DimensionType dim) {
+    default void sendToAllAround(double x, double y, double z, double range, RegistryKey<World> dim) {
 
         MinecraftServer server = LogicalSidedProvider.INSTANCE.get(LogicalSide.SERVER);
         PlayerList list = server.getPlayerList();

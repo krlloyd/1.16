@@ -15,6 +15,8 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 
 import java.util.function.IntSupplier;
 
+import static cofh.core.util.constants.Constants.ACTIVE;
+import static cofh.core.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.CONTAINERS;
 import static cofh.thermal.core.ThermalCore.TILE_ENTITIES;
 import static cofh.thermal.core.common.ThermalAugmentRules.DYNAMO_VALIDATOR;
@@ -46,27 +48,27 @@ public class TExpBlocks {
 
         IntSupplier machineAugs = () -> ThermalConfig.machineAugments;
 
-        registerAugBlock(ID_MACHINE_FURNACE, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(14), MachineFurnaceTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_SAWMILL, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), MachineSawmillTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_PULVERIZER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), MachinePulverizerTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_SMELTER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(14), MachineSmelterTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_INSOLATOR, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(15), MachineInsolatorTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_CENTRIFUGE, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), MachineCentrifugeTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_PRESS, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), MachinePressTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_CRUCIBLE, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(14), MachineCrucibleTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_CHILLER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), MachineChillerTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_REFINERY, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(12), MachineRefineryTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_BREWER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), MachineBrewerTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_BOTTLER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), MachineBottlerTile::new), machineAugs, MACHINE_VALIDATOR);
-        registerAugBlock(ID_MACHINE_CRAFTER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), MachineCrafterTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_FURNACE, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 14)), MachineFurnaceTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_SAWMILL, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 0)), MachineSawmillTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_PULVERIZER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 0)), MachinePulverizerTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_SMELTER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 14)), MachineSmelterTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_INSOLATOR, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 15)), MachineInsolatorTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_CENTRIFUGE, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 0)), MachineCentrifugeTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_PRESS, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 0)), MachinePressTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_CRUCIBLE, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 14)), MachineCrucibleTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_CHILLER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 0)), MachineChillerTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_REFINERY, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 12)), MachineRefineryTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_BREWER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 0)), MachineBrewerTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_BOTTLER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 0)), MachineBottlerTile::new), machineAugs, MACHINE_VALIDATOR);
+        registerAugBlock(ID_MACHINE_CRAFTER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 0)), MachineCrafterTile::new), machineAugs, MACHINE_VALIDATOR);
 
         IntSupplier dynamoAugs = () -> ThermalConfig.dynamoAugments;
 
-        registerAugBlock(ID_DYNAMO_STIRLING, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(7), DynamoStirlingTile::new), dynamoAugs, DYNAMO_VALIDATOR);
-        registerAugBlock(ID_DYNAMO_COMPRESSION, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(7), DynamoCompressionTile::new), dynamoAugs, DYNAMO_VALIDATOR);
-        registerAugBlock(ID_DYNAMO_MAGMATIC, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(7), DynamoMagmaticTile::new), dynamoAugs, DYNAMO_VALIDATOR);
-        registerAugBlock(ID_DYNAMO_NUMISMATIC, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(7), DynamoNumismaticTile::new), dynamoAugs, DYNAMO_VALIDATOR);
-        registerAugBlock(ID_DYNAMO_LAPIDARY, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(7), DynamoLapidaryTile::new), dynamoAugs, DYNAMO_VALIDATOR);
+        registerAugBlock(ID_DYNAMO_STIRLING, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 7)), DynamoStirlingTile::new), dynamoAugs, DYNAMO_VALIDATOR);
+        registerAugBlock(ID_DYNAMO_COMPRESSION, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 7)), DynamoCompressionTile::new), dynamoAugs, DYNAMO_VALIDATOR);
+        registerAugBlock(ID_DYNAMO_MAGMATIC, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 7)), DynamoMagmaticTile::new), dynamoAugs, DYNAMO_VALIDATOR);
+        registerAugBlock(ID_DYNAMO_NUMISMATIC, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 7)), DynamoNumismaticTile::new), dynamoAugs, DYNAMO_VALIDATOR);
+        registerAugBlock(ID_DYNAMO_LAPIDARY, () -> new TileBlockDynamo(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).setLightLevel(lightValue(ACTIVE, 7)), DynamoLapidaryTile::new), dynamoAugs, DYNAMO_VALIDATOR);
 
         // Unaugmented
         //        registerBlock(ID_DEVICE_FLUID_BUFFER, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0), DeviceFluidBufferTile::new));

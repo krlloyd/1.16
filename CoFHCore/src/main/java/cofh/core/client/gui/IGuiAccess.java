@@ -1,5 +1,6 @@
 package cofh.core.client.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
@@ -14,9 +15,9 @@ public interface IGuiAccess {
 
     boolean handleElementButtonClick(String buttonName, int mouseButton);
 
-    void drawIcon(TextureAtlasSprite icon, int x, int y);
+    void drawIcon(MatrixStack matrixStack, TextureAtlasSprite icon, int x, int y);
 
-    void drawIcon(ResourceLocation loc, int x, int y);
+    void drawIcon(MatrixStack matrixStack, ResourceLocation loc, int x, int y);
 
     void drawSizedRect(int x1, int y1, int x2, int y2, int color);
 

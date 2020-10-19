@@ -11,13 +11,18 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.ForgeEventFactory;
+
+import javax.annotation.Nullable;
+import java.util.Objects;
+import java.util.Optional;
 
 public class PhytoGroItem extends ItemCoFH {
 
@@ -93,33 +98,29 @@ public class PhytoGroItem extends ItemCoFH {
         return false;
     }
 
-    public static boolean growSeagrass(World worldIn, BlockPos pos, Direction side) {
+    public static boolean growSeagrass(World worldIn, BlockPos pos, @Nullable Direction side) {
 
-        BlockState state = worldIn.getBlockState(pos);
-        if (side != null && !state.isSolidSide(worldIn, pos, side)) {
-            return false;
-        }
-        if (state.getBlock() == Blocks.WATER && worldIn.getFluidState(pos).getLevel() == 8) {
-            if (worldIn instanceof ServerWorld) {
-                label80:
+        if (worldIn.getBlockState(pos).isIn(Blocks.WATER) && worldIn.getFluidState(pos).getLevel() == 8) {
+            if (!(worldIn instanceof ServerWorld)) {
+                return true;
+            } else {
+                label79:
                 for (int i = 0; i < 128; ++i) {
                     BlockPos blockpos = pos;
-                    Biome biome = worldIn.getBiome(pos);
                     BlockState blockstate = Blocks.SEAGRASS.getDefaultState();
 
                     for (int j = 0; j < i / 16; ++j) {
                         blockpos = blockpos.add(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1);
-                        biome = worldIn.getBiome(blockpos);
-                        if (worldIn.getBlockState(blockpos).isCollisionShapeOpaque(worldIn, blockpos)) {
-                            continue label80;
+                        if (worldIn.getBlockState(blockpos).hasOpaqueCollisionShape(worldIn, blockpos)) {
+                            continue label79;
                         }
                     }
-                    // FORGE: Use BiomeDictionary here to allow modded warm ocean biomes to spawn coral from bonemeal
-                    if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN) && BiomeDictionary.hasType(biome, BiomeDictionary.Type.HOT)) {
+                    Optional<RegistryKey<Biome>> optional = worldIn.func_242406_i(blockpos);
+                    if (Objects.equals(optional, Optional.of(Biomes.WARM_OCEAN)) || Objects.equals(optional, Optional.of(Biomes.DEEP_WARM_OCEAN))) {
                         if (i == 0 && side != null && side.getAxis().isHorizontal()) {
-                            blockstate = BlockTags.WALL_CORALS.getRandomElement(worldIn.rand).getDefaultState().with(DeadCoralWallFanBlock.FACING, side);
+                            blockstate = (BlockTags.WALL_CORALS.getRandomElement(worldIn.rand)).getDefaultState().with(DeadCoralWallFanBlock.FACING, side);
                         } else if (random.nextInt(4) == 0) {
-                            blockstate = BlockTags.UNDERWATER_BONEMEALS.getRandomElement(random).getDefaultState();
+                            blockstate = (BlockTags.UNDERWATER_BONEMEALS.getRandomElement(random)).getDefaultState();
                         }
                     }
                     if (blockstate.getBlock().isIn(BlockTags.WALL_CORALS)) {
@@ -129,17 +130,18 @@ public class PhytoGroItem extends ItemCoFH {
                     }
                     if (blockstate.isValidPosition(worldIn, blockpos)) {
                         BlockState blockstate1 = worldIn.getBlockState(blockpos);
-                        if (blockstate1.getBlock() == Blocks.WATER && worldIn.getFluidState(blockpos).getLevel() == 8) {
+                        if (blockstate1.isIn(Blocks.WATER) && worldIn.getFluidState(blockpos).getLevel() == 8) {
                             worldIn.setBlockState(blockpos, blockstate, 3);
-                        } else if (blockstate1.getBlock() == Blocks.SEAGRASS && random.nextInt(10) == 0) {
+                        } else if (blockstate1.isIn(Blocks.SEAGRASS) && random.nextInt(10) == 0) {
                             ((IGrowable) Blocks.SEAGRASS).grow((ServerWorld) worldIn, random, blockpos, blockstate1);
                         }
                     }
                 }
+                return true;
             }
-            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     protected static void makeAreaOfEffectCloud(World world, BlockPos pos, int radius) {

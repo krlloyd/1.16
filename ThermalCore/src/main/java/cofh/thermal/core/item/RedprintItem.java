@@ -45,11 +45,11 @@ public class RedprintItem extends ItemCoFH implements IPlacementItem {
             for (String type : conveyableData.keySet()) {
                 if (!canLocalize("info.thermal.redprint.data." + type)) {
                     tooltip.add(getTextComponent("info.thermal.redprint.unknown")
-                            .applyTextStyle(TextFormatting.DARK_GRAY));
+                            .mergeStyle(TextFormatting.DARK_GRAY));
                 }
                 tooltip.add(new StringTextComponent(" - ")
-                        .appendSibling(getTextComponent("info.thermal.redprint.data." + type)
-                                .applyTextStyle(TextFormatting.GRAY))
+                        .append(getTextComponent("info.thermal.redprint.data." + type)
+                                .mergeStyle(TextFormatting.GRAY))
                 );
             }
         }

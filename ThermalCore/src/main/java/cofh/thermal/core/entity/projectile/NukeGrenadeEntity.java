@@ -63,7 +63,7 @@ public class NukeGrenadeEntity extends AbstractGrenadeEntity {
 
         if (Utils.isServerWorld(world)) {
             world.setBlockState(this.getPosition(), Blocks.AIR.getDefaultState());
-            damageNearbyEntities(this, world, this.getPosition(), radius * 2, getThrower());
+            damageNearbyEntities(this, world, this.getPosition(), radius * 2, func_234616_v_());
             destroyBlocks(this, world, this.getPosition(), radius + radius / 2);
             world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) explosionStrength, !this.isInWater(), explosionsBreakBlocks ? Explosion.Mode.BREAK : Explosion.Mode.NONE);
             this.world.setEntityState(this, (byte) 3);
@@ -89,14 +89,14 @@ public class NukeGrenadeEntity extends AbstractGrenadeEntity {
             double distance = iterPos.distanceSq(entity.getPositionVec(), true);
             if (distance < f2) {
                 BlockState state = worldIn.getBlockState(iterPos);
-                if (!state.isAir(worldIn, iterPos) && state.getBlock().getExplosionResistance(state, worldIn, iterPos, entity, null) < maxResistance - (maxResistance * distance / f2)) {
+                if (!state.isAir(worldIn, iterPos) && state.getBlock().getExplosionResistance(state, worldIn, iterPos, null) < maxResistance - (maxResistance * distance / f2)) {
                     worldIn.setBlockState(iterPos, Blocks.AIR.getDefaultState());
                 }
             }
         }
     }
 
-    public static void damageNearbyEntities(Entity entity, World worldIn, BlockPos pos, int radius, @Nullable LivingEntity source) {
+    public static void damageNearbyEntities(Entity entity, World worldIn, BlockPos pos, int radius, @Nullable Entity source) {
 
         AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -radius, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
         double f2 = radius * radius;
@@ -105,7 +105,7 @@ public class NukeGrenadeEntity extends AbstractGrenadeEntity {
                     double distance = pos.distanceSq(livingEntity.getPosition());
                     if (distance < f2) {
                         float damage = (float) MathHelper.clamp(f2 - distance, radius, f2);
-                        livingEntity.attackEntityFrom(DamageSource.causeExplosionDamage(source), damage);
+                        livingEntity.attackEntityFrom(DamageSource.causeExplosionDamage(source instanceof LivingEntity ? (LivingEntity) source : null), damage);
                         livingEntity.addPotionEffect(new EffectInstance(WITHER, effectDuration, effectAmplifier, false, false));
                     }
                 });

@@ -7,17 +7,13 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -95,36 +91,37 @@ public class UnderwaterMinecartEntity extends AbstractMinecartEntityCoFH {
         compound.putInt(TAG_CART_DATA, respirationFactor);
     }
 
-    @Override
-    public boolean handleWaterMovement() {
-
-        if (this.getRidingEntity() instanceof BoatEntity) {
-            this.inWater = false;
-        } else if (this.handleFluidAcceleration(FluidTags.WATER)) {
-            if (!this.inWater && !this.firstUpdate) {
-                this.doWaterSplashEffect();
-            }
-            this.fallDistance = 0.0F;
-            this.inWater = true;
-            this.extinguish();
-            this.eyesInWater = this.areEyesInFluid(FluidTags.WATER);
-        } else {
-            this.inWater = false;
-        }
-        return this.inWater;
-    }
-
-    @Override
-    public boolean areEyesInFluid(Tag<Fluid> tag) {
-
-        if (this.getRidingEntity() instanceof BoatEntity) {
-            return false;
-        } else {
-            double eyePos = this.getPosY() + 1.0D;
-            BlockPos pos = new BlockPos(this.getPosX(), eyePos, this.getPosZ());
-            return this.world.getFluidState(pos).isEntityInside(world, pos, this, eyePos, tag, true);
-        }
-    }
+    // TODO: 1.16 alteration.
+    //    @Override
+    //    public boolean handleWaterMovement() {
+    //
+    //        if (this.getRidingEntity() instanceof BoatEntity) {
+    //            this.inWater = false;
+    //        } else if (this.handleFluidAcceleration(FluidTags.WATER)) {
+    //            if (!this.inWater && !this.firstUpdate) {
+    //                this.doWaterSplashEffect();
+    //            }
+    //            this.fallDistance = 0.0F;
+    //            this.inWater = true;
+    //            this.extinguish();
+    //            this.eyesInWater = this.areEyesInFluid(FluidTags.WATER);
+    //        } else {
+    //            this.inWater = false;
+    //        }
+    //        return this.inWater;
+    //    }
+    //
+    //    @Override
+    //    public boolean areEyesInFluid(Tag<Fluid> tag) {
+    //
+    //        if (this.getRidingEntity() instanceof BoatEntity) {
+    //            return false;
+    //        } else {
+    //            double eyePos = this.getPosY() + 1.0D;
+    //            BlockPos pos = new BlockPos(this.getPosX(), eyePos, this.getPosZ());
+    //            return this.world.getFluidState(pos).isEntityInside(world, pos, this, eyePos, tag, true);
+    //        }
+    //    }
 
     @Override
     public boolean canBeRiddenInWater(Entity rider) {
@@ -133,18 +130,18 @@ public class UnderwaterMinecartEntity extends AbstractMinecartEntityCoFH {
     }
 
     @Override
-    public boolean processInitialInteract(PlayerEntity player, Hand hand) {
+    public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
 
-        if (super.processInitialInteract(player, hand)) return true;
+        ActionResultType ret = super.processInitialInteract(player, hand);
+        if (ret.isSuccessOrConsume()) return ret;
         if (player.isSecondaryUseActive()) {
-            return false;
+            return ActionResultType.PASS;
         } else if (this.isBeingRidden()) {
-            return true;
+            return ActionResultType.PASS;
+        } else if (!this.world.isRemote) {
+            return player.startRiding(this) ? ActionResultType.CONSUME : ActionResultType.PASS;
         } else {
-            if (!this.world.isRemote) {
-                player.startRiding(this);
-            }
-            return true;
+            return ActionResultType.SUCCESS;
         }
     }
 

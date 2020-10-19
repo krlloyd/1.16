@@ -5,6 +5,7 @@ import cofh.core.util.helpers.InventoryHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.tileentity.ReconfigurableTile4Way;
 import cofh.thermal.expansion.inventory.container.device.DeviceItemBufferContainer;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -173,9 +174,9 @@ public class DeviceItemBufferTile extends ReconfigurableTile4Way implements ITic
 
     // region NBT
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(BlockState state, CompoundNBT nbt) {
 
-        super.read(nbt);
+        super.read(state, nbt);
 
         amountInput = nbt.getInt(TAG_AMOUNT_IN);
         amountOutput = nbt.getInt(TAG_AMOUNT_OUT);

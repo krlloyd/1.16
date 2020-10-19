@@ -2,6 +2,7 @@ package cofh.core.client.gui.element;
 
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
 /**
  * Basic element which can render an arbitrary texture.
@@ -26,7 +27,7 @@ public class ElementTexture extends ElementBase {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         RenderHelper.bindTexture(texture);
         drawTexturedModalRect(posX(), posY(), texU, texV, width, height);

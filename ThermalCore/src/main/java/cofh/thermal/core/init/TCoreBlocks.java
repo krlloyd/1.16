@@ -23,6 +23,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -32,6 +33,7 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
+import static cofh.core.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.*;
 import static cofh.thermal.core.common.ThermalFeatures.*;
 import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_BLOCKS;
@@ -127,7 +129,7 @@ public class TCoreBlocks {
         registerBlock(ID_SULFUR_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.YELLOW_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE)) {
 
             @Override
-            public boolean isFireSource(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
+            public boolean isFireSource(BlockState state, IWorldReader world, BlockPos pos, Direction side) {
 
                 return side == Direction.UP;
             }
@@ -144,7 +146,7 @@ public class TCoreBlocks {
         registerBlock(ID_INVAR_BLOCK, () -> new MetalStorageBlock(1), getFeature(FLAG_RESOURCE_INVAR));
         registerBlock(ID_CONSTANTAN_BLOCK, () -> new MetalStorageBlock(1), getFeature(FLAG_RESOURCE_CONSTANTAN));
 
-        registerBlock(ID_SIGNALUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.RED).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).lightValue(7).notSolid()) {
+        registerBlock(ID_SIGNALUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.RED).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(7)).notSolid()) {
 
             @Override
             public boolean canProvidePower(BlockState state) {
@@ -158,8 +160,8 @@ public class TCoreBlocks {
                 return 15;
             }
         }, Rarity.UNCOMMON);
-        registerBlock(ID_LUMIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.YELLOW).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).lightValue(15).notSolid()), Rarity.UNCOMMON);
-        registerBlock(ID_ENDERIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.CYAN).hardnessAndResistance(25.0F, 30.0F).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE).lightValue(3).notSolid()), Rarity.UNCOMMON);
+        registerBlock(ID_LUMIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.YELLOW).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(15)).notSolid()), Rarity.UNCOMMON);
+        registerBlock(ID_ENDERIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.CYAN).hardnessAndResistance(25.0F, 30.0F).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(3)).notSolid()), Rarity.UNCOMMON);
 
         registerBlock(ID_RUBY_BLOCK, () -> new MetalStorageBlock(MaterialColor.RED, 1), getFeature(FLAG_RESOURCE_RUBY));
         registerBlock(ID_SAPPHIRE_BLOCK, () -> new MetalStorageBlock(MaterialColor.BLUE, 1), getFeature(FLAG_RESOURCE_SAPPHIRE));
@@ -173,7 +175,7 @@ public class TCoreBlocks {
             }
         }, () -> new BlockItemCoFH(BLOCKS.get(ID_SAWDUST_BLOCK), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(2400));
 
-        registerBlockAndItem(ID_ROSIN_BLOCK, () -> new Block(create(Material.CLAY, MaterialColor.ADOBE).hardnessAndResistance(2.0F, 4.0F).speedFactor(0.8F).jumpFactor(0.8F).sound(SoundType.field_226947_m_)) {
+        registerBlockAndItem(ID_ROSIN_BLOCK, () -> new Block(create(Material.CLAY, MaterialColor.ADOBE).hardnessAndResistance(2.0F, 4.0F).speedFactor(0.8F).jumpFactor(0.8F).sound(SoundType.HONEY)) {
 
             @Override
             public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
@@ -190,10 +192,10 @@ public class TCoreBlocks {
 
     private static void registerBuildingBlocks() {
 
-        registerBlock(ID_MACHINE_FRAME, () -> new Block(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).lightValue(0).notSolid()), getFeature(ID_MACHINE_FRAME));
+        registerBlock(ID_MACHINE_FRAME, () -> new Block(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).notSolid()), getFeature(ID_MACHINE_FRAME));
 
         registerBlock(ID_OBSIDIAN_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.OBSIDIAN).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).notSolid()));
-        registerBlock(ID_SIGNALUM_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.RED).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).lightValue(7).notSolid()) {
+        registerBlock(ID_SIGNALUM_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.RED).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).setLightLevel(lightValue(7)).notSolid()) {
 
             @Override
             public boolean canProvidePower(BlockState state) {
@@ -207,8 +209,8 @@ public class TCoreBlocks {
                 return 15;
             }
         }, Rarity.UNCOMMON);
-        registerBlock(ID_LUMIUM_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.YELLOW).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).lightValue(15).notSolid()), Rarity.UNCOMMON);
-        registerBlock(ID_ENDERIUM_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.CYAN).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).lightValue(3).notSolid()), Rarity.UNCOMMON);
+        registerBlock(ID_LUMIUM_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.YELLOW).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).setLightLevel(lightValue(15)).notSolid()), Rarity.UNCOMMON);
+        registerBlock(ID_ENDERIUM_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.CYAN).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).setLightLevel(lightValue(3)).notSolid()), Rarity.UNCOMMON);
 
         registerBlock(ID_WHITE_ROCKWOOL, () -> new Block(create(Material.ROCK, MaterialColor.SNOW).hardnessAndResistance(2.0F, 6.0F).sound(SoundType.CLOTH)), getFeature(FLAG_ROCKWOOL));
         registerBlock(ID_ORANGE_ROCKWOOL, () -> new Block(create(Material.ROCK, MaterialColor.ADOBE).hardnessAndResistance(2.0F, 6.0F).sound(SoundType.CLOTH)), getFeature(FLAG_ROCKWOOL));

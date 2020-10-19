@@ -13,7 +13,7 @@ public class SoulboundEnchantment extends EnchantmentCoFH {
 
     public SoulboundEnchantment() {
 
-        super(Rarity.UNCOMMON, EnchantmentType.ALL, EquipmentSlotType.values());
+        super(Rarity.UNCOMMON, EnchantmentType.VANISHABLE, EquipmentSlotType.values());
         maxLevel = 3;
     }
 

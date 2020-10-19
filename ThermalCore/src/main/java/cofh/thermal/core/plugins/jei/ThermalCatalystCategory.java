@@ -1,19 +1,20 @@
 package cofh.thermal.core.plugins.jei;
 
 import cofh.thermal.core.util.recipes.ThermalCatalyst;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.IFormattableTextComponent;
 
 public abstract class ThermalCatalystCategory<T extends ThermalCatalyst> implements IRecipeCategory<T> {
 
     protected final ResourceLocation uid;
     protected IDrawableStatic background;
     protected IDrawableStatic icon;
-    protected ITextComponent name;
+    protected IFormattableTextComponent name;
 
     public ThermalCatalystCategory(IGuiHelper guiHelper, ResourceLocation uid) {
 
@@ -35,7 +36,7 @@ public abstract class ThermalCatalystCategory<T extends ThermalCatalyst> impleme
     @Override
     public String getTitle() {
 
-        return name.getFormattedText();
+        return name.getString();
     }
 
     @Override
@@ -51,7 +52,7 @@ public abstract class ThermalCatalystCategory<T extends ThermalCatalyst> impleme
     }
 
     @Override
-    public void draw(T recipe, double mouseX, double mouseY) {
+    public void draw(T recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
     }
 

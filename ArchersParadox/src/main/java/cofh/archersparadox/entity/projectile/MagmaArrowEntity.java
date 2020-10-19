@@ -65,7 +65,7 @@ public class MagmaArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected void onHit(RayTraceResult raytraceResultIn) {
+    protected void onImpact(RayTraceResult raytraceResultIn) {
 
         if (raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
             this.setHitSound(SoundEvents.ENTITY_MAGMA_CUBE_SQUISH);
@@ -77,7 +77,7 @@ public class MagmaArrowEntity extends AbstractArrowEntity {
             } else if (raytraceResultIn.getType() == RayTraceResult.Type.BLOCK) {
                 Vector3d motion = getMotion();
                 if (motion.lengthSquared() < MIN_VELOCITY || isInWater() || bounces >= maxBounces) {
-                    super.onHit(raytraceResultIn);
+                    super.onImpact(raytraceResultIn);
                     return;
                 }
                 BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) raytraceResultIn;

@@ -2,6 +2,7 @@ package cofh.core.client.gui.element.panel;
 
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.text.ITextComponent;
 
@@ -85,25 +86,25 @@ public class PanelResource extends PanelBase {
     }
 
     @Override
-    protected void drawForeground() {
+    protected void drawForeground(MatrixStack matrixStack) {
 
-        drawPanelIcon(icon);
+        drawPanelIcon(matrixStack, icon);
         if (!fullyOpen) {
             return;
         }
-        getFontRenderer().drawStringWithShadow(localize(resource), sideOffset() + 20, 6, headerColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, localize(resource), sideOffset() + 20, 6, headerColor);
 
         if (curAmt.getAsInt() > -1) {
-            getFontRenderer().drawStringWithShadow(localize(curDesc) + ":", sideOffset() + 6, 18, subheaderColor);
-            getFontRenderer().drawString(curAmt.getAsInt() + " " + curUnit, sideOffset() + 14, 30, textColor);
+            getFontRenderer().drawStringWithShadow(matrixStack, localize(curDesc) + ":", sideOffset() + 6, 18, subheaderColor);
+            getFontRenderer().drawString(matrixStack, curAmt.getAsInt() + " " + curUnit, sideOffset() + 14, 30, textColor);
         }
         if (maxAmt.getAsInt() > -1) {
-            getFontRenderer().drawStringWithShadow(localize(maxDesc) + ":", sideOffset() + 6, 42, subheaderColor);
-            getFontRenderer().drawString(maxAmt.getAsInt() + " " + maxUnit, sideOffset() + 14, 54, textColor);
+            getFontRenderer().drawStringWithShadow(matrixStack, localize(maxDesc) + ":", sideOffset() + 6, 42, subheaderColor);
+            getFontRenderer().drawString(matrixStack, maxAmt.getAsInt() + " " + maxUnit, sideOffset() + 14, 54, textColor);
         }
         if (efficiency.getAsDouble() > -1) {
-            getFontRenderer().drawStringWithShadow(localize("info.cofh.efficiency") + ":", sideOffset() + 6, 66, subheaderColor);
-            getFontRenderer().drawString(DF0.format(efficiency.getAsDouble() * 100) + "%", sideOffset() + 14, 78, textColor);
+            getFontRenderer().drawStringWithShadow(matrixStack, localize("info.cofh.efficiency") + ":", sideOffset() + 6, 66, subheaderColor);
+            getFontRenderer().drawString(matrixStack, DF0.format(efficiency.getAsDouble() * 100) + "%", sideOffset() + 14, 78, textColor);
         }
         RenderHelper.resetColor();
     }

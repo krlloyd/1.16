@@ -14,7 +14,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.HorseArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.world.World;
@@ -69,7 +68,7 @@ public class FrostWalkerEnchantmentImp extends EnchantmentOverride {
         if (!freezeLava) {
             return;
         }
-        if (living.onGround && GLOSSED_MAGMA != null) {
+        if (living.isOnGround() && GLOSSED_MAGMA != null) {
             BlockState state = GLOSSED_MAGMA.getDefaultState();
             float f = (float) Math.min(16, 2 + level);
             BlockPos.Mutable mutable = new BlockPos.Mutable();
@@ -81,7 +80,7 @@ public class FrostWalkerEnchantmentImp extends EnchantmentOverride {
                     if (blockstate1.isAir(worldIn, mutable)) {
                         BlockState blockstate2 = worldIn.getBlockState(blockpos);
                         boolean isFull = blockstate2.getBlock() == Blocks.LAVA && blockstate2.get(FlowingFluidBlock.LEVEL) == 0;
-                        if (blockstate2.getMaterial() == Material.LAVA && isFull && state.isValidPosition(worldIn, blockpos) && worldIn.placedBlockWouldCollide(state, blockpos, ISelectionContext.dummy()) && !ForgeEventFactory.onBlockPlace(living, new BlockSnapshot(worldIn, blockpos, blockstate2), Direction.UP)) {
+                        if (blockstate2.getMaterial() == Material.LAVA && isFull && state.isValidPosition(worldIn, blockpos) && worldIn.placedBlockCollides(state, blockpos, ISelectionContext.dummy()) && !ForgeEventFactory.onBlockPlace(living, BlockSnapshot.create(worldIn.getDimensionKey(), worldIn, blockpos), net.minecraft.util.Direction.UP)) {
                             worldIn.setBlockState(blockpos, state);
                             worldIn.getPendingBlockTicks().scheduleTick(blockpos, GLOSSED_MAGMA, MathHelper.nextInt(living.getRNG(), 60, 120));
                         }

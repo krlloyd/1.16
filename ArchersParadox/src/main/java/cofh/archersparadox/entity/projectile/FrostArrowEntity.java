@@ -66,9 +66,9 @@ public class FrostArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected void onHit(RayTraceResult raytraceResultIn) {
+    protected void onImpact(RayTraceResult raytraceResultIn) {
 
-        super.onHit(raytraceResultIn);
+        super.onImpact(raytraceResultIn);
 
         if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
             if (effectRadius > 0) {
@@ -84,7 +84,6 @@ public class FrostArrowEntity extends AbstractArrowEntity {
                 this.inGround = false;
                 this.setMotion(getMotion().mul((this.rand.nextFloat() * 0.2F), (this.rand.nextFloat() * 0.2F), (this.rand.nextFloat() * 0.2F)));
                 this.ticksInGround = 0;
-                this.ticksInAir = 0;
             }
         }
     }
@@ -165,14 +164,12 @@ public class FrostArrowEntity extends AbstractArrowEntity {
                 this.inGround = false;
                 this.setMotion(vec3d.mul((this.rand.nextFloat() * 0.2F), (this.rand.nextFloat() * 0.2F), (this.rand.nextFloat() * 0.2F)));
                 this.ticksInGround = 0;
-                this.ticksInAir = 0;
             } else if (!this.world.isRemote) {
                 this.func_225516_i_();
             }
             ++this.timeInGround;
         } else {
             this.timeInGround = 0;
-            ++this.ticksInAir;
             Vector3d vec3d1 = new Vector3d(this.getPosX(), this.getPosY(), this.getPosZ());
             Vector3d vec3d2 = vec3d1.add(vec3d);
             RayTraceResult raytraceresult = this.world.rayTraceBlocks(new RayTraceContext(vec3d1, vec3d2, RayTraceContext.BlockMode.COLLIDER, discharged ? RayTraceContext.FluidMode.NONE : RayTraceContext.FluidMode.SOURCE_ONLY, this));
@@ -193,7 +190,7 @@ public class FrostArrowEntity extends AbstractArrowEntity {
                     }
                 }
                 if (raytraceresult != null && !flag && !ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-                    this.onHit(raytraceresult);
+                    this.onImpact(raytraceresult);
                     this.isAirBorne = true;
                 }
                 if (entityraytraceresult == null || this.getPierceLevel() <= 0) {

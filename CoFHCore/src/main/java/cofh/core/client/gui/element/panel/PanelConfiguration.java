@@ -7,6 +7,7 @@ import cofh.core.util.control.IReconfigurable;
 import cofh.core.util.control.ITransferControllable;
 import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Direction;
@@ -82,34 +83,34 @@ public class PanelConfiguration extends PanelBase {
     }
 
     @Override
-    protected void drawForeground() {
+    protected void drawForeground(MatrixStack matrixStack) {
 
-        drawPanelIcon(CoreTextures.ICON_CONFIG);
+        drawPanelIcon(matrixStack, CoreTextures.ICON_CONFIG);
         if (!fullyOpen) {
             return;
         }
-        getFontRenderer().drawStringWithShadow(localize("info.cofh.configuration"), sideOffset() + 18, 6, headerColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, localize("info.cofh.configuration"), sideOffset() + 18, 6, headerColor);
 
         if (myTransfer != null) {
             if (myTransfer.hasTransferIn()) {
-                gui.drawIcon(myTransfer.getTransferIn() ? ICON_BUTTON_HIGHLIGHT : ICON_BUTTON, 8, 34);
+                gui.drawIcon(matrixStack, myTransfer.getTransferIn() ? ICON_BUTTON_HIGHLIGHT : ICON_BUTTON, 8, 34);
             } else {
-                gui.drawIcon(ICON_BUTTON_INACTIVE, 8, 34);
+                gui.drawIcon(matrixStack, ICON_BUTTON_INACTIVE, 8, 34);
             }
             if (myTransfer.hasTransferOut()) {
-                gui.drawIcon(myTransfer.getTransferOut() ? ICON_BUTTON_HIGHLIGHT : ICON_BUTTON, 8, 54);
+                gui.drawIcon(matrixStack, myTransfer.getTransferOut() ? ICON_BUTTON_HIGHLIGHT : ICON_BUTTON, 8, 54);
             } else {
-                gui.drawIcon(ICON_BUTTON_INACTIVE, 8, 54);
+                gui.drawIcon(matrixStack, ICON_BUTTON_INACTIVE, 8, 54);
             }
-            gui.drawIcon(ICON_INPUT, 8, 34);
-            gui.drawIcon(ICON_OUTPUT, 8, 54);
+            gui.drawIcon(matrixStack, ICON_INPUT, 8, 34);
+            gui.drawIcon(matrixStack, ICON_OUTPUT, 8, 54);
         }
     }
 
     @Override
-    protected void drawBackground() {
+    protected void drawBackground(MatrixStack matrixStack) {
 
-        super.drawBackground();
+        super.drawBackground(matrixStack);
 
         if (!fullyOpen) {
             return;

@@ -67,7 +67,7 @@ public class IceChargeItem extends ItemCoFH {
         }
         // WATER
         boolean isFull = state.getBlock() == WATER && state.get(FlowingFluidBlock.LEVEL) == 0;
-        if (state.getMaterial() == Material.WATER && isFull && state.isValidPosition(world, pos) && world.placedBlockWouldCollide(state, pos, ISelectionContext.dummy())) {
+        if (state.getMaterial() == Material.WATER && isFull && state.isValidPosition(world, pos) && world.placedBlockCollides(state, pos, ISelectionContext.dummy())) {
             world.setBlockState(pos, permanentWater ? ICE.getDefaultState() : FROSTED_ICE.getDefaultState());
             used = true;
             if (!permanentWater) {
@@ -76,7 +76,7 @@ public class IceChargeItem extends ItemCoFH {
         }
         // LAVA
         isFull = state.getBlock() == LAVA && state.get(FlowingFluidBlock.LEVEL) == 0;
-        if (state.getMaterial() == Material.LAVA && isFull && state.isValidPosition(world, pos) && world.placedBlockWouldCollide(state, pos, ISelectionContext.dummy())) {
+        if (state.getMaterial() == Material.LAVA && isFull && state.isValidPosition(world, pos) && world.placedBlockCollides(state, pos, ISelectionContext.dummy())) {
             world.setBlockState(pos, permanentLava ? OBSIDIAN.getDefaultState() : GLOSSED_MAGMA.getDefaultState());
             used = true;
             if (!permanentLava) {

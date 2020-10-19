@@ -4,6 +4,7 @@ import cofh.thermal.core.plugins.jei.Drawables;
 import cofh.thermal.core.plugins.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachineFurnaceScreen;
 import cofh.thermal.expansion.util.recipes.machine.FurnaceRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -67,15 +68,15 @@ public class FurnaceRecipeCategory extends ThermalRecipeCategory<FurnaceRecipe> 
     }
 
     @Override
-    public void draw(FurnaceRecipe recipe, double mouseX, double mouseY) {
+    public void draw(FurnaceRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(recipe, mouseX, mouseY);
+        super.draw(recipe, matrixStack, mouseX, mouseY);
 
-        progressBackground.draw(69, 23);
-        speedBackground.draw(43, 33);
+        progressBackground.draw(matrixStack, 69, 23);
+        speedBackground.draw(matrixStack, 43, 33);
 
-        progress.draw(69, 23);
-        speed.draw(43, 33);
+        progress.draw(matrixStack, 69, 23);
+        speed.draw(matrixStack, 43, 33);
     }
 
 }

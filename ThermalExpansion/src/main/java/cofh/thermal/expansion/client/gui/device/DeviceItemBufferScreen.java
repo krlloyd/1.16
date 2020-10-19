@@ -10,6 +10,7 @@ import cofh.thermal.core.client.gui.ThermalGuiHelper;
 import cofh.thermal.core.client.gui.ThermalScreenBase;
 import cofh.thermal.expansion.inventory.container.device.DeviceItemBufferContainer;
 import cofh.thermal.expansion.tileentity.device.DeviceItemBufferTile;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -61,15 +62,15 @@ public class DeviceItemBufferScreen extends ThermalScreenBase<DeviceItemBufferCo
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         String input = format(tile.amountInput);
         String output = format(tile.amountOutput);
 
-        getFontRenderer().drawString(input, getCenteredOffset(input, 34), 42, 0x404040);
-        getFontRenderer().drawString(output, getCenteredOffset(output, 142), 42, 0x404040);
+        getFontRenderer().drawString(matrixStack, input, getCenteredOffset(input, 34), 42, 0x404040);
+        getFontRenderer().drawString(matrixStack, output, getCenteredOffset(output, 142), 42, 0x404040);
 
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
     }
 
     // region ELEMENTS

@@ -59,7 +59,7 @@ public class EarthGrenadeEntity extends AbstractGrenadeEntity {
 
         if (Utils.isServerWorld(world)) {
             sunderNearbyEntities(this, world, this.getPosition(), radius);
-            breakBlocks(this, world, this.getPosition(), radius - 1, getThrower());
+            breakBlocks(this, world, this.getPosition(), radius - 1, func_234616_v_());
             this.world.setEntityState(this, (byte) 3);
             this.remove();
         }

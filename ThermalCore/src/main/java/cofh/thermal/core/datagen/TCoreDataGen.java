@@ -2,7 +2,6 @@ package cofh.thermal.core.datagen;
 
 import cofh.thermal.core.util.loot.TileNBTSync;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -16,7 +15,7 @@ public class TCoreDataGen {
     @SubscribeEvent
     public static void gatherData(final GatherDataEvent event) {
 
-        LootFunctionManager.registerFunction(new TileNBTSync.Serializer());
+        TileNBTSync.setup();
 
         if (event.includeServer()) {
             registerServerProviders(event);

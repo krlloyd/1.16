@@ -64,7 +64,7 @@ public class TileStatePacket extends PacketBase implements IPacketClient {
         TileStatePacket packet = new TileStatePacket();
         packet.pos = tile.pos();
         packet.buffer = tile.getStatePacket(new PacketBuffer(Unpooled.buffer()));
-        packet.sendToAllAround(packet.pos, NETWORK_UPDATE_DISTANCE, tile.world().getDimension().getType());
+        packet.sendToAllAround(packet.pos, NETWORK_UPDATE_DISTANCE, tile.world().getDimensionKey());
     }
 
 }

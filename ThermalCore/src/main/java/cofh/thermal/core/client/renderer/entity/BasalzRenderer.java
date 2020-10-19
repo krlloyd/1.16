@@ -5,6 +5,7 @@ import cofh.thermal.core.entity.monster.BasalzEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -22,7 +23,7 @@ public class BasalzRenderer extends MobRenderer<BasalzEntity, BasalzModel<Basalz
     }
 
     @Override
-    protected int getBlockLight(BasalzEntity entityIn, float partialTicks) {
+    protected int getBlockLight(BasalzEntity entityIn, BlockPos partialTicks) {
 
         return entityIn.isAngry() ? 12 : super.getBlockLight(entityIn, partialTicks);
     }

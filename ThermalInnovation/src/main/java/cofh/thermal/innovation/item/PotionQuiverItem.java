@@ -15,7 +15,6 @@ import cofh.core.util.helpers.FluidHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,6 +49,7 @@ import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.ArcheryHelper.findArrows;
 import static cofh.core.util.helpers.AugmentableHelper.*;
 import static cofh.core.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
+import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.*;
 import static cofh.core.util.references.CoreReferences.HOLDING;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
@@ -68,9 +68,9 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
 
         this(builder, fluidCapacity, arrowCapacity, FluidHelper::hasPotionTag);
 
-        this.addPropertyOverride(new ResourceLocation("arrows"), (stack, world, entity) -> getStoredArrows(stack) / (float) getMaxArrows(stack));
-        this.addPropertyOverride(new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
-        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
+        //        this.addPropertyOverride(new ResourceLocation("arrows"), (stack, world, entity) -> getStoredArrows(stack) / (float) getMaxArrows(stack));
+        //        this.addPropertyOverride(new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
+        //        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
 
         ProxyUtils.registerColorable(this);
     }
@@ -100,11 +100,11 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         if (Screen.hasShiftDown()) {
             return;
         }
-        tooltip.add(getTextComponent("info.thermal.quiver.use").applyTextStyle(TextFormatting.GRAY));
-        tooltip.add(getTextComponent("info.thermal.quiver.use.sneak").applyTextStyle(TextFormatting.DARK_GRAY));
+        tooltip.add(getTextComponent("info.thermal.quiver.use").mergeStyle(TextFormatting.GRAY));
+        tooltip.add(getTextComponent("info.thermal.quiver.use.sneak").mergeStyle(TextFormatting.DARK_GRAY));
 
-        tooltip.add(getTextComponent("info.thermal.quiver.mode." + getMode(stack)).applyTextStyle(TextFormatting.ITALIC));
-        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", InputMappings.getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).applyTextStyle(TextFormatting.YELLOW));
+        tooltip.add(getTextComponent("info.thermal.quiver.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
+        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
 
         tooltip.add(getTextComponent(localize("info.cofh.arrows") + ": " + (isCreative(stack)
                 ? localize("info.cofh.infinite")

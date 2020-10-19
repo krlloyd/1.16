@@ -11,7 +11,6 @@ import cofh.thermal.core.common.ThermalConfig;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.*;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -47,6 +46,7 @@ import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.*;
 import static cofh.core.util.helpers.FluidHelper.IS_WATER;
 import static cofh.core.util.helpers.FluidHelper.isWater;
+import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class WateringCanItem extends FluidContainerItem implements IAugmentableItem, IMultiModeItem {
@@ -70,8 +70,8 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
 
         super(builder, fluidCapacity, IS_WATER);
 
-        this.addPropertyOverride(new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
-        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
+        //        this.addPropertyOverride(new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
+        //        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
     }
 
     public WateringCanItem setNumSlots(IntSupplier numSlots) {
@@ -92,12 +92,12 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
 
         int radius = getMode(stack) * 2 + 1;
         if (radius <= 1) {
-            tooltip.add(new TranslationTextComponent("info.cofh.single_block").applyTextStyle(TextFormatting.ITALIC));
+            tooltip.add(new TranslationTextComponent("info.cofh.single_block").mergeStyle(TextFormatting.ITALIC));
         } else {
-            tooltip.add(new TranslationTextComponent("info.cofh.area").appendText(": " + radius + "x" + radius).applyTextStyle(TextFormatting.ITALIC));
+            tooltip.add(new TranslationTextComponent("info.cofh.area").appendString(": " + radius + "x" + radius).mergeStyle(TextFormatting.ITALIC));
         }
         if (getNumModes(stack) > 1) {
-            tooltip.add(new TranslationTextComponent("info.cofh.mode_change", InputMappings.getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).applyTextStyle(TextFormatting.YELLOW));
+            tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
@@ -316,7 +316,7 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
         if (radius <= 1) {
             ChatHelper.sendIndexedChatMessageToPlayer(player, new TranslationTextComponent("info.cofh.single_block"));
         } else {
-            ChatHelper.sendIndexedChatMessageToPlayer(player, new TranslationTextComponent("info.cofh.area").appendText(": " + radius + "x" + radius));
+            ChatHelper.sendIndexedChatMessageToPlayer(player, new TranslationTextComponent("info.cofh.area").appendString(": " + radius + "x" + radius));
         }
     }
     // endregion

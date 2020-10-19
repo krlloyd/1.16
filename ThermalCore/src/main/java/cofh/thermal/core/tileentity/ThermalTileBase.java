@@ -431,9 +431,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     // region NBT
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(BlockState state, CompoundNBT nbt) {
 
-        super.read(nbt);
+        super.read(state, nbt);
 
         isActive = nbt.getBoolean(TAG_ACTIVE);
         wasActive = nbt.getBoolean(TAG_ACTIVE_TRACK);

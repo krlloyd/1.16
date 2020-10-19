@@ -5,6 +5,7 @@ import cofh.thermal.core.plugins.jei.Drawables;
 import cofh.thermal.core.plugins.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachineCrucibleScreen;
 import cofh.thermal.expansion.util.recipes.machine.CrucibleRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -82,22 +83,22 @@ public class CrucibleRecipeCategory extends ThermalRecipeCategory<CrucibleRecipe
     }
 
     @Override
-    public void draw(CrucibleRecipe recipe, double mouseX, double mouseY) {
+    public void draw(CrucibleRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(recipe, mouseX, mouseY);
+        super.draw(recipe, matrixStack, mouseX, mouseY);
 
-        progressBackground.draw(74, 23);
-        tankBackground.draw(115, 10);
-        speedBackground.draw(43, 33);
+        progressBackground.draw(matrixStack, 74, 23);
+        tankBackground.draw(matrixStack, 115, 10);
+        speedBackground.draw(matrixStack, 43, 33);
 
         if (!recipe.getOutputFluids().isEmpty()) {
             RenderHelper.drawFluid(74, 23, recipe.getOutputFluids().get(0), 24, 16);
-            progressFluidBackground.draw(74, 23);
-            progressFluid.draw(74, 23);
+            progressFluidBackground.draw(matrixStack, 74, 23);
+            progressFluid.draw(matrixStack, 74, 23);
         } else {
-            progress.draw(74, 23);
+            progress.draw(matrixStack, 74, 23);
         }
-        speed.draw(43, 33);
+        speed.draw(matrixStack, 43, 33);
     }
 
 }

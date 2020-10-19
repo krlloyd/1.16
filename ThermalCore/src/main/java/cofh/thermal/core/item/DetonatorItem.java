@@ -6,7 +6,6 @@ import cofh.core.util.ChatHelper;
 import cofh.core.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,6 +30,7 @@ import java.util.Map;
 
 import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.NBTTags.TAG_PRIMED;
+import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
@@ -50,21 +50,21 @@ public class DetonatorItem extends ItemCoFH implements IMultiModeItem {
     public DetonatorItem(Properties builder) {
 
         super(builder);
-        this.addPropertyOverride(new ResourceLocation("primed"), (stack, world, living) -> (getMode(stack) == 0 && getPrimedCount(stack) > 0 ? 1.0F : 0.0F));
-        this.addPropertyOverride(new ResourceLocation("armed"), (stack, world, living) -> (getMode(stack) == 1 && getPrimedCount(stack) > 0 ? 1.0F : 0.0F));
+        //        this.addPropertyOverride(new ResourceLocation("primed"), (stack, world, living) -> (getMode(stack) == 0 && getPrimedCount(stack) > 0 ? 1.0F : 0.0F));
+        //        this.addPropertyOverride(new ResourceLocation("armed"), (stack, world, living) -> (getMode(stack) == 1 && getPrimedCount(stack) > 0 ? 1.0F : 0.0F));
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-        tooltip.add(getTextComponent("info.thermal.detonator.use." + getMode(stack)).applyTextStyle(TextFormatting.GRAY));
-        tooltip.add(getTextComponent("info.thermal.detonator.primed").applyTextStyle(TextFormatting.GRAY).appendSibling(getTextComponent(" " + getPrimedCount(stack) + "/" + MAX_PRIMED).applyTextStyle(getPrimedCount(stack) <= 0 ? TextFormatting.RED : getMode(stack) == 0 ? TextFormatting.YELLOW : TextFormatting.GREEN)));
-        tooltip.add(getTextComponent("info.thermal.detonator.use.sneak").applyTextStyle(TextFormatting.DARK_GRAY));
+        tooltip.add(getTextComponent("info.thermal.detonator.use." + getMode(stack)).mergeStyle(TextFormatting.GRAY));
+        tooltip.add(getTextComponent("info.thermal.detonator.primed").mergeStyle(TextFormatting.GRAY).append(getTextComponent(" " + getPrimedCount(stack) + "/" + MAX_PRIMED).mergeStyle(getPrimedCount(stack) <= 0 ? TextFormatting.RED : getMode(stack) == 0 ? TextFormatting.YELLOW : TextFormatting.GREEN)));
+        tooltip.add(getTextComponent("info.thermal.detonator.use.sneak").mergeStyle(TextFormatting.DARK_GRAY));
 
-        tooltip.add(getTextComponent("info.thermal.detonator.mode." + getMode(stack)).applyTextStyle(TextFormatting.ITALIC));
+        tooltip.add(getTextComponent("info.thermal.detonator.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
         if (getPrimedCount(stack) > 0) {
-            tooltip.add(new TranslationTextComponent("info.cofh.mode_change", InputMappings.getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).applyTextStyle(TextFormatting.YELLOW));
+            tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

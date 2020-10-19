@@ -114,14 +114,12 @@ public class PrismarineArrowEntity extends AbstractArrowEntity {
                 this.inGround = false;
                 this.setMotion(vec3d.mul((this.rand.nextFloat() * 0.2F), (this.rand.nextFloat() * 0.2F), (this.rand.nextFloat() * 0.2F)));
                 this.ticksInGround = 0;
-                this.ticksInAir = 0;
             } else if (!this.world.isRemote) {
                 this.func_225516_i_();
             }
             ++this.timeInGround;
         } else {
             this.timeInGround = 0;
-            ++this.ticksInAir;
             Vector3d vec3d1 = new Vector3d(this.getPosX(), this.getPosY(), this.getPosZ());
             Vector3d vec3d2 = vec3d1.add(vec3d);
             RayTraceResult raytraceresult = this.world.rayTraceBlocks(new RayTraceContext(vec3d1, vec3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
@@ -142,7 +140,7 @@ public class PrismarineArrowEntity extends AbstractArrowEntity {
                     }
                 }
                 if (raytraceresult != null && !flag && !ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-                    this.onHit(raytraceresult);
+                    this.onImpact(raytraceresult);
                     this.isAirBorne = true;
                 }
                 if (entityraytraceresult == null || this.getPierceLevel() <= 0) {

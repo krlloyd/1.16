@@ -6,6 +6,7 @@ import cofh.thermal.core.plugins.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachineInsolatorScreen;
 import cofh.thermal.expansion.util.managers.machine.InsolatorRecipeManager;
 import cofh.thermal.expansion.util.recipes.machine.InsolatorRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -108,22 +109,22 @@ public class InsolatorRecipeCategory extends ThermalRecipeCategory<InsolatorReci
     }
 
     @Override
-    public void draw(InsolatorRecipe recipe, double mouseX, double mouseY) {
+    public void draw(InsolatorRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(recipe, mouseX, mouseY);
+        super.draw(recipe, matrixStack, mouseX, mouseY);
 
-        progressBackground.draw(76, 23);
-        tankBackground.draw(24, 10);
-        speedBackground.draw(52, 24);
+        progressBackground.draw(matrixStack, 76, 23);
+        tankBackground.draw(matrixStack, 24, 10);
+        speedBackground.draw(matrixStack, 52, 24);
 
         if (!recipe.getInputFluids().isEmpty()) {
             RenderHelper.drawFluid(76, 23, recipe.getInputFluids().get(0), 24, 16);
-            progressFluidBackground.draw(76, 23);
-            progressFluid.draw(76, 23);
+            progressFluidBackground.draw(matrixStack, 76, 23);
+            progressFluid.draw(matrixStack, 76, 23);
         } else {
-            progress.draw(76, 23);
+            progress.draw(matrixStack, 76, 23);
         }
-        speed.draw(52, 24);
+        speed.draw(matrixStack, 52, 24);
     }
 
 }

@@ -3,6 +3,7 @@ package cofh.core.client.gui.element.panel;
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.client.gui.element.ElementBase;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -74,16 +75,16 @@ public abstract class PanelBase extends ElementBase {
         }
     }
 
-    protected void drawPanelIcon(TextureAtlasSprite iconName) {
+    protected void drawPanelIcon(MatrixStack matrixStack, TextureAtlasSprite iconName) {
 
-        gui.drawIcon(iconName, sideOffset(), 3);
+        gui.drawIcon(matrixStack, iconName, sideOffset(), 3);
     }
 
-    protected void drawForeground() {
+    protected void drawForeground(MatrixStack matrixStack) {
 
     }
 
-    protected void drawBackground() {
+    protected void drawBackground(MatrixStack matrixStack) {
 
         float colorR = (backgroundColor >> 16 & 255) / 255.0F;
         float colorG = (backgroundColor >> 8 & 255) / 255.0F;
@@ -102,7 +103,7 @@ public abstract class PanelBase extends ElementBase {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         mouseX -= this.posX();
         mouseY -= this.posY();
@@ -110,12 +111,12 @@ public abstract class PanelBase extends ElementBase {
         RenderSystem.pushMatrix();
         RenderSystem.translatef(this.posX(), this.posY(), 0.0F);
 
-        drawBackground();
+        drawBackground(matrixStack);
 
         if (fullyOpen) {
             for (ElementBase element : elements) {
                 if (element.visible()) {
-                    element.drawBackground(mouseX, mouseY);
+                    element.drawBackground(matrixStack, mouseX, mouseY);
                 }
             }
         }
@@ -123,7 +124,7 @@ public abstract class PanelBase extends ElementBase {
     }
 
     @Override
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         mouseX -= this.posX();
         mouseY -= this.posY();
@@ -131,12 +132,12 @@ public abstract class PanelBase extends ElementBase {
         RenderSystem.pushMatrix();
         RenderSystem.translatef(this.posX(), this.posY(), 0.0F);
 
-        drawForeground();
+        drawForeground(matrixStack);
 
         if (fullyOpen) {
             for (ElementBase element : elements) {
                 if (element.visible()) {
-                    element.drawForeground(mouseX, mouseY);
+                    element.drawForeground(matrixStack, mouseX, mouseY);
                 }
             }
         }

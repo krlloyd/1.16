@@ -5,6 +5,7 @@ import cofh.thermal.core.plugins.jei.Drawables;
 import cofh.thermal.core.plugins.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachineBottlerScreen;
 import cofh.thermal.expansion.util.recipes.machine.BottlerRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -92,22 +93,22 @@ public class BottlerRecipeCategory extends ThermalRecipeCategory<BottlerRecipe> 
     }
 
     @Override
-    public void draw(BottlerRecipe recipe, double mouseX, double mouseY) {
+    public void draw(BottlerRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(recipe, mouseX, mouseY);
+        super.draw(recipe, matrixStack, mouseX, mouseY);
 
-        progressBackground.draw(78, 23);
-        tankBackground.draw(24, 10);
-        speedBackground.draw(52, 34);
+        progressBackground.draw(matrixStack, 78, 23);
+        tankBackground.draw(matrixStack, 24, 10);
+        speedBackground.draw(matrixStack, 52, 34);
 
         if (!recipe.getInputFluids().isEmpty()) {
             RenderHelper.drawFluid(78, 23, recipe.getInputFluids().get(0), 24, 16);
-            progressFluidBackground.draw(78, 23);
-            progressFluid.draw(78, 23);
+            progressFluidBackground.draw(matrixStack, 78, 23);
+            progressFluid.draw(matrixStack, 78, 23);
         } else {
-            progress.draw(78, 23);
+            progress.draw(matrixStack, 78, 23);
         }
-        speed.draw(52, 34);
+        speed.draw(matrixStack, 52, 34);
     }
 
 }

@@ -146,9 +146,9 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
 
     // region NBT
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(BlockState state, CompoundNBT nbt) {
 
-        super.read(nbt);
+        super.read(state, nbt);
 
         process = nbt.getInt(TAG_PROCESS);
         processMax = nbt.getInt(TAG_PROCESS_MAX);

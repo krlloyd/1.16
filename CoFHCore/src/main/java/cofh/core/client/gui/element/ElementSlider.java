@@ -3,6 +3,7 @@ package cofh.core.client.gui.element;
 import cofh.core.client.gui.GuiColor;
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.util.ResourceLocation;
 
 import static cofh.core.util.constants.Constants.PATH_ELEMENTS;
@@ -69,7 +70,7 @@ public abstract class ElementSlider extends ElementBase {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         drawColoredModalRect(posX() - 1, posY() - 1, posX() + width + 1, posY() + height + 1, borderColor);
         drawColoredModalRect(posX(), posY(), posX() + width, posY() + height, backgroundColor);
@@ -98,7 +99,7 @@ public abstract class ElementSlider extends ElementBase {
     }
 
     @Override
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         int sliderX = posX() + getSliderX();
         int sliderY = posY() + getSliderY();

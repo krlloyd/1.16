@@ -68,7 +68,7 @@ public class BasalzProjectileEntity extends DamagingProjectileEntity {
                     living.addVelocity(vec3d.x, 0.1D, vec3d.z);
                 }
             }
-            entity.attackEntityFrom(BasalzDamageSource.causeDamage(this, shootingEntity), baseDamage);
+            entity.attackEntityFrom(BasalzDamageSource.causeDamage(this, func_234616_v_()), baseDamage);
         }
         if (Utils.isServerWorld(world)) {
             this.world.setEntityState(this, (byte) 3);

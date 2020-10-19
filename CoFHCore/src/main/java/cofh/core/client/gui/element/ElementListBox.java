@@ -4,6 +4,7 @@ import cofh.core.client.gui.GuiColor;
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.client.gui.element.listbox.IListBoxElement;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 
 import java.util.Collection;
@@ -150,14 +151,14 @@ public class ElementListBox extends ElementBase {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         drawColoredModalRect(posX() - 1, posY() - 1, posX() + width + 1, posY() + height + 1, borderColor);
         drawColoredModalRect(posX(), posY(), posX() + width, posY() + height, backgroundColor);
     }
 
     @Override
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         int heightDrawn = 0;
         int nextElement = _firstIndexDisplayed;
@@ -173,7 +174,7 @@ public class ElementListBox extends ElementBase {
 
         int e = _elements.size();
         while (nextElement < e && heightDrawn <= getContentHeight()) {
-            heightDrawn += drawElement(nextElement, getContentLeft(), getContentTop() + heightDrawn);
+            heightDrawn += drawElement(matrixStack, nextElement, getContentLeft(), getContentTop() + heightDrawn);
             ++nextElement;
         }
         glPopMatrix();
@@ -181,13 +182,13 @@ public class ElementListBox extends ElementBase {
         glPopMatrix();
     }
 
-    protected int drawElement(int elementIndex, int x, int y) {
+    protected int drawElement(MatrixStack matrixStack, int elementIndex, int x, int y) {
 
         IListBoxElement element = _elements.get(elementIndex);
         if (elementIndex == _selectedIndex) {
-            element.draw(this, x, y, selectedLineColor, selectedTextColor);
+            element.draw(matrixStack, this, x, y, selectedLineColor, selectedTextColor);
         } else {
-            element.draw(this, x, y, backgroundColor, textColor);
+            element.draw(matrixStack, this, x, y, backgroundColor, textColor);
         }
 
         return element.getHeight();

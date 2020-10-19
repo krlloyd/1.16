@@ -3,8 +3,11 @@ package cofh.core.client.gui.element.panel;
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.MathHelper;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.util.List;
 
@@ -12,7 +15,7 @@ import static cofh.core.client.gui.CoreTextures.*;
 
 public abstract class PanelScrolledText extends PanelBase {
 
-    protected List<String> myText;
+    protected List<IReorderingProcessor> myText;
     protected int firstLine = 0;
     protected int maxFirstLine;
     protected int numLines;
@@ -25,7 +28,7 @@ public abstract class PanelScrolledText extends PanelBase {
 
         maxHeight = 92;
 
-        myText = getFontRenderer().listFormattedStringToWidth(info, maxWidth - 16);
+        myText = getFontRenderer().trimStringToWidth(new StringTextComponent(info), maxWidth - 16);
         numLines = Math.min(myText.size(), (maxHeight - 24) / getFontRenderer().FONT_HEIGHT);
         maxFirstLine = myText.size() - numLines;
         scrollable = maxFirstLine > 0;
@@ -36,27 +39,27 @@ public abstract class PanelScrolledText extends PanelBase {
     public abstract ITextComponent getTitle();
 
     @Override
-    public void drawForeground() {
+    public void drawForeground(MatrixStack matrixStack) {
 
-        drawPanelIcon(getIcon());
+        drawPanelIcon(matrixStack, getIcon());
         if (!fullyOpen) {
             return;
         }
         if (scrollable) {
             if (firstLine > 0) {
-                gui.drawIcon(ICON_ARROW_UP, sideOffset() + maxWidth - 20, 16);
+                gui.drawIcon(matrixStack, ICON_ARROW_UP, sideOffset() + maxWidth - 20, 16);
             } else {
-                gui.drawIcon(ICON_ARROW_UP_INACTIVE, sideOffset() + maxWidth - 20, 16);
+                gui.drawIcon(matrixStack, ICON_ARROW_UP_INACTIVE, sideOffset() + maxWidth - 20, 16);
             }
             if (firstLine < maxFirstLine) {
-                gui.drawIcon(ICON_ARROW_DOWN, sideOffset() + maxWidth - 20, 76);
+                gui.drawIcon(matrixStack, ICON_ARROW_DOWN, sideOffset() + maxWidth - 20, 76);
             } else {
-                gui.drawIcon(ICON_ARROW_DOWN_INACTIVE, sideOffset() + maxWidth - 20, 76);
+                gui.drawIcon(matrixStack, ICON_ARROW_DOWN_INACTIVE, sideOffset() + maxWidth - 20, 76);
             }
         }
-        getFontRenderer().drawStringWithShadow(getTitle().getString(), sideOffset() + 18, 6, headerColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, getTitle().getString(), sideOffset() + 18, 6, headerColor);
         for (int i = firstLine; i < firstLine + numLines; ++i) {
-            getFontRenderer().drawString(myText.get(i), sideOffset() + 2, 20 + (i - firstLine) * getFontRenderer().FONT_HEIGHT, textColor);
+            getFontRenderer().func_238422_b_(matrixStack, myText.get(i), sideOffset() + 2, 20 + (i - firstLine) * getFontRenderer().FONT_HEIGHT, textColor);
         }
         RenderHelper.resetColor();
     }

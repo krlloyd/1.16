@@ -58,9 +58,9 @@ public class BlazeArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected void onHit(RayTraceResult raytraceResultIn) {
+    protected void onImpact(RayTraceResult raytraceResultIn) {
 
-        super.onHit(raytraceResultIn);
+        super.onImpact(raytraceResultIn);
 
         if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
             if (effectRadius > 0 && !isInWater()) {

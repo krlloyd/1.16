@@ -70,7 +70,7 @@ public class BlizzProjectileEntity extends DamagingProjectileEntity {
                 LivingEntity living = (LivingEntity) entity;
                 living.addPotionEffect(new EffectInstance(CHILLED, effectDuration, effectAmplifier, false, false));
             }
-            entity.attackEntityFrom(BlizzDamageSource.causeDamage(this, shootingEntity), entity.isImmuneToFire() ? baseDamage + 3.0F : baseDamage);
+            entity.attackEntityFrom(BlizzDamageSource.causeDamage(this, func_234616_v_()), entity.isImmuneToFire() ? baseDamage + 3.0F : baseDamage);
         }
         if (Utils.isServerWorld(world)) {
             if (effectRadius > 0) {

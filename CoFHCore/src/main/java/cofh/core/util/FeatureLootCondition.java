@@ -3,9 +3,10 @@ package cofh.core.util;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import net.minecraft.loot.ILootSerializer;
+import net.minecraft.loot.LootConditionType;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
@@ -29,14 +30,20 @@ public class FeatureLootCondition implements ILootCondition {
         return manager.getFeature(flag).getAsBoolean();
     }
 
+    @Nonnull
+    @Override
+    public LootConditionType func_230419_b_() {
+
+        return manager.flagConditionType;
+    }
+
     // region SERIALIZER
-    public static class Serializer extends AbstractSerializer<FeatureLootCondition> {
+    public static class Serializer implements ILootSerializer<FeatureLootCondition> {
 
         private final FeatureManager manager;
 
-        public Serializer(FeatureManager manager, ResourceLocation location) {
+        public Serializer(FeatureManager manager) {
 
-            super(location, FeatureLootCondition.class);
             this.manager = manager;
         }
 

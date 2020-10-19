@@ -1,14 +1,10 @@
 package cofh.core.util.helpers;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.text.DecimalFormat;
@@ -49,20 +45,20 @@ public final class StringHelper {
         return NumberFormat.getInstance().format(number);
     }
 
-    public static ITextComponent getFluidName(FluidStack stack) {
+    public static IFormattableTextComponent getFluidName(FluidStack stack) {
 
         Fluid fluid = stack.getFluid();
-        ITextComponent name = fluid.getAttributes().getDisplayName(stack);
+        IFormattableTextComponent name = fluid.getAttributes().getDisplayName(stack).deepCopy();
 
         switch (fluid.getAttributes().getRarity(stack)) {
             case UNCOMMON:
-                name.applyTextStyle(TextFormatting.YELLOW);
+                name.mergeStyle(TextFormatting.YELLOW);
                 break;
             case RARE:
-                name.applyTextStyle(TextFormatting.AQUA);
+                name.mergeStyle(TextFormatting.AQUA);
                 break;
             case EPIC:
-                name.applyTextStyle(TextFormatting.LIGHT_PURPLE);
+                name.mergeStyle(TextFormatting.LIGHT_PURPLE);
                 break;
         }
         return name;
@@ -71,17 +67,17 @@ public final class StringHelper {
     public static ITextComponent getItemName(ItemStack stack) {
 
         Item item = stack.getItem();
-        ITextComponent name = item.getDisplayName(stack);
+        IFormattableTextComponent name = item.getDisplayName(stack).deepCopy();
 
         switch (item.getRarity(stack)) {
             case UNCOMMON:
-                name.applyTextStyle(TextFormatting.YELLOW);
+                name.mergeStyle(TextFormatting.YELLOW);
                 break;
             case RARE:
-                name.applyTextStyle(TextFormatting.AQUA);
+                name.mergeStyle(TextFormatting.AQUA);
                 break;
             case EPIC:
-                name.applyTextStyle(TextFormatting.LIGHT_PURPLE);
+                name.mergeStyle(TextFormatting.LIGHT_PURPLE);
                 break;
         }
         return name;
@@ -101,29 +97,29 @@ public final class StringHelper {
     }
 
     // region TEXT COMPONENTS
-    public static ITextComponent getChatComponent(Object object) {
-
-        if (object instanceof ITextComponent) {
-            return (ITextComponent) object;
-        } else if (object instanceof String) {
-            return new StringTextComponent((String) object);
-        } else if (object instanceof ItemStack) {
-            return ((ItemStack) object).getTextComponent();
-        } else if (object instanceof Entity) {
-            return ((Entity) object).getDisplayName();
-        } else {
-            return new StringTextComponent(String.valueOf(object));
-        }
-    }
-
-    public static ITextComponent formChatComponent(Object... chats) {
-
-        ITextComponent chat = getChatComponent(chats[0]);
-        for (int i = 1, chatsLength = chats.length; i < chatsLength; ++i) {
-            chat.appendSibling(getChatComponent(chats[i]));
-        }
-        return chat;
-    }
+    //    public static ITextComponent getChatComponent(Object object) {
+    //
+    //        if (object instanceof ITextComponent) {
+    //            return (ITextComponent) object;
+    //        } else if (object instanceof String) {
+    //            return new StringTextComponent((String) object);
+    //        } else if (object instanceof ItemStack) {
+    //            return ((ItemStack) object).getTextComponent();
+    //        } else if (object instanceof Entity) {
+    //            return ((Entity) object).getDisplayName();
+    //        } else {
+    //            return new StringTextComponent(String.valueOf(object));
+    //        }
+    //    }
+    //
+    //    public static ITextComponent formChatComponent(Object... chats) {
+    //
+    //        ITextComponent chat = getChatComponent(chats[0]);
+    //        for (int i = 1, chatsLength = chats.length; i < chatsLength; ++i) {
+    //            chat.appendSibling(getChatComponent(chats[i]));
+    //        }
+    //        return chat;
+    //    }
 
     public static String toJSON(ITextComponent chatComponent) {
 
@@ -132,22 +128,22 @@ public final class StringHelper {
 
     public static ITextComponent fromJSON(String string) {
 
-        return ITextComponent.Serializer.fromJsonLenient(string);
+        return ITextComponent.Serializer.getComponentFromJsonLenient(string);
     }
 
-    public static ITextComponent getEmptyLine() {
+    public static IFormattableTextComponent getEmptyLine() {
 
         return new StringTextComponent("");
     }
 
-    public static ITextComponent getTextComponent(String key) {
+    public static IFormattableTextComponent getTextComponent(String key) {
 
         return canLocalize(key) ? new TranslationTextComponent(key) : new StringTextComponent(key);
     }
 
-    public static ITextComponent getInfoTextComponent(String key) {
+    public static IFormattableTextComponent getInfoTextComponent(String key) {
 
-        return getTextComponent(key).applyTextStyle(TextFormatting.GOLD);
+        return getTextComponent(key).mergeStyle(TextFormatting.GOLD);
     }
     // endregion
 

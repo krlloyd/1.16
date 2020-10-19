@@ -19,7 +19,7 @@ public class Ensorcellation {
 
     public static final Logger LOG = LogManager.getLogger(ID_ENSORCELLATION);
 
-    public static final DeferredRegisterCoFH<Enchantment> ENCHANTMENTS = new DeferredRegisterCoFH<>(ForgeRegistries.ENCHANTMENTS, ID_ENSORCELLATION);
+    public static final DeferredRegisterCoFH<Enchantment> ENCHANTMENTS = DeferredRegisterCoFH.create(ForgeRegistries.ENCHANTMENTS, ID_ENSORCELLATION);
 
     public Ensorcellation() {
 

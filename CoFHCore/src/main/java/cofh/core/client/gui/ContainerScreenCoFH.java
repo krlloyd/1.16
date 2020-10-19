@@ -11,7 +11,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -23,8 +22,8 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -68,7 +67,7 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTick) {
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTick) {
 
         mX = mouseX - guiLeft;
         mY = mouseY - guiTop;
@@ -76,17 +75,17 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
         updatePanels();
         updateElements();
 
-        renderBackground();
-        super.render(mouseX, mouseY, partialTick);
-        renderHoveredToolTip(mouseX, mouseY);
+        renderBackground(matrixStack);
+        super.render(matrixStack, mouseX, mouseY, partialTick);
+        renderHoveredTooltip(matrixStack, mouseX, mouseY);
 
         if (showTooltips && getMinecraft().player.inventory.getItemStack().isEmpty()) {
-            drawTooltip();
+            drawTooltip(matrixStack);
         }
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
 
         RenderHelper.resetColor();
         RenderHelper.bindTexture(texture);
@@ -99,27 +98,27 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
         RenderSystem.pushMatrix();
         RenderSystem.translatef(guiLeft, guiTop, 0.0F);
 
-        drawPanels(false);
-        drawElements(false);
+        drawPanels(matrixStack, false);
+        drawElements(matrixStack, false);
 
         RenderSystem.popMatrix();
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         if (drawTitle & title != null) {
-            getFontRenderer().drawString(localize(title.getFormattedText()), getCenteredOffset(localize(title.getFormattedText())), 6, 0x404040);
+            drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 6, 0x404040);
         }
         if (drawInventory) {
-            getFontRenderer().drawString(localize("container.inventory"), 8, ySize - 96 + 3, 0x404040);
+            getFontRenderer().drawString(matrixStack, localize("container.inventory"), 8, ySize - 96 + 3, 0x404040);
         }
-        drawPanels(true);
-        drawElements(true);
+        drawPanels(matrixStack, true);
+        drawElements(matrixStack, true);
     }
 
     // region ELEMENTS
-    public void drawTooltip() {
+    public void drawTooltip(MatrixStack matrixStack) {
 
         PanelBase panel = getPanelAtPosition(mX, mY);
 
@@ -131,25 +130,25 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
         if (element != null && element.visible()) {
             element.addTooltip(tooltip, mX, mY);
         }
-        drawTooltipHoveringText(tooltip, mX + guiLeft, mY + guiTop, font);
+        GuiUtils.drawHoveringText(matrixStack, tooltip, mX + guiLeft, mY + guiTop, width, height, -1, font);
         tooltip.clear();
     }
 
     /**
      * Draws the Elements for this GUI.
      */
-    protected void drawElements(boolean foreground) {
+    protected void drawElements(MatrixStack matrixStack, boolean foreground) {
 
         if (foreground) {
             for (ElementBase c : elements) {
                 if (c.visible()) {
-                    c.drawForeground(mX, mY);
+                    c.drawForeground(matrixStack, mX, mY);
                 }
             }
         } else {
             for (ElementBase c : elements) {
                 if (c.visible()) {
-                    c.drawBackground(mX, mY);
+                    c.drawBackground(matrixStack, mX, mY);
                 }
             }
         }
@@ -158,7 +157,7 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
     /**
      * Draws the Panels for this GUI. Open / close animation is part of this.
      */
-    protected void drawPanels(boolean foreground) {
+    protected void drawPanels(MatrixStack matrixStack, boolean foreground) {
 
         int yPosRight = 4;
         int yPosLeft = 4;
@@ -170,10 +169,10 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
                     continue;
                 }
                 if (panel.side == PanelBase.LEFT) {
-                    panel.drawForeground(mX, mY);
+                    panel.drawForeground(matrixStack, mX, mY);
                     yPosLeft += panel.height();
                 } else {
-                    panel.drawForeground(mX, mY);
+                    panel.drawForeground(matrixStack, mX, mY);
                     yPosRight += panel.height();
                 }
             }
@@ -185,11 +184,11 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
                 }
                 if (panel.side == PanelBase.LEFT) {
                     panel.setPosition(0, yPosLeft);
-                    panel.drawBackground(mX, mY);
+                    panel.drawBackground(matrixStack, mX, mY);
                     yPosLeft += panel.height();
                 } else {
                     panel.setPosition(xSize, yPosRight);
-                    panel.drawBackground(mX, mY);
+                    panel.drawBackground(matrixStack, mX, mY);
                     yPosRight += panel.height();
                 }
             }
@@ -475,79 +474,6 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
 
         return ((xPos * 2) - font.getStringWidth(string)) / 2;
     }
-
-    protected void drawTooltipHoveringText(List<ITextComponent> tooltip, int x, int y, FontRenderer font) {
-
-        if (tooltip == null || tooltip.isEmpty()) {
-            return;
-        }
-        List<String> stringTooltip = new ArrayList<>(tooltip.size());
-        for (ITextComponent textComponent : tooltip) {
-            stringTooltip.add(textComponent.getFormattedText());
-        }
-
-        RenderSystem.disableRescaleNormal();
-        RenderSystem.disableDepthTest();
-        int k = 0;
-
-        for (String s : stringTooltip) {
-            int l = font.getStringWidth(s);
-
-            if (l > k) {
-                k = l;
-            }
-        }
-        int i1 = x + 12;
-        int j1 = y - 12;
-        int k1 = 8;
-
-        if (tooltip.size() > 1) {
-            k1 += 2 + (tooltip.size() - 1) * 10;
-        }
-        if (i1 + k > this.width) {
-            i1 -= 28 + k;
-        }
-        if (j1 + k1 + 6 > this.height) {
-            j1 = this.height - k1 - 6;
-        }
-        this.setBlitOffset(300);
-        itemRenderer.zLevel = 300.0F;
-        int l1 = -267386864;
-        this.fillGradient(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
-        this.fillGradient(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4, l1, l1);
-        this.fillGradient(i1 - 3, j1 - 3, i1 + k + 3, j1 + k1 + 3, l1, l1);
-        this.fillGradient(i1 - 4, j1 - 3, i1 - 3, j1 + k1 + 3, l1, l1);
-        this.fillGradient(i1 + k + 3, j1 - 3, i1 + k + 4, j1 + k1 + 3, l1, l1);
-        int i2 = 1347420415;
-        int j2 = (i2 & 16711422) >> 1 | i2 & -16777216;
-        this.fillGradient(i1 - 3, j1 - 3 + 1, i1 - 3 + 1, j1 + k1 + 3 - 1, i2, j2);
-        this.fillGradient(i1 + k + 2, j1 - 3 + 1, i1 + k + 3, j1 + k1 + 3 - 1, i2, j2);
-        this.fillGradient(i1 - 3, j1 - 3, i1 + k + 3, j1 - 3 + 1, i2, i2);
-        this.fillGradient(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3, j2, j2);
-
-        MatrixStack matrixstack = new MatrixStack();
-        IRenderTypeBuffer.Impl irendertypebuffer$impl = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
-        matrixstack.translate(0.0D, 0.0D, this.itemRenderer.zLevel);
-        Matrix4f matrix4f = matrixstack.getLast().getMatrix();
-
-        for (int k2 = 0; k2 < tooltip.size(); ++k2) {
-            String s1 = stringTooltip.get(k2);
-            if (s1 != null) {
-                font.renderString(s1, i1, j1, -1, true, matrix4f, irendertypebuffer$impl, false, 0, 15728880);
-            }
-            //font.drawStringWithShadow(s1, i1, j1, -1);
-
-            if (k2 == 0) {
-                j1 += 2;
-            }
-            j1 += 10;
-        }
-        irendertypebuffer$impl.finish();
-        this.setBlitOffset(0);
-        itemRenderer.zLevel = 0.0F;
-        RenderSystem.enableDepthTest();
-        RenderSystem.enableRescaleNormal();
-    }
     // endregion
 
     // region IGuiAccess
@@ -564,17 +490,17 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
     }
 
     @Override
-    public void drawIcon(TextureAtlasSprite icon, int x, int y) {
+    public void drawIcon(MatrixStack matrixStack, TextureAtlasSprite icon, int x, int y) {
 
         RenderHelper.setBlockTextureSheet();
         RenderHelper.resetColor();
-        blit(x, y, this.getBlitOffset(), 16, 16, icon);
+        blit(matrixStack, x, y, this.getBlitOffset(), 16, 16, icon);
     }
 
     @Override
-    public void drawIcon(ResourceLocation location, int x, int y) {
+    public void drawIcon(MatrixStack matrixStack, ResourceLocation location, int x, int y) {
 
-        drawIcon(RenderHelper.getTexture(location), x, y);
+        drawIcon(matrixStack, RenderHelper.getTexture(location), x, y);
     }
 
     @Override

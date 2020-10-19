@@ -26,8 +26,8 @@ public class RedstoneArsenal {
 
     public static final Logger LOG = LogManager.getLogger(ID_REDSTONE_ARSENAL);
 
-    public static final DeferredRegisterCoFH<Block> BLOCKS = new DeferredRegisterCoFH<>(ForgeRegistries.BLOCKS, ID_REDSTONE_ARSENAL);
-    public static final DeferredRegisterCoFH<Item> ITEMS = new DeferredRegisterCoFH<>(ForgeRegistries.ITEMS, ID_REDSTONE_ARSENAL);
+    public static final DeferredRegisterCoFH<Block> BLOCKS = DeferredRegisterCoFH.create(ForgeRegistries.BLOCKS, ID_REDSTONE_ARSENAL);
+    public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_REDSTONE_ARSENAL);
 
     public static ItemGroup itemGroup;
 

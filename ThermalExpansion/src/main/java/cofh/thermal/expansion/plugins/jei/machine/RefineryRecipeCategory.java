@@ -5,6 +5,7 @@ import cofh.thermal.core.plugins.jei.Drawables;
 import cofh.thermal.core.plugins.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachineRefineryScreen;
 import cofh.thermal.expansion.util.recipes.machine.RefineryRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -111,24 +112,24 @@ public class RefineryRecipeCategory extends ThermalRecipeCategory<RefineryRecipe
     }
 
     @Override
-    public void draw(RefineryRecipe recipe, double mouseX, double mouseY) {
+    public void draw(RefineryRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(recipe, mouseX, mouseY);
+        super.draw(recipe, matrixStack, mouseX, mouseY);
 
-        progressBackground.draw(57, 22);
-        tankInput.draw(28, 5);
-        tankOutputA.draw(125, 11);
-        tankOutputB.draw(143, 11);
-        speedBackground.draw(29, 40);
+        progressBackground.draw(matrixStack, 57, 22);
+        tankInput.draw(matrixStack, 28, 5);
+        tankOutputA.draw(matrixStack, 125, 11);
+        tankOutputB.draw(matrixStack, 143, 11);
+        speedBackground.draw(matrixStack, 29, 40);
 
         if (!recipe.getInputFluids().isEmpty()) {
             RenderHelper.drawFluid(57, 22, recipe.getInputFluids().get(0), 24, 16);
-            progressFluidBackground.draw(57, 22);
-            progressFluid.draw(57, 22);
+            progressFluidBackground.draw(matrixStack, 57, 22);
+            progressFluid.draw(matrixStack, 57, 22);
         } else {
-            progress.draw(57, 22);
+            progress.draw(matrixStack, 57, 22);
         }
-        speed.draw(29, 40);
+        speed.draw(matrixStack, 29, 40);
     }
 
 }

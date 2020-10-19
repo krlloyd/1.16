@@ -2,6 +2,7 @@ package cofh.thermal.core.plugins.jei;
 
 import cofh.core.util.helpers.StringHelper;
 import cofh.thermal.core.util.recipes.ThermalRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static cofh.core.util.constants.Constants.BASE_CHANCE;
-import static cofh.core.util.helpers.StringHelper.localize;
+import static cofh.core.util.helpers.StringHelper.getTextComponent;
 
 public abstract class ThermalRecipeCategory<T extends ThermalRecipe> implements IRecipeCategory<T> {
 
@@ -58,11 +59,11 @@ public abstract class ThermalRecipeCategory<T extends ThermalRecipe> implements 
             if (!chances.isEmpty() && slotIndex >= indexOffset && slotIndex < indexOffset + chances.size()) {
                 float chance = Math.abs(chances.get(slotIndex - indexOffset));
                 if (chance < BASE_CHANCE) {
-                    tooltip.add(localize("info.cofh.chance") + ": " + (int) (100 * chance) + "%");
+                    tooltip.add(getTextComponent("info.cofh.chance").appendString(": " + (int) (100 * chance) + "%"));
                 } else {
                     chance -= (int) chance;
                     if (chance > 0) {
-                        tooltip.add(localize("info.cofh.chance_additional") + ": " + (int) (100 * chance) + "%");
+                        tooltip.add(getTextComponent("info.cofh.chance_additional").appendString(": " + (int) (100 * chance) + "%"));
                     }
                 }
             }
@@ -73,15 +74,15 @@ public abstract class ThermalRecipeCategory<T extends ThermalRecipe> implements 
 
         group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex == indexOffset - 1) {
-                tooltip.add(localize("info.cofh.optional_catalyst"));
+                tooltip.add(getTextComponent("info.cofh.optional_catalyst"));
             } else if (!chances.isEmpty() && slotIndex >= indexOffset && slotIndex < indexOffset + chances.size()) {
                 float chance = Math.abs(chances.get(slotIndex - indexOffset));
                 if (chance < BASE_CHANCE) {
-                    tooltip.add(localize("info.cofh.chance") + ": " + (int) (100 * chance) + "%");
+                    tooltip.add(getTextComponent("info.cofh.chance").appendString(": " + (int) (100 * chance) + "%"));
                 } else {
                     chance -= (int) chance;
                     if (chance > 0) {
-                        tooltip.add(localize("info.cofh.chance_additional") + ": " + (int) (100 * chance) + "%");
+                        tooltip.add(getTextComponent("info.cofh.chance_additional").appendString(": " + (int) (100 * chance) + "%"));
                     }
                 }
             }
@@ -98,7 +99,7 @@ public abstract class ThermalRecipeCategory<T extends ThermalRecipe> implements 
     @Override
     public String getTitle() {
 
-        return name.getFormattedText();
+        return name.getString();
     }
 
     @Override
@@ -114,23 +115,23 @@ public abstract class ThermalRecipeCategory<T extends ThermalRecipe> implements 
     }
 
     @Override
-    public void draw(T recipe, double mouseX, double mouseY) {
+    public void draw(T recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
         if (energyBackground != null) {
-            energyBackground.draw(ENERGY_X, ENERGY_Y);
+            energyBackground.draw(matrixStack, ENERGY_X, ENERGY_Y);
         }
         if (energy != null) {
-            energy.draw(ENERGY_X, ENERGY_Y);
+            energy.draw(matrixStack, ENERGY_X, ENERGY_Y);
         }
     }
 
     @Override
-    public List<String> getTooltipStrings(T recipe, double mouseX, double mouseY) {
+    public List<ITextComponent> getTooltipStrings(T recipe, double mouseX, double mouseY) {
 
-        List<String> tooltip = new ArrayList<>();
+        List<ITextComponent> tooltip = new ArrayList<>();
 
         if (energy != null && mouseX > ENERGY_X && mouseX < ENERGY_X + energy.getWidth() - 1 && mouseY > ENERGY_Y && mouseY < ENERGY_Y + energy.getHeight() - 1) {
-            tooltip.add(localize("info.cofh.energy") + ": " + StringHelper.format(recipe.getEnergy()) + " RF");
+            tooltip.add(getTextComponent("info.cofh.energy").appendString(": " + StringHelper.format(recipe.getEnergy()) + " RF"));
         }
         return tooltip;
     }

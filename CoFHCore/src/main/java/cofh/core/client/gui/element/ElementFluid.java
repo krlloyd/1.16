@@ -2,6 +2,7 @@ package cofh.core.client.gui.element;
 
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -29,13 +30,13 @@ public class ElementFluid extends ElementBase {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         RenderHelper.drawFluid(posX(), posY(), fluid, width, height);
     }
 
     @Override
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
     }
 

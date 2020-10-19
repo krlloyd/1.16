@@ -59,13 +59,13 @@ public class EnderArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected void onHit(RayTraceResult raytraceResultIn) {
+    protected void onImpact(RayTraceResult raytraceResultIn) {
 
-        super.onHit(raytraceResultIn);
+        super.onImpact(raytraceResultIn);
 
         Entity shooter = func_234616_v_();
         if (raytraceResultIn.getType() != RayTraceResult.Type.MISS && !discharged && shooter != null) {
-            int duration = Math.max(DURATION, ticksInAir * DURATION_FACTOR);
+            int duration = DURATION;
             if (raytraceResultIn.getType() == RayTraceResult.Type.BLOCK) {
                 Utils.teleportEntityTo(shooter, this.getPosition());
                 if (shooter instanceof LivingEntity && !Utils.isFakePlayer(shooter)) {

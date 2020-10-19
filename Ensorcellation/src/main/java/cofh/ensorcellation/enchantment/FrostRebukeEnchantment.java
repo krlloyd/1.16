@@ -83,7 +83,7 @@ public class FrostRebukeEnchantment extends EnchantmentCoFH {
             return;
         }
         if (user instanceof PlayerEntity || !(attacker instanceof PlayerEntity) || mobsAffectPlayers) {
-            ((LivingEntity) attacker).knockBack(user, 0.5F * level, user.getPosX() - attacker.getPosX(), user.getPosZ() - attacker.getPosZ());
+            ((LivingEntity) attacker).applyKnockback(0.5F * level, user.getPosX() - attacker.getPosX(), user.getPosZ() - attacker.getPosZ());
         }
         Random rand = user.getRNG();
         int i = 20 + 20 * rand.nextInt(3 * level);

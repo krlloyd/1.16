@@ -58,7 +58,7 @@ public class IceGrenadeEntity extends AbstractGrenadeEntity {
     protected void onImpact(RayTraceResult result) {
 
         if (Utils.isServerWorld(world)) {
-            damageNearbyEntities(this, world, this.getPosition(), radius, getThrower());
+            damageNearbyEntities(this, world, this.getPosition(), radius, func_234616_v_());
             AreaUtils.freezeSpecial(this, world, this.getPosition(), radius, true, true);
             AreaUtils.freezeNearbyGround(this, world, this.getPosition(), radius);
             AreaUtils.freezeAllWater(this, world, this.getPosition(), radius, permanentWater);
@@ -86,12 +86,12 @@ public class IceGrenadeEntity extends AbstractGrenadeEntity {
         world.addEntity(cloud);
     }
 
-    public static void damageNearbyEntities(Entity entity, World worldIn, BlockPos pos, int radius, @Nullable LivingEntity source) {
+    public static void damageNearbyEntities(Entity entity, World worldIn, BlockPos pos, int radius, @Nullable Entity source) {
 
         AxisAlignedBB area = new AxisAlignedBB(pos.add(-radius, -radius, -radius), pos.add(1 + radius, 1 + radius, 1 + radius));
         worldIn.getEntitiesWithinAABB(LivingEntity.class, area, EntityPredicates.IS_ALIVE)
                 .forEach(livingEntity -> {
-                    livingEntity.attackEntityFrom(DamageSource.causeExplosionDamage(source), livingEntity.isImmuneToFire() ? 4.0F : 1.0F);
+                    livingEntity.attackEntityFrom(DamageSource.causeExplosionDamage(source instanceof LivingEntity ? (LivingEntity) source : null), livingEntity.isImmuneToFire() ? 4.0F : 1.0F);
                     livingEntity.addPotionEffect(new EffectInstance(CHILLED, effectDuration, effectAmplifier, false, false));
                 });
     }

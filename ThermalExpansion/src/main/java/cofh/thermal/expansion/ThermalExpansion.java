@@ -61,6 +61,14 @@ public class ThermalExpansion {
 
     private void clientSetup(final FMLClientSetupEvent event) {
 
+        registerGuiFactories();
+        registerRenderLayers();
+    }
+    // endregion
+
+    // region HELPERS
+    private void registerGuiFactories() {
+
         ScreenManager.registerFactory(MACHINE_FURNACE_CONTAINER, MachineFurnaceScreen::new);
         ScreenManager.registerFactory(MACHINE_SAWMILL_CONTAINER, MachineSawmillScreen::new);
         ScreenManager.registerFactory(MACHINE_PULVERIZER_CONTAINER, MachinePulverizerScreen::new);
@@ -83,6 +91,9 @@ public class ThermalExpansion {
 
         //        ScreenManager.registerFactory(DEVICE_FLUID_BUFFER_CONTAINER, DeviceFluidBufferScreen::new);
         //        ScreenManager.registerFactory(DEVICE_ITEM_BUFFER_CONTAINER, DeviceItemBufferScreen::new);
+    }
+
+    private void registerRenderLayers() {
 
         RenderType cutout = RenderType.getCutout();
 

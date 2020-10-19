@@ -125,7 +125,7 @@ public class RegistrationHelper {
         }
         ITEMS.register(prefix + "_dust", () -> new ItemCoFH(new Item.Properties().group(group).rarity(rarity)).setShowInGroups(showInGroups));
         ITEMS.register(prefix + "_gear", () -> new ItemCoFH(new Item.Properties().group(group).rarity(rarity)).setShowInGroups(showInGroups));
-        ITEMS.register(prefix + "_plate", () -> new CountedItem(new Item.Properties().group(group).rarity(rarity)).setShowInGroups(showInGroups));
+        ITEMS.register(prefix + "_plate", () -> new ItemCoFH(new Item.Properties().group(group).rarity(rarity)).setShowInGroups(showInGroups));
         ITEMS.register(prefix + "_coin", () -> new CoinItem(new Item.Properties().group(group).rarity(rarity)).setShowInGroups(showInGroups));
     }
     // endregion
@@ -160,7 +160,7 @@ public class RegistrationHelper {
         ITEMS.register(prefix + "_shovel", () -> new ShovelItem(tier, 1.5F, -3.0F, new Item.Properties().group(toolGroup)));
         ITEMS.register(prefix + "_pickaxe", () -> new PickaxeItem(tier, 1, -2.8F, new Item.Properties().group(toolGroup)));
         ITEMS.register(prefix + "_axe", () -> new AxeItem(tier, tier.getAttackDamage() > 0 ? 8.0F - tier.getAttackDamage() : 6.0F, MathHelper.clamp(-3.7F + tier.getEfficiency() / 10, -3.2F, -3.0F), new Item.Properties().group(toolGroup)));
-        ITEMS.register(prefix + "_hoe", () -> new HoeItem(tier, -3.0F + tier.getHarvestLevel(), new Item.Properties().group(toolGroup)));
+        ITEMS.register(prefix + "_hoe", () -> new HoeItem(tier, -tier.getHarvestLevel(), Math.min(-3.0F + tier.getHarvestLevel(), 0.0F), new Item.Properties().group(toolGroup)));
 
         ITEMS.register(prefix + "_sword", () -> new SwordItem(tier, 3, -2.4F, new Item.Properties().group(combatGroup)));
     }

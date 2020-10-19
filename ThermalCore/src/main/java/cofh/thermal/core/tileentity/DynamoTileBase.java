@@ -257,9 +257,9 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
 
     // region NBT
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(BlockState state, CompoundNBT nbt) {
 
-        super.read(nbt);
+        super.read(state, nbt);
 
         fuelMax = nbt.getInt(TAG_FUEL_MAX);
         fuel = nbt.getInt(TAG_FUEL);

@@ -2,6 +2,7 @@ package cofh.thermal.core.plugins.jei;
 
 import cofh.core.util.helpers.StringHelper;
 import cofh.thermal.core.util.recipes.ThermalFuel;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -13,6 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cofh.core.util.helpers.StringHelper.getTextComponent;
 import static cofh.core.util.helpers.StringHelper.localize;
 
 public abstract class ThermalFuelCategory<T extends ThermalFuel> implements IRecipeCategory<T> {
@@ -59,7 +61,7 @@ public abstract class ThermalFuelCategory<T extends ThermalFuel> implements IRec
     @Override
     public String getTitle() {
 
-        return name.getFormattedText();
+        return name.getString();
     }
 
     @Override
@@ -75,30 +77,30 @@ public abstract class ThermalFuelCategory<T extends ThermalFuel> implements IRec
     }
 
     @Override
-    public void draw(T recipe, double mouseX, double mouseY) {
+    public void draw(T recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
         if (energyBackground != null) {
-            energyBackground.draw(ENERGY_X, ENERGY_Y);
+            energyBackground.draw(matrixStack, ENERGY_X, ENERGY_Y);
         }
         if (energy != null) {
-            energy.draw(ENERGY_X, ENERGY_Y);
+            energy.draw(matrixStack, ENERGY_X, ENERGY_Y);
         }
 
         if (durationBackground != null) {
-            durationBackground.draw(DURATION_X, DURATION_Y);
+            durationBackground.draw(matrixStack, DURATION_X, DURATION_Y);
         }
         if (duration != null) {
-            duration.draw(DURATION_X, DURATION_Y);
+            duration.draw(matrixStack, DURATION_X, DURATION_Y);
         }
     }
 
     @Override
-    public List<String> getTooltipStrings(T recipe, double mouseX, double mouseY) {
+    public List<ITextComponent> getTooltipStrings(T recipe, double mouseX, double mouseY) {
 
-        List<String> tooltip = new ArrayList<>();
+        List<ITextComponent> tooltip = new ArrayList<>();
 
         if (energy != null && mouseX > ENERGY_X && mouseX < ENERGY_X + energy.getWidth() - 1 && mouseY > ENERGY_Y && mouseY < ENERGY_Y + energy.getHeight() - 1) {
-            tooltip.add(localize("info.cofh.energy") + ": " + StringHelper.format(recipe.getEnergy()) + " RF");
+            tooltip.add(getTextComponent("info.cofh.energy").appendString(": " + StringHelper.format(recipe.getEnergy()) + " RF"));
         }
         return tooltip;
     }

@@ -5,6 +5,7 @@ import cofh.thermal.core.plugins.jei.Drawables;
 import cofh.thermal.core.plugins.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachinePressScreen;
 import cofh.thermal.expansion.util.recipes.machine.PressRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -102,22 +103,22 @@ public class PressRecipeCategory extends ThermalRecipeCategory<PressRecipe> {
     }
 
     @Override
-    public void draw(PressRecipe recipe, double mouseX, double mouseY) {
+    public void draw(PressRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(recipe, mouseX, mouseY);
+        super.draw(recipe, matrixStack, mouseX, mouseY);
 
-        progressBackground.draw(69, 23);
-        tankBackground.draw(140, 10);
-        speedBackground.draw(43, 24);
+        progressBackground.draw(matrixStack, 69, 23);
+        tankBackground.draw(matrixStack, 140, 10);
+        speedBackground.draw(matrixStack, 43, 24);
 
         if (!recipe.getOutputFluids().isEmpty()) {
             RenderHelper.drawFluid(69, 23, recipe.getOutputFluids().get(0), 24, 16);
-            progressFluidBackground.draw(69, 23);
-            progressFluid.draw(69, 23);
+            progressFluidBackground.draw(matrixStack, 69, 23);
+            progressFluid.draw(matrixStack, 69, 23);
         } else {
-            progress.draw(69, 23);
+            progress.draw(matrixStack, 69, 23);
         }
-        speed.draw(43, 24);
+        speed.draw(matrixStack, 43, 24);
     }
 
 }

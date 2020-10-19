@@ -15,12 +15,9 @@ public class ProtectionEnchantmentImp extends EnchantmentOverride {
 
     public ProtectionEnchantmentImp(Rarity rarityIn, Type protectionTypeIn, EquipmentSlotType[] slots) {
 
-        super(rarityIn, EnchantmentType.ARMOR, slots);
+        super(rarityIn, protectionTypeIn == Type.FALL ? EnchantmentType.ARMOR_FEET : EnchantmentType.ARMOR, slots);
         this.protectionType = protectionTypeIn;
 
-        if (protectionTypeIn == Type.FALL) {
-            this.type = EnchantmentType.ARMOR_FEET;
-        }
         maxLevel = 4;
     }
 

@@ -3,8 +3,9 @@ package cofh.thermal.core.entity.monster;
 import cofh.thermal.core.entity.projectile.BasalzProjectileEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
@@ -37,7 +38,7 @@ public class BasalzEntity extends MonsterEntity {
     private int heightOffsetUpdateTime;
     private static final DataParameter<Byte> ANGRY = EntityDataManager.createKey(BasalzEntity.class, DataSerializers.BYTE);
 
-    public static boolean canSpawn(EntityType<BasalzEntity> entityType, IWorld world, SpawnReason reason, BlockPos pos, Random rand) {
+    public static boolean canSpawn(EntityType<BasalzEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random rand) {
 
         return getFeature(FLAG_MOB_BASALZ).getAsBoolean() && MonsterEntity.canMonsterSpawnInLight(entityType, world, reason, pos, rand);
     }
@@ -64,13 +65,12 @@ public class BasalzEntity extends MonsterEntity {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
-    @Override
-    protected void registerAttributes() {
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
 
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2F);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48.0D);
+        return MonsterEntity.func_234295_eP_()
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 8.0D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.23F)
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 48.0D);
     }
 
     @Override
@@ -244,7 +244,7 @@ public class BasalzEntity extends MonsterEntity {
                         }
                         if (this.attackStep > 1) {
                             float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
-                            this.basalz.world.playEvent(null, 1018, new BlockPos(this.basalz), 0);
+                            this.basalz.world.playEvent(null, 1018, this.basalz.getPosition(), 0);
                             BasalzProjectileEntity projectile = new BasalzProjectileEntity(this.basalz, d1 + this.basalz.getRNG().nextGaussian() * (double) f, d2, d3 + this.basalz.getRNG().nextGaussian() * (double) f, this.basalz.world);
                             projectile.setPosition(projectile.getPosX(), this.basalz.getPosYHeight(0.5D) + 0.5D, projectile.getPosZ());
                             this.basalz.world.addEntity(projectile);
@@ -260,7 +260,7 @@ public class BasalzEntity extends MonsterEntity {
 
         private double getFollowDistance() {
 
-            return this.basalz.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getValue();
+            return this.basalz.getAttributeValue(Attributes.FOLLOW_RANGE);
         }
 
     }

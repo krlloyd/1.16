@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -28,8 +27,8 @@ public class OMGourd {
 
     public static final Logger LOG = LogManager.getLogger(ID_OMGOURD);
 
-    public static final DeferredRegisterCoFH<Block> BLOCKS = new DeferredRegisterCoFH<>(ForgeRegistries.BLOCKS, ID_OMGOURD);
-    public static final DeferredRegisterCoFH<Item> ITEMS = new DeferredRegisterCoFH<>(ForgeRegistries.ITEMS, ID_OMGOURD);
+    public static final DeferredRegisterCoFH<Block> BLOCKS = DeferredRegisterCoFH.create(ForgeRegistries.BLOCKS, ID_OMGOURD);
+    public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_OMGOURD);
 
     public static ItemGroup itemGroup;
 
@@ -54,7 +53,7 @@ public class OMGourd {
     // region INITIALIZATION
     private void commonSetup(final FMLCommonSetupEvent event) {
 
-        DeferredWorkQueue.runLater(OMGBlocks::setup);
+        event.enqueueWork(OMGBlocks::setup);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

@@ -5,7 +5,6 @@ import cofh.core.client.renderer.entity.TNTRendererCoFH;
 import cofh.core.client.renderer.model.SimpleModelLoader;
 import cofh.core.client.renderer.model.entity.ArmorModelFullSuit;
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.core.util.FeatureRecipeCondition;
 import cofh.core.util.ProxyUtils;
 import cofh.thermal.core.client.gui.device.DeviceHiveExtractorScreen;
 import cofh.thermal.core.client.gui.device.DeviceTreeExtractorScreen;
@@ -15,7 +14,6 @@ import cofh.thermal.core.client.renderer.model.DynamoBakedModel;
 import cofh.thermal.core.client.renderer.model.ReconfigurableBakedModel;
 import cofh.thermal.core.client.renderer.model.UnderlayBakedModel;
 import cofh.thermal.core.common.ThermalConfig;
-import cofh.thermal.core.common.ThermalFeatures;
 import cofh.thermal.core.common.ThermalRecipeManagers;
 import cofh.thermal.core.init.*;
 import cofh.thermal.core.util.loot.TileNBTSync;
@@ -29,19 +27,18 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -67,15 +64,15 @@ public class ThermalCore {
 
     public static final Logger LOG = LogManager.getLogger(ID_THERMAL);
 
-    public static final DeferredRegisterCoFH<Block> BLOCKS = new DeferredRegisterCoFH<>(ForgeRegistries.BLOCKS, ID_THERMAL);
-    public static final DeferredRegisterCoFH<Fluid> FLUIDS = new DeferredRegisterCoFH<>(ForgeRegistries.FLUIDS, ID_THERMAL);
-    public static final DeferredRegisterCoFH<Item> ITEMS = new DeferredRegisterCoFH<>(ForgeRegistries.ITEMS, ID_THERMAL);
+    public static final DeferredRegisterCoFH<Block> BLOCKS = DeferredRegisterCoFH.create(ForgeRegistries.BLOCKS, ID_THERMAL);
+    public static final DeferredRegisterCoFH<Fluid> FLUIDS = DeferredRegisterCoFH.create(ForgeRegistries.FLUIDS, ID_THERMAL);
+    public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_THERMAL);
 
-    public static final DeferredRegisterCoFH<ContainerType<?>> CONTAINERS = new DeferredRegisterCoFH<>(ForgeRegistries.CONTAINERS, ID_THERMAL);
-    public static final DeferredRegisterCoFH<EntityType<?>> ENTITIES = new DeferredRegisterCoFH<>(ForgeRegistries.ENTITIES, ID_THERMAL);
-    public static final DeferredRegisterCoFH<IRecipeSerializer<?>> RECIPE_SERIALIZERS = new DeferredRegisterCoFH<>(ForgeRegistries.RECIPE_SERIALIZERS, ID_THERMAL);
-    public static final DeferredRegisterCoFH<SoundEvent> SOUND_EVENTS = new DeferredRegisterCoFH<>(ForgeRegistries.SOUND_EVENTS, ID_THERMAL);
-    public static final DeferredRegisterCoFH<TileEntityType<?>> TILE_ENTITIES = new DeferredRegisterCoFH<>(ForgeRegistries.TILE_ENTITIES, ID_THERMAL);
+    public static final DeferredRegisterCoFH<ContainerType<?>> CONTAINERS = DeferredRegisterCoFH.create(ForgeRegistries.CONTAINERS, ID_THERMAL);
+    public static final DeferredRegisterCoFH<EntityType<?>> ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.ENTITIES, ID_THERMAL);
+    public static final DeferredRegisterCoFH<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegisterCoFH.create(ForgeRegistries.RECIPE_SERIALIZERS, ID_THERMAL);
+    public static final DeferredRegisterCoFH<SoundEvent> SOUND_EVENTS = DeferredRegisterCoFH.create(ForgeRegistries.SOUND_EVENTS, ID_THERMAL);
+    public static final DeferredRegisterCoFH<TileEntityType<?>> TILE_ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.TILE_ENTITIES, ID_THERMAL);
 
     static {
         TCoreBlocks.register();
@@ -105,6 +102,7 @@ public class ThermalCore {
         MinecraftForge.EVENT_BUS.addListener(this::serverStarted);
         MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
         MinecraftForge.EVENT_BUS.addListener(this::serverStopped);
+        MinecraftForge.EVENT_BUS.addListener(this::addReloadListener);
         MinecraftForge.EVENT_BUS.addListener(this::recipesUpdated);
 
         BLOCKS.register(modEventBus);
@@ -117,7 +115,6 @@ public class ThermalCore {
         TILE_ENTITIES.register(modEventBus);
 
         ThermalConfig.register();
-        CraftingHelper.register(new FeatureRecipeCondition.Serializer(ThermalFeatures.manager(), new ResourceLocation(ID_THERMAL, "flag")));
     }
 
     private void setFeatureFlags() {
@@ -141,30 +138,19 @@ public class ThermalCore {
     // region INITIALIZATION
     private void commonSetup(final FMLCommonSetupEvent event) {
 
-        DeferredWorkQueue.runLater(TCoreBlocks::setup);
-        DeferredWorkQueue.runLater(TCoreItems::setup);
-        DeferredWorkQueue.runLater(TCoreEntities::setup);
+        event.enqueueWork(TCoreBlocks::setup);
+        event.enqueueWork(TCoreItems::setup);
+        event.enqueueWork(TCoreEntities::setup);
 
-        LootFunctionManager.registerFunction(new TileNBTSync.Serializer());
+        TileNBTSync.setup();
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
 
-        ScreenManager.registerFactory(DEVICE_HIVE_EXTRACTOR_CONTAINER, DeviceHiveExtractorScreen::new);
-        ScreenManager.registerFactory(DEVICE_TREE_EXTRACTOR_CONTAINER, DeviceTreeExtractorScreen::new);
-
-        ScreenManager.registerFactory(TINKER_BENCH_CONTAINER, TinkerBenchScreen::new);
-
-        RenderType cutout = RenderType.getCutout();
-
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_OBSIDIAN_GLASS), cutout);
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_SIGNALUM_GLASS), cutout);
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_LUMIUM_GLASS), cutout);
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ENDERIUM_GLASS), cutout);
-
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_FRAME), cutout);
-
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_TREE_EXTRACTOR), cutout);
+        registerGuiFactories();
+        registerRenderLayers();
+        registerItemModelProperties();
+        registerEntityRenderingHandlers();
 
         ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "underlay"), new SimpleModelLoader(UnderlayBakedModel::new));
         ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "dynamo"), new SimpleModelLoader(DynamoBakedModel::new));
@@ -178,6 +164,95 @@ public class ThermalCore {
 
         ProxyUtils.addModel(ITEMS.get(ID_HAZMAT_HELMET), ArmorModelFullSuit.LARGE);
         ProxyUtils.addModel(ITEMS.get(ID_HAZMAT_CHESTPLATE), ArmorModelFullSuit.DEFAULT);
+
+    }
+
+    private void enqueueIMC(final InterModEnqueueEvent event) {
+
+    }
+
+    private void processIMC(final InterModProcessEvent event) {
+
+    }
+
+    private void serverAboutToStart(FMLServerAboutToStartEvent event) {
+
+        ThermalRecipeManagers.instance().setServerRecipeManager(event.getServer().getRecipeManager());
+
+        // TODO: Temporary
+        ThermalWorld.setup();
+    }
+
+    private void serverStarted(final FMLServerStartedEvent event) {
+
+    }
+
+    private void serverStopping(final FMLServerStoppingEvent event) {
+
+    }
+
+    private void serverStopped(final FMLServerStoppedEvent event) {
+
+        ThermalRecipeManagers.instance().setServerRecipeManager(null);
+    }
+
+    private void addReloadListener(final AddReloadListenerEvent event) {
+
+        event.addListener(
+                new ReloadListener<Void>() {
+
+                    @Override
+                    protected Void prepare(IResourceManager resourceManagerIn, IProfiler profilerIn) {
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void apply(Void nothing, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+
+                        ThermalRecipeManagers.instance().refreshServer();
+                    }
+                }
+        );
+    }
+
+    private void recipesUpdated(final RecipesUpdatedEvent event) {
+
+        ThermalRecipeManagers.instance().refreshClient(event.getRecipeManager());
+    }
+    // endregion
+
+    // region HELPERS
+    private void registerGuiFactories() {
+
+        ScreenManager.registerFactory(DEVICE_HIVE_EXTRACTOR_CONTAINER, DeviceHiveExtractorScreen::new);
+        ScreenManager.registerFactory(DEVICE_TREE_EXTRACTOR_CONTAINER, DeviceTreeExtractorScreen::new);
+
+        ScreenManager.registerFactory(TINKER_BENCH_CONTAINER, TinkerBenchScreen::new);
+    }
+
+    private void registerRenderLayers() {
+
+        RenderType cutout = RenderType.getCutout();
+
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_OBSIDIAN_GLASS), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_SIGNALUM_GLASS), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_LUMIUM_GLASS), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ENDERIUM_GLASS), cutout);
+
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_FRAME), cutout);
+
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_TREE_EXTRACTOR), cutout);
+    }
+
+    private void registerItemModelProperties() {
+
+        ItemModelsProperties.registerProperty(ITEMS.get("copper_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+
+        ItemModelsProperties.registerProperty(ITEMS.get("explosive_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
+    }
+
+    private void registerEntityRenderingHandlers() {
 
         RenderingRegistry.registerEntityRenderingHandler(BASALZ_ENTITY, BasalzRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(BLITZ_ENTITY, BlitzRenderer::new);
@@ -205,57 +280,6 @@ public class ThermalCore {
         RenderingRegistry.registerEntityRenderingHandler(LIGHTNING_TNT_ENTITY, TNTRendererCoFH::new);
 
         RenderingRegistry.registerEntityRenderingHandler(NUKE_TNT_ENTITY, TNTRendererCoFH::new);
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-
-    }
-
-    private void processIMC(final InterModProcessEvent event) {
-
-    }
-
-    public void serverAboutToStart(FMLServerAboutToStartEvent event) {
-
-        ThermalRecipeManagers.instance().setServerRecipeManager(event.getServer().getRecipeManager());
-
-        // TODO: Temporary
-        ThermalWorld.setup();
-
-        event.getServer().getResourceManager().addReloadListener(
-                new ReloadListener<Void>() {
-
-                    @Override
-                    protected Void prepare(IResourceManager resourceManagerIn, IProfiler profilerIn) {
-
-                        return null;
-                    }
-
-                    @Override
-                    protected void apply(Void nothing, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-
-                        ThermalRecipeManagers.instance().refreshServer();
-                    }
-                }
-        );
-    }
-
-    private void serverStarted(FMLServerStartedEvent event) {
-
-    }
-
-    private void serverStopping(FMLServerStoppingEvent event) {
-
-    }
-
-    private void serverStopped(FMLServerStoppedEvent event) {
-
-        ThermalRecipeManagers.instance().setServerRecipeManager(null);
-    }
-
-    private void recipesUpdated(RecipesUpdatedEvent event) {
-
-        ThermalRecipeManagers.instance().refreshClient(event.getRecipeManager());
     }
     // endregion
 }

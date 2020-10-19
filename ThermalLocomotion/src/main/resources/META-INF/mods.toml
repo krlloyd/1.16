@@ -1,6 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[31,)"
 issueTrackerURL = "https://github.com/cofh/feedback"
+license="https://github.com/Vazkii/Quark/blob/master/LICENSE.md"
 
 [[mods]]
 modId = "thermal_locomotion"
@@ -18,14 +19,14 @@ Contains the "railyard" of the Thermal Series - Rails and Minecarts to expand ra
 [[dependencies.thermal_locomotion]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.15.2]"
+versionRange = "[1.16.3,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.thermal_locomotion]]
 modId = "forge"
 mandatory = true
-versionRange = "[31.2.30,)"
+versionRange = "[34.1.0,)"
 ordering = "AFTER"
 side = "BOTH"
 

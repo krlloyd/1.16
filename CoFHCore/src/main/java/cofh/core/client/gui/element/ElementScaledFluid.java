@@ -2,6 +2,7 @@ package cofh.core.client.gui.element;
 
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.function.Supplier;
@@ -22,7 +23,7 @@ public class ElementScaledFluid extends ElementScaled {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         RenderHelper.bindTexture(texture);
         int quantity = quantitySup.getAsInt();

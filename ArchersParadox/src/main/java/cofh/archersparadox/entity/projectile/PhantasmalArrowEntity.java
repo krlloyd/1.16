@@ -28,6 +28,8 @@ public class PhantasmalArrowEntity extends AbstractArrowEntity {
     private static float MAX_VELOCITY = 2.5F;
     private static byte PIERCE = 16;
 
+    private int ticksInAir;
+
     public PhantasmalArrowEntity(EntityType<? extends PhantasmalArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
@@ -163,7 +165,7 @@ public class PhantasmalArrowEntity extends AbstractArrowEntity {
                 }
             }
             if (raytraceresult != null && raytraceresult.getType() == RayTraceResult.Type.ENTITY && !ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-                this.onHit(raytraceresult);
+                this.onImpact(raytraceresult);
                 this.isAirBorne = true;
             }
             if (entityraytraceresult == null || this.getPierceLevel() <= 0) {

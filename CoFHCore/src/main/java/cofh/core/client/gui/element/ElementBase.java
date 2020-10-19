@@ -1,6 +1,7 @@
 package cofh.core.client.gui.element;
 
 import cofh.core.client.gui.IGuiAccess;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -55,11 +56,11 @@ public abstract class ElementBase {
         this.height = height;
     }
 
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
     }
 
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
     }
 
@@ -194,9 +195,9 @@ public abstract class ElementBase {
     // endregion
 
     // region HELPERS
-    public void drawCenteredString(String text, int x, int y, int color) {
+    public void drawCenteredString(MatrixStack matrixStack, String text, int x, int y, int color) {
 
-        gui.getFontRenderer().drawStringWithShadow(text, x - (gui.getFontRenderer().getStringWidth(text) >> 1), y, color);
+        gui.getFontRenderer().drawStringWithShadow(matrixStack, text, x - (gui.getFontRenderer().getStringWidth(text) >> 1), y, color);
     }
 
     public void drawSizedRect(int x, int y, int width, int height, int color) {

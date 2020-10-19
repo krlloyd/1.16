@@ -5,13 +5,12 @@ import cofh.ensorcellation.enchantment.FireRebukeEnchantment;
 import cofh.ensorcellation.enchantment.FrostRebukeEnchantment;
 import cofh.ensorcellation.enchantment.PhalanxEnchantment;
 import cofh.ensorcellation.enchantment.override.ThornsEnchantmentImp;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import net.minecraft.enchantment.ThornsEnchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.ItemStack;
@@ -23,8 +22,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import static cofh.core.util.constants.Constants.*;
-import static cofh.core.util.references.EnsorcIDs.ID_BULWARK;
 import static cofh.core.util.references.EnsorcIDs.ID_PHALANX;
+import static cofh.core.util.references.EnsorcIDs.ID_REACH;
 import static cofh.core.util.references.EnsorcReferences.*;
 import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.THORNS;
@@ -91,23 +90,35 @@ public class ShieldEnchEvents {
         LivingEntity entity = event.getEntityLiving();
         ItemStack stack = entity.getActiveItemStack();
 
+        ModifiableAttributeInstance knockbackResAttr = entity.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
+        ModifiableAttributeInstance moveSpeedAttr = entity.getAttribute(Attributes.MOVEMENT_SPEED);
+
         if (stack.getItem().isShield(stack, entity)) {
-            Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-            int encBulwark = getEnchantmentLevel(BULWARK, stack);
-            int encPhalanx = getEnchantmentLevel(PHALANX, stack);
             // BULWARK
-            if (encBulwark > 0) {
-                attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE, ID_BULWARK, 1.0D, ADDITION).setSaved(false));
+            int encBulwark = getEnchantmentLevel(BULWARK, stack);
+            if (knockbackResAttr != null) {
+                if (encBulwark > 0) {
+                    knockbackResAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE, ID_REACH, 1.0D, ADDITION));
+                } else {
+                    knockbackResAttr.removeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE);
+                }
             }
             // PHALANX
-            if (encPhalanx > 0) {
-                attributes.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED, ID_PHALANX, PhalanxEnchantment.SPEED * encPhalanx, MULTIPLY_TOTAL).setSaved(false));
-            }
-            if (!attributes.isEmpty()) {
-                entity.getAttributes().applyAttributeModifiers(attributes);
+            int encPhalanx = getEnchantmentLevel(PHALANX, stack);
+            if (moveSpeedAttr != null) {
+                if (encPhalanx > 0) {
+                    moveSpeedAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED, ID_PHALANX, PhalanxEnchantment.SPEED * encPhalanx, MULTIPLY_TOTAL));
+                } else {
+                    moveSpeedAttr.removeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED);
+                }
             }
         } else {
-            entity.getAttributes().removeAttributeModifiers(SHIELD_ATTRIBUTES);
+            if (knockbackResAttr != null) {
+                knockbackResAttr.removeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE);
+            }
+            if (moveSpeedAttr != null) {
+                moveSpeedAttr.removeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED);
+            }
         }
     }
 
@@ -131,13 +142,6 @@ public class ShieldEnchEvents {
             }
         }
         return false;
-    }
-
-    private static final Multimap<String, AttributeModifier> SHIELD_ATTRIBUTES = HashMultimap.create();
-
-    static {
-        SHIELD_ATTRIBUTES.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE, ID_BULWARK, 1.0D, ADDITION).setSaved(false));
-        SHIELD_ATTRIBUTES.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED, ID_PHALANX, PhalanxEnchantment.SPEED, MULTIPLY_TOTAL).setSaved(false));
     }
     // endregion
 }

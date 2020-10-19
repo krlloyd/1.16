@@ -4,6 +4,7 @@ import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.IResourceStorage;
 import cofh.core.util.helpers.MathHelper;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -83,7 +84,7 @@ public abstract class ElementResourceStorage extends ElementBase {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         drawStorage();
         drawUnderlayTexture();
@@ -100,7 +101,7 @@ public abstract class ElementResourceStorage extends ElementBase {
             tooltipList.add(new StringTextComponent(format(storage.getStored()) + " / " + format(storage.getCapacity()) + " " + storage.getUnit()));
         }
         if (hasAltDown() || hasShiftDown()) {
-            tooltipList.add(new TranslationTextComponent("info.cofh.clear_storage").applyTextStyle(TextFormatting.GRAY));
+            tooltipList.add(new TranslationTextComponent("info.cofh.clear_storage").mergeStyle(TextFormatting.GRAY));
         }
     }
 

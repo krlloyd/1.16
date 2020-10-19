@@ -1,16 +1,11 @@
 package cofh.thermal.core.item;
 
 import cofh.core.item.ArmorItemCoFH;
-import com.google.common.collect.Multimap;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import static cofh.core.init.CoreAttributes.FALL_DISTANCE;
-import static cofh.core.init.CoreAttributes.HAZARD_RESISTANCE;
 
 public class HazmatArmorItem extends ArmorItemCoFH {
 
@@ -21,18 +16,18 @@ public class HazmatArmorItem extends ArmorItemCoFH {
         super(materialIn, slot, builder);
     }
 
-    @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-
-        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-        if (slot == this.slot) {
-            multimap.put(HAZARD_RESISTANCE.getName(), new AttributeModifier(UUID_HAZARD_RESISTANCE[slot.getIndex()], "Hazard Resistance", RESISTANCE_RATIO[slot.getIndex()], AttributeModifier.Operation.ADDITION));
-            if (this.slot == EquipmentSlotType.FEET) {
-                multimap.put(FALL_DISTANCE.getName(), new AttributeModifier(UUID_FALL_DISTANCE, "Fall Distance", 6, AttributeModifier.Operation.ADDITION));
-            }
-        }
-        return multimap;
-    }
+    //    @Override
+    //    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
+    //
+    //        Multimap<Attribute, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+    //        if (slot == this.slot) {
+    //            multimap.put(HAZARD_RESISTANCE.getName(), new AttributeModifier(UUID_HAZARD_RESISTANCE[slot.getIndex()], "Hazard Resistance", RESISTANCE_RATIO[slot.getIndex()], AttributeModifier.Operation.ADDITION));
+    //            if (this.slot == EquipmentSlotType.FEET) {
+    //                multimap.put(FALL_DISTANCE.getName(), new AttributeModifier(UUID_FALL_DISTANCE, "Fall Distance", 6, AttributeModifier.Operation.ADDITION));
+    //            }
+    //        }
+    //        return multimap;
+    //    }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {

@@ -5,6 +5,7 @@ import cofh.thermal.core.entity.monster.BlizzEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -22,7 +23,7 @@ public class BlizzRenderer extends MobRenderer<BlizzEntity, BlizzModel<BlizzEnti
     }
 
     @Override
-    protected int getBlockLight(BlizzEntity entityIn, float partialTicks) {
+    protected int getBlockLight(BlizzEntity entityIn, BlockPos partialTicks) {
 
         return entityIn.isAngry() ? 7 : super.getBlockLight(entityIn, partialTicks);
     }

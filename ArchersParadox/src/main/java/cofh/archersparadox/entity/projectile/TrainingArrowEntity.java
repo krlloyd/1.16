@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
@@ -27,7 +26,7 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
     private static final int DURATION = 200;
     private static final int MIN_DURATION = 40;
 
-    private BlockPos origin;
+    private Vector3d origin;
 
     public TrainingArrowEntity(EntityType<? extends TrainingArrowEntity> entityIn, World worldIn) {
 
@@ -39,14 +38,14 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
 
         super(TRAINING_ARROW_ENTITY, shooter, worldIn);
         this.damage = baseDamage;
-        this.origin = shooter.getPosition();
+        this.origin = shooter.getPositionVec();
     }
 
     public TrainingArrowEntity(World worldIn, double x, double y, double z) {
 
         super(TRAINING_ARROW_ENTITY, x, y, z, worldIn);
         this.damage = baseDamage;
-        this.origin = new BlockPos(x, y, z);
+        this.origin = new Vector3d(x, y, z);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected void onHit(RayTraceResult raytraceResultIn) {
+    protected void onImpact(RayTraceResult raytraceResultIn) {
 
         if (raytraceResultIn.getType() == RayTraceResult.Type.BLOCK) {
             if (func_234616_v_() instanceof PlayerEntity && !Utils.isFakePlayer(func_234616_v_())) {
@@ -66,7 +65,7 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
                     shooter.onFinishedPotionEffect(effect);
                     shooter.removeActivePotionEffect(TRAINING_STREAK);
 
-                    Vector3d originVec = new Vector3d(origin == null ? shooter.getPosition() : origin);
+                    Vector3d originVec = origin == null ? shooter.getPositionVec() : origin;
                     double distance = originVec.distanceTo(this.getPositionVec());
                     int distanceBonus = (int) (DISTANCE_FACTOR * distance);
 
@@ -75,7 +74,7 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
                 }
             }
         }
-        super.onHit(raytraceResultIn);
+        super.onImpact(raytraceResultIn);
     }
 
     @Override
@@ -92,7 +91,7 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
                     if (shooter.isPotionActive(TRAINING_STREAK)) {
                         trainingCount = shooter.getActivePotionEffect(TRAINING_STREAK).getAmplifier() + 1;
                     }
-                    Vector3d originVec = new Vector3d(origin == null ? shooter.getPosition() : origin);
+                    Vector3d originVec = origin == null ? shooter.getPositionVec() : origin;
                     double distance = originVec.distanceTo(this.getPositionVec());
 
                     if (distance >= Math.min(MAX_DISTANCE, trainingCount)) {

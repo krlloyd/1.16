@@ -64,7 +64,7 @@ public class TileControlPacket extends PacketBase implements IPacketClient {
         TileControlPacket packet = new TileControlPacket();
         packet.pos = tile.pos();
         packet.buffer = tile.getControlPacket(new PacketBuffer(Unpooled.buffer()));
-        packet.sendToAllAround(packet.pos, NETWORK_UPDATE_DISTANCE, tile.world().getDimension().getType());
+        packet.sendToAllAround(packet.pos, NETWORK_UPDATE_DISTANCE, tile.world().getDimensionKey());
     }
 
 }

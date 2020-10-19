@@ -10,7 +10,6 @@ import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,6 +38,7 @@ import static cofh.core.util.constants.Constants.MAX_POTION_AMPLIFIER;
 import static cofh.core.util.constants.Constants.MAX_POTION_DURATION;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.*;
+import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
@@ -56,8 +56,8 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
 
         this(builder, fluidCapacity, FluidHelper::hasPotionTag);
 
-        this.addPropertyOverride(new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
-        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
+        //        this.addPropertyOverride(new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
+        //        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
 
         ProxyUtils.registerColorable(this);
     }
@@ -84,11 +84,11 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
 
-        tooltip.add(getTextComponent("info.thermal.infuser.use").applyTextStyle(TextFormatting.GRAY));
-        tooltip.add(getTextComponent("info.thermal.infuser.use.sneak").applyTextStyle(TextFormatting.DARK_GRAY));
+        tooltip.add(getTextComponent("info.thermal.infuser.use").mergeStyle(TextFormatting.GRAY));
+        tooltip.add(getTextComponent("info.thermal.infuser.use.sneak").mergeStyle(TextFormatting.DARK_GRAY));
 
-        tooltip.add(getTextComponent("info.thermal.infuser.mode." + getMode(stack)).applyTextStyle(TextFormatting.ITALIC));
-        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", InputMappings.getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).applyTextStyle(TextFormatting.YELLOW));
+        tooltip.add(getTextComponent("info.thermal.infuser.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
+        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
 
         FluidStack fluid = getFluid(stack);
         List<EffectInstance> effects = new ArrayList<>();
@@ -138,7 +138,7 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
 
         FluidStack fluid = getFluid(stack);
         if (fluid != null && fluid.getAmount() >= MB_PER_USE) {
@@ -156,9 +156,9 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
                 }
             }
             player.swingArm(hand);
-            return true;
+            return ActionResultType.SUCCESS;
         }
-        return false;
+        return ActionResultType.PASS;
     }
 
     @Override

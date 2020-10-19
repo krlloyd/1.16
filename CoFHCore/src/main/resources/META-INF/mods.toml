@@ -1,6 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[31,)"
 issueTrackerURL = "https://github.com/cofh/feedback"
+license="https://github.com/Vazkii/Quark/blob/master/LICENSE.md"
 
 [[mods]]
 modId = "cofh_core"
@@ -19,13 +20,13 @@ Also contains a number of optional gameplay tweaks for convenience.
 [[dependencies.cofh_core]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.15.2]"
+versionRange = "[1.16.3,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.cofh_core]]
 modId = "forge"
 mandatory = true
-versionRange = "[31.2.30,)"
+versionRange = "[34.1.0,)"
 ordering = "AFTER"
 side = "BOTH"

@@ -2,6 +2,7 @@ package cofh.core.client.gui.element;
 
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
 public class ElementButton extends ElementBase {
 
@@ -11,7 +12,7 @@ public class ElementButton extends ElementBase {
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         RenderHelper.bindTexture(texture);
         drawTexturedModalRect(posX(), posY(), 0, 0, width, height);

@@ -4,6 +4,7 @@ import cofh.thermal.core.plugins.jei.Drawables;
 import cofh.thermal.core.plugins.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachineSawmillScreen;
 import cofh.thermal.expansion.util.recipes.machine.SawmillRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -80,15 +81,15 @@ public class SawmillRecipeCategory extends ThermalRecipeCategory<SawmillRecipe> 
     }
 
     @Override
-    public void draw(SawmillRecipe recipe, double mouseX, double mouseY) {
+    public void draw(SawmillRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
-        super.draw(recipe, mouseX, mouseY);
+        super.draw(recipe, matrixStack, mouseX, mouseY);
 
-        progressBackground.draw(62, 23);
-        speedBackground.draw(34, 33);
+        progressBackground.draw(matrixStack, 62, 23);
+        speedBackground.draw(matrixStack, 34, 33);
 
-        progress.draw(62, 23);
-        speed.draw(34, 33);
+        progress.draw(matrixStack, 62, 23);
+        speed.draw(matrixStack, 34, 33);
     }
 
 }

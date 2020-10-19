@@ -3,6 +3,7 @@ package cofh.core.client.gui.element.panel;
 import cofh.core.client.gui.IGuiAccess;
 import cofh.core.util.control.ISecurable;
 import cofh.core.util.helpers.RenderHelper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -51,9 +52,9 @@ public class PanelSecurity extends PanelBase {
     }
 
     @Override
-    protected void drawBackground() {
+    protected void drawBackground(MatrixStack matrixStack) {
 
-        super.drawBackground();
+        super.drawBackground(matrixStack);
 
         if (!fullyOpen) {
             return;
@@ -67,55 +68,55 @@ public class PanelSecurity extends PanelBase {
     }
 
     @Override
-    protected void drawForeground() {
+    protected void drawForeground(MatrixStack matrixStack) {
 
         switch (mySecurable.getAccess()) {
             case PUBLIC:
-                drawPanelIcon(ICON_ACCESS_PUBLIC);
+                drawPanelIcon(matrixStack, ICON_ACCESS_PUBLIC);
                 break;
             case PRIVATE:
-                drawPanelIcon(ICON_ACCESS_PRIVATE);
+                drawPanelIcon(matrixStack, ICON_ACCESS_PRIVATE);
                 break;
             case FRIENDS:
-                drawPanelIcon(ICON_ACCESS_FRIENDS);
+                drawPanelIcon(matrixStack, ICON_ACCESS_FRIENDS);
                 break;
             case TEAM:
-                drawPanelIcon(ICON_ACCESS_TEAM);
+                drawPanelIcon(matrixStack, ICON_ACCESS_TEAM);
                 break;
         }
         if (!fullyOpen) {
             return;
         }
-        getFontRenderer().drawStringWithShadow(localize("info.cofh.security"), sideOffset() + 18, 6, headerColor);
-        getFontRenderer().drawStringWithShadow(localize("info.cofh.access") + ":", sideOffset() + 6, 66, subheaderColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, localize("info.cofh.security"), sideOffset() + 18, 6, headerColor);
+        getFontRenderer().drawStringWithShadow(matrixStack, localize("info.cofh.access") + ":", sideOffset() + 6, 66, subheaderColor);
 
-        gui.drawIcon(ICON_BUTTON, 38, 22);
-        gui.drawIcon(ICON_BUTTON, 58, 22);
-        gui.drawIcon(ICON_BUTTON, 38, 42);
-        gui.drawIcon(ICON_BUTTON, 58, 42);
+        gui.drawIcon(matrixStack, ICON_BUTTON, 38, 22);
+        gui.drawIcon(matrixStack, ICON_BUTTON, 58, 22);
+        gui.drawIcon(matrixStack, ICON_BUTTON, 38, 42);
+        gui.drawIcon(matrixStack, ICON_BUTTON, 58, 42);
 
         switch (mySecurable.getAccess()) {
             case PUBLIC:
-                gui.drawIcon(ICON_BUTTON_HIGHLIGHT, 38, 22);
-                getFontRenderer().drawString(localize("info.cofh.access_public"), sideOffset() + 14, 78, textColor);
+                gui.drawIcon(matrixStack, ICON_BUTTON_HIGHLIGHT, 38, 22);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.access_public"), sideOffset() + 14, 78, textColor);
                 break;
             case PRIVATE:
-                gui.drawIcon(ICON_BUTTON_HIGHLIGHT, 58, 22);
-                getFontRenderer().drawString(localize("info.cofh.access_private"), sideOffset() + 14, 78, textColor);
+                gui.drawIcon(matrixStack, ICON_BUTTON_HIGHLIGHT, 58, 22);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.access_private"), sideOffset() + 14, 78, textColor);
                 break;
             case FRIENDS:
-                gui.drawIcon(ICON_BUTTON_HIGHLIGHT, 38, 42);
-                getFontRenderer().drawString(localize("info.cofh.access_friends"), sideOffset() + 14, 78, textColor);
+                gui.drawIcon(matrixStack, ICON_BUTTON_HIGHLIGHT, 38, 42);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.access_friends"), sideOffset() + 14, 78, textColor);
                 break;
             case TEAM:
-                gui.drawIcon(ICON_BUTTON_HIGHLIGHT, 58, 42);
-                getFontRenderer().drawString(localize("info.cofh.access_team"), sideOffset() + 14, 78, textColor);
+                gui.drawIcon(matrixStack, ICON_BUTTON_HIGHLIGHT, 58, 42);
+                getFontRenderer().drawString(matrixStack, localize("info.cofh.access_team"), sideOffset() + 14, 78, textColor);
                 break;
         }
-        gui.drawIcon(ICON_ACCESS_PUBLIC, 38, 22);
-        gui.drawIcon(ICON_ACCESS_PRIVATE, 58, 22);
-        gui.drawIcon(ICON_ACCESS_FRIENDS, 38, 42);
-        gui.drawIcon(ICON_ACCESS_TEAM, 58, 42);
+        gui.drawIcon(matrixStack, ICON_ACCESS_PUBLIC, 38, 22);
+        gui.drawIcon(matrixStack, ICON_ACCESS_PRIVATE, 58, 22);
+        gui.drawIcon(matrixStack, ICON_ACCESS_FRIENDS, 38, 42);
+        gui.drawIcon(matrixStack, ICON_ACCESS_TEAM, 58, 42);
 
         RenderHelper.resetColor();
     }
@@ -124,19 +125,19 @@ public class PanelSecurity extends PanelBase {
     public void addTooltip(List<ITextComponent> tooltipList, int mouseX, int mouseY) {
 
         if (!fullyOpen) {
-            tooltipList.add(new TranslationTextComponent("info.cofh.owner").appendSibling(new StringTextComponent(": " + mySecurable.getOwnerName())));
+            tooltipList.add(new TranslationTextComponent("info.cofh.owner").append(new StringTextComponent(": " + mySecurable.getOwnerName())));
             switch (mySecurable.getAccess()) {
                 case PUBLIC:
-                    tooltipList.add(new TranslationTextComponent("info.cofh.access_public").applyTextStyle(TextFormatting.YELLOW));
+                    tooltipList.add(new TranslationTextComponent("info.cofh.access_public").mergeStyle(TextFormatting.YELLOW));
                     break;
                 case PRIVATE:
-                    tooltipList.add(new TranslationTextComponent("info.cofh.access_private").applyTextStyle(TextFormatting.YELLOW));
+                    tooltipList.add(new TranslationTextComponent("info.cofh.access_private").mergeStyle(TextFormatting.YELLOW));
                     break;
                 case FRIENDS:
-                    tooltipList.add(new TranslationTextComponent("info.cofh.access_friends").applyTextStyle(TextFormatting.YELLOW));
+                    tooltipList.add(new TranslationTextComponent("info.cofh.access_friends").mergeStyle(TextFormatting.YELLOW));
                     break;
                 case TEAM:
-                    tooltipList.add(new TranslationTextComponent("info.cofh.access_team").applyTextStyle(TextFormatting.YELLOW));
+                    tooltipList.add(new TranslationTextComponent("info.cofh.access_team").mergeStyle(TextFormatting.YELLOW));
                     break;
                 default:
             }

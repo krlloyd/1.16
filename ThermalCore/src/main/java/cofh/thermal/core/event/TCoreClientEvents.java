@@ -3,6 +3,7 @@ package cofh.thermal.core.event;
 import cofh.core.util.helpers.AugmentDataHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -42,9 +43,9 @@ public class TCoreClientEvents {
             String type = augmentData.getString(TAG_TYPE);
             if (!type.isEmpty()) {
                 tooltip.add(getTextComponent("info.cofh.type")
-                        .applyTextStyle(TextFormatting.YELLOW)
-                        .appendText(": ")
-                        .appendSibling(getTextComponent("info.thermal.augment.type." + type).applyTextStyle(TextFormatting.WHITE)));
+                        .mergeStyle(TextFormatting.YELLOW)
+                        .appendString(": ")
+                        .append(getTextComponent("info.thermal.augment.type." + type).mergeStyle(TextFormatting.WHITE)));
             }
             for (String mod : augmentData.keySet()) {
                 if (mod.equals(TAG_TYPE) || !canLocalize("info.thermal.augment.attr." + mod)) {
@@ -55,18 +56,18 @@ public class TCoreClientEvents {
                         || isAdditive(mod) && value > 0 && isInverse(mod)
                         || isMultiplicative(mod) && (isInverse(mod) ? value > 1.0 : value < 1.0);
 
-                ITextComponent modText = new StringTextComponent("" +
+                IFormattableTextComponent modText = new StringTextComponent("" +
                         (isAdditive(mod) && value > 0 ? "+" : "") +
                         (isInteger(mod) ? DF0.format(value) : isMultiplicative(mod) ? DF2.format(value) + "x" : DF0.format(value * 100) + "%"))
-                        .applyTextStyle(bad ? TextFormatting.RED : TextFormatting.GREEN);
+                        .mergeStyle(bad ? TextFormatting.RED : TextFormatting.GREEN);
 
                 if (isMaximized(mod)) {
-                    modText.applyTextStyle(TextFormatting.BOLD);
+                    modText.mergeStyle(TextFormatting.BOLD);
                 }
                 tooltip.add(getTextComponent("info.thermal.augment.attr." + mod)
-                        .appendText(": ")
-                        .applyTextStyle(TextFormatting.GRAY)
-                        .appendSibling(modText)
+                        .appendString(": ")
+                        .mergeStyle(TextFormatting.GRAY)
+                        .append(modText)
                 );
             }
         }

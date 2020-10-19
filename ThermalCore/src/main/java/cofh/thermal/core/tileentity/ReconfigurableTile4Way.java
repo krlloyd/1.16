@@ -260,9 +260,9 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
 
     // region NBT
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(BlockState state, CompoundNBT nbt) {
 
-        super.read(nbt);
+        super.read(state, nbt);
 
         reconfigControl.setFacing(Direction.byIndex(nbt.getByte(TAG_FACING)));
         reconfigControl.read(nbt);

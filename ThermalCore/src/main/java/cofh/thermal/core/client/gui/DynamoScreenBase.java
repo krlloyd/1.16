@@ -38,7 +38,7 @@ public class DynamoScreenBase<T extends ContainerCoFH> extends ThermalScreenBase
                 public void addTooltip(List<ITextComponent> tooltipList, int mouseX, int mouseY) {
 
                     tooltipList.add(new TranslationTextComponent("info.cofh.output")
-                            .appendSibling(new StringTextComponent(": " + DF0.format(100 * (double) tile.getCurSpeed() / tile.getMaxSpeed()) + "%")));
+                            .append(new StringTextComponent(": " + DF0.format(100 * (double) tile.getCurSpeed() / tile.getMaxSpeed()) + "%")));
 
                     //                    if (infinite) {
                     //                        tooltipList.add(new TranslationTextComponent("info.cofh.infinite"));

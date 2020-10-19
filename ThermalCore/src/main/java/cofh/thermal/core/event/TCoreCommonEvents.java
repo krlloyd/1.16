@@ -30,12 +30,12 @@ public class TCoreCommonEvents {
                 event.setNewSpeed(Math.max(event.getOriginalSpeed(), event.getNewSpeed() * 5.0F));
             }
             boolean diveLegs = player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof DivingArmorItem;
-            if (!player.onGround && diveLegs && (AIR_AFFINITY == null || getMaxEnchantmentLevel(AIR_AFFINITY, player) <= 0)) {
+            if (!player.isOnGround() && diveLegs && (AIR_AFFINITY == null || getMaxEnchantmentLevel(AIR_AFFINITY, player) <= 0)) {
                 event.setNewSpeed(Math.max(event.getOriginalSpeed(), event.getNewSpeed() * 5.0F));
             }
         } else if (player.isInWater()) {
             boolean diveLegs = player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof DivingArmorItem;
-            if (!player.onGround && diveLegs && (AIR_AFFINITY == null || getMaxEnchantmentLevel(AIR_AFFINITY, player) <= 0)) {
+            if (!player.isOnGround() && diveLegs && (AIR_AFFINITY == null || getMaxEnchantmentLevel(AIR_AFFINITY, player) <= 0)) {
                 event.setNewSpeed(Math.max(event.getOriginalSpeed(), event.getNewSpeed() * 5.0F));
             }
         }

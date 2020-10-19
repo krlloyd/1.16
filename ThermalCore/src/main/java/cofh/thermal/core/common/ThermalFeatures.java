@@ -4,13 +4,15 @@ import cofh.core.util.FeatureManager;
 
 import java.util.function.BooleanSupplier;
 
+import static cofh.core.util.constants.Constants.ID_THERMAL;
+
 public class ThermalFeatures {
 
     private ThermalFeatures() {
 
     }
 
-    private static final FeatureManager FEATURE_MANAGER = new FeatureManager();
+    private static final FeatureManager FEATURE_MANAGER = new FeatureManager(ID_THERMAL);
 
     public static FeatureManager manager() {
 

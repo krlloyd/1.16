@@ -9,7 +9,6 @@ import cofh.core.util.Utils;
 import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,6 +37,7 @@ import java.util.function.Predicate;
 import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.*;
+import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 import static cofh.thermal.core.init.TCoreSounds.SOUND_MAGNET;
 
@@ -59,8 +59,8 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
 
         super(builder, maxEnergy, maxTransfer);
 
-        this.addPropertyOverride(new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
-        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
+        //        this.addPropertyOverride(new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
+        //        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
     }
 
     public RFMagnetItem setNumSlots(IntSupplier numSlots) {
@@ -79,11 +79,11 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-        tooltip.add(getTextComponent("info.thermal.magnet.use").applyTextStyle(TextFormatting.GRAY));
-        tooltip.add(getTextComponent("info.thermal.magnet.use.sneak").applyTextStyle(TextFormatting.DARK_GRAY));
+        tooltip.add(getTextComponent("info.thermal.magnet.use").mergeStyle(TextFormatting.GRAY));
+        tooltip.add(getTextComponent("info.thermal.magnet.use.sneak").mergeStyle(TextFormatting.DARK_GRAY));
 
-        tooltip.add(getTextComponent("info.thermal.magnet.mode." + getMode(stack)).applyTextStyle(TextFormatting.ITALIC));
-        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", InputMappings.getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).applyTextStyle(TextFormatting.YELLOW));
+        tooltip.add(getTextComponent("info.thermal.magnet.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
+        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
 
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
@@ -115,7 +115,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
                 if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) {
                     continue;
                 }
-                if (item.getPositionVector().squareDistanceTo(player.getPositionVector()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
+                if (item.getPositionVec().squareDistanceTo(player.getPositionVec()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
                     worldIn.addParticle(RedstoneParticleData.REDSTONE_DUST, item.getPosX(), item.getPosY(), item.getPosZ(), 0, 0, 0);
                 }
             }
@@ -126,7 +126,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
                     continue;
                 }
                 if (item.getThrowerId() == null || !item.getThrowerId().equals(player.getUniqueID()) || item.age >= PICKUP_DELAY) {
-                    if (item.getPositionVector().squareDistanceTo(player.getPositionVector()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
+                    if (item.getPositionVec().squareDistanceTo(player.getPositionVec()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
                         item.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
                         item.setPickupDelay(0);
                         ++itemCount;
@@ -178,14 +178,14 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
 
             if (Utils.isClientWorld(world)) {
                 for (ItemEntity item : items) {
-                    if (item.getPositionVector().squareDistanceTo(traceResult.getHitVec()) <= radSq) {// && wrapper.getFilter().matches(item.getItem())) {
+                    if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) {// && wrapper.getFilter().matches(item.getItem())) {
                         world.addParticle(ParticleTypes.PORTAL, item.getPosX(), item.getPosY(), item.getPosZ(), 0, 0, 0);
                     }
                 }
             } else {
                 int itemCount = 0;
                 for (ItemEntity item : items) {
-                    if (item.getPositionVector().squareDistanceTo(traceResult.getHitVec()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
+                    if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) { // && wrapper.getFilter().matches(item.getItem())) {
                         item.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
                         item.setPickupDelay(0);
                         ++itemCount;

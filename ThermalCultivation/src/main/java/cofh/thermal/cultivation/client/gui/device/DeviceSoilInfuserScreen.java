@@ -6,6 +6,7 @@ import cofh.thermal.core.client.gui.ThermalGuiHelper;
 import cofh.thermal.core.client.gui.ThermalScreenBase;
 import cofh.thermal.cultivation.inventory.container.device.DeviceSoilInfuserContainer;
 import cofh.thermal.cultivation.tileentity.DeviceSoilInfuserTile;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -46,13 +47,13 @@ public class DeviceSoilInfuserScreen extends ThermalScreenBase<DeviceSoilInfuser
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         String radius = format(1 + 2 * tile.radius);
 
-        getFontRenderer().drawString(localize("info.cofh.area") + ": " + radius + " x " + radius, 70, 39, 0x404040);
+        getFontRenderer().drawString(matrixStack, localize("info.cofh.area") + ": " + radius + " x " + radius, 70, 39, 0x404040);
 
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
     }
 
 }

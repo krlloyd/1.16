@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.HoeItem;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -56,7 +55,7 @@ public class ThermalCultivation {
     // region INITIALIZATION
     private void commonSetup(final FMLCommonSetupEvent event) {
 
-        DeferredWorkQueue.runLater(() -> {
+        event.enqueueWork(() -> {
             // CROPS
             {
                 float chance = 0.65F;
@@ -110,12 +109,23 @@ public class ThermalCultivation {
             }
             HoeItem.HOE_LOOKUP.put(BLOCKS.get(ID_PHYTOSOIL), BLOCKS.get(ID_PHYTOSOIL_TILLED).getDefaultState());
         });
-        DeferredWorkQueue.runLater(TCulBlocks::setup);
+        event.enqueueWork(TCulBlocks::setup);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
 
+        registerGuiFactories();
+        registerRenderLayers();
+    }
+    // endregion
+
+    // region HELPERS
+    private void registerGuiFactories() {
+
         ScreenManager.registerFactory(DEVICE_SOIL_INFUSER_CONTAINER, DeviceSoilInfuserScreen::new);
+    }
+
+    private void registerRenderLayers() {
 
         RenderType cutout = RenderType.getCutout();
 

@@ -1,6 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[31,)"
 issueTrackerURL = "https://github.com/cofh/feedback"
+license="https://github.com/Vazkii/Quark/blob/master/LICENSE.md"
 
 [[mods]]
 modId = "redstone_arsenal"
@@ -16,7 +17,7 @@ Redstone Arsenal!
 [[dependencies.redstone_arsenal]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.15.2]"
+versionRange = "[1.16.3,)"
 ordering = "AFTER"
 side = "BOTH"
 

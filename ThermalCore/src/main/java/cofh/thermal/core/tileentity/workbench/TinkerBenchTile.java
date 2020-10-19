@@ -8,6 +8,7 @@ import cofh.core.util.helpers.EnergyHelper;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -159,9 +160,9 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
 
     // region NBT
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(BlockState state, CompoundNBT nbt) {
 
-        super.read(nbt);
+        super.read(state, nbt);
 
         mode = nbt.getByte(TAG_MODE);
     }
