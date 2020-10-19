@@ -2,17 +2,11 @@ package cofh.thermal.core;
 
 import cofh.core.client.renderer.entity.SpriteRendererCoFH;
 import cofh.core.client.renderer.entity.TNTRendererCoFH;
-import cofh.core.client.renderer.model.SimpleModelLoader;
-import cofh.core.client.renderer.model.entity.ArmorModelFullSuit;
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.core.util.ProxyUtils;
 import cofh.thermal.core.client.gui.device.DeviceHiveExtractorScreen;
 import cofh.thermal.core.client.gui.device.DeviceTreeExtractorScreen;
 import cofh.thermal.core.client.gui.workbench.TinkerBenchScreen;
 import cofh.thermal.core.client.renderer.entity.*;
-import cofh.thermal.core.client.renderer.model.DynamoBakedModel;
-import cofh.thermal.core.client.renderer.model.ReconfigurableBakedModel;
-import cofh.thermal.core.client.renderer.model.UnderlayBakedModel;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.common.ThermalRecipeManagers;
 import cofh.thermal.core.init.*;
@@ -35,7 +29,6 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -151,20 +144,6 @@ public class ThermalCore {
         registerRenderLayers();
         registerItemModelProperties();
         registerEntityRenderingHandlers();
-
-        ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "underlay"), new SimpleModelLoader(UnderlayBakedModel::new));
-        ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "dynamo"), new SimpleModelLoader(DynamoBakedModel::new));
-        ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "reconfigurable"), new SimpleModelLoader(ReconfigurableBakedModel::new));
-
-        ProxyUtils.addModel(ITEMS.get(ID_BEEKEEPER_HELMET), ArmorModelFullSuit.LARGE);
-        ProxyUtils.addModel(ITEMS.get(ID_BEEKEEPER_CHESTPLATE), ArmorModelFullSuit.DEFAULT);
-
-        ProxyUtils.addModel(ITEMS.get(ID_DIVING_HELMET), ArmorModelFullSuit.LARGE);
-        ProxyUtils.addModel(ITEMS.get(ID_DIVING_CHESTPLATE), ArmorModelFullSuit.DEFAULT);
-
-        ProxyUtils.addModel(ITEMS.get(ID_HAZMAT_HELMET), ArmorModelFullSuit.LARGE);
-        ProxyUtils.addModel(ITEMS.get(ID_HAZMAT_CHESTPLATE), ArmorModelFullSuit.DEFAULT);
-
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -176,8 +155,6 @@ public class ThermalCore {
     }
 
     private void serverAboutToStart(FMLServerAboutToStartEvent event) {
-
-        ThermalRecipeManagers.instance().setServerRecipeManager(event.getServer().getRecipeManager());
 
         // TODO: Temporary
         ThermalWorld.setup();
@@ -198,12 +175,15 @@ public class ThermalCore {
 
     private void addReloadListener(final AddReloadListenerEvent event) {
 
+        event.getDataPackRegistries().getRecipeManager();
+
         event.addListener(
                 new ReloadListener<Void>() {
 
                     @Override
                     protected Void prepare(IResourceManager resourceManagerIn, IProfiler profilerIn) {
 
+                        ThermalRecipeManagers.instance().setServerRecipeManager(event.getDataPackRegistries().getRecipeManager());
                         return null;
                     }
 
@@ -247,9 +227,50 @@ public class ThermalCore {
 
     private void registerItemModelProperties() {
 
+        ItemModelsProperties.registerProperty(ITEMS.get("copper_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("tin_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("lead_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("silver_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("nickel_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+
+        ItemModelsProperties.registerProperty(ITEMS.get("bronze_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("electrum_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("invar_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("constantan_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+
+        ItemModelsProperties.registerProperty(ITEMS.get("signalum_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("lumium_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("enderium_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+
         ItemModelsProperties.registerProperty(ITEMS.get("copper_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("tin_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("lead_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("silver_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("nickel_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+
+        ItemModelsProperties.registerProperty(ITEMS.get("bronze_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("electrum_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("invar_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("constantan_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+
+        ItemModelsProperties.registerProperty(ITEMS.get("signalum_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("lumium_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+        ItemModelsProperties.registerProperty(ITEMS.get("enderium_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
+
+        // TODO: 1.16 Fix.
+        //        ItemModelsProperties.registerProperty(ITEMS.get("detonator"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
+        //        ItemModelsProperties.registerProperty(ITEMS.get("detonator"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
 
         ItemModelsProperties.registerProperty(ITEMS.get("explosive_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
+
+        ItemModelsProperties.registerProperty(ITEMS.get("phyto_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
+
+        ItemModelsProperties.registerProperty(ITEMS.get("fire_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
+        ItemModelsProperties.registerProperty(ITEMS.get("earth_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
+        ItemModelsProperties.registerProperty(ITEMS.get("ice_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
+        ItemModelsProperties.registerProperty(ITEMS.get("lightning_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
+
+        ItemModelsProperties.registerProperty(ITEMS.get("nuke_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
     }
 
     private void registerEntityRenderingHandlers() {

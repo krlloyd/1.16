@@ -167,7 +167,7 @@ public class ElementListBox extends ElementBase {
         glDisable(GL_LIGHTING);
 
         glEnable(GL_STENCIL_TEST);
-        RenderHelper.drawStencil(getContentLeft(), getContentTop(), getContentRight(), getContentBottom(), 1);
+        RenderHelper.drawStencil(matrixStack, getContentLeft(), getContentTop(), getContentRight(), getContentBottom(), 1);
 
         glPushMatrix();
         glTranslated(-scrollHoriz, 0, 0);

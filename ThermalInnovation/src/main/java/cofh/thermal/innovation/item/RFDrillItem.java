@@ -13,6 +13,7 @@ import cofh.core.util.constants.ToolTypes;
 import cofh.core.util.helpers.AreaEffectHelper;
 import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -139,7 +140,7 @@ public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
 
-        Multimap<Attribute, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
         if (slot == EquipmentSlotType.MAINHAND) {
             multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", getAttackDamage(stack), AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", getAttackSpeed(stack), AttributeModifier.Operation.ADDITION));

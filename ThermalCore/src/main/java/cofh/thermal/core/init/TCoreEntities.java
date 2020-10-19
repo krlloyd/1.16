@@ -8,6 +8,7 @@ import cofh.thermal.core.entity.projectile.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.world.gen.Heightmap;
 
 import static cofh.thermal.core.ThermalCore.ENTITIES;
@@ -51,6 +52,10 @@ public class TCoreEntities {
     }
 
     public static void setup() {
+
+        GlobalEntityTypeAttributes.put(BASALZ_ENTITY, BasalzEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(BLITZ_ENTITY, BasalzEntity.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(BLIZZ_ENTITY, BasalzEntity.registerAttributes().create());
 
         EntitySpawnPlacementRegistry.register(BASALZ_ENTITY, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BasalzEntity::canSpawn);
         EntitySpawnPlacementRegistry.register(BLITZ_ENTITY, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlitzEntity::canSpawn);

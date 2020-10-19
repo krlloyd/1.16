@@ -108,7 +108,7 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
 
         if (drawTitle & title != null) {
-            drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 6, 0x404040);
+            getFontRenderer().drawString(matrixStack, localize(title.getString()), getCenteredOffset(localize(title.getString())), 6, 0x404040);
         }
         if (drawInventory) {
             getFontRenderer().drawString(matrixStack, localize("container.inventory"), 8, ySize - 96 + 3, 0x404040);

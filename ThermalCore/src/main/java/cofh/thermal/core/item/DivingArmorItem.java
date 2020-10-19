@@ -1,6 +1,7 @@
 package cofh.thermal.core.item;
 
 import cofh.core.item.ArmorItemCoFH;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -22,10 +23,11 @@ public class DivingArmorItem extends ArmorItemCoFH {
         super(materialIn, slot, builder);
     }
 
+    // TODO: 1.16 - Make static.
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
 
-        Multimap<Attribute, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
         if (slot == this.slot) {
             if (SWIM_SPEED_BONUS[slot.getIndex()] > 0.0D) {
                 multimap.put(SWIM_SPEED.get(), new AttributeModifier(UUID_SWIM_SPEED[slot.getIndex()], "Swim Speed", SWIM_SPEED_BONUS[slot.getIndex()], AttributeModifier.Operation.ADDITION));

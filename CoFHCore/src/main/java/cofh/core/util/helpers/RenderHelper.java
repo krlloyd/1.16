@@ -1,5 +1,6 @@
 package cofh.core.util.helpers;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -15,6 +16,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraftforge.client.model.pipeline.LightUtil;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
@@ -172,6 +174,119 @@ public final class RenderHelper {
         buffer.pos(xEnd, yEnd, 0).endVertex();
         buffer.pos(xEnd, yStart, 0).endVertex();
         buffer.pos(xStart, yStart, 0).endVertex();
+        Tessellator.getInstance().draw();
+
+        RenderSystem.enableTexture();
+        GL11.glStencilFunc(GL11.GL_EQUAL, flag, flag);
+        GL11.glStencilMask(0);
+        RenderSystem.colorMask(true, true, true, true);
+        RenderSystem.depthMask(true);
+    }
+    // endregion
+
+    // region MATRIX DRAW METHODS
+    public static void drawFluid(MatrixStack matrixStack, int x, int y, FluidStack fluid, int width, int height) {
+
+        if (fluid.isEmpty()) {
+            return;
+        }
+        GL11.glPushMatrix();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        int color = fluid.getFluid().getAttributes().getColor(fluid);
+        setBlockTextureSheet();
+        setGLColorFromInt(color);
+        drawTiledTexture(matrixStack, x, y, getTexture(fluid.getFluid().getAttributes().getStillTexture(fluid)), width, height);
+        GL11.glPopMatrix();
+    }
+
+    public static void drawIcon(MatrixStack matrixStack, TextureAtlasSprite icon, float z) {
+
+        Matrix4f matrix = matrixStack.getLast().getMatrix();
+
+        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        buffer.pos(matrix, 0, 16, z).tex(icon.getMinU(), icon.getMaxV());
+        buffer.pos(matrix, 16, 16, z).tex(icon.getMaxU(), icon.getMaxV());
+        buffer.pos(matrix, 16, 0, z).tex(icon.getMaxU(), icon.getMinV());
+        buffer.pos(matrix, 0, 0, z).tex(icon.getMinU(), icon.getMinV());
+        tessellator().draw();
+
+    }
+
+    public static void drawIcon(MatrixStack matrixStack, float x, float y, float z, TextureAtlasSprite icon, int width, int height) {
+
+        Matrix4f matrix = matrixStack.getLast().getMatrix();
+
+        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        buffer.pos(matrix, x, y + height, z).tex(icon.getMinU(), icon.getMaxV());
+        buffer.pos(matrix, x + width, y + height, z).tex(icon.getMaxU(), icon.getMaxV());
+        buffer.pos(matrix, x + width, y, z).tex(icon.getMaxU(), icon.getMinV());
+        buffer.pos(matrix, x, y, z).tex(icon.getMinU(), icon.getMinV());
+        tessellator().draw();
+    }
+
+    public static void drawTiledTexture(MatrixStack matrixStack, int x, int y, TextureAtlasSprite icon, int width, int height) {
+
+        int drawHeight;
+        int drawWidth;
+
+        for (int i = 0; i < width; i += 16) {
+            for (int j = 0; j < height; j += 16) {
+                drawWidth = Math.min(width - i, 16);
+                drawHeight = Math.min(height - j, 16);
+                drawScaledTexturedModalRectFromSprite(matrixStack, x + i, y + j, icon, drawWidth, drawHeight);
+            }
+        }
+        resetColor();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    public static void drawScaledTexturedModalRectFromSprite(MatrixStack matrixStack, int x, int y, TextureAtlasSprite icon, int width, int height) {
+
+        if (icon == null) {
+            return;
+        }
+        float minU = icon.getMinU();
+        float maxU = icon.getMaxU();
+        float minV = icon.getMinV();
+        float maxV = icon.getMaxV();
+
+        float u = minU + (maxU - minU) * width / 16F;
+        float v = minV + (maxV - minV) * height / 16F;
+
+        Matrix4f matrix = matrixStack.getLast().getMatrix();
+
+        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        buffer.pos(matrix, x, y + height, 0).tex(minU, v).endVertex();
+        buffer.pos(matrix, x + width, y + height, 0).tex(u, v).endVertex();
+        buffer.pos(matrix, x + width, y, 0).tex(u, minV).endVertex();
+        buffer.pos(matrix, x, y, 0).tex(minU, minV).endVertex();
+        Tessellator.getInstance().draw();
+    }
+
+    public static void drawStencil(MatrixStack matrixStack, int xStart, int yStart, int xEnd, int yEnd, int flag) {
+
+        RenderSystem.disableTexture();
+        GL11.glStencilFunc(GL11.GL_ALWAYS, flag, flag);
+        GL11.glStencilOp(GL11.GL_ZERO, GL11.GL_ZERO, GL11.GL_REPLACE);
+        GL11.glStencilMask(flag);
+        RenderSystem.colorMask(false, false, false, false);
+        RenderSystem.depthMask(false);
+        GL11.glClearStencil(0);
+        RenderSystem.clear(GL11.GL_STENCIL_BUFFER_BIT, false);
+
+        Matrix4f matrix = matrixStack.getLast().getMatrix();
+
+        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+        buffer.pos(matrix, xStart, yEnd, 0).endVertex();
+        buffer.pos(matrix, xEnd, yEnd, 0).endVertex();
+        buffer.pos(matrix, xEnd, yStart, 0).endVertex();
+        buffer.pos(matrix, xStart, yStart, 0).endVertex();
         Tessellator.getInstance().draw();
 
         RenderSystem.enableTexture();

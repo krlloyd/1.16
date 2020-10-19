@@ -123,7 +123,7 @@ public class RefineryRecipeCategory extends ThermalRecipeCategory<RefineryRecipe
         speedBackground.draw(matrixStack, 29, 40);
 
         if (!recipe.getInputFluids().isEmpty()) {
-            RenderHelper.drawFluid(57, 22, recipe.getInputFluids().get(0), 24, 16);
+            RenderHelper.drawFluid(matrixStack, 57, 22, recipe.getInputFluids().get(0), 24, 16);
             progressFluidBackground.draw(matrixStack, 57, 22);
             progressFluid.draw(matrixStack, 57, 22);
         } else {
