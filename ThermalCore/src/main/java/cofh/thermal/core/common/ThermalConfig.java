@@ -8,7 +8,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static cofh.thermal.core.common.ThermalFeatures.*;
-import static cofh.thermal.core.world.ThermalWorld.*;
 
 public class ThermalConfig {
 

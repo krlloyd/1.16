@@ -8,40 +8,24 @@ import cofh.thermal.core.client.gui.device.DeviceTreeExtractorScreen;
 import cofh.thermal.core.client.gui.workbench.TinkerBenchScreen;
 import cofh.thermal.core.client.renderer.entity.*;
 import cofh.thermal.core.common.ThermalConfig;
-import cofh.thermal.core.common.ThermalRecipeManagers;
 import cofh.thermal.core.init.*;
 import cofh.thermal.core.util.loot.TileNBTSync;
-import cofh.thermal.core.world.ThermalWorld;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.resources.ReloadListener;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
-import net.minecraftforge.fml.event.server.FMLServerStoppedEvent;
-import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
@@ -88,15 +72,6 @@ public class ThermalCore {
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
-        modEventBus.addListener(this::enqueueIMC);
-        modEventBus.addListener(this::processIMC);
-
-        MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
-        MinecraftForge.EVENT_BUS.addListener(this::serverStarted);
-        MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
-        MinecraftForge.EVENT_BUS.addListener(this::serverStopped);
-        MinecraftForge.EVENT_BUS.addListener(this::addReloadListener);
-        MinecraftForge.EVENT_BUS.addListener(this::recipesUpdated);
 
         BLOCKS.register(modEventBus);
         CONTAINERS.register(modEventBus);
@@ -135,70 +110,14 @@ public class ThermalCore {
         event.enqueueWork(TCoreItems::setup);
         event.enqueueWork(TCoreEntities::setup);
 
-        TileNBTSync.setup();
+        event.enqueueWork(TileNBTSync::setup);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
 
         registerGuiFactories();
         registerRenderLayers();
-        registerItemModelProperties();
         registerEntityRenderingHandlers();
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-
-    }
-
-    private void processIMC(final InterModProcessEvent event) {
-
-    }
-
-    private void serverAboutToStart(FMLServerAboutToStartEvent event) {
-
-        // TODO: Temporary
-        ThermalWorld.setup();
-    }
-
-    private void serverStarted(final FMLServerStartedEvent event) {
-
-    }
-
-    private void serverStopping(final FMLServerStoppingEvent event) {
-
-    }
-
-    private void serverStopped(final FMLServerStoppedEvent event) {
-
-        ThermalRecipeManagers.instance().setServerRecipeManager(null);
-    }
-
-    private void addReloadListener(final AddReloadListenerEvent event) {
-
-        event.getDataPackRegistries().getRecipeManager();
-
-        event.addListener(
-                new ReloadListener<Void>() {
-
-                    @Override
-                    protected Void prepare(IResourceManager resourceManagerIn, IProfiler profilerIn) {
-
-                        ThermalRecipeManagers.instance().setServerRecipeManager(event.getDataPackRegistries().getRecipeManager());
-                        return null;
-                    }
-
-                    @Override
-                    protected void apply(Void nothing, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-
-                        ThermalRecipeManagers.instance().refreshServer();
-                    }
-                }
-        );
-    }
-
-    private void recipesUpdated(final RecipesUpdatedEvent event) {
-
-        ThermalRecipeManagers.instance().refreshClient(event.getRecipeManager());
     }
     // endregion
 
@@ -223,54 +142,6 @@ public class ThermalCore {
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_FRAME), cutout);
 
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_TREE_EXTRACTOR), cutout);
-    }
-
-    private void registerItemModelProperties() {
-
-        ItemModelsProperties.registerProperty(ITEMS.get("copper_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("tin_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("lead_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("silver_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("nickel_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-
-        ItemModelsProperties.registerProperty(ITEMS.get("bronze_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("electrum_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("invar_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("constantan_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-
-        ItemModelsProperties.registerProperty(ITEMS.get("signalum_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("lumium_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("enderium_plate"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-
-        ItemModelsProperties.registerProperty(ITEMS.get("copper_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("tin_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("lead_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("silver_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("nickel_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-
-        ItemModelsProperties.registerProperty(ITEMS.get("bronze_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("electrum_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("invar_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("constantan_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-
-        ItemModelsProperties.registerProperty(ITEMS.get("signalum_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("lumium_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-        ItemModelsProperties.registerProperty(ITEMS.get("enderium_coin"), new ResourceLocation("count"), (stack, world, living) -> ((float) stack.getCount()) / stack.getMaxStackSize());
-
-        // TODO: 1.16 Fix.
-        //        ItemModelsProperties.registerProperty(ITEMS.get("detonator"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
-        //        ItemModelsProperties.registerProperty(ITEMS.get("detonator"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
-
-        ItemModelsProperties.registerProperty(ITEMS.get("explosive_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
-
-        ItemModelsProperties.registerProperty(ITEMS.get("phyto_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
-
-        ItemModelsProperties.registerProperty(ITEMS.get("fire_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
-        ItemModelsProperties.registerProperty(ITEMS.get("earth_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
-        ItemModelsProperties.registerProperty(ITEMS.get("ice_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
-        ItemModelsProperties.registerProperty(ITEMS.get("lightning_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
-
-        ItemModelsProperties.registerProperty(ITEMS.get("nuke_grenade"), new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
     }
 
     private void registerEntityRenderingHandlers() {

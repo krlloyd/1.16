@@ -6,17 +6,22 @@ import cofh.core.util.helpers.StringHelper;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ProxyClient extends Proxy {
 
-    protected Map<ResourceLocation, Object> modelMap = new Object2ObjectOpenHashMap<>();
+    protected static Map<ResourceLocation, Object> modelMap = new Object2ObjectOpenHashMap<>();
+    protected static Set<ModelPropertyWrapper> itemPropertyGetters = new HashSet<>();
 
     // region HELPERS
     @Override
@@ -76,5 +81,35 @@ public class ProxyClient extends Proxy {
 
         CoreClientSetupEvents.addColorable(colorable);
     }
+
+    @Override
+    public void registerItemModelProperty(Item item, ResourceLocation resourceLoc, IProxyItemPropertyGetter propertyGetter) {
+
+        itemPropertyGetters.add(new ModelPropertyWrapper(item, resourceLoc, propertyGetter));
+    }
     // endregion
+
+    public static void registerItemModelProperties() {
+
+        for (ModelPropertyWrapper wrapper : itemPropertyGetters) {
+            ItemModelsProperties.registerProperty(wrapper.item, wrapper.resourceLoc, wrapper.propertyGetter);
+        }
+        itemPropertyGetters.clear();
+    }
+
+    static class ModelPropertyWrapper {
+
+        Item item;
+        ResourceLocation resourceLoc;
+        IItemPropertyGetter propertyGetter;
+
+        ModelPropertyWrapper(Item item, ResourceLocation resourceLoc, IProxyItemPropertyGetter propertyGetter) {
+
+            this.item = item;
+            this.resourceLoc = resourceLoc;
+            this.propertyGetter = propertyGetter::call;
+        }
+
+    }
+
 }

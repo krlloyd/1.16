@@ -61,8 +61,8 @@ public class ThermalExpansion {
 
     private void clientSetup(final FMLClientSetupEvent event) {
 
-        registerGuiFactories();
-        registerRenderLayers();
+        this.registerGuiFactories();
+        this.registerRenderLayers();
     }
     // endregion
 

@@ -3,6 +3,7 @@ package cofh.thermal.core.item;
 import cofh.core.item.IMultiModeItem;
 import cofh.core.item.ItemCoFH;
 import cofh.core.util.ChatHelper;
+import cofh.core.util.ProxyUtils;
 import cofh.core.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
@@ -50,8 +51,8 @@ public class DetonatorItem extends ItemCoFH implements IMultiModeItem {
     public DetonatorItem(Properties builder) {
 
         super(builder);
-        //        this.addPropertyOverride(new ResourceLocation("primed"), (stack, world, living) -> (getMode(stack) == 0 && getPrimedCount(stack) > 0 ? 1.0F : 0.0F));
-        //        this.addPropertyOverride(new ResourceLocation("armed"), (stack, world, living) -> (getMode(stack) == 1 && getPrimedCount(stack) > 0 ? 1.0F : 0.0F));
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("primed"), (stack, world, living) -> (getMode(stack) == 0 && getPrimedCount(stack) > 0 ? 1.0F : 0.0F));
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("armed"), (stack, world, living) -> (getMode(stack) == 1 && getPrimedCount(stack) > 0 ? 1.0F : 0.0F));
     }
 
     @Override

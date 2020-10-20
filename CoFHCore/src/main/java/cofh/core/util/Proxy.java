@@ -56,5 +56,9 @@ public class Proxy {
     public void addColorable(Item colorable) {
 
     }
+
+    public void registerItemModelProperty(Item item, ResourceLocation resourceLoc, IProxyItemPropertyGetter propertyGetter) {
+
+    }
     // endregion
 }

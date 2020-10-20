@@ -4,6 +4,7 @@ import cofh.core.item.EnergyContainerItem;
 import cofh.core.item.IAugmentableItem;
 import cofh.core.item.IMultiModeItem;
 import cofh.core.util.ChatHelper;
+import cofh.core.util.ProxyUtils;
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
@@ -48,7 +49,7 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
 
         super(builder, maxEnergy, maxTransfer);
 
-        //        this.addPropertyOverride(new ResourceLocation("state"), (stack, world, entity) -> getMode(stack) / 6.0F + (isActive(stack) ? 0.5F : 0));
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("state"), (stack, world, entity) -> getMode(stack) / 6.0F + (isActive(stack) ? 0.5F : 0));
     }
 
     public RFCapacitorItem setNumSlots(IntSupplier numSlots) {

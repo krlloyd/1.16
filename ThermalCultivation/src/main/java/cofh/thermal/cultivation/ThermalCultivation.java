@@ -114,8 +114,8 @@ public class ThermalCultivation {
 
     private void clientSetup(final FMLClientSetupEvent event) {
 
-        registerGuiFactories();
-        registerRenderLayers();
+        this.registerGuiFactories();
+        this.registerRenderLayers();
     }
     // endregion
 

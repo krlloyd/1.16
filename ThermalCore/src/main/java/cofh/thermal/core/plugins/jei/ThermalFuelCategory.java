@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
-import static cofh.core.util.helpers.StringHelper.localize;
 
 public abstract class ThermalFuelCategory<T extends ThermalFuel> implements IRecipeCategory<T> {
 

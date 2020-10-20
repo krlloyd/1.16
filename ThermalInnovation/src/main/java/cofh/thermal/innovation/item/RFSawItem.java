@@ -8,6 +8,7 @@ import cofh.core.item.EnergyContainerItem;
 import cofh.core.item.IAugmentableItem;
 import cofh.core.item.IMultiModeItem;
 import cofh.core.util.ChatHelper;
+import cofh.core.util.ProxyUtils;
 import cofh.core.util.Utils;
 import cofh.core.util.constants.ToolTypes;
 import cofh.core.util.helpers.AreaEffectHelper;
@@ -33,10 +34,7 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -85,8 +83,8 @@ public class RFSawItem extends EnergyContainerItem implements IAugmentableItem, 
 
         super(builder, maxEnergy, maxTransfer);
 
-        //        this.addPropertyOverride(new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
-        //        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
     }
 
     public RFSawItem setNumSlots(IntSupplier numSlots) {

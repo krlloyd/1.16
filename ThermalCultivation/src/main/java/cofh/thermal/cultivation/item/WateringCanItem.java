@@ -4,6 +4,7 @@ import cofh.core.item.FluidContainerItem;
 import cofh.core.item.IAugmentableItem;
 import cofh.core.item.IMultiModeItem;
 import cofh.core.util.ChatHelper;
+import cofh.core.util.ProxyUtils;
 import cofh.core.util.RayTracer;
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.AugmentDataHelper;
@@ -70,8 +71,8 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
 
         super(builder, fluidCapacity, IS_WATER);
 
-        //        this.addPropertyOverride(new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
-        //        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
     }
 
     public WateringCanItem setNumSlots(IntSupplier numSlots) {

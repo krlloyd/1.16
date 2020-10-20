@@ -47,6 +47,14 @@ public class ThermalLocomotion {
 
     private void clientSetup(final FMLClientSetupEvent event) {
 
+        this.registerRenderLayers();
+        this.registerEntityRenderingHandlers();
+    }
+    // endregion
+
+    // region HELPERS
+    private void registerRenderLayers() {
+
         RenderType cutout = RenderType.getCutout();
 
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_CROSSOVER_RAIL), cutout);
@@ -62,6 +70,9 @@ public class ThermalLocomotion {
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_LUMIUM_ACTIVATOR_RAIL), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_LUMIUM_DETECTOR_RAIL), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_LUMIUM_POWERED_RAIL), cutout);
+    }
+
+    private void registerEntityRenderingHandlers() {
 
         RenderingRegistry.registerEntityRenderingHandler(UNDERWATER_CART_ENTITY, UnderwaterMinecartRenderer::new);
 

@@ -4,6 +4,7 @@ import cofh.core.item.EnergyContainerItem;
 import cofh.core.item.IAugmentableItem;
 import cofh.core.item.IMultiModeItem;
 import cofh.core.util.ChatHelper;
+import cofh.core.util.ProxyUtils;
 import cofh.core.util.RayTracer;
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.AugmentDataHelper;
@@ -59,8 +60,8 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
 
         super(builder, maxEnergy, maxTransfer);
 
-        //        this.addPropertyOverride(new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
-        //        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
     }
 
     public RFMagnetItem setNumSlots(IntSupplier numSlots) {

@@ -202,7 +202,6 @@ public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
     @Override
     public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 
-        // TODO: Consider re-spriting these to simplify the logic.
         if (canHarvest(state)) {
             return;
         }

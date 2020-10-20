@@ -59,4 +59,9 @@ public class ProxyUtils {
         CoFHCore.PROXY.addColorable(colorable);
     }
 
+    public static void registerItemModelProperty(Item item, ResourceLocation resourceLoc, IProxyItemPropertyGetter propertyGetter) {
+
+        CoFHCore.PROXY.registerItemModelProperty(item, resourceLoc, propertyGetter);
+    }
+
 }

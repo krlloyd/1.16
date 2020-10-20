@@ -8,6 +8,7 @@ import cofh.core.item.EnergyContainerItem;
 import cofh.core.item.IAugmentableItem;
 import cofh.core.item.IMultiModeItem;
 import cofh.core.util.ChatHelper;
+import cofh.core.util.ProxyUtils;
 import cofh.core.util.helpers.AreaEffectHelper;
 import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.common.ThermalConfig;
@@ -45,8 +46,8 @@ public class RFFluidVacItem extends EnergyContainerItem implements IAugmentableI
 
         super(builder, maxEnergy, maxTransfer);
 
-        //        this.addPropertyOverride(new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
-        //        this.addPropertyOverride(new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
     }
 
     public RFFluidVacItem setNumSlots(IntSupplier numSlots) {

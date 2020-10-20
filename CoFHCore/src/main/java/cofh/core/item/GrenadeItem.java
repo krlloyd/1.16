@@ -1,6 +1,7 @@
 package cofh.core.item;
 
 import cofh.core.entity.AbstractGrenadeEntity;
+import cofh.core.util.ProxyUtils;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.dispenser.ProjectileDispenseBehavior;
@@ -9,10 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import static cofh.core.util.helpers.ItemHelper.cloneStack;
@@ -29,6 +27,7 @@ public class GrenadeItem extends ItemCoFH {
         super(builder);
         this.factory = factory;
 
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("thrown"), (stack, world, living) -> (stack.getDamage() > 0 ? 1.0F : 0.0F));
         DispenserBlock.registerDispenseBehavior(this, DISPENSER_BEHAVIOR);
     }
 

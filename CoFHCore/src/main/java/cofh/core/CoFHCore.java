@@ -23,12 +23,12 @@ import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
@@ -60,7 +60,7 @@ public class CoFHCore {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
-        MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
+        MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
 
         ATTRIBUTES.register(modEventBus);
         BLOCKS.register(modEventBus);
@@ -117,12 +117,14 @@ public class CoFHCore {
 
         CoreKeys.register();
 
+        ProxyClient.registerItemModelProperties();
+
         GoVoteHandler.init();
     }
 
-    private void serverStarting(final FMLServerStartingEvent event) {
+    private void registerCommands(final RegisterCommandsEvent event) {
 
-        CoFHCommand.initialize(event.getServer().getCommandManager().getDispatcher());
+        CoFHCommand.initialize(event.getDispatcher());
     }
     // endregion
 }
