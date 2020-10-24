@@ -15,10 +15,10 @@ import javax.annotation.Nonnull;
  */
 public class FeatureLootCondition implements ILootCondition {
 
-    private final FeatureManager manager;
+    private final FlagManager manager;
     private final String flag;
 
-    public FeatureLootCondition(FeatureManager manager, String flag) {
+    public FeatureLootCondition(FlagManager manager, String flag) {
 
         this.manager = manager;
         this.flag = flag;
@@ -27,7 +27,7 @@ public class FeatureLootCondition implements ILootCondition {
     @Override
     public boolean test(LootContext lootContext) {
 
-        return manager.getFeature(flag).getAsBoolean();
+        return manager.getFlag(flag).getAsBoolean();
     }
 
     @Nonnull
@@ -40,9 +40,9 @@ public class FeatureLootCondition implements ILootCondition {
     // region SERIALIZER
     public static class Serializer implements ILootSerializer<FeatureLootCondition> {
 
-        private final FeatureManager manager;
+        private final FlagManager manager;
 
-        public Serializer(FeatureManager manager) {
+        public Serializer(FlagManager manager) {
 
             this.manager = manager;
         }

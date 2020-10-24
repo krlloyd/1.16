@@ -11,38 +11,38 @@ import java.util.function.BooleanSupplier;
 import static cofh.core.util.constants.Constants.FALSE;
 import static cofh.core.util.constants.Constants.TRUE;
 
-public class FeatureManager {
+public class FlagManager {
 
-    private static final Object2ObjectOpenHashMap<String, BooleanSupplier> FEATURES = new Object2ObjectOpenHashMap<>(64);
+    private static final Object2ObjectOpenHashMap<String, BooleanSupplier> FLAGS = new Object2ObjectOpenHashMap<>(64);
 
     public LootConditionType flagConditionType;
 
-    public FeatureManager(String modId) {
+    public FlagManager(String modId) {
 
         CraftingHelper.register(new FeatureRecipeCondition.Serializer(this, new ResourceLocation(modId, "flag")));
         flagConditionType = new LootConditionType(new FeatureLootCondition.Serializer(this));
         Registry.register(Registry.LOOT_CONDITION_TYPE, new ResourceLocation(modId, "flag"), flagConditionType);
     }
 
-    private BooleanSupplier getFeatureRaw(String flag) {
+    private BooleanSupplier getFlagRaw(String flag) {
 
-        FEATURES.putIfAbsent(flag, FALSE);
-        return FEATURES.get(flag);
+        FLAGS.putIfAbsent(flag, FALSE);
+        return FLAGS.get(flag);
     }
 
-    public synchronized void setFeature(String flag, boolean enable) {
+    public synchronized void setFlag(String flag, boolean enable) {
 
-        FEATURES.put(flag, enable ? TRUE : FALSE);
+        FLAGS.put(flag, enable ? TRUE : FALSE);
     }
 
-    public synchronized void setFeature(String flag, BooleanSupplier condition) {
+    public synchronized void setFlag(String flag, BooleanSupplier condition) {
 
-        FEATURES.put(flag, condition == null ? FALSE : condition);
+        FLAGS.put(flag, condition == null ? FALSE : condition);
     }
 
-    public BooleanSupplier getFeature(String flag) {
+    public BooleanSupplier getFlag(String flag) {
 
-        return getFeatureRaw(flag);
+        return getFlagRaw(flag);
     }
 
 }

@@ -12,10 +12,10 @@ public class FeatureRecipeCondition implements ICondition {
 
     private static final ResourceLocation NAME = new ResourceLocation("cofh", "flag");
 
-    private final FeatureManager manager;
+    private final FlagManager manager;
     private final String flag;
 
-    public FeatureRecipeCondition(FeatureManager manager, String flag) {
+    public FeatureRecipeCondition(FlagManager manager, String flag) {
 
         this.manager = manager;
         this.flag = flag;
@@ -30,16 +30,16 @@ public class FeatureRecipeCondition implements ICondition {
     @Override
     public boolean test() {
 
-        return manager.getFeature(flag).getAsBoolean();
+        return manager.getFlag(flag).getAsBoolean();
     }
 
     // region SERIALIZER
     public static class Serializer implements IConditionSerializer<FeatureRecipeCondition> {
 
-        private final FeatureManager manager;
+        private final FlagManager manager;
         private final ResourceLocation location;
 
-        public Serializer(FeatureManager manager, ResourceLocation location) {
+        public Serializer(FlagManager manager, ResourceLocation location) {
 
             this.manager = manager;
             this.location = location;

@@ -10,6 +10,7 @@ import cofh.thermal.core.client.renderer.entity.*;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.init.*;
 import cofh.thermal.core.util.loot.TileNBTSync;
+import cofh.thermal.core.world.gen.feature.ThermalFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -32,7 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static cofh.core.util.constants.Constants.ID_THERMAL;
-import static cofh.thermal.core.common.ThermalFeatures.*;
+import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.init.TCoreIDs.*;
 import static cofh.thermal.core.init.TCoreReferences.*;
 
@@ -50,6 +51,8 @@ public class ThermalCore {
     public static final DeferredRegisterCoFH<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegisterCoFH.create(ForgeRegistries.RECIPE_SERIALIZERS, ID_THERMAL);
     public static final DeferredRegisterCoFH<SoundEvent> SOUND_EVENTS = DeferredRegisterCoFH.create(ForgeRegistries.SOUND_EVENTS, ID_THERMAL);
     public static final DeferredRegisterCoFH<TileEntityType<?>> TILE_ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.TILE_ENTITIES, ID_THERMAL);
+
+    // public static final DeferredRegisterCoFH<Feature<?>> FEATURES = DeferredRegisterCoFH.create(ForgeRegistries.FEATURES, ID_THERMAL);
 
     static {
         TCoreBlocks.register();
@@ -87,20 +90,20 @@ public class ThermalCore {
 
     private void setFeatureFlags() {
 
-        setFeature(FLAG_RESOURCE_NITER, true);
-        setFeature(FLAG_RESOURCE_SULFUR, true);
+        setFlag(FLAG_RESOURCE_NITER, true);
+        setFlag(FLAG_RESOURCE_SULFUR, true);
 
-        setFeature(FLAG_RESOURCE_COPPER, true);
-        setFeature(FLAG_RESOURCE_TIN, true);
-        setFeature(FLAG_RESOURCE_LEAD, true);
-        setFeature(FLAG_RESOURCE_SILVER, true);
-        setFeature(FLAG_RESOURCE_NICKEL, true);
+        setFlag(FLAG_RESOURCE_COPPER, true);
+        setFlag(FLAG_RESOURCE_TIN, true);
+        setFlag(FLAG_RESOURCE_LEAD, true);
+        setFlag(FLAG_RESOURCE_SILVER, true);
+        setFlag(FLAG_RESOURCE_NICKEL, true);
 
-        setFeature(FLAG_AREA_AUGMENTS, true);
-        setFeature(FLAG_STORAGE_AUGMENTS, true);
-        setFeature(FLAG_UPGRADE_AUGMENTS, true);
+        setFlag(FLAG_AREA_AUGMENTS, true);
+        setFlag(FLAG_STORAGE_AUGMENTS, true);
+        setFlag(FLAG_UPGRADE_AUGMENTS, true);
 
-        setFeature(ID_TINKER_BENCH, true);
+        setFlag(ID_TINKER_BENCH, true);
     }
 
     // region INITIALIZATION
@@ -111,6 +114,7 @@ public class ThermalCore {
         event.enqueueWork(TCoreEntities::setup);
 
         event.enqueueWork(TileNBTSync::setup);
+        event.enqueueWork(ThermalFeatures::setup);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

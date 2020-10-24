@@ -1,7 +1,7 @@
 package cofh.core.datagen;
 
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.core.util.FeatureManager;
+import cofh.core.util.FlagManager;
 import cofh.core.util.FeatureRecipeCondition;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
@@ -268,7 +268,7 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
     // endregion
 
     // region CONDITIONS
-    protected ICondition flagEnabled(FeatureManager manager, String flag) {
+    protected ICondition flagEnabled(FlagManager manager, String flag) {
 
         return new FeatureRecipeCondition(manager, flag);
     }
