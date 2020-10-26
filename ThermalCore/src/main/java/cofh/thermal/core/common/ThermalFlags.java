@@ -79,8 +79,7 @@ public class ThermalFlags {
     public static String FLAG_MOB_BLIZZ = "blizz";
     // endregion
 
-    // region Temporary Generation Flags
-    // TODO: Remove w/ CoFH World
+    // region GENERATION FLAGS
     public static String FLAG_GEN_APATITE = "gen_apatite";
     public static String FLAG_GEN_CINNABAR = "gen_cinnabar";
     public static String FLAG_GEN_NITER = "gen_niter";

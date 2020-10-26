@@ -15,7 +15,6 @@ import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.core.util.Proxy;
 import cofh.core.util.ProxyClient;
 import net.minecraft.block.Block;
-import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleType;
@@ -43,7 +42,6 @@ public class CoFHCore {
     public static final PacketHandler PACKET_HANDLER = new PacketHandler(new ResourceLocation(ID_COFH_CORE, "general"));
     public static final Proxy PROXY = DistExecutor.safeRunForDist(() -> ProxyClient::new, () -> Proxy::new);
 
-    public static final DeferredRegisterCoFH<Attribute> ATTRIBUTES = DeferredRegisterCoFH.create(ForgeRegistries.ATTRIBUTES, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<Block> BLOCKS = DeferredRegisterCoFH.create(ForgeRegistries.BLOCKS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<Fluid> FLUIDS = DeferredRegisterCoFH.create(ForgeRegistries.FLUIDS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<Effect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.POTIONS, ID_COFH_CORE);
@@ -62,7 +60,6 @@ public class CoFHCore {
 
         MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
 
-        ATTRIBUTES.register(modEventBus);
         BLOCKS.register(modEventBus);
         FLUIDS.register(modEventBus);
         EFFECTS.register(modEventBus);

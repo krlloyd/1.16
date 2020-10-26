@@ -1,7 +1,7 @@
 package cofh.thermal.core.item;
 
 import cofh.core.item.ArmorItemCoFH;
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -18,22 +18,22 @@ public class DivingArmorItem extends ArmorItemCoFH {
     protected static final double[] SWIM_SPEED_BONUS = new double[]{0.60D, 0.30D, 0.10D, 0.0D};
     protected static final int AIR_DURATION = 1800;
 
+    private final Multimap<Attribute, AttributeModifier> armorAttributes;
+
     public DivingArmorItem(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder) {
 
         super(materialIn, slot, builder);
+
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> multimap = ImmutableMultimap.builder();
+        multimap.put(SWIM_SPEED.get(), new AttributeModifier(UUID_SWIM_SPEED[slot.getIndex()], "Swim Speed", SWIM_SPEED_BONUS[slot.getIndex()], AttributeModifier.Operation.ADDITION));
+
+        this.armorAttributes = multimap.build();
     }
 
-    // TODO: 1.16 - Make static.
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
 
-        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
-        if (slot == this.slot) {
-            if (SWIM_SPEED_BONUS[slot.getIndex()] > 0.0D) {
-                multimap.put(SWIM_SPEED.get(), new AttributeModifier(UUID_SWIM_SPEED[slot.getIndex()], "Swim Speed", SWIM_SPEED_BONUS[slot.getIndex()], AttributeModifier.Operation.ADDITION));
-            }
-        }
-        return multimap;
+        return armorAttributes;
     }
 
     @Override
