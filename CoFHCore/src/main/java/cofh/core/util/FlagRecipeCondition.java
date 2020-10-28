@@ -8,14 +8,14 @@ import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 /**
  * With thanks to Vazkii. :)
  */
-public class FeatureRecipeCondition implements ICondition {
+public class FlagRecipeCondition implements ICondition {
 
     private static final ResourceLocation NAME = new ResourceLocation("cofh", "flag");
 
     private final FlagManager manager;
     private final String flag;
 
-    public FeatureRecipeCondition(FlagManager manager, String flag) {
+    public FlagRecipeCondition(FlagManager manager, String flag) {
 
         this.manager = manager;
         this.flag = flag;
@@ -34,7 +34,7 @@ public class FeatureRecipeCondition implements ICondition {
     }
 
     // region SERIALIZER
-    public static class Serializer implements IConditionSerializer<FeatureRecipeCondition> {
+    public static class Serializer implements IConditionSerializer<FlagRecipeCondition> {
 
         private final FlagManager manager;
         private final ResourceLocation location;
@@ -46,15 +46,15 @@ public class FeatureRecipeCondition implements ICondition {
         }
 
         @Override
-        public void write(JsonObject json, FeatureRecipeCondition value) {
+        public void write(JsonObject json, FlagRecipeCondition value) {
 
             json.addProperty("flag", value.flag);
         }
 
         @Override
-        public FeatureRecipeCondition read(JsonObject json) {
+        public FlagRecipeCondition read(JsonObject json) {
 
-            return new FeatureRecipeCondition(manager, json.getAsJsonPrimitive("flag").getAsString());
+            return new FlagRecipeCondition(manager, json.getAsJsonPrimitive("flag").getAsString());
         }
 
         @Override

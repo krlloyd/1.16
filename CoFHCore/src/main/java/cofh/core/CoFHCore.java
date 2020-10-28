@@ -69,7 +69,6 @@ public class CoFHCore {
 
         CoreConfig.register();
 
-        CoreAttributes.register();
         CoreBlocks.register();
         CoreFluids.register();
         CoreEffects.register();

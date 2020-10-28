@@ -132,7 +132,7 @@ public class ArmorEvents {
 
         double ret = 0.0D;
         for (ItemStack armor : entity.getArmorInventoryList()) {
-            ret += FALL_RESISTANCE_MAP.get(armor.getItem());
+            ret += FALL_RESISTANCE_MAP.getOrDefault(armor.getItem(), 0.0D);
         }
         return ret;
     }
@@ -141,7 +141,7 @@ public class ArmorEvents {
 
         double ret = 0.0D;
         for (ItemStack armor : entity.getArmorInventoryList()) {
-            ret += HAZARD_RESISTANCE_MAP.get(armor.getItem());
+            ret += HAZARD_RESISTANCE_MAP.getOrDefault(armor.getItem(), 0.0D);
         }
         return ret;
     }
@@ -150,7 +150,7 @@ public class ArmorEvents {
 
         double ret = 0.0D;
         for (ItemStack armor : entity.getArmorInventoryList()) {
-            ret += STING_RESISTANCE_MAP.get(armor.getItem());
+            ret += STING_RESISTANCE_MAP.getOrDefault(armor.getItem(), 0.0D);
         }
         return ret;
     }

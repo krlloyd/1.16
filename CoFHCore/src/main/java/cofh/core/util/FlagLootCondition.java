@@ -13,12 +13,12 @@ import javax.annotation.Nonnull;
 /**
  * With thanks to Vazkii. :)
  */
-public class FeatureLootCondition implements ILootCondition {
+public class FlagLootCondition implements ILootCondition {
 
     private final FlagManager manager;
     private final String flag;
 
-    public FeatureLootCondition(FlagManager manager, String flag) {
+    public FlagLootCondition(FlagManager manager, String flag) {
 
         this.manager = manager;
         this.flag = flag;
@@ -38,7 +38,7 @@ public class FeatureLootCondition implements ILootCondition {
     }
 
     // region SERIALIZER
-    public static class Serializer implements ILootSerializer<FeatureLootCondition> {
+    public static class Serializer implements ILootSerializer<FlagLootCondition> {
 
         private final FlagManager manager;
 
@@ -48,16 +48,16 @@ public class FeatureLootCondition implements ILootCondition {
         }
 
         @Override
-        public void serialize(@Nonnull JsonObject json, @Nonnull FeatureLootCondition value, @Nonnull JsonSerializationContext context) {
+        public void serialize(@Nonnull JsonObject json, @Nonnull FlagLootCondition value, @Nonnull JsonSerializationContext context) {
 
             json.addProperty("flag", value.flag);
         }
 
         @Nonnull
         @Override
-        public FeatureLootCondition deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
+        public FlagLootCondition deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
 
-            return new FeatureLootCondition(manager, json.getAsJsonPrimitive("flag").getAsString());
+            return new FlagLootCondition(manager, json.getAsJsonPrimitive("flag").getAsString());
         }
 
     }
