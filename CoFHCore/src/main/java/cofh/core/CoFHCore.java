@@ -4,7 +4,6 @@ import cofh.core.capability.CapabilityArchery;
 import cofh.core.capability.CapabilityAreaEffect;
 import cofh.core.capability.CapabilityEnchantableItem;
 import cofh.core.capability.CapabilityShieldItem;
-import cofh.core.client.gui.GoVoteHandler;
 import cofh.core.command.CoFHCommand;
 import cofh.core.init.*;
 import cofh.core.key.CoreKeys;
@@ -114,8 +113,6 @@ public class CoFHCore {
         CoreKeys.register();
 
         ProxyClient.registerItemModelProperties();
-
-        GoVoteHandler.init();
     }
 
     private void registerCommands(final RegisterCommandsEvent event) {

@@ -11,8 +11,6 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import static net.minecraftforge.common.ForgeMod.SWIM_SPEED;
-
 public class DivingArmorItem extends ArmorItemCoFH {
 
     protected static final double[] SWIM_SPEED_BONUS = new double[]{0.60D, 0.30D, 0.10D, 0.0D};
