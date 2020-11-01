@@ -210,6 +210,8 @@ public class CommonEvents {
         int encReach = getMaxEnchantmentLevel(REACH, entity);
         ModifiableAttributeInstance reachAttr = entity.getAttribute(ForgeMod.REACH_DISTANCE.get());
         if (reachAttr != null) {
+            System.out.println("REACH");
+
             if (encReach > 0) {
                 reachAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_REACH_DISTANCE, ID_REACH, encReach, ADDITION));
             } else {
@@ -220,7 +222,9 @@ public class CommonEvents {
         int encVitality = getMaxEnchantmentLevel(VITALITY, entity);
         ModifiableAttributeInstance healthAttr = entity.getAttribute(Attributes.MAX_HEALTH);
         if (healthAttr != null) {
-            if (encReach > 0) {
+            System.out.println("HEALTH");
+
+            if (encVitality > 0) {
                 healthAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_VITALITY_HEALTH, ID_VITALITY, encVitality * VitalityEnchantment.health, ADDITION));
             } else {
                 healthAttr.removeModifier(UUID_ENCH_VITALITY_HEALTH);

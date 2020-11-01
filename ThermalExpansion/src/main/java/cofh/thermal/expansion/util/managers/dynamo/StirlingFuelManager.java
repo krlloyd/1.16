@@ -13,6 +13,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -42,6 +43,9 @@ public class StirlingFuelManager extends SingleItemFuelManager {
     @Override
     public boolean validFuel(ItemStack input) {
 
+        if (input.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent()) {
+            return false;
+        }
         return getEnergy(input) > 0;
     }
 

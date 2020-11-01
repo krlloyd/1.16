@@ -60,15 +60,15 @@ minecraft {
                     source project(':CoFHCore').sourceSets.main
                 }
 
-//                ArchersParadox {
-//                    source project(':ArchersParadox').sourceSets.main
-//                }
-//                Ensorcellation {
-//                    source project(':Ensorcellation').sourceSets.main
-//                }
-//                OMGourd {
-//                    source project(':OMGourd').sourceSets.main
-//                }
+                ArchersParadox {
+                    source project(':ArchersParadox').sourceSets.main
+                }
+                Ensorcellation {
+                    source project(':Ensorcellation').sourceSets.main
+                }
+                OMGourd {
+                    source project(':OMGourd').sourceSets.main
+                }
 //                RedstoneArsenal {
 //                    source project(':RedstoneArsenal').sourceSets.main
 //                }
@@ -106,15 +106,15 @@ minecraft {
                     source project(':CoFHCore').sourceSets.main
                 }
 
-//                ArchersParadox {
-//                    source project(':ArchersParadox').sourceSets.main
-//                }
-//                Ensorcellation {
-//                    source project(':Ensorcellation').sourceSets.main
-//                }
-//                OMGourd {
-//                    source project(':OMGourd').sourceSets.main
-//                }
+                ArchersParadox {
+                    source project(':ArchersParadox').sourceSets.main
+                }
+                Ensorcellation {
+                    source project(':Ensorcellation').sourceSets.main
+                }
+                OMGourd {
+                    source project(':OMGourd').sourceSets.main
+                }
 //                RedstoneArsenal {
 //                    source project(':RedstoneArsenal').sourceSets.main
 //                }
@@ -152,9 +152,9 @@ dependencies {
 
     compile project(':CoFHCore')
 
-//    compile project(':ArchersParadox')
-//    compile project(':Ensorcellation')
-//    compile project(':OMGourd')
+    compile project(':ArchersParadox')
+    compile project(':Ensorcellation')
+    compile project(':OMGourd')
 //    compile project(':RedstoneArsenal')
 
     compile project(':ThermalCore')

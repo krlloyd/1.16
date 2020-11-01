@@ -93,7 +93,7 @@ public class WrenchItem extends ItemCoFH {
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
 
-        return toolAttributes;
+        return slot == EquipmentSlotType.MAINHAND ? this.toolAttributes : ImmutableMultimap.of();
     }
 
     @Override
