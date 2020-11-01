@@ -22,7 +22,7 @@ public class ThermalFeatures {
                 new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_APATITE_ORE).getDefaultState(), 7))
                 .withPlacement(Placement.field_242910_o.configure(depthRange(48, 24)))
                 .func_242728_a()
-                .func_242731_b(4);
+                .func_242731_b(2);
 
         ORE_CINNABAR = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_CINNABAR_ORE).getDefaultState(), 5))
@@ -34,13 +34,13 @@ public class ThermalFeatures {
                 new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_NITER_ORE).getDefaultState(), 7))
                 .withPlacement(Placement.field_242910_o.configure(depthRange(40, 12)))
                 .func_242728_a()
-                .func_242731_b(2);
+                .func_242731_b(1);
 
         ORE_SULFUR = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_SULFUR_ORE).getDefaultState(), 7))
                 .withPlacement(Placement.field_242910_o.configure(depthRange(24, 12)))
                 .func_242728_a()
-                .func_242731_b(2);
+                .func_242731_b(1);
 
         ORE_COPPER = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_COPPER_ORE).getDefaultState(), 9))
@@ -64,7 +64,7 @@ public class ThermalFeatures {
 
         ORE_NICKEL = Feature.ORE.withConfiguration(
                 new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_NICKEL_ORE).getDefaultState(), 7))
-                .withPlacement(Placement.field_242907_l.configure(topRange(0, 60)))
+                .withPlacement(Placement.field_242907_l.configure(topRange(0, 120)))
                 .func_242728_a().func_242731_b(2);
     }
 

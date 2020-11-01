@@ -11,27 +11,35 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import static net.minecraftforge.common.ForgeMod.SWIM_SPEED;
+
 public class DivingArmorItem extends ArmorItemCoFH {
 
     protected static final double[] SWIM_SPEED_BONUS = new double[]{0.60D, 0.30D, 0.10D, 0.0D};
     protected static final int AIR_DURATION = 1800;
 
-    private final Multimap<Attribute, AttributeModifier> armorAttributes;
+    private Multimap<Attribute, AttributeModifier> armorAttributes;
 
     public DivingArmorItem(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder) {
 
         super(materialIn, slot, builder);
 
         ImmutableMultimap.Builder<Attribute, AttributeModifier> multimap = ImmutableMultimap.builder();
-        // multimap.put(SWIM_SPEED.get(), new AttributeModifier(UUID_SWIM_SPEED[slot.getIndex()], "Swim Speed", SWIM_SPEED_BONUS[slot.getIndex()], AttributeModifier.Operation.ADDITION));
+        armorAttributes = multimap.build();
+    }
 
-        this.armorAttributes = multimap.build();
+    public void setup() {
+
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> multimap = ImmutableMultimap.builder();
+        multimap.putAll(super.getAttributeModifiers(slot));
+        multimap.put(SWIM_SPEED.get(), new AttributeModifier(UUID_SWIM_SPEED[slot.getIndex()], "Swim Speed", SWIM_SPEED_BONUS[slot.getIndex()], AttributeModifier.Operation.ADDITION));
+        armorAttributes = multimap.build();
     }
 
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
 
-        return armorAttributes;
+        return slot == this.slot ? armorAttributes : ImmutableMultimap.of();
     }
 
     @Override

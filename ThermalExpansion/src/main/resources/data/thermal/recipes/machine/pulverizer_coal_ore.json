@@ -9,6 +9,10 @@
       "chance": 2.5
     },
     {
+      "item": "thermal:sulfur",
+      "chance": 0.15
+    },
+    {
       "item": "minecraft:gravel",
       "chance": 0.2
     }

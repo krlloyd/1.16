@@ -1,11 +1,11 @@
 {
   "type": "thermal:insolator",
   "ingredient": {
-    "item": "minecraft:cocoa_beans"
+    "item": "minecraft:sweet_berries"
   },
   "result": [
     {
-      "item": "minecraft:cocoa_beans",
+      "item": "minecraft:sweet_berries",
       "chance": 2.5
     }
   ]

@@ -99,12 +99,12 @@ public class AreaUtils {
 
     public static boolean isLitCampfire(BlockState state) {
 
-        return state.getBlock() == CAMPFIRE && state.get(BlockStateProperties.LIT);
+        return state.getBlock() instanceof CampfireBlock && state.get(BlockStateProperties.LIT);
     }
 
     public static boolean isUnlitCampfire(BlockState state) {
 
-        return state.getBlock() == CAMPFIRE && !state.get(BlockStateProperties.WATERLOGGED) && !state.get(BlockStateProperties.LIT);
+        return state.getBlock() instanceof CampfireBlock && !state.get(BlockStateProperties.WATERLOGGED) && !state.get(BlockStateProperties.LIT);
     }
 
     public static boolean isUnlitTNT(BlockState state) {

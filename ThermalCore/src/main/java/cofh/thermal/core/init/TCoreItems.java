@@ -68,6 +68,11 @@ public class TCoreItems {
         DetonatorItem.registerTNT(BLOCKS.get(ID_LIGHTNING_TNT), LightningTNTEntity::new);
 
         DetonatorItem.registerTNT(BLOCKS.get(ID_NUKE_TNT), NukeTNTEntity::new);
+
+        ((DivingArmorItem) ITEMS.get(ID_DIVING_HELMET)).setup();
+        ((DivingArmorItem) ITEMS.get(ID_DIVING_CHESTPLATE)).setup();
+        ((DivingArmorItem) ITEMS.get(ID_DIVING_LEGGINGS)).setup();
+        ((DivingArmorItem) ITEMS.get(ID_DIVING_BOOTS)).setup();
     }
 
     // region HELPERS
