@@ -66,6 +66,18 @@ public class ThermalFeatures {
                 new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_NICKEL_ORE).getDefaultState(), 7))
                 .withPlacement(Placement.field_242907_l.configure(topRange(0, 120)))
                 .func_242728_a().func_242731_b(2);
+
+        //        ORE_RUBY = Feature.ORE.withConfiguration(
+        //                new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_RUBY_ORE).getDefaultState(), 7))
+        //                .withPlacement(Placement.field_242910_o.configure(depthRange(48, 24)))
+        //                .func_242728_a()
+        //                .func_242731_b(2);
+        //
+        //        ORE_SAPPHIRE = Feature.ORE.withConfiguration(
+        //                new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241882_a, BLOCKS.get(ID_SAPPHIRE_ORE).getDefaultState(), 7))
+        //                .withPlacement(Placement.field_242910_o.configure(depthRange(48, 24)))
+        //                .func_242728_a()
+        //                .func_242731_b(2);
     }
 
     private static DepthAverageConfig depthRange(int base, int spread) {

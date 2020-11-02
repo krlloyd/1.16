@@ -52,8 +52,6 @@ public class ThermalCore {
     public static final DeferredRegisterCoFH<SoundEvent> SOUND_EVENTS = DeferredRegisterCoFH.create(ForgeRegistries.SOUND_EVENTS, ID_THERMAL);
     public static final DeferredRegisterCoFH<TileEntityType<?>> TILE_ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.TILE_ENTITIES, ID_THERMAL);
 
-    // public static final DeferredRegisterCoFH<Feature<?>> FEATURES = DeferredRegisterCoFH.create(ForgeRegistries.FEATURES, ID_THERMAL);
-
     static {
         TCoreBlocks.register();
         TCoreItems.register();

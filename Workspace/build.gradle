@@ -55,6 +55,8 @@ minecraft {
             // Recommended logging level for the console
             // property 'forge.logging.console.level', 'debug'
 
+            property 'mixin.env.disableRefMap', 'true'
+
             mods {
                 CoFHCore {
                     source project(':CoFHCore').sourceSets.main
@@ -101,6 +103,8 @@ minecraft {
             // Recommended logging level for the console
             // property 'forge.logging.console.level', 'debug'
 
+            property 'mixin.env.disableRefMap', 'true'
+
             mods {
                 CoFHCore {
                     source project(':CoFHCore').sourceSets.main
@@ -146,7 +150,7 @@ dependencies {
 //    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
-//    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
     runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${mc_version}-${ie_version}")
 

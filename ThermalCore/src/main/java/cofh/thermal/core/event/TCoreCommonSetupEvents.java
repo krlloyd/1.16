@@ -7,6 +7,7 @@ import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -57,12 +58,19 @@ public class TCoreCommonSetupEvents {
                     @Override
                     protected void apply(Void nothing, IResourceManager resourceManagerIn, IProfiler profilerIn) {
 
-                        ThermalRecipeManagers.instance().refreshServer();
                     }
                 }
         );
     }
 
+    // Recipes reload during TagsUpdatedEvent on Server side.
+    @SubscribeEvent
+    public static void tagsUpdated(final TagsUpdatedEvent.CustomTagTypes event) {
+
+        ThermalRecipeManagers.instance().refreshServer();
+    }
+
+    // Recipes reload during RecipesUpdatedEvent on Client side.
     @SubscribeEvent
     public static void recipesUpdated(final RecipesUpdatedEvent event) {
 
