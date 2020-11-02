@@ -13,8 +13,6 @@ public class VitalityEnchantment extends EnchantmentCoFH {
 
         super(Rarity.VERY_RARE, EnchantmentType.ARMOR_CHEST, new EquipmentSlotType[]{EquipmentSlotType.CHEST});
         maxLevel = 3;
-
-        allowOnBooks = false;
     }
 
     @Override
@@ -32,8 +30,7 @@ public class VitalityEnchantment extends EnchantmentCoFH {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack) {
 
-        return false;
-        // return enable && (type != null && type.canEnchantItem(stack.getItem()) || supportsEnchantment(stack));
+        return enable && (type != null && type.canEnchantItem(stack.getItem()) || supportsEnchantment(stack));
     }
 
 }

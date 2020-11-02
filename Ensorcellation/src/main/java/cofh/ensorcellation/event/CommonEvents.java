@@ -8,6 +8,9 @@ import cofh.ensorcellation.enchantment.override.FrostWalkerEnchantmentImp;
 import net.minecraft.enchantment.FrostWalkerEnchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.CreeperEntity;
@@ -28,6 +31,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -45,10 +49,13 @@ import java.util.List;
 
 import static cofh.core.util.Utils.getHeldEnchantmentLevel;
 import static cofh.core.util.constants.Constants.*;
+import static cofh.core.util.references.EnsorcIDs.ID_REACH;
+import static cofh.core.util.references.EnsorcIDs.ID_VITALITY;
 import static cofh.core.util.references.EnsorcReferences.*;
 import static net.minecraft.enchantment.EnchantmentHelper.getMaxEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.EFFICIENCY;
 import static net.minecraft.enchantment.Enchantments.FROST_WALKER;
+import static net.minecraft.entity.ai.attributes.AttributeModifier.Operation.ADDITION;
 import static net.minecraft.item.Items.*;
 
 @Mod.EventBusSubscriber(modid = ID_ENSORCELLATION)
@@ -194,36 +201,30 @@ public class CommonEvents {
         }
     }
 
-    //    @SubscribeEvent
-    //    public static void handleLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
-    //
-    //        LivingEntity entity = event.getEntityLiving();
-    //
-    //        // REACH
-    //        int encReach = getMaxEnchantmentLevel(REACH, entity);
-    //        ModifiableAttributeInstance reachAttr = entity.getAttribute(ForgeMod.REACH_DISTANCE.get());
-    //        if (reachAttr != null) {
-    //            System.out.println("REACH");
-    //
-    //            if (encReach > 0) {
-    //                reachAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_REACH_DISTANCE, ID_REACH, encReach, ADDITION));
-    //            } else {
-    //                reachAttr.removeModifier(UUID_ENCH_REACH_DISTANCE);
-    //            }
-    //        }
-    //        // VITALITY
-    //        int encVitality = getMaxEnchantmentLevel(VITALITY, entity);
-    //        ModifiableAttributeInstance healthAttr = entity.getAttribute(Attributes.MAX_HEALTH);
-    //        if (healthAttr != null) {
-    //            System.out.println("HEALTH");
-    //
-    //            if (encVitality > 0) {
-    //                healthAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_VITALITY_HEALTH, ID_VITALITY, encVitality * VitalityEnchantment.health, ADDITION));
-    //            } else {
-    //                healthAttr.removeModifier(UUID_ENCH_VITALITY_HEALTH);
-    //            }
-    //        }
-    //    }
+    @SubscribeEvent
+    public static void handleLivingEquipmentChangeEvent(LivingEquipmentChangeEvent event) {
+
+        LivingEntity entity = event.getEntityLiving();
+
+        // REACH
+        int encReach = getMaxEnchantmentLevel(REACH, entity);
+        ModifiableAttributeInstance reachAttr = entity.getAttribute(ForgeMod.REACH_DISTANCE.get());
+        if (reachAttr != null) {
+            reachAttr.removeModifier(UUID_ENCH_REACH_DISTANCE);
+            if (encReach > 0) {
+                reachAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_REACH_DISTANCE, ID_REACH, encReach, ADDITION));
+            }
+        }
+        // VITALITY
+        int encVitality = getMaxEnchantmentLevel(VITALITY, entity);
+        ModifiableAttributeInstance healthAttr = entity.getAttribute(Attributes.MAX_HEALTH);
+        if (healthAttr != null) {
+            healthAttr.removeModifier(UUID_ENCH_VITALITY_HEALTH);
+            if (encVitality > 0) {
+                healthAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_VITALITY_HEALTH, ID_VITALITY, encVitality * VitalityEnchantment.health, ADDITION));
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void handleLivingExperienceDropEvent(LivingExperienceDropEvent event) {
