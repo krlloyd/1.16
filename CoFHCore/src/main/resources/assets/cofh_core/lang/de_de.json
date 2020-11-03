@@ -7,6 +7,8 @@
   "attribute.name.cofh.hazard_resistance": "Strahlenresistenz",
   "attribute.name.cofh.sting_resistance": "Stechresistenz",
 
+  "forge.swimSpeed": "Schwimmgeschwindigkeit",
+
   "commands.cofh.heal.success.single": "%s wurde geheilt",
   "commands.cofh.heal.success.multiple": "%s Lebewesen wurden geheilt",
   "commands.cofh.ignite.success.single": "%s wurde angezündtet",
@@ -37,7 +39,7 @@
   "info.cofh.fluid": "Flüssigkeit",
   "info.cofh.infinite": "Undendlich",
   "info.cofh.infinite_source": "Unendliche Quelle",
-  "info.cofh.optional_catalyst": "optionaler Katalyst",
+  "info.cofh.optional_catalyst": "Optionaler Katalysator",
   "info.cofh.output": "Ausgabe",
   "info.cofh.single_block": "Einzelner Block",
   "info.cofh.transfer": "Transfer",

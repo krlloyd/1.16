@@ -160,16 +160,16 @@ public class ThermalConfig {
 
     private static void refreshWorldConfig() {
 
-        setFlag(FLAG_GEN_APATITE, flagGenApatite.get());
-        setFlag(FLAG_GEN_CINNABAR, flagGenCinnabar.get());
-        setFlag(FLAG_GEN_NITER, flagGenNiter.get());
-        setFlag(FLAG_GEN_SULFUR, flagGenSulfur.get());
+        setFlag(FLAG_GEN_APATITE, () -> getFlag(FLAG_RESOURCE_APATITE).getAsBoolean() && flagGenApatite.get());
+        setFlag(FLAG_GEN_CINNABAR, () -> getFlag(FLAG_RESOURCE_CINNABAR).getAsBoolean() && flagGenCinnabar.get());
+        setFlag(FLAG_GEN_NITER, () -> getFlag(FLAG_RESOURCE_NITER).getAsBoolean() && flagGenNiter.get());
+        setFlag(FLAG_GEN_SULFUR, () -> getFlag(FLAG_RESOURCE_SULFUR).getAsBoolean() && flagGenSulfur.get());
 
-        setFlag(FLAG_GEN_COPPER, flagGenCopper.get());
-        setFlag(FLAG_GEN_TIN, flagGenTin.get());
-        setFlag(FLAG_GEN_LEAD, flagGenLead.get());
-        setFlag(FLAG_GEN_SILVER, flagGenSilver.get());
-        setFlag(FLAG_GEN_NICKEL, flagGenNickel.get());
+        setFlag(FLAG_GEN_COPPER, () -> getFlag(FLAG_RESOURCE_COPPER).getAsBoolean() && flagGenCopper.get());
+        setFlag(FLAG_GEN_TIN, () -> getFlag(FLAG_RESOURCE_TIN).getAsBoolean() && flagGenTin.get());
+        setFlag(FLAG_GEN_LEAD, () -> getFlag(FLAG_RESOURCE_LEAD).getAsBoolean() && flagGenLead.get());
+        setFlag(FLAG_GEN_SILVER, () -> getFlag(FLAG_RESOURCE_SILVER).getAsBoolean() && flagGenSilver.get());
+        setFlag(FLAG_GEN_NICKEL, () -> getFlag(FLAG_RESOURCE_NICKEL).getAsBoolean() && flagGenNickel.get());
     }
 
     private static void refreshClientConfig() {

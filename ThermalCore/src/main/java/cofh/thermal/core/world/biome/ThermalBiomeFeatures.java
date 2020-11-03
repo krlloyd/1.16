@@ -25,34 +25,16 @@ public class ThermalBiomeFeatures {
         Biome.Category category = event.getCategory();
 
         if (isOverworldBiome(category)) {
-            if (getFlag(FLAG_RESOURCE_APATITE).getAsBoolean() && getFlag(FLAG_GEN_APATITE).getAsBoolean()) {
-                withApatiteOre(generationSettingsBuilder);
-            }
-            if (getFlag(FLAG_RESOURCE_CINNABAR).getAsBoolean() && getFlag(FLAG_GEN_CINNABAR).getAsBoolean()) {
-                withCinnabarOre(generationSettingsBuilder);
-            }
-            if (getFlag(FLAG_RESOURCE_NITER).getAsBoolean() && getFlag(FLAG_GEN_NITER).getAsBoolean()) {
-                withNiterOre(generationSettingsBuilder);
-            }
-            if (getFlag(FLAG_RESOURCE_SULFUR).getAsBoolean() && getFlag(FLAG_GEN_SULFUR).getAsBoolean()) {
-                withSulfurOre(generationSettingsBuilder);
-            }
+            withApatiteOre(generationSettingsBuilder);
+            withCinnabarOre(generationSettingsBuilder);
+            withNiterOre(generationSettingsBuilder);
+            withSulfurOre(generationSettingsBuilder);
 
-            if (getFlag(FLAG_RESOURCE_COPPER).getAsBoolean() && getFlag(FLAG_GEN_COPPER).getAsBoolean()) {
-                withCopperOre(generationSettingsBuilder);
-            }
-            if (getFlag(FLAG_RESOURCE_TIN).getAsBoolean() && getFlag(FLAG_GEN_TIN).getAsBoolean()) {
-                withTinOre(generationSettingsBuilder);
-            }
-            if (getFlag(FLAG_RESOURCE_LEAD).getAsBoolean() && getFlag(FLAG_GEN_LEAD).getAsBoolean()) {
-                withLeadOre(generationSettingsBuilder);
-            }
-            if (getFlag(FLAG_RESOURCE_SILVER).getAsBoolean() && getFlag(FLAG_GEN_SILVER).getAsBoolean()) {
-                withSilverOre(generationSettingsBuilder);
-            }
-            if (getFlag(FLAG_RESOURCE_NICKEL).getAsBoolean() && getFlag(FLAG_GEN_NICKEL).getAsBoolean()) {
-                withNickelOre(generationSettingsBuilder);
-            }
+            withCopperOre(generationSettingsBuilder);
+            withTinOre(generationSettingsBuilder);
+            withLeadOre(generationSettingsBuilder);
+            withSilverOre(generationSettingsBuilder);
+            withNickelOre(generationSettingsBuilder);
         }
     }
 

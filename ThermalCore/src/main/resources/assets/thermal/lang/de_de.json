@@ -85,6 +85,12 @@
   "fluid.thermal.syrup": "Sirup",
   "fluid.thermal.tree_oil": "Baumöl",
 
+  "info.thermal.catalysts": "Katalysatoren",
+  "info.thermal.energy_mod": "Energieverbrauch",
+  "info.thermal.primary_mod": "Primäre Produktion",
+  "info.thermal.secondary_mod": "Sekundäre Produktion",
+  "info.thermal.use_chance": "Aufbrauchchance",
+
   "info.thermal.detonator.mode.0": "Modus: Bestücken",
   "info.thermal.detonator.mode.1": "Modus: Zünden",
   "info.thermal.detonator.primed": "Bestückt:",
@@ -572,7 +578,7 @@
   "block.thermal.machine_crafter": "Sequenzieller Fabrikator",
   "block.thermal.machine_crucible": "Magma-Tiegel",
   "block.thermal.machine_furnace": "Redstone-Ofen",
-  "block.thermal.machine_insolator": "Fotogenischer Insolator",
+  "block.thermal.machine_insolator": "Phytogenischer Insolator",
   "block.thermal.machine_press": "Mehrfach-Servopresse",
   "block.thermal.machine_pulverizer": "Pulverisierer",
   "block.thermal.machine_refinery": "Fraktionierender Destilierapparat",
