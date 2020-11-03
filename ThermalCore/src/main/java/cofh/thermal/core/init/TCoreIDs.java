@@ -35,6 +35,7 @@ public class TCoreIDs {
     // endregion
 
     // region STORAGE
+    public static final String ID_COAL_COKE_BLOCK = "coal_coke_block";
     public static final String ID_SAWDUST_BLOCK = "sawdust_block";
     public static final String ID_ROSIN_BLOCK = "rosin_block";
     public static final String ID_RUBBER_BLOCK = "rubber_block";
@@ -107,15 +108,19 @@ public class TCoreIDs {
     // endregion
 
     // region FLUIDS
-    public static final String ID_FLUID_SEED_OIL = "seed_oil";
-    public static final String ID_FLUID_BIOCRUDE = "biocrude";
-    public static final String ID_FLUID_BIOFUEL = "biofuel";
-
     public static final String ID_FLUID_LATEX = "latex";
     public static final String ID_FLUID_RESIN = "resin";
     public static final String ID_FLUID_TREE_OIL = "tree_oil";
     public static final String ID_FLUID_SAP = "sap";
     public static final String ID_FLUID_SYRUP = "syrup";
+
+    public static final String ID_FLUID_SEED_OIL = "seed_oil";
+    public static final String ID_FLUID_BIOCRUDE = "biocrude";
+    public static final String ID_FLUID_BIOFUEL = "biofuel";
+
+    public static final String ID_FLUID_CREOSOTE = "creosote";
+    public static final String ID_FLUID_CRUDE_OIL = "crude_oil";
+    public static final String ID_FLUID_REFINED_FUEL = "refined_fuel";
 
     public static final String ID_FLUID_REDSTONE = "redstone";
     public static final String ID_FLUID_GLOWSTONE = "glowstone";

@@ -69,6 +69,7 @@ public class TCoreBlocks {
         fire.setFireInfo(BLOCKS.get(ID_SUGAR_CANE_BLOCK), 60, 20);
         fire.setFireInfo(BLOCKS.get(ID_BAMBOO_BLOCK), 60, 20);
 
+        fire.setFireInfo(BLOCKS.get(ID_COAL_COKE_BLOCK), 5, 5);
         fire.setFireInfo(BLOCKS.get(ID_SAWDUST_BLOCK), 10, 10);
         fire.setFireInfo(BLOCKS.get(ID_ROSIN_BLOCK), 5, 5);
 
@@ -166,6 +167,8 @@ public class TCoreBlocks {
         registerBlock(ID_RUBY_BLOCK, () -> new MetalStorageBlock(MaterialColor.RED, 1), getFlag(FLAG_RESOURCE_RUBY));
         registerBlock(ID_SAPPHIRE_BLOCK, () -> new MetalStorageBlock(MaterialColor.BLUE, 1), getFlag(FLAG_RESOURCE_SAPPHIRE));
 
+        registerBlockAndItem(ID_COAL_COKE_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.BLACK).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE)),
+                () -> new BlockItemCoFH(BLOCKS.get(ID_COAL_COKE_BLOCK), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(32000));
         registerBlockAndItem(ID_SAWDUST_BLOCK, () -> new FallingBlock(create(Material.WOOD).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.SAND)) {
 
             @OnlyIn(Dist.CLIENT)

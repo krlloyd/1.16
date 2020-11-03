@@ -1,4 +1,4 @@
-package cofh.thermal.core.world.gen.feature;
+package cofh.core.world.gen.feature;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
@@ -9,14 +9,13 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
-
 import java.util.function.BooleanSupplier;
 
-public class FlaggedConfiguredFeature<FC extends IFeatureConfig, F extends Feature<FC>> extends ConfiguredFeature<FC, F> {
+public class ConfiguredFeatureCoFH<FC extends IFeatureConfig, F extends Feature<FC>> extends ConfiguredFeature<FC, F> {
 
     private final BooleanSupplier enabled;
 
-    public FlaggedConfiguredFeature(F feature, FC config, BooleanSupplier enabled) {
+    public ConfiguredFeatureCoFH(F feature, FC config, BooleanSupplier enabled) {
 
         super(feature, config);
         this.enabled = enabled;

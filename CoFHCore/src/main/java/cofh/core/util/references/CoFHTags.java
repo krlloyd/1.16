@@ -36,6 +36,7 @@ public class CoFHTags {
         public static final Tags.IOptionalNamedTag<Block> STORAGE_BLOCKS_BRONZE = forgeTag("storage_blocks/bronze");
         public static final Tags.IOptionalNamedTag<Block> STORAGE_BLOCKS_CHARCOAL = forgeTag("storage_blocks/charcoal");
         public static final Tags.IOptionalNamedTag<Block> STORAGE_BLOCKS_CINNABAR = forgeTag("storage_blocks/cinnabar");
+        public static final Tags.IOptionalNamedTag<Block> STORAGE_BLOCKS_COAL_COKE = forgeTag("storage_blocks/coal_coke");
         public static final Tags.IOptionalNamedTag<Block> STORAGE_BLOCKS_CONSTANTAN = forgeTag("storage_blocks/constantan");
         public static final Tags.IOptionalNamedTag<Block> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
         public static final Tags.IOptionalNamedTag<Block> STORAGE_BLOCKS_ELECTRUM = forgeTag("storage_blocks/electrum");
@@ -93,6 +94,7 @@ public class CoFHTags {
         public static final Tags.IOptionalNamedTag<Item> DUSTS_DIAMOND = forgeTag("dusts/diamond");
         public static final Tags.IOptionalNamedTag<Item> DUSTS_ELECTRUM = forgeTag("dusts/electrum");
         public static final Tags.IOptionalNamedTag<Item> DUSTS_EMERALD = forgeTag("dusts/emerald");
+        public static final Tags.IOptionalNamedTag<Item> DUSTS_ENDER_PEARL = forgeTag("dusts/ender_pearl");
         public static final Tags.IOptionalNamedTag<Item> DUSTS_ENDERIUM = forgeTag("dusts/enderium");
         public static final Tags.IOptionalNamedTag<Item> DUSTS_GOLD = forgeTag("dusts/gold");
         public static final Tags.IOptionalNamedTag<Item> DUSTS_INVAR = forgeTag("dusts/invar");
@@ -212,6 +214,7 @@ public class CoFHTags {
         public static final Tags.IOptionalNamedTag<Item> STORAGE_BLOCKS_BRONZE = forgeTag("storage_blocks/bronze");
         public static final Tags.IOptionalNamedTag<Item> STORAGE_BLOCKS_CHARCOAL = forgeTag("storage_blocks/charcoal");
         public static final Tags.IOptionalNamedTag<Item> STORAGE_BLOCKS_CINNABAR = forgeTag("storage_blocks/cinnabar");
+        public static final Tags.IOptionalNamedTag<Item> STORAGE_BLOCKS_COAL_COKE = forgeTag("storage_blocks/coal_coke");
         public static final Tags.IOptionalNamedTag<Item> STORAGE_BLOCKS_CONSTANTAN = forgeTag("storage_blocks/constantan");
         public static final Tags.IOptionalNamedTag<Item> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
         public static final Tags.IOptionalNamedTag<Item> STORAGE_BLOCKS_ELECTRUM = forgeTag("storage_blocks/electrum");
@@ -231,6 +234,7 @@ public class CoFHTags {
 
         public static final Tags.IOptionalNamedTag<Item> TOOLS_WRENCH = forgeTag("tools/wrench");
 
+        public static final Tags.IOptionalNamedTag<Item> COAL_COKE = forgeTag("coal_coke");
         public static final Tags.IOptionalNamedTag<Item> SAWDUST = forgeTag("sawdust");
 
         public static final Tags.IOptionalNamedTag<Item> MACHINE_DIES = thermalTag("crafting/dies");

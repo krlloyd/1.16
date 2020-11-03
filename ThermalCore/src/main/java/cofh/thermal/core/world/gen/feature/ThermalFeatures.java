@@ -1,5 +1,6 @@
 package cofh.thermal.core.world.gen.feature;
 
+import cofh.core.world.gen.feature.ConfiguredFeatureCoFH;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -25,55 +26,55 @@ public class ThermalFeatures {
     public static void setup() {
 
         ORE_APATITE = register("ore_apatite",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_APATITE_ORE).getDefaultState(), 9), getFlag(FLAG_GEN_APATITE))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_APATITE_ORE).getDefaultState(), 9), getFlag(FLAG_GEN_APATITE))
                         .withPlacement(Placement.DEPTH_AVERAGE.configure(depthRange(48, 24)))
                         .square()
                         .func_242731_b(2));
 
         ORE_CINNABAR = register("ore_cinnabar",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_CINNABAR_ORE).getDefaultState(), 5), getFlag(FLAG_GEN_CINNABAR))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_CINNABAR_ORE).getDefaultState(), 5), getFlag(FLAG_GEN_CINNABAR))
                         .withPlacement(Placement.DEPTH_AVERAGE.configure(depthRange(16, 16)))
                         .square()
                         .func_242731_b(1));
 
         ORE_NITER = register("ore_niter",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_NITER_ORE).getDefaultState(), 7), getFlag(FLAG_GEN_NITER))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_NITER_ORE).getDefaultState(), 7), getFlag(FLAG_GEN_NITER))
                         .withPlacement(Placement.DEPTH_AVERAGE.configure(depthRange(40, 12)))
                         .square()
                         .func_242731_b(1));
 
         ORE_SULFUR = register("ore_sulfur",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_SULFUR_ORE).getDefaultState(), 7), getFlag(FLAG_GEN_SULFUR))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_SULFUR_ORE).getDefaultState(), 7), getFlag(FLAG_GEN_SULFUR))
                         .withPlacement(Placement.DEPTH_AVERAGE.configure(depthRange(24, 12)))
                         .square()
                         .func_242731_b(1));
 
         ORE_COPPER = register("ore_copper",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_COPPER_ORE).getDefaultState(), 9), getFlag(FLAG_GEN_COPPER))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_COPPER_ORE).getDefaultState(), 9), getFlag(FLAG_GEN_COPPER))
                         .withPlacement(Placement.RANGE.configure(topRange(40, 80)))
                         .square()
                         .func_242731_b(6));
 
         ORE_TIN = register("ore_tin",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_TIN_ORE).getDefaultState(), 9), getFlag(FLAG_GEN_TIN))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_TIN_ORE).getDefaultState(), 9), getFlag(FLAG_GEN_TIN))
                         .withPlacement(Placement.RANGE.configure(topRange(20, 60)))
                         .square()
                         .func_242731_b(4));
 
         ORE_LEAD = register("ore_lead",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_LEAD_ORE).getDefaultState(), 8), getFlag(FLAG_GEN_LEAD))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_LEAD_ORE).getDefaultState(), 8), getFlag(FLAG_GEN_LEAD))
                         .withPlacement(Placement.RANGE.configure(topRange(0, 40)))
                         .square()
                         .func_242731_b(2));
 
         ORE_SILVER = register("ore_silver",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_SILVER_ORE).getDefaultState(), 8), getFlag(FLAG_GEN_SILVER))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_SILVER_ORE).getDefaultState(), 8), getFlag(FLAG_GEN_SILVER))
                         .withPlacement(Placement.RANGE.configure(topRange(0, 40)))
                         .square()
                         .func_242731_b(2));
 
         ORE_NICKEL = register("ore_nickel",
-                new FlaggedConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_NICKEL_ORE).getDefaultState(), 8), getFlag(FLAG_GEN_NICKEL))
+                new ConfiguredFeatureCoFH<>(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, BLOCKS.get(ID_NICKEL_ORE).getDefaultState(), 8), getFlag(FLAG_GEN_NICKEL))
                         .withPlacement(Placement.RANGE.configure(topRange(0, 120)))
                         .square()
                         .func_242731_b(2)

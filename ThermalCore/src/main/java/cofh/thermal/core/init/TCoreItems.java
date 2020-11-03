@@ -80,6 +80,7 @@ public class TCoreItems {
 
         ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
 
+        registerItem("coal_coke", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(3200));
         registerItem("sawdust", group);
         registerItem("rosin", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(800));
         registerItem("rubber", group);
@@ -99,11 +100,13 @@ public class TCoreItems {
         registerItem("hazmat_fabric", () -> new ItemCoFH(new Item.Properties().group(group)).setShowInGroups(getFlag(FLAG_HAZMAT_ARMOR)));
 
         registerItem("apatite", group);
+        registerItem("apatite_dust", group);
         registerItem("cinnabar", group);
+        registerItem("cinnabar_dust", group);
         registerItem("niter", group);
+        registerItem("niter_dust", group);
         registerItem("sulfur", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(1200));
-
-        // registerItem("ender_pearl_dust", group);
+        registerItem("sulfur_dust", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(1200));
     }
 
     private static void registerParts() {
@@ -121,6 +124,8 @@ public class TCoreItems {
     private static void registerMaterials() {
 
         ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
+
+        registerItem("ender_pearl_dust", group);
 
         registerMetalSet("iron", group, Rarity.COMMON, TRUE, true);
         registerMetalSet("gold", group, Rarity.COMMON, TRUE, true);

@@ -88,6 +88,7 @@ public class TCoreTags {
             getOrCreateBuilder(CoFHTags.Blocks.STORAGE_BLOCKS_BRONZE).add(BLOCKS.get(ID_BRONZE_BLOCK));
             getOrCreateBuilder(CoFHTags.Blocks.STORAGE_BLOCKS_CHARCOAL).add(BLOCKS.get(ID_CHARCOAL_BLOCK));
             getOrCreateBuilder(CoFHTags.Blocks.STORAGE_BLOCKS_CINNABAR).add(BLOCKS.get(ID_CINNABAR_BLOCK));
+            getOrCreateBuilder(CoFHTags.Blocks.STORAGE_BLOCKS_COAL_COKE).add(BLOCKS.get(ID_COAL_COKE_BLOCK));
             getOrCreateBuilder(CoFHTags.Blocks.STORAGE_BLOCKS_CONSTANTAN).add(BLOCKS.get(ID_CONSTANTAN_BLOCK));
             getOrCreateBuilder(CoFHTags.Blocks.STORAGE_BLOCKS_COPPER).add(BLOCKS.get(ID_COPPER_BLOCK));
             getOrCreateBuilder(CoFHTags.Blocks.STORAGE_BLOCKS_ELECTRUM).add(BLOCKS.get(ID_ELECTRUM_BLOCK));
@@ -111,6 +112,7 @@ public class TCoreTags {
                     CoFHTags.Blocks.STORAGE_BLOCKS_BRONZE,
                     CoFHTags.Blocks.STORAGE_BLOCKS_CHARCOAL,
                     CoFHTags.Blocks.STORAGE_BLOCKS_CINNABAR,
+                    CoFHTags.Blocks.STORAGE_BLOCKS_COAL_COKE,
                     CoFHTags.Blocks.STORAGE_BLOCKS_CONSTANTAN,
                     CoFHTags.Blocks.STORAGE_BLOCKS_COPPER,
                     CoFHTags.Blocks.STORAGE_BLOCKS_ELECTRUM,
@@ -168,6 +170,7 @@ public class TCoreTags {
             copy(CoFHTags.Blocks.STORAGE_BLOCKS_BRONZE, CoFHTags.Items.STORAGE_BLOCKS_BRONZE);
             copy(CoFHTags.Blocks.STORAGE_BLOCKS_CHARCOAL, CoFHTags.Items.STORAGE_BLOCKS_CHARCOAL);
             copy(CoFHTags.Blocks.STORAGE_BLOCKS_CINNABAR, CoFHTags.Items.STORAGE_BLOCKS_CINNABAR);
+            copy(CoFHTags.Blocks.STORAGE_BLOCKS_COAL_COKE, CoFHTags.Items.STORAGE_BLOCKS_COAL_COKE);
             copy(CoFHTags.Blocks.STORAGE_BLOCKS_CONSTANTAN, CoFHTags.Items.STORAGE_BLOCKS_CONSTANTAN);
             copy(CoFHTags.Blocks.STORAGE_BLOCKS_COPPER, CoFHTags.Items.STORAGE_BLOCKS_COPPER);
             copy(CoFHTags.Blocks.STORAGE_BLOCKS_ELECTRUM, CoFHTags.Items.STORAGE_BLOCKS_ELECTRUM);
@@ -237,23 +240,25 @@ public class TCoreTags {
             getOrCreateBuilder(CoFHTags.Items.DUSTS_TIN).add(ITEMS.get("tin_dust"));
 
             getOrCreateBuilder(DUSTS).addTags(
-                    //CoFHTags.Items.DUSTS_APATITE,
+                    CoFHTags.Items.DUSTS_APATITE,
                     CoFHTags.Items.DUSTS_BRONZE,
-                    //CoFHTags.Items.DUSTS_CINNABAR,
+                    CoFHTags.Items.DUSTS_CINNABAR,
                     CoFHTags.Items.DUSTS_CONSTANTAN,
                     CoFHTags.Items.DUSTS_COPPER,
                     CoFHTags.Items.DUSTS_ELECTRUM,
+                    CoFHTags.Items.DUSTS_ENDER_PEARL,
                     CoFHTags.Items.DUSTS_ENDERIUM,
                     CoFHTags.Items.DUSTS_INVAR,
                     CoFHTags.Items.DUSTS_LEAD,
                     CoFHTags.Items.DUSTS_LUMIUM,
                     CoFHTags.Items.DUSTS_NICKEL,
-                    //CoFHTags.Items.DUSTS_NITER,
+                    CoFHTags.Items.DUSTS_NITER,
+                    CoFHTags.Items.DUSTS_QUARTZ,
                     CoFHTags.Items.DUSTS_RUBY,
                     CoFHTags.Items.DUSTS_SAPPHIRE,
                     CoFHTags.Items.DUSTS_SIGNALUM,
                     CoFHTags.Items.DUSTS_SILVER,
-                    //CoFHTags.Items.DUSTS_SULFUR,
+                    CoFHTags.Items.DUSTS_SULFUR,
                     CoFHTags.Items.DUSTS_TIN
             );
 
@@ -413,8 +418,13 @@ public class TCoreTags {
 
             getOrCreateBuilder(CoFHTags.Items.SAWDUST).add(ITEMS.get("sawdust"));
 
-            //            getOrCreateBuilder(CoFHTags.Items.DUSTS_NITER).add(ITEMS.get("niter_dust"));
-            //            getOrCreateBuilder(CoFHTags.Items.DUSTS_SULFUR).add(ITEMS.get("sulfur_dust"));
+            getOrCreateBuilder(CoFHTags.Items.DUSTS_APATITE).add(ITEMS.get("apatite_dust"));
+            getOrCreateBuilder(CoFHTags.Items.DUSTS_CINNABAR).add(ITEMS.get("cinnabar_dust"));
+            getOrCreateBuilder(CoFHTags.Items.DUSTS_NITER).add(ITEMS.get("niter_dust"));
+            getOrCreateBuilder(CoFHTags.Items.DUSTS_SULFUR).add(ITEMS.get("sulfur_dust"));
+
+            getOrCreateBuilder(CoFHTags.Items.COAL_COKE).add(ITEMS.get("coal_coke"));
+            getOrCreateBuilder(CoFHTags.Items.DUSTS_ENDER_PEARL).add(ITEMS.get("ender_pearl_dust"));
         }
 
     }

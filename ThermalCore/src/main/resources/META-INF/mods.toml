@@ -27,13 +27,13 @@ side = "BOTH"
 [[dependencies.thermal]]
 modId = "forge"
 mandatory = true
-versionRange = "[34.1.0,)"
+versionRange = "[34.1.42,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.thermal]]
 modId = "cofh_core"
 mandatory = true
-versionRange = "[1.0,1.1]"
+versionRange = "[1.0.2,1.1]"
 ordering = "AFTER"
 side = "BOTH"

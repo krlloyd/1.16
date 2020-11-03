@@ -51,11 +51,12 @@ public class TCoreItemModels extends ItemModelProviderCoFH {
         gemSet(reg, "emerald", true);
         gemSet(reg, "quartz", true);
 
-        // generated(reg.getSup("ender_pearl_dust"), DUSTS);
+        generated(reg.getSup("ender_pearl_dust"), DUSTS);
     }
 
     private void registerResources(DeferredRegisterCoFH<Item> reg) {
 
+        generated(reg.getSup("coal_coke"), RESOURCES);
         generated(reg.getSup("sawdust"), RESOURCES);
         generated(reg.getSup("rosin"), RESOURCES);
         generated(reg.getSup("rubber"), RESOURCES);
@@ -67,10 +68,10 @@ public class TCoreItemModels extends ItemModelProviderCoFH {
         generated(reg.getSup("diving_fabric"), CRAFTING);
         generated(reg.getSup("hazmat_fabric"), CRAFTING);
 
-        //        generated(reg.getSup("apatite_dust"), DUSTS);
-        //        generated(reg.getSup("cinnabar_dust"), DUSTS);
-        //        generated(reg.getSup("niter_dust"), DUSTS);
-        //        generated(reg.getSup("sulfur_dust"), DUSTS);
+        generated(reg.getSup("apatite_dust"), DUSTS);
+        generated(reg.getSup("cinnabar_dust"), DUSTS);
+        generated(reg.getSup("niter_dust"), DUSTS);
+        generated(reg.getSup("sulfur_dust"), DUSTS);
 
         generated(reg.getSup("apatite"), RESOURCES);
         generated(reg.getSup("cinnabar"), RESOURCES);

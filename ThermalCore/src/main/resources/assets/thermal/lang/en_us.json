@@ -64,6 +64,7 @@
   "block.thermal.red_rockwool": "Red Rockwool",
   "block.thermal.black_rockwool": "Black Rockwool",
 
+  "block.thermal.coal_coke_block": "Block of Coal Coke",
   "block.thermal.sawdust_block": "Block of Sawdust",
   "block.thermal.rosin_block": "Block of Rosin",
   "block.thermal.rubber_block": "Block of Rubber",
@@ -79,9 +80,15 @@
   "entity.thermal.blitz": "Blitz",
   "entity.thermal.blizz": "Blizz",
 
+  "fluid.thermal.biocrude": "Bio-crude Oil",
+  "fluid.thermal.biofuel": "Grassoline",
+  "fluid.thermal.creosote": "Creosote Oil",
+  "fluid.thermal.crude_oil": "Crude Oil",
   "fluid.thermal.latex": "Latex",
+  "fluid.thermal.refined_fuel": "Refined Fuel",
   "fluid.thermal.resin": "Resin",
   "fluid.thermal.sap": "Sap",
+  "fluid.thermal.seed_oil": "Seed Oil",
   "fluid.thermal.syrup": "Syrup",
   "fluid.thermal.tree_oil": "Tree Oil",
 
@@ -107,11 +114,21 @@
   "item.thermal.redstone_servo": "Redstone Servo",
   "item.thermal.rf_coil": "Redstone Flux Coil",
 
+  "item.thermal.biocrude_bucket": "Bio-crude Oil Bucket",
+  "item.thermal.biofuel_bucket": "Grassoline Bucket",
+  "item.thermal.creosote_bucket": "Creosote Oil Bucket",
+  "item.thermal.crude_oil_bucket": "Crude Oil Bucket",
   "item.thermal.latex_bucket": "Latex Bucket",
+  "item.thermal.refined_fuel_bucket": "Refined Fuel Bucket",
   "item.thermal.resin_bucket": "Resin Bucket",
   "item.thermal.sap_bucket": "Sap Bucket",
+  "item.thermal.seed_oil_bucket": "Seed Oil Bucket",
   "item.thermal.syrup_bucket": "Syrup Bucket",
   "item.thermal.tree_oil_bucket": "Tree Oil Bucket",
+
+  "item.thermal.redstone_bucket": "Destabilized Redstone Bucket",
+  "item.thermal.glowstone_bucket": "Energized Glowstone Bucket",
+  "item.thermal.ender_bucket": "Resonant Ender Bucket",
 
   "itemGroup.thermal.blocks": "Thermal Series: Blocks",
   "itemGroup.thermal.foods": "Thermal Series: Crops and Foods",
@@ -120,10 +137,15 @@
   "itemGroup.thermal.tools": "Thermal Series: Tools",
 
   "item.thermal.apatite": "Apatite",
+  "item.thermal.apatite_dust": "Apatite Dust",
   "item.thermal.cinnabar": "Cinnabar",
+  "item.thermal.cinnabar_dust": "Cinnabar Dust",
   "item.thermal.niter": "Niter",
+  "item.thermal.niter_dust": "Niter Dust",
   "item.thermal.sulfur": "Sulfur",
+  "item.thermal.sulfur_dust": "Sulfur Dust",
 
+  "item.thermal.coal_coke": "Coal Coke",
   "item.thermal.cured_rubber": "Cured Rubber",
   "item.thermal.rich_slag": "Rich Slag",
   "item.thermal.rosin": "Rosin",
@@ -249,10 +271,6 @@
   "item.thermal.signalum_ingot": "Signalum Ingot",
   "item.thermal.signalum_nugget": "Signalum Nugget",
   "item.thermal.signalum_plate": "Signalum Plate",
-
-  "item.thermal.redstone_fluid_bucket": "Destabilized Redstone Bucket",
-  "item.thermal.glowstone_fluid_bucket": "Energized Glowstone Bucket",
-  "item.thermal.ender_fluid_bucket": "Resonant Ender Bucket",
 
   "_comment": "========================================================================================================",
   "_comment": "Thermal Core - Augments",
