@@ -17,7 +17,14 @@
       "count": 1
     },
     {
-      "tag": "forge:ender_pearls",
+      "value": [
+        {
+          "tag": "forge:ender_pearls"
+        },
+        {
+          "tag": "forge:dusts/ender_pearl"
+        }
+      ],
       "count": 2
     }
   ],

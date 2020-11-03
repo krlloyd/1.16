@@ -13,12 +13,22 @@
     {
       "tag": "forge:dusts/diamond"
     },
-    {
-      "tag": "forge:ender_pearls"
-    },
-    {
-      "tag": "forge:ender_pearls"
-    }
+    [
+      {
+        "tag": "forge:ender_pearls"
+      },
+      {
+        "tag": "forge:dusts/ender_pearl"
+      }
+    ],
+    [
+      {
+        "tag": "forge:ender_pearls"
+      },
+      {
+        "tag": "forge:dusts/ender_pearl"
+      }
+    ]
   ],
   "result": {
     "item": "thermal:enderium_dust",

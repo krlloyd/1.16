@@ -181,8 +181,8 @@ public class TCoreRecipes extends RecipeProviderCoFH {
                 .addIngredient(CoFHTags.Items.DUSTS_LEAD)
                 .addIngredient(CoFHTags.Items.DUSTS_LEAD)
                 .addIngredient(CoFHTags.Items.DUSTS_DIAMOND)
-                .addIngredient(Tags.Items.ENDER_PEARLS)
-                .addIngredient(Tags.Items.ENDER_PEARLS)
+                .addIngredient(fromTags(Tags.Items.ENDER_PEARLS, CoFHTags.Items.DUSTS_ENDER_PEARL))
+                .addIngredient(fromTags(Tags.Items.ENDER_PEARLS, CoFHTags.Items.DUSTS_ENDER_PEARL))
                 .addCriterion("has_ender_pearl", hasItem(Tags.Items.ENDER_PEARLS))
                 .build(consumer, ID_THERMAL + ":enderium_dust_2");
 
@@ -258,8 +258,8 @@ public class TCoreRecipes extends RecipeProviderCoFH {
                 .addIngredient(fromTags(CoFHTags.Items.DUSTS_LEAD, CoFHTags.Items.INGOTS_LEAD))
                 .addIngredient(fromTags(CoFHTags.Items.DUSTS_LEAD, CoFHTags.Items.INGOTS_LEAD))
                 .addIngredient(CoFHTags.Items.DUSTS_DIAMOND)
-                .addIngredient(Tags.Items.ENDER_PEARLS)
-                .addIngredient(Tags.Items.ENDER_PEARLS)
+                .addIngredient(fromTags(Tags.Items.ENDER_PEARLS, CoFHTags.Items.DUSTS_ENDER_PEARL))
+                .addIngredient(fromTags(Tags.Items.ENDER_PEARLS, CoFHTags.Items.DUSTS_ENDER_PEARL))
                 .addIngredient(Items.FIRE_CHARGE)
                 .addCriterion("has_ender_pearl", hasItem(Tags.Items.ENDER_PEARLS))
                 .build(consumer, ID_THERMAL + ":fire_charge/enderium_ingot_2");
@@ -969,9 +969,9 @@ public class TCoreRecipes extends RecipeProviderCoFH {
 
         ShapelessRecipeBuilder.shapelessRecipe(Items.GUNPOWDER, 4)
                 .addIngredient(Items.CHARCOAL)
-                .addIngredient(reg.get("niter"))
-                .addIngredient(reg.get("niter"))
-                .addIngredient(reg.get("sulfur"))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_NITER, CoFHTags.Items.DUSTS_NITER))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_NITER, CoFHTags.Items.DUSTS_NITER))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_SULFUR, CoFHTags.Items.DUSTS_SULFUR))
                 .addCriterion("has_gunpowder", hasItem(Tags.Items.GUNPOWDER))
                 .build(consumer, ID_THERMAL + ":gunpowder_4");
 
@@ -1068,17 +1068,17 @@ public class TCoreRecipes extends RecipeProviderCoFH {
 
         ShapelessRecipeBuilder.shapelessRecipe(reg.get("phytogro"), 8)
                 .addIngredient(Tags.Items.SAND)
-                .addIngredient(reg.get("apatite"))
-                .addIngredient(reg.get("apatite"))
-                .addIngredient(reg.get("niter"))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_APATITE, CoFHTags.Items.DUSTS_APATITE))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_APATITE, CoFHTags.Items.DUSTS_APATITE))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_NITER, CoFHTags.Items.DUSTS_NITER))
                 .addCriterion("has_apatite", hasItem(reg.get("apatite")))
                 .build(consumer, ID_THERMAL + ":phytogro_8");
 
         ShapelessRecipeBuilder.shapelessRecipe(reg.get("phytogro"), 4)
                 .addIngredient(Tags.Items.SAND)
                 .addIngredient(Items.BONE_MEAL)
-                .addIngredient(reg.get("apatite"))
-                .addIngredient(reg.get("niter"))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_APATITE, CoFHTags.Items.DUSTS_APATITE))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_NITER, CoFHTags.Items.DUSTS_NITER))
                 .addCriterion("has_apatite", hasItem(reg.get("apatite")))
                 .build(consumer, ID_THERMAL + ":phytogro_4");
 
@@ -1086,7 +1086,7 @@ public class TCoreRecipes extends RecipeProviderCoFH {
                 .addIngredient(Tags.Items.SAND)
                 .addIngredient(Items.BONE_MEAL)
                 .addIngredient(reg.get("rich_slag"))
-                .addIngredient(reg.get("niter"))
+                .addIngredient(fromTags(CoFHTags.Items.GEMS_NITER, CoFHTags.Items.DUSTS_NITER))
                 .addCriterion("rich_slag", hasItem(reg.get("rich_slag")))
                 .build(consumer, ID_THERMAL + ":phytogro_2");
 
@@ -1170,6 +1170,12 @@ public class TCoreRecipes extends RecipeProviderCoFH {
                 .addCriterion("has_emerald", hasItem(Tags.Items.GEMS_EMERALD))
                 .build(consumer, ID_THERMAL + ":earth_charge/emerald_dust_from_emerald");
 
+        ShapelessRecipeBuilder.shapelessRecipe(reg.get("ender_pearl_dust"))
+                .addIngredient(Tags.Items.ENDER_PEARLS)
+                .addIngredient(earthCharge)
+                .addCriterion("has_ender_pearl", hasItem(Tags.Items.ENDER_PEARLS))
+                .build(consumer, ID_THERMAL + ":earth_charge_ender_pearl_dust_from_ender_pearl");
+
         ShapelessRecipeBuilder.shapelessRecipe(reg.get("lapis_dust"))
                 .addIngredient(Tags.Items.GEMS_LAPIS)
                 .addIngredient(earthCharge)
@@ -1182,11 +1188,29 @@ public class TCoreRecipes extends RecipeProviderCoFH {
                 .addCriterion("has_quartz", hasItem(Tags.Items.GEMS_QUARTZ))
                 .build(consumer, ID_THERMAL + ":earth_charge/quartz_dust_from_quartz");
 
-        //        ShapelessRecipeBuilder.shapelessRecipe(reg.get("ender_pearl_dust"))
-        //                .addIngredient(Tags.Items.ENDER_PEARLS)
-        //                .addIngredient(earthCharge)
-        //                .addCriterion("has_ender_pearl", hasItem(Tags.Items.ENDER_PEARLS))
-        //                .build(consumer, ID_THERMAL + ":earth_charge_ender_pearl_dust_from_ender_pearl");
+        ShapelessRecipeBuilder.shapelessRecipe(reg.get("apatite_dust"))
+                .addIngredient(CoFHTags.Items.GEMS_APATITE)
+                .addIngredient(earthCharge)
+                .addCriterion("has_apatite", hasItem(CoFHTags.Items.GEMS_APATITE))
+                .build(consumer, ID_THERMAL + ":earth_charge/apatite_dust_from_apatite");
+
+        ShapelessRecipeBuilder.shapelessRecipe(reg.get("cinnabar_dust"))
+                .addIngredient(CoFHTags.Items.GEMS_CINNABAR)
+                .addIngredient(earthCharge)
+                .addCriterion("has_cinnabar", hasItem(CoFHTags.Items.GEMS_CINNABAR))
+                .build(consumer, ID_THERMAL + ":earth_charge/cinnabar_dust_from_cinnabar");
+
+        ShapelessRecipeBuilder.shapelessRecipe(reg.get("niter_dust"))
+                .addIngredient(CoFHTags.Items.GEMS_NITER)
+                .addIngredient(earthCharge)
+                .addCriterion("has_niter", hasItem(CoFHTags.Items.GEMS_NITER))
+                .build(consumer, ID_THERMAL + ":earth_charge/niter_dust_from_niter");
+
+        ShapelessRecipeBuilder.shapelessRecipe(reg.get("sulfur_dust"))
+                .addIngredient(CoFHTags.Items.GEMS_SULFUR)
+                .addIngredient(earthCharge)
+                .addCriterion("has_sulfur", hasItem(CoFHTags.Items.GEMS_SULFUR))
+                .build(consumer, ID_THERMAL + ":earth_charge/sulfur_dust_from_sulfur");
         // endregion
 
         // region ICE CHARGE CONVERSIONS

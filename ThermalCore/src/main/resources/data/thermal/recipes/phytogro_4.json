@@ -7,12 +7,22 @@
     {
       "item": "minecraft:bone_meal"
     },
-    {
-      "item": "thermal:apatite"
-    },
-    {
-      "item": "thermal:niter"
-    }
+    [
+      {
+        "tag": "forge:gems/apatite"
+      },
+      {
+        "tag": "forge:dusts/apatite"
+      }
+    ],
+    [
+      {
+        "tag": "forge:gems/niter"
+      },
+      {
+        "tag": "forge:dusts/niter"
+      }
+    ]
   ],
   "result": {
     "item": "thermal:phytogro",

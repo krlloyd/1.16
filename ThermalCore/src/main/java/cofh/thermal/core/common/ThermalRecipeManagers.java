@@ -41,7 +41,6 @@ public class ThermalRecipeManagers {
     public void refreshServer() {
 
         if (this.serverRecipeManager == null) {
-            ThermalCore.LOG.error("The server's Recipe Manager is null! This is REALLY BAD and will prevent recipes from registering. Check your modpack and configs.");
             return;
         }
         for (IManager sub : managers) {

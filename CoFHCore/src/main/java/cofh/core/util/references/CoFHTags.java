@@ -86,7 +86,7 @@ public class CoFHTags {
         public static final Tags.IOptionalNamedTag<Item> COINS_SILVER = forgeTag("coins/silver");
         public static final Tags.IOptionalNamedTag<Item> COINS_TIN = forgeTag("coins/tin");
 
-        public static final Tags.IOptionalNamedTag<Item> DUSTS_APATITE = forgeTag("dusts/bronze");
+        public static final Tags.IOptionalNamedTag<Item> DUSTS_APATITE = forgeTag("dusts/apatite");
         public static final Tags.IOptionalNamedTag<Item> DUSTS_BRONZE = forgeTag("dusts/bronze");
         public static final Tags.IOptionalNamedTag<Item> DUSTS_CINNABAR = forgeTag("dusts/cinnabar");
         public static final Tags.IOptionalNamedTag<Item> DUSTS_CONSTANTAN = forgeTag("dusts/constantan");
