@@ -9,7 +9,6 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
-import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.init.TCoreReferences.*;
 import static cofh.thermal.core.world.gen.feature.ThermalFeatures.*;
 

@@ -24,14 +24,6 @@ public class TCulReferences {
     public static final Block FROST_MELON_STEM_ATTACHED = null;
     // endregion
 
-    // region BLOCKS
-    @ObjectHolder(ID_PHYTOSOIL)
-    public static final Block PHYTOSOIL_BLOCK = null;
-
-    @ObjectHolder(ID_PHYTOSOIL_TILLED)
-    public static final Block PHYTOSOIL_CHARGED_BLOCK = null;
-    // endregion
-
     // region DEVICES
     @ObjectHolder(ID_DEVICE_SOIL_INFUSER)
     public static final Block DEVICE_SOIL_INFUSER_BLOCK = null;

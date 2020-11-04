@@ -1,8 +1,8 @@
 package cofh.core.datagen;
 
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.core.util.FlagRecipeCondition;
 import cofh.core.util.FlagManager;
+import cofh.core.util.FlagRecipeCondition;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;

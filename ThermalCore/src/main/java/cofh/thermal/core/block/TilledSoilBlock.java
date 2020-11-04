@@ -1,9 +1,6 @@
-package cofh.thermal.cultivation.block;
+package cofh.thermal.core.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.MovingPistonBlock;
+import net.minecraft.block.*;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -14,13 +11,21 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 
-import static cofh.thermal.cultivation.init.TCulReferences.PHYTOSOIL_BLOCK;
+import java.util.function.Supplier;
 
 public class TilledSoilBlock extends SoilBlock {
+
+    protected Supplier<Block> dirt = () -> Blocks.DIRT;
 
     public TilledSoilBlock(Properties properties) {
 
         super(properties);
+    }
+
+    public TilledSoilBlock dirt(Supplier<Block> dirt) {
+
+        this.dirt = dirt;
+        return this;
     }
 
     @Override
@@ -63,9 +68,9 @@ public class TilledSoilBlock extends SoilBlock {
         return !blockstate.getMaterial().isSolid() || blockstate.getBlock() instanceof FenceGateBlock || blockstate.getBlock() instanceof MovingPistonBlock;
     }
 
-    public static void turnToDirt(BlockState state, World worldIn, BlockPos pos) {
+    public void turnToDirt(BlockState state, World worldIn, BlockPos pos) {
 
-        worldIn.setBlockState(pos, nudgeEntitiesWithNewState(state, PHYTOSOIL_BLOCK.getDefaultState(), worldIn, pos));
+        worldIn.setBlockState(pos, nudgeEntitiesWithNewState(state, dirt.get().getDefaultState(), worldIn, pos));
     }
 
 }

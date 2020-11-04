@@ -6,10 +6,10 @@ import cofh.core.block.TileBlock4Way;
 import cofh.core.block.crops.StemBlockAttached;
 import cofh.core.block.crops.StemBlockCoFH;
 import cofh.core.util.ProxyUtils;
+import cofh.thermal.core.block.SoilBlock;
+import cofh.thermal.core.block.TilledSoilBlock;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.cultivation.block.FrostMelonBlock;
-import cofh.thermal.cultivation.block.SoilBlock;
-import cofh.thermal.cultivation.block.TilledSoilBlock;
 import cofh.thermal.cultivation.inventory.container.device.DeviceSoilInfuserContainer;
 import cofh.thermal.cultivation.tileentity.DeviceSoilInfuserTile;
 import net.minecraft.block.*;
@@ -119,7 +119,7 @@ public class TCulBlocks {
     private static void registerMisc() {
 
         registerBlock(ID_PHYTOSOIL, () -> new SoilBlock(create(Material.EARTH).tickRandomly().hardnessAndResistance(0.8F).sound(SoundType.GROUND).setLightLevel((state) -> state.get(CHARGED) > 0 ? 7 : 0)));
-        registerBlock(ID_PHYTOSOIL_TILLED, () -> new TilledSoilBlock(create(Material.EARTH).tickRandomly().hardnessAndResistance(0.8F).sound(SoundType.GROUND).setLightLevel((state) -> state.get(CHARGED) > 0 ? 7 : 0)));
+        registerBlock(ID_PHYTOSOIL_TILLED, () -> new TilledSoilBlock(create(Material.EARTH).tickRandomly().hardnessAndResistance(0.8F).sound(SoundType.GROUND).setLightLevel((state) -> state.get(CHARGED) > 0 ? 7 : 0)).dirt(BLOCKS.getSup(ID_PHYTOSOIL)));
     }
 
     private static void registerTileBlocks() {

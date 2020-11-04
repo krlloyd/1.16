@@ -1,4 +1,4 @@
-package cofh.thermal.cultivation.block;
+package cofh.thermal.core.block;
 
 import net.minecraft.block.AttachedStemBlock;
 import net.minecraft.block.Block;
