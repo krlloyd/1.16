@@ -15,8 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import static cofh.core.util.constants.Constants.ID_THERMAL_EXPANSION;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.common.ThermalFlags.*;
-import static cofh.thermal.core.init.TCoreIDs.ID_DEVICE_TREE_EXTRACTOR;
-import static cofh.thermal.core.init.TCoreIDs.ID_MACHINE_FRAME;
+import static cofh.thermal.core.init.TCoreIDs.*;
 import static cofh.thermal.expansion.init.TExpIDs.*;
 import static cofh.thermal.expansion.init.TExpReferences.*;
 
@@ -52,6 +51,8 @@ public class ThermalExpansion {
         setFlag(ID_MACHINE_FRAME, true);
 
         setFlag(ID_DEVICE_TREE_EXTRACTOR, true);
+        setFlag(ID_DEVICE_WATER_GEN, true);
+        setFlag(ID_DEVICE_ROCK_GEN, true);
     }
 
     // region INITIALIZATION

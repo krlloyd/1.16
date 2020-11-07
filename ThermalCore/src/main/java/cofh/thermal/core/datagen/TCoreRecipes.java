@@ -950,6 +950,18 @@ public class TCoreRecipes extends RecipeProviderCoFH {
                 .addCriterion("has_redstone_servo", hasItem(redstoneServo))
                 .build(consumer);
 
+        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_DEVICE_WATER_GEN))
+                .key('C', CoFHTags.Items.INGOTS_COPPER)
+                .key('G', Tags.Items.GLASS)
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('P', redstoneServo)
+                .key('X', Items.BUCKET)
+                .patternLine("CIC")
+                .patternLine("GXG")
+                .patternLine("CPC")
+                .addCriterion("has_redstone_servo", hasItem(redstoneServo))
+                .build(consumer);
+
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_TINKER_BENCH))
                 .key('C', Blocks.CRAFTING_TABLE)
                 .key('G', Tags.Items.GLASS)

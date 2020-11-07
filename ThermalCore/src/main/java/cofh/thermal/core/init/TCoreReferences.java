@@ -6,7 +6,9 @@ import cofh.thermal.core.entity.monster.BlitzEntity;
 import cofh.thermal.core.entity.monster.BlizzEntity;
 import cofh.thermal.core.entity.projectile.*;
 import cofh.thermal.core.inventory.container.device.DeviceHiveExtractorContainer;
+import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
 import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
+import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
 import cofh.thermal.core.inventory.container.workbench.ChargeBenchContainer;
 import cofh.thermal.core.inventory.container.workbench.ProjectBenchContainer;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
@@ -120,11 +122,15 @@ public class TCoreReferences {
     public static final Block DEVICE_ROCK_GEN_BLOCK = null;
     @ObjectHolder(ID_DEVICE_ROCK_GEN)
     public static final TileEntityType<DeviceRockGenTile> DEVICE_ROCK_GEN_TILE = null;
+    @ObjectHolder(ID_DEVICE_ROCK_GEN)
+    public static final ContainerType<DeviceRockGenContainer> DEVICE_ROCK_GEN_CONTAINER = null;
 
     @ObjectHolder(ID_DEVICE_WATER_GEN)
     public static final Block DEVICE_WATER_GEN_BLOCK = null;
     @ObjectHolder(ID_DEVICE_WATER_GEN)
     public static final TileEntityType<DeviceWaterGenTile> DEVICE_WATER_GEN_TILE = null;
+    @ObjectHolder(ID_DEVICE_WATER_GEN)
+    public static final ContainerType<DeviceWaterGenContainer> DEVICE_WATER_GEN_CONTAINER = null;
     // endregion
 
     // region WORKBENCHES

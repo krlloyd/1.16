@@ -136,7 +136,6 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
     public void handleControlPacket(PacketBuffer buffer) {
 
         super.handleControlPacket(buffer);
-
         if (redstoneControl.getState()) {
             extractProducts(pos.up());
         }
@@ -146,7 +145,6 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
     public void handleStatePacket(PacketBuffer buffer) {
 
         super.handleStatePacket(buffer);
-
         if (redstoneControl.getState()) {
             extractProducts(pos.up());
         }
@@ -157,7 +155,6 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
     public void onControlUpdate() {
 
         updateActiveState();
-
         TileControlPacket.sendToClient(this);
     }
     // endregion

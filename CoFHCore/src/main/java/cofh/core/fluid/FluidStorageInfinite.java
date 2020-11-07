@@ -17,6 +17,15 @@ public class FluidStorageInfinite extends FluidStorageCoFH {
         super(capacity, validator);
     }
 
+    public FluidStorageInfinite setCapacity(int capacity) {
+
+        this.capacity = capacity;
+        if (!isEmpty()) {
+            fluid.setAmount(Math.max(0, capacity));
+        }
+        return this;
+    }
+
     @Nonnull
     @Override
     public FluidStack drain(FluidStack resource, FluidAction action) {

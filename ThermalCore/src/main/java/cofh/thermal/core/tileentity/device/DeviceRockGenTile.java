@@ -2,6 +2,8 @@ package cofh.thermal.core.tileentity.device;
 
 import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.inventory.ItemStorageInfinite;
+import cofh.core.network.packet.client.TileControlPacket;
+import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,26 +16,27 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static cofh.core.util.StorageGroup.OUTPUT;
+import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.core.util.helpers.ItemHelper.cloneStack;
+import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_ROCK_GEN_TILE;
 
 public class DeviceRockGenTile extends ThermalTileBase {
 
     protected static ItemStack COBBLESTONE = new ItemStack(Blocks.COBBLESTONE);
-    protected static ItemStack BASALT = new ItemStack(Blocks.OBSIDIAN);
+    protected static ItemStack BASALT = new ItemStack(Blocks.BASALT);
 
     protected byte adjLavaSource;
     protected byte adjWaterSource;
@@ -50,6 +53,11 @@ public class DeviceRockGenTile extends ThermalTileBase {
         super(DEVICE_ROCK_GEN_TILE);
 
         inventory.addSlot(slot, OUTPUT);
+
+        addAugmentSlots(deviceAugments);
+        initHandlers();
+
+        renderFluid = new FluidStack(Fluids.LAVA, BUCKET_VOLUME);
     }
 
     protected void updateValidity() {
@@ -82,29 +90,30 @@ public class DeviceRockGenTile extends ThermalTileBase {
                 ++adjBlueIce;
             }
         }
-        // TODO: Add in 1.16.
-        //        BlockPos below = pos.down();
-        //        BlockState blockState = world.getBlockState(below);
-        //        if (blockState.getBlock().equals(Blocks.SOUL_SAND)) {
-        //            ++adjSoulSand;
-        //        }
-        //        if (adjSoulSand > 0 && adjLavaSource > 0 && adjBlueIce > 0) {
-        //            slot.setItemStack(cloneStack(BASALT, Math.min(adjLavaSource, adjBlueIce)));
-        //            valid = true;
-        //        } else
-        if (adjLavaSource > 0 && adjWaterSource > 0) {
-            slot.setItemStack(cloneStack(COBBLESTONE, Math.min(adjLavaSource, adjWaterSource)));
+        BlockPos below = pos.down();
+        BlockState blockState = world.getBlockState(below);
+        if (blockState.getBlock().equals(Blocks.SOUL_SAND)) {
+            ++adjSoulSand;
+        }
+        if (adjSoulSand > 0 && adjLavaSource > 0 && adjBlueIce > 0) {
+            slot.setItemStack(cloneStack(BASALT, (int) (Math.min(adjLavaSource, adjBlueIce) * baseMod)));
+            valid = true;
+        } else if (adjLavaSource > 0 && adjWaterSource > 0) {
+            slot.setItemStack(cloneStack(COBBLESTONE, (int) (Math.min(adjLavaSource, adjWaterSource) * baseMod)));
             valid = true;
         } else {
             slot.clear();
+            itemCap.invalidate();
         }
     }
 
     protected void updateActiveState() {
 
-        updateValidity();
         boolean curActive = isActive;
         isActive = redstoneControl().getState() && valid;
+        if (curActive != isActive) {
+            itemCap.invalidate();
+        }
         updateActiveState(curActive);
     }
 
@@ -112,44 +121,84 @@ public class DeviceRockGenTile extends ThermalTileBase {
     public void neighborChanged(Block blockIn, BlockPos fromPos) {
 
         super.neighborChanged(blockIn, fromPos);
+        updateValidity();
         updateActiveState();
     }
 
-    @Override
-    public boolean onActivatedDelegate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
-
-        return player.inventory.addItemStackToInventory(cloneStack(slot.getItemStack()));
-    }
+    //    @Override
+    //    public boolean onActivatedDelegate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+    //
+    //        return player.inventory.addItemStackToInventory(cloneStack(slot.getItemStack()));
+    //    }
 
     @Override
     public void onPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 
         super.onPlacedBy(worldIn, pos, state, placer, stack);
+        updateValidity();
         updateActiveState();
     }
 
+    @Nonnull
     @Override
-    public boolean canOpenGui() {
+    public IModelData getModelData() {
 
-        return false;
+        return new ModelDataMap.Builder()
+                .withInitial(FLUID, renderFluid)
+                .build();
     }
 
     @Nullable
     @Override
     public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
 
-        return null;
+        return new DeviceRockGenContainer(i, world, pos, inventory, player);
     }
 
-    // region CAPABILITIES
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+    // TODO: Must be added if non-lava fluids are supported.
+    //    // region NETWORK
+    //    @Override
+    //    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+    //
+    //        super.onDataPacket(net, pkt);
+    //
+    //        ModelDataManager.requestModelDataRefresh(this);
+    //    }
+    //
+    //    @Override
+    //    public void handleControlPacket(PacketBuffer buffer) {
+    //
+    //        super.handleControlPacket(buffer);
+    //
+    //        ModelDataManager.requestModelDataRefresh(this);
+    //    }
+    //
+    //    @Override
+    //    public void handleStatePacket(PacketBuffer buffer) {
+    //
+    //        super.handleStatePacket(buffer);
+    //
+    //        ModelDataManager.requestModelDataRefresh(this);
+    //    }
+    //    // endregion
 
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && inventory.hasSlots()) {
-            return LazyOptional.of(() -> isActive ? inventory.getHandler(OUTPUT) : EmptyHandler.INSTANCE).cast();
+    // region ITileCallback
+    @Override
+    public void onControlUpdate() {
+
+        updateActiveState();
+        TileControlPacket.sendToClient(this);
+    }
+    // endregion
+
+    // region CAPABILITIES
+    @Override
+    protected <T> LazyOptional<T> getItemHandlerCapability(@Nullable Direction side) {
+
+        if (!itemCap.isPresent()) {
+            itemCap = LazyOptional.of(() -> isActive ? inventory.getHandler(OUTPUT) : EmptyHandler.INSTANCE);
         }
-        return super.getCapability(cap, side);
+        return itemCap.cast();
     }
     // endregion
 

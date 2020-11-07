@@ -309,7 +309,6 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
     public void onControlUpdate() {
 
         updateSidedHandlers();
-
         super.onControlUpdate();
     }
     // endregion
