@@ -84,7 +84,6 @@ public class StirlingFuelManager extends SingleItemFuelManager {
     public void refresh(RecipeManager recipeManager) {
 
         clear();
-
         Map<ResourceLocation, IRecipe<FalseIInventory>> recipes = recipeManager.getRecipes(TExpRecipeTypes.FUEL_STIRLING);
         for (Map.Entry<ResourceLocation, IRecipe<FalseIInventory>> entry : recipes.entrySet()) {
             addFuel((ThermalFuel) entry.getValue());

@@ -79,10 +79,10 @@ public class TCoreBlocks {
     // region HELPERS
     private static void registerVanilla() {
 
-        registerBlockAndItem(ID_CHARCOAL_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.BLACK).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE)),
+        registerBlockAndItem(ID_CHARCOAL_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.BLACK).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()),
                 () -> new BlockItemCoFH(BLOCKS.get(ID_CHARCOAL_BLOCK), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(16000).setShowInGroups(getFlag(FLAG_VANILLA_BLOCKS)));
-        registerBlock(ID_GUNPOWDER_BLOCK, () -> new GunpowderBlock(create(Material.TNT, MaterialColor.GRAY).hardnessAndResistance(0.5F).sound(SoundType.SAND)), getFlag(FLAG_VANILLA_BLOCKS));
-        registerBlock(ID_SUGAR_CANE_BLOCK, () -> new RotatedPillarBlock(create(Material.ORGANIC, MaterialColor.FOLIAGE).hardnessAndResistance(1.0F).sound(SoundType.CROP)) {
+        registerBlock(ID_GUNPOWDER_BLOCK, () -> new GunpowderBlock(create(Material.TNT, MaterialColor.GRAY).hardnessAndResistance(0.5F).sound(SoundType.SAND).harvestTool(ToolType.SHOVEL)), getFlag(FLAG_VANILLA_BLOCKS));
+        registerBlock(ID_SUGAR_CANE_BLOCK, () -> new RotatedPillarBlock(create(Material.ORGANIC, MaterialColor.FOLIAGE).hardnessAndResistance(1.0F).sound(SoundType.CROP).harvestTool(ToolType.HOE)) {
 
             @Override
             public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
@@ -90,7 +90,7 @@ public class TCoreBlocks {
                 entityIn.onLivingFall(fallDistance, 0.6F);
             }
         }, getFlag(FLAG_VANILLA_BLOCKS));
-        registerBlock(ID_BAMBOO_BLOCK, () -> new RotatedPillarBlock(create(Material.ORGANIC, MaterialColor.FOLIAGE).hardnessAndResistance(1.0F).sound(SoundType.WOOD)) {
+        registerBlock(ID_BAMBOO_BLOCK, () -> new RotatedPillarBlock(create(Material.ORGANIC, MaterialColor.FOLIAGE).hardnessAndResistance(1.0F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)) {
 
             @Override
             public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
@@ -99,10 +99,10 @@ public class TCoreBlocks {
             }
         }, getFlag(FLAG_VANILLA_BLOCKS));
 
-        registerBlock(ID_APPLE_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.RED).hardnessAndResistance(1.5F).sound(SoundType.WOOD)), getFlag(FLAG_VANILLA_BLOCKS));
-        registerBlock(ID_CARROT_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.ORANGE_TERRACOTTA).hardnessAndResistance(1.5F).sound(SoundType.WOOD)), getFlag(FLAG_VANILLA_BLOCKS));
-        registerBlock(ID_POTATO_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.BROWN_TERRACOTTA).hardnessAndResistance(1.5F).sound(SoundType.WOOD)), getFlag(FLAG_VANILLA_BLOCKS));
-        registerBlock(ID_BEETROOT_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(1.5F).sound(SoundType.WOOD)), getFlag(FLAG_VANILLA_BLOCKS));
+        registerBlock(ID_APPLE_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.RED).hardnessAndResistance(1.5F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)), getFlag(FLAG_VANILLA_BLOCKS));
+        registerBlock(ID_CARROT_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.ORANGE_TERRACOTTA).hardnessAndResistance(1.5F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)), getFlag(FLAG_VANILLA_BLOCKS));
+        registerBlock(ID_POTATO_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.BROWN_TERRACOTTA).hardnessAndResistance(1.5F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)), getFlag(FLAG_VANILLA_BLOCKS));
+        registerBlock(ID_BEETROOT_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(1.5F).sound(SoundType.WOOD).harvestTool(ToolType.AXE)), getFlag(FLAG_VANILLA_BLOCKS));
     }
 
     private static void registerResources() {
@@ -124,10 +124,10 @@ public class TCoreBlocks {
 
     private static void registerStorage() {
 
-        registerBlock(ID_APATITE_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.LIGHT_BLUE_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE)));
-        registerBlock(ID_CINNABAR_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE)));
-        registerBlock(ID_NITER_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE)));
-        registerBlock(ID_SULFUR_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.YELLOW_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE)) {
+        registerBlock(ID_APATITE_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.LIGHT_BLUE_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+        registerBlock(ID_CINNABAR_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+        registerBlock(ID_NITER_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+        registerBlock(ID_SULFUR_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.YELLOW_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()) {
 
             @Override
             public boolean isFireSource(BlockState state, IWorldReader world, BlockPos pos, Direction side) {
@@ -147,7 +147,7 @@ public class TCoreBlocks {
         registerBlock(ID_INVAR_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_INVAR));
         registerBlock(ID_CONSTANTAN_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_CONSTANTAN));
 
-        registerBlock(ID_SIGNALUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.RED).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(7)).notSolid()) {
+        registerBlock(ID_SIGNALUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.RED).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(7)).notSolid()) {
 
             @Override
             public boolean canProvidePower(BlockState state) {
@@ -161,15 +161,15 @@ public class TCoreBlocks {
                 return 15;
             }
         }, Rarity.UNCOMMON);
-        registerBlock(ID_LUMIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.YELLOW).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(15)).notSolid()), Rarity.UNCOMMON);
-        registerBlock(ID_ENDERIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.CYAN).hardnessAndResistance(25.0F, 30.0F).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(3)).notSolid()), Rarity.UNCOMMON);
+        registerBlock(ID_LUMIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.YELLOW).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(15)).notSolid()), Rarity.UNCOMMON);
+        registerBlock(ID_ENDERIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.CYAN).hardnessAndResistance(25.0F, 30.0F).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(3)).notSolid()), Rarity.UNCOMMON);
 
         registerBlock(ID_RUBY_BLOCK, () -> new MetalStorageBlock(MaterialColor.RED, 1), getFlag(FLAG_RESOURCE_RUBY));
         registerBlock(ID_SAPPHIRE_BLOCK, () -> new MetalStorageBlock(MaterialColor.BLUE, 1), getFlag(FLAG_RESOURCE_SAPPHIRE));
 
-        registerBlockAndItem(ID_COAL_COKE_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.BLACK).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE)),
+        registerBlockAndItem(ID_COAL_COKE_BLOCK, () -> new Block(create(Material.WOOD, MaterialColor.BLACK).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()),
                 () -> new BlockItemCoFH(BLOCKS.get(ID_COAL_COKE_BLOCK), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(32000));
-        registerBlockAndItem(ID_SAWDUST_BLOCK, () -> new FallingBlock(create(Material.WOOD).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.SAND)) {
+        registerBlockAndItem(ID_SAWDUST_BLOCK, () -> new FallingBlock(create(Material.WOOD).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.SAND).harvestTool(ToolType.SHOVEL)) {
 
             @OnlyIn(Dist.CLIENT)
             public int getDustColor(BlockState state) {
@@ -178,7 +178,7 @@ public class TCoreBlocks {
             }
         }, () -> new BlockItemCoFH(BLOCKS.get(ID_SAWDUST_BLOCK), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(2400));
 
-        registerBlockAndItem(ID_ROSIN_BLOCK, () -> new Block(create(Material.CLAY, MaterialColor.ADOBE).hardnessAndResistance(2.0F, 4.0F).speedFactor(0.8F).jumpFactor(0.8F).sound(SoundType.HONEY)) {
+        registerBlockAndItem(ID_ROSIN_BLOCK, () -> new Block(create(Material.CLAY, MaterialColor.ADOBE).hardnessAndResistance(2.0F, 4.0F).speedFactor(0.8F).jumpFactor(0.8F).sound(SoundType.HONEY).harvestTool(ToolType.SHOVEL)) {
 
             @Override
             public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
@@ -189,13 +189,13 @@ public class TCoreBlocks {
 
         registerBlock(ID_RUBBER_BLOCK, () -> new RubberBlock(create(Material.CLAY, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).jumpFactor(1.25F).sound(SoundType.GROUND)));
         registerBlock(ID_CURED_RUBBER_BLOCK, () -> new RubberBlock(create(Material.CLAY, MaterialColor.BLACK_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).jumpFactor(1.25F).sound(SoundType.GROUND)));
-        registerBlock(ID_SLAG_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.BLACK_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE)));
-        registerBlock(ID_RICH_SLAG_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.BLACK_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE)));
+        registerBlock(ID_SLAG_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.BLACK_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+        registerBlock(ID_RICH_SLAG_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.BLACK_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()));
     }
 
     private static void registerBuildingBlocks() {
 
-        registerBlock(ID_MACHINE_FRAME, () -> new Block(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).notSolid()), getFlag(ID_MACHINE_FRAME));
+        registerBlock(ID_MACHINE_FRAME, () -> new Block(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).notSolid().harvestTool(ToolType.PICKAXE)), getFlag(ID_MACHINE_FRAME));
 
         registerBlock(ID_OBSIDIAN_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.OBSIDIAN).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).notSolid()));
         registerBlock(ID_SIGNALUM_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.RED).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).setLightLevel(lightValue(7)).notSolid()) {
@@ -250,13 +250,13 @@ public class TCoreBlocks {
         IntSupplier deviceAugs = () -> ThermalConfig.deviceAugments;
         Predicate<ItemStack> deviceValidator = (e) -> true;
 
-        registerAugBlock(ID_DEVICE_HIVE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F), DeviceHiveExtractorTile::new), deviceAugs, deviceValidator, getFlag(ID_DEVICE_HIVE_EXTRACTOR));
-        registerAugBlock(ID_DEVICE_TREE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F), DeviceTreeExtractorTile::new), deviceAugs, deviceValidator, getFlag(ID_DEVICE_TREE_EXTRACTOR));
+        registerAugBlock(ID_DEVICE_HIVE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceHiveExtractorTile::new), deviceAugs, deviceValidator, getFlag(ID_DEVICE_HIVE_EXTRACTOR));
+        registerAugBlock(ID_DEVICE_TREE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceTreeExtractorTile::new), deviceAugs, deviceValidator, getFlag(ID_DEVICE_TREE_EXTRACTOR));
 
         IntSupplier workbenchAugs = () -> ThermalConfig.storageAugments;
         Predicate<ItemStack> workbenchValidator = (e) -> true;
 
-        registerAugBlock(ID_TINKER_BENCH, () -> new TileBlock4Way(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F), TinkerBenchTile::new), workbenchAugs, workbenchValidator, getFlag(ID_TINKER_BENCH));
+        registerAugBlock(ID_TINKER_BENCH, () -> new TileBlock4Way(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), TinkerBenchTile::new), workbenchAugs, workbenchValidator, getFlag(ID_TINKER_BENCH));
     }
 
     private static void registerTileContainers() {

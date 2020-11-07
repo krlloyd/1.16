@@ -93,14 +93,18 @@ public class ShieldEnchEvents {
         ModifiableAttributeInstance knockbackResAttr = entity.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
         ModifiableAttributeInstance moveSpeedAttr = entity.getAttribute(Attributes.MOVEMENT_SPEED);
 
+        if (knockbackResAttr != null) {
+            knockbackResAttr.removeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE);
+        }
+        if (moveSpeedAttr != null) {
+            moveSpeedAttr.removeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED);
+        }
         if (stack.getItem().isShield(stack, entity)) {
             // BULWARK
             int encBulwark = getEnchantmentLevel(BULWARK, stack);
             if (knockbackResAttr != null) {
                 if (encBulwark > 0) {
                     knockbackResAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE, ID_REACH, 1.0D, ADDITION));
-                } else {
-                    knockbackResAttr.removeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE);
                 }
             }
             // PHALANX
@@ -108,16 +112,7 @@ public class ShieldEnchEvents {
             if (moveSpeedAttr != null) {
                 if (encPhalanx > 0) {
                     moveSpeedAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED, ID_PHALANX, PhalanxEnchantment.SPEED * encPhalanx, MULTIPLY_TOTAL));
-                } else {
-                    moveSpeedAttr.removeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED);
                 }
-            }
-        } else {
-            if (knockbackResAttr != null) {
-                knockbackResAttr.removeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE);
-            }
-            if (moveSpeedAttr != null) {
-                moveSpeedAttr.removeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED);
             }
         }
     }

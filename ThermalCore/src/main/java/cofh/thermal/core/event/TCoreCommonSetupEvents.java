@@ -12,6 +12,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLModIdMappingEvent;
 
 import static cofh.core.util.constants.Constants.ID_THERMAL;
 
@@ -63,9 +64,15 @@ public class TCoreCommonSetupEvents {
         );
     }
 
-    // Recipes reload during TagsUpdatedEvent on Server side.
+    // Recipes reload during TagsUpdatedEvent or IdMapping on Server side.
     @SubscribeEvent
     public static void tagsUpdated(final TagsUpdatedEvent.VanillaTagTypes event) {
+
+        ThermalRecipeManagers.instance().refreshServer();
+    }
+
+    @SubscribeEvent
+    public static void idRemap(final FMLModIdMappingEvent event) {
 
         ThermalRecipeManagers.instance().refreshServer();
     }

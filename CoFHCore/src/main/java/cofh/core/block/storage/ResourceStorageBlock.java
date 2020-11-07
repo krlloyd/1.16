@@ -10,12 +10,12 @@ public class ResourceStorageBlock extends Block {
 
     public ResourceStorageBlock(int harvestLevel) {
 
-        this(Properties.create(Material.ROCK, MaterialColor.STONE).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE).harvestLevel(harvestLevel).harvestTool(ToolType.PICKAXE));
+        this(Properties.create(Material.ROCK, MaterialColor.STONE).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE).harvestLevel(harvestLevel).harvestTool(ToolType.PICKAXE).setRequiresTool());
     }
 
     public ResourceStorageBlock(MaterialColor color, int harvestLevel) {
 
-        this(Properties.create(Material.ROCK, color).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE).harvestLevel(harvestLevel).harvestTool(ToolType.PICKAXE));
+        this(Properties.create(Material.ROCK, color).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.STONE).harvestLevel(harvestLevel).harvestTool(ToolType.PICKAXE).setRequiresTool());
     }
 
     public ResourceStorageBlock(Properties builder) {

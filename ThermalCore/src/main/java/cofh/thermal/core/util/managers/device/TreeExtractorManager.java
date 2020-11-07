@@ -124,7 +124,6 @@ public class TreeExtractorManager extends AbstractManager {
     public void refresh(RecipeManager recipeManager) {
 
         clear();
-
         Map<ResourceLocation, IRecipe<FalseIInventory>> mappings = recipeManager.getRecipes(TCoreRecipeTypes.MAPPING_TREE_EXTRACTOR);
         for (Map.Entry<ResourceLocation, IRecipe<FalseIInventory>> entry : mappings.entrySet()) {
             addMapping((TreeExtractorMapping) entry.getValue());

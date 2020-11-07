@@ -224,6 +224,25 @@ public class CommonEvents {
                 healthAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_VITALITY_HEALTH, ID_VITALITY, encVitality * VitalityEnchantment.health, ADDITION));
             }
         }
+        // Shield must be ACTIVE; see handleLivingUpdateEvent in ShieldEnchEvents.
+        //        // BULWARK
+        //        int encBulwark = getMaxEnchantmentLevel(BULWARK, entity);
+        //        ModifiableAttributeInstance knockbackResAttr = entity.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
+        //        if (knockbackResAttr != null) {
+        //            knockbackResAttr.removeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE);
+        //            if (encBulwark > 0) {
+        //                knockbackResAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE, ID_REACH, 1.0D, ADDITION));
+        //            }
+        //        }
+        //        // PHALANX
+        //        int encPhalanx = getMaxEnchantmentLevel(PHALANX, entity);
+        //        ModifiableAttributeInstance moveSpeedAttr = entity.getAttribute(Attributes.MOVEMENT_SPEED);
+        //        if (moveSpeedAttr != null) {
+        //            moveSpeedAttr.removeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED);
+        //            if (encPhalanx > 0) {
+        //                moveSpeedAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED, ID_PHALANX, PhalanxEnchantment.SPEED * encPhalanx, MULTIPLY_TOTAL));
+        //            }
+        //        }
     }
 
     @SubscribeEvent
