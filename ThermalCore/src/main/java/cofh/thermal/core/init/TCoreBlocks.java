@@ -39,6 +39,7 @@ import java.util.function.Predicate;
 
 import static cofh.core.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.*;
+import static cofh.thermal.core.common.ThermalAugmentRules.DEVICE_VALIDATOR;
 import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_BLOCKS;
 import static cofh.thermal.core.init.TCoreIDs.*;
@@ -111,10 +112,10 @@ public class TCoreBlocks {
 
     private static void registerResources() {
 
-        registerBlock(ID_APATITE_ORE, () -> new OreBlockCoFH(1).xp(0, 2));
-        registerBlock(ID_CINNABAR_ORE, () -> new OreBlockCoFH(1).xp(0, 2));
-        registerBlock(ID_NITER_ORE, () -> new OreBlockCoFH(1).xp(0, 2));
-        registerBlock(ID_SULFUR_ORE, () -> new OreBlockCoFH(1).xp(0, 2));
+        registerBlock(ID_APATITE_ORE, () -> new OreBlockCoFH(1).xp(0, 2), getFlag(FLAG_RESOURCE_APATITE));
+        registerBlock(ID_CINNABAR_ORE, () -> new OreBlockCoFH(1).xp(1, 3), getFlag(FLAG_RESOURCE_CINNABAR));
+        registerBlock(ID_NITER_ORE, () -> new OreBlockCoFH(1).xp(0, 2), getFlag(FLAG_RESOURCE_NITER));
+        registerBlock(ID_SULFUR_ORE, () -> new OreBlockCoFH(1).xp(0, 2), getFlag(FLAG_RESOURCE_SULFUR));
 
         registerBlock(ID_COPPER_ORE, () -> new OreBlockCoFH(1), getFlag(FLAG_RESOURCE_COPPER));
         registerBlock(ID_TIN_ORE, () -> new OreBlockCoFH(1), getFlag(FLAG_RESOURCE_TIN));
@@ -252,12 +253,11 @@ public class TCoreBlocks {
     private static void registerTileBlocks() {
 
         IntSupplier deviceAugs = () -> ThermalConfig.deviceAugments;
-        Predicate<ItemStack> deviceValidator = (e) -> true;
 
-        registerAugBlock(ID_DEVICE_HIVE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceHiveExtractorTile::new), deviceAugs, deviceValidator, getFlag(ID_DEVICE_HIVE_EXTRACTOR));
-        registerAugBlock(ID_DEVICE_TREE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceTreeExtractorTile::new), deviceAugs, deviceValidator, getFlag(ID_DEVICE_TREE_EXTRACTOR));
-        registerAugBlock(ID_DEVICE_WATER_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceWaterGenTile::new), deviceAugs, deviceValidator, getFlag(ID_DEVICE_WATER_GEN));
-        registerAugBlock(ID_DEVICE_ROCK_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceRockGenTile::new), deviceAugs, deviceValidator, getFlag(ID_DEVICE_ROCK_GEN));
+        registerAugBlock(ID_DEVICE_HIVE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceHiveExtractorTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_HIVE_EXTRACTOR));
+        registerAugBlock(ID_DEVICE_TREE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceTreeExtractorTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_TREE_EXTRACTOR));
+        registerAugBlock(ID_DEVICE_WATER_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceWaterGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_WATER_GEN));
+        registerAugBlock(ID_DEVICE_ROCK_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceRockGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_ROCK_GEN));
 
         IntSupplier workbenchAugs = () -> ThermalConfig.storageAugments;
         Predicate<ItemStack> workbenchValidator = (e) -> true;

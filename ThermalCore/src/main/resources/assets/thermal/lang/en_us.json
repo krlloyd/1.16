@@ -80,6 +80,10 @@
   "entity.thermal.blitz": "Blitz",
   "entity.thermal.blizz": "Blizz",
 
+  "entity.thermal.basalz_projectile": "Tectonic Shard",
+  "entity.thermal.blitz_projectile": "Ball Lightning",
+  "entity.thermal.blizz_projectile": "Glacial Bolt",
+
   "fluid.thermal.biocrude": "Bio-crude Oil",
   "fluid.thermal.biofuel": "Grassoline",
   "fluid.thermal.creosote": "Creosote Oil",
@@ -361,10 +365,10 @@
   "info.thermal.device_hive_extractor.1": "Good for bees and keepers alike!",
   "info.thermal.device_hive_extractor.2": "Buzz buzz.",
 
-  "info.thermal.device_rock_gen.0": "Provides copious amounts of rock.",
-  "info.thermal.device_rock_gen.1": "Requires adjacent rock sources to function.",
-  "info.thermal.device_rock_gen.2": "Don't drown.",
-  
+  "info.thermal.device_rock_gen.0": "Generates various types of stone.",
+  "info.thermal.device_rock_gen.1": "Requires an adjacent lava source and cooling.",
+  "info.thermal.device_rock_gen.2": "Are you ready to rock?",
+
   "info.thermal.device_tree_extractor.0": "Extracts fluids from adjacent trees.",
   "info.thermal.device_tree_extractor.1": "Use fertilizer to boost production.",
   "info.thermal.device_tree_extractor.2": "Put down the axe.",
@@ -689,6 +693,9 @@
 
   "item.thermal.press_coin_die": "Numismatic Die",
   "item.thermal.press_gear_die": "Gearworking Die",
+  "item.thermal.press_packing_2x2_die": "Packing (2x2) Die",
+  "item.thermal.press_packing_3x3_die": "Packing (3x3) Die",
+  "item.thermal.press_unpacking_die": "Unpacking Die",
 
   "_comment": "========================================================================================================",
   "_comment": "Thermal Horizon",

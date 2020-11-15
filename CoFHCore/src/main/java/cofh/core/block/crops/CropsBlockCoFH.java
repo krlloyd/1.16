@@ -88,7 +88,7 @@ public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
     }
 
     @Override
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 
         if (!worldIn.isAreaLoaded(pos, 1)) {
             return;

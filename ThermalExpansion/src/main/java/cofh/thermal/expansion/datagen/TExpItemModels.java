@@ -36,6 +36,9 @@ public class TExpItemModels extends ItemModelProviderCoFH {
 
         generated(reg.getSup("press_coin_die"), CRAFTING);
         generated(reg.getSup("press_gear_die"), CRAFTING);
+        generated(reg.getSup("press_packing_2x2_die"), CRAFTING);
+        generated(reg.getSup("press_packing_3x3_die"), CRAFTING);
+        generated(reg.getSup("press_unpacking_die"), CRAFTING);
     }
 
     private void registerBlockItemModels() {

@@ -3,7 +3,6 @@ package cofh.thermal.core.client.gui.device;
 import cofh.core.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.ThermalScreenBase;
 import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
-import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

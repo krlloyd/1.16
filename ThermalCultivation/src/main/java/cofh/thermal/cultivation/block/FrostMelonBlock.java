@@ -1,5 +1,6 @@
 package cofh.thermal.cultivation.block;
 
+import cofh.core.block.crops.AttachedStemBlockCoFH;
 import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -23,7 +24,7 @@ public class FrostMelonBlock extends StemGrownBlock {
 
     public AttachedStemBlock getAttachedStem() {
 
-        return (AttachedStemBlock) FROST_MELON_STEM_ATTACHED;
+        return (AttachedStemBlockCoFH) FROST_MELON_STEM_ATTACHED;
     }
 
     @Override

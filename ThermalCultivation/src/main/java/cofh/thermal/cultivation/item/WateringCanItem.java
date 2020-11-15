@@ -29,6 +29,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
@@ -176,9 +177,14 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
         if (Utils.isServerWorld(world)) {
             if (world.rand.nextFloat() < Math.max(getEffectiveness(stack), 0.05)) {
                 for (BlockPos scan : area) {
-                    Block plant = world.getBlockState(scan).getBlock();
+                    BlockState plantState = world.getBlockState(scan);
+                    Block plant = plantState.getBlock();
                     if (plant instanceof IGrowable || plant instanceof IPlantable || EFFECTIVE_BLOCKS.contains(plant)) {
-                        world.getPendingBlockTicks().scheduleTick(scan, plant, 0);
+                        if (plant.ticksRandomly(plantState)) {
+                            plant.randomTick(plantState, (ServerWorld) world, scan, world.rand);
+                        } else {
+                            world.getPendingBlockTicks().scheduleTick(scan, plant, 0);
+                        }
                     }
                 }
             }

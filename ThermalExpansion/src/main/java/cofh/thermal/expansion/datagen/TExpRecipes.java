@@ -9,6 +9,7 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
@@ -289,6 +290,36 @@ public class TExpRecipes extends RecipeProviderCoFH {
                 .patternLine(" P ")
                 .patternLine("PXP")
                 .patternLine(" P ")
+                .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(reg.get("press_packing_2x2_die"))
+                .key('C', CoFHTags.Items.PLATES_CONSTANTAN)
+                .key('I', CoFHTags.Items.PLATES_INVAR)
+                .key('X', ItemTags.PLANKS)
+                .patternLine(" C ")
+                .patternLine("IXI")
+                .patternLine(" C ")
+                .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(reg.get("press_packing_3x3_die"))
+                .key('C', CoFHTags.Items.PLATES_CONSTANTAN)
+                .key('I', CoFHTags.Items.PLATES_INVAR)
+                .key('X', ItemTags.PLANKS)
+                .patternLine(" I ")
+                .patternLine("CXC")
+                .patternLine(" I ")
+                .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(reg.get("press_unpacking_die"))
+                .key('C', CoFHTags.Items.PLATES_CONSTANTAN)
+                .key('I', CoFHTags.Items.PLATES_INVAR)
+                .key('X', ItemTags.PLANKS)
+                .patternLine("C I")
+                .patternLine(" X ")
+                .patternLine("I C")
                 .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
                 .build(consumer);
 

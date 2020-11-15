@@ -50,6 +50,9 @@ public class TExpTags {
 
             getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_coin_die"));
             getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_gear_die"));
+            getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_packing_2x2_die"));
+            getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_packing_3x3_die"));
+            getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_unpacking_die"));
 
             getOrCreateBuilder(CoFHTags.Items.MACHINE_CASTS).add(ITEMS.get("chiller_ball_cast"));
         }

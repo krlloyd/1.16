@@ -3,7 +3,7 @@ package cofh.thermal.cultivation.init;
 import cofh.core.block.Block4Way;
 import cofh.core.block.CakeBlockCoFH;
 import cofh.core.block.TileBlock4Way;
-import cofh.core.block.crops.StemBlockAttached;
+import cofh.core.block.crops.AttachedStemBlockCoFH;
 import cofh.core.block.crops.StemBlockCoFH;
 import cofh.core.util.ProxyUtils;
 import cofh.thermal.core.block.SoilBlock;
@@ -15,19 +15,18 @@ import cofh.thermal.cultivation.tileentity.DeviceSoilInfuserTile;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 
 import java.util.function.IntSupplier;
-import java.util.function.Predicate;
 
 import static cofh.core.util.constants.Constants.ACTIVE;
 import static cofh.core.util.constants.Constants.CHARGED;
 import static cofh.core.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.*;
+import static cofh.thermal.core.common.ThermalAugmentRules.DEVICE_VALIDATOR;
 import static cofh.thermal.core.util.RegistrationHelper.*;
 import static cofh.thermal.cultivation.init.TCulIDs.*;
 import static cofh.thermal.cultivation.init.TCulReferences.DEVICE_SOIL_INFUSER_BLOCK;
@@ -84,8 +83,8 @@ public class TCulBlocks {
 
         // STEM
         registerBlock(ID_FROST_MELON, () -> new FrostMelonBlock(create(Material.GOURD, MaterialColor.CYAN).tickRandomly().hardnessAndResistance(1.0F).harvestTool(ToolType.AXE).sound(SoundType.SNOW)), Rarity.UNCOMMON);
-        registerBlockOnly(ID_FROST_MELON_STEM, () -> new StemBlockCoFH(create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.WOOD)).crop(BLOCKS.getSup(ID_FROST_MELON)).seed(ITEMS.getSup(seeds(ID_FROST_MELON))));
-        registerBlockOnly(ID_FROST_MELON_STEM_ATTACHED, () -> new StemBlockAttached(create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.STEM)).crop(BLOCKS.getSup(ID_FROST_MELON)).seed(ITEMS.getSup(seeds(ID_FROST_MELON))));
+        registerBlockOnly(ID_FROST_MELON_STEM, () -> new StemBlockCoFH(create(Material.PLANTS).tickRandomly().doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.WOOD)).crop(BLOCKS.getSup(ID_FROST_MELON)).seed(ITEMS.getSup(seeds(ID_FROST_MELON))));
+        registerBlockOnly(ID_FROST_MELON_STEM_ATTACHED, () -> new AttachedStemBlockCoFH(create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.STEM)).crop(BLOCKS.getSup(ID_FROST_MELON)).seed(ITEMS.getSup(seeds(ID_FROST_MELON))));
     }
 
     private static void registerFoods() {
@@ -126,9 +125,8 @@ public class TCulBlocks {
     private static void registerTileBlocks() {
 
         IntSupplier deviceAugs = () -> ThermalConfig.deviceAugments;
-        Predicate<ItemStack> deviceValidator = (e) -> true;
 
-        registerAugBlock(ID_DEVICE_SOIL_INFUSER, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE).setLightLevel(lightValue(ACTIVE, 10)), DeviceSoilInfuserTile::new), deviceAugs, deviceValidator);
+        registerAugBlock(ID_DEVICE_SOIL_INFUSER, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE).setLightLevel(lightValue(ACTIVE, 10)), DeviceSoilInfuserTile::new), deviceAugs, DEVICE_VALIDATOR);
     }
 
     private static void registerTileContainers() {

@@ -9,23 +9,23 @@ import net.minecraft.world.IWorld;
 
 import java.util.function.Supplier;
 
-public class StemBlockAttached extends AttachedStemBlock {
+public class AttachedStemBlockCoFH extends AttachedStemBlock {
 
     protected Supplier<Block> cropBlock = () -> Blocks.MELON;
     protected Supplier<Item> seed = () -> Items.MELON_SEEDS;
 
-    public StemBlockAttached(Properties properties) {
+    public AttachedStemBlockCoFH(Properties properties) {
 
         super((StemGrownBlock) Blocks.MELON, properties);
     }
 
-    public StemBlockAttached crop(Supplier<Block> crop) {
+    public AttachedStemBlockCoFH crop(Supplier<Block> crop) {
 
         this.cropBlock = crop;
         return this;
     }
 
-    public StemBlockAttached seed(Supplier<Item> seed) {
+    public AttachedStemBlockCoFH seed(Supplier<Item> seed) {
 
         this.seed = seed;
         return this;

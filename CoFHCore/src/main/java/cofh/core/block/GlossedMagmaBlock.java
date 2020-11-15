@@ -60,6 +60,12 @@ public class GlossedMagmaBlock extends MagmaBlock {
     }
 
     @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+
+        this.tick(state, worldIn, pos, random);
+    }
+
+    @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
 
         if ((rand.nextInt(9) == 0 || this.shouldMelt(worldIn, pos, 4)) && this.slightlyMelt(state, worldIn, pos)) {

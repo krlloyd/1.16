@@ -7,11 +7,13 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -57,7 +59,7 @@ public class UnderwaterMinecartEntity extends AbstractMinecartEntityCoFH {
 
         super.tick();
         if (Utils.isServerWorld(world)) {
-            if (!this.eyesInWater) {
+            if (!this.inWater) {
                 airSupply = Math.min(airSupply + 40, AIR_SUPPLY_MAX);
             } else {
                 List<Entity> passengers = getPassengers();
@@ -92,27 +94,27 @@ public class UnderwaterMinecartEntity extends AbstractMinecartEntityCoFH {
     }
 
     // TODO: 1.16 alteration.
+    @Override
+    protected boolean func_233566_aG_() {
+
+        if (this.getRidingEntity() instanceof BoatEntity) {
+            this.inWater = false;
+        } else if (this.handleFluidAcceleration(FluidTags.WATER, 0.014D)) {
+            if (!this.inWater && !this.firstUpdate) {
+                this.doWaterSplashEffect();
+            }
+            this.fallDistance = 0.0F;
+            this.inWater = true;
+            this.extinguish();
+            // this.eyesInWater = this.areEyesInFluid(FluidTags.WATER);
+        } else {
+            this.inWater = false;
+        }
+        return this.inWater;
+    }
+
     //    @Override
-    //    public boolean handleWaterMovement() {
-    //
-    //        if (this.getRidingEntity() instanceof BoatEntity) {
-    //            this.inWater = false;
-    //        } else if (this.handleFluidAcceleration(FluidTags.WATER)) {
-    //            if (!this.inWater && !this.firstUpdate) {
-    //                this.doWaterSplashEffect();
-    //            }
-    //            this.fallDistance = 0.0F;
-    //            this.inWater = true;
-    //            this.extinguish();
-    //            this.eyesInWater = this.areEyesInFluid(FluidTags.WATER);
-    //        } else {
-    //            this.inWater = false;
-    //        }
-    //        return this.inWater;
-    //    }
-    //
-    //    @Override
-    //    public boolean areEyesInFluid(Tag<Fluid> tag) {
+    //    public boolean areEyesInFluid(ITag<Fluid> tag) {
     //
     //        if (this.getRidingEntity() instanceof BoatEntity) {
     //            return false;
