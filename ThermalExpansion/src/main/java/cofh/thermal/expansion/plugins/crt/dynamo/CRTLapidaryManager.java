@@ -30,6 +30,12 @@ public class CRTLapidaryManager implements IRecipeManager {
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     
+    
+    @Override
+    public void removeRecipe(IItemStack output) {
+        removeFuel(output);
+    }
+    
     @ZenCodeType.Method
     public void removeFuel(IItemStack outputItem) {
         CraftTweakerAPI.apply(new ActionRemoveThermalFuelByOutput(this, new IItemStack[] {outputItem}));

@@ -6,6 +6,7 @@ import cofh.thermal.expansion.util.recipes.dynamo.CompressionFuel;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;
+import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import net.minecraft.item.crafting.*;
@@ -28,6 +29,11 @@ public class CRTCompressionManager implements IRecipeManager {
         List<FluidStack> fluids = Collections.singletonList(ingredient.getInternal());
         CompressionFuel recipe = new CompressionFuel(resourceLocation, energy, items, fluids);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
+    }
+    
+    @Override
+    public void removeRecipe(IItemStack output) {
+        throw new IllegalArgumentException("Compression Fuel only works with fluids! Please provide an IFluidStack");
     }
     
     @ZenCodeType.Method
