@@ -47,14 +47,14 @@ public class CRTRecipe {
     }
     
     public CRTRecipe output(MCWeightedItemStack... stack) {
-        this.outputItems = Arrays.stream(stack).map(weightedStack -> weightedStack.getItemStack().getInternal()).collect(Collectors.toList());
-        this.outputItemChances = Arrays.stream(stack).map(weightedStack -> (float) weightedStack.getWeight()).collect(Collectors.toList());
+        this.outputItems = Arrays.stream(stack).filter(weightedStack -> !weightedStack.getItemStack().isEmpty()).map(weightedStack -> weightedStack.getItemStack().getInternal()).collect(Collectors.toList());
+        this.outputItemChances = Arrays.stream(stack).filter(weightedStack -> !weightedStack.getItemStack().isEmpty()).map(weightedStack -> (float) weightedStack.getWeight()).collect(Collectors.toList());
         return this;
     }
     
     public CRTRecipe output(IItemStack... stack) {
-        this.outputItems = Arrays.stream(stack).map(IItemStack::getInternal).collect(Collectors.toList());
-        this.outputItemChances = Arrays.stream(stack).map(iItemStack -> {
+        this.outputItems = Arrays.stream(stack).filter(iItemStack -> !iItemStack.isEmpty()).map(IItemStack::getInternal).collect(Collectors.toList());
+        this.outputItemChances = Arrays.stream(stack).filter(iItemStack -> !iItemStack.isEmpty()).map(iItemStack -> {
             if(iItemStack instanceof MCWeightedItemStack) {
                 return (float) ((MCWeightedItemStack) iItemStack).getWeight();
             }
