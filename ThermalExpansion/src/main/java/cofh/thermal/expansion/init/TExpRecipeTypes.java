@@ -20,6 +20,7 @@ public class TExpRecipeTypes {
         RECIPE_FURNACE.register();
         RECIPE_SAWMILL.register();
         RECIPE_PULVERIZER.register();
+        RECIPE_SMELTER.register();
         RECIPE_INSOLATOR.register();
         RECIPE_CENTRIFUGE.register();
         RECIPE_PRESS.register();
@@ -77,7 +78,7 @@ public class TExpRecipeTypes {
     // public static final SerializableRecipeType<EnchanterRecipe> RECIPE_ENCHANTER = new SerializableRecipeType<>(ID_RECIPE_ENCHANTER);
 
     public static final SerializableRecipeType<PulverizerCatalyst> CATALYST_PULVERIZER = new SerializableRecipeType<>(ID_CATALYST_PULVERIZER);
-    public static final SerializableRecipeType<PulverizerCatalyst> CATALYST_SMELTER = new SerializableRecipeType<>(ID_CATALYST_SMELTER);
+    public static final SerializableRecipeType<SmelterCatalyst> CATALYST_SMELTER = new SerializableRecipeType<>(ID_CATALYST_SMELTER);
     public static final SerializableRecipeType<InsolatorCatalyst> CATALYST_INSOLATOR = new SerializableRecipeType<>(ID_CATALYST_INSOLATOR);
     // public static final SerializableRecipeType<EnchanterCatalyst> CATALYST_ENCHANTER = new SerializableRecipeType<>(ID_CATALYST_ENCHANTER);
     // endregion
