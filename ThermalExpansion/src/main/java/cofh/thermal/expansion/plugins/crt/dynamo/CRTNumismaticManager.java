@@ -2,7 +2,8 @@ package cofh.thermal.expansion.plugins.crt.dynamo;
 
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalFuelByOutput;
-import cofh.thermal.expansion.util.recipes.dynamo.NumismaticFuel;
+import cofh.thermal.expansion.plugins.crt.base.CRTFuel;
+import cofh.thermal.expansion.util.recipes.dynamo.*;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.*;
@@ -24,9 +25,7 @@ public class CRTNumismaticManager implements IRecipeManager {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
         
-        List<Ingredient> items = Collections.singletonList(ingredient.asVanillaIngredient());
-        List<FluidStack> fluids = new ArrayList<>();
-        NumismaticFuel recipe = new NumismaticFuel(resourceLocation, energy, items, fluids);
+        NumismaticFuel recipe = new CRTFuel(resourceLocation, energy).item(ingredient).numismatic();
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     

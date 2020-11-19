@@ -2,6 +2,7 @@ package cofh.thermal.expansion.plugins.crt.dynamo;
 
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalFuelByOutput;
+import cofh.thermal.expansion.plugins.crt.base.CRTFuel;
 import cofh.thermal.expansion.util.recipes.dynamo.CompressionFuel;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
@@ -9,12 +10,9 @@ import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
 import org.openzen.zencode.java.ZenCodeType;
-
-import java.util.*;
 
 @ZenRegister
 @ZenCodeType.Name("mods.thermal.CompressionFuel")
@@ -25,9 +23,7 @@ public class CRTCompressionManager implements IRecipeManager {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
         
-        List<Ingredient> items = new ArrayList<>();
-        List<FluidStack> fluids = Collections.singletonList(ingredient.getInternal());
-        CompressionFuel recipe = new CompressionFuel(resourceLocation, energy, items, fluids);
+        CompressionFuel recipe = new CRTFuel(resourceLocation, energy).fluid(ingredient).compression();
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     

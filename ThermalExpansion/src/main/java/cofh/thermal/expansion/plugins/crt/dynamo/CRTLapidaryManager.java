@@ -2,18 +2,16 @@ package cofh.thermal.expansion.plugins.crt.dynamo;
 
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalFuelByOutput;
-import cofh.thermal.expansion.util.recipes.dynamo.LapidaryFuel;
+import cofh.thermal.expansion.plugins.crt.base.CRTFuel;
+import cofh.thermal.expansion.util.recipes.dynamo.*;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.*;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
 import org.openzen.zencode.java.ZenCodeType;
-
-import java.util.*;
 
 @ZenRegister
 @ZenCodeType.Name("mods.thermal.LapidaryFuel")
@@ -24,9 +22,7 @@ public class CRTLapidaryManager implements IRecipeManager {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
         
-        List<Ingredient> items = Collections.singletonList(ingredient.asVanillaIngredient());
-        List<FluidStack> fluids = new ArrayList<>();
-        LapidaryFuel recipe = new LapidaryFuel(resourceLocation, energy, items, fluids);
+        LapidaryFuel recipe = new CRTFuel(resourceLocation, energy).item(ingredient).lapidary();
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     

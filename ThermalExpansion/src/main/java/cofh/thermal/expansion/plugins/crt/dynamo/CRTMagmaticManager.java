@@ -2,7 +2,8 @@ package cofh.thermal.expansion.plugins.crt.dynamo;
 
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalFuelByOutput;
-import cofh.thermal.expansion.util.recipes.dynamo.MagmaticFuel;
+import cofh.thermal.expansion.plugins.crt.base.CRTFuel;
+import cofh.thermal.expansion.util.recipes.dynamo.*;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;
@@ -25,9 +26,7 @@ public class CRTMagmaticManager implements IRecipeManager {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
         
-        List<Ingredient> items = new ArrayList<>();
-        List<FluidStack> fluids = Collections.singletonList(ingredient.getInternal());
-        MagmaticFuel recipe = new MagmaticFuel(resourceLocation, energy, items, fluids);
+        MagmaticFuel recipe = new CRTFuel(resourceLocation, energy).fluid(ingredient).magmatic();
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     
