@@ -1,6 +1,6 @@
 package cofh.thermal.expansion.plugins.crt.base;
 
-import cofh.thermal.expansion.util.recipes.machine.*;
+import cofh.thermal.core.util.recipes.ThermalCatalyst;
 import com.blamejared.crafttweaker.api.item.IIngredient;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -25,16 +25,13 @@ public class CRTCatalyst {
         this.useChance = useChance;
     }
     
-    public InsolatorCatalyst insolator() {
-        return new InsolatorCatalyst(name, ingredient, primaryMod, secondaryMod, energyMod, minChance, useChance);
+    public <T extends ThermalCatalyst> T catalyst(ICatalystBuilder<T> builder) {
+        return builder.apply(name, ingredient, primaryMod, secondaryMod, energyMod, minChance, useChance);
     }
     
-    public PulverizerCatalyst pulverizer() {
-        return new PulverizerCatalyst(name, ingredient, primaryMod, secondaryMod, energyMod, minChance, useChance);
-    }
-    
-    public SmelterCatalyst smelter() {
-        return new SmelterCatalyst(name, ingredient, primaryMod, secondaryMod, energyMod, minChance, useChance);
+    public interface ICatalystBuilder<T extends ThermalCatalyst> {
+        
+        T apply(ResourceLocation recipeId, Ingredient ingredient, float primaryMod, float secondaryMod, float energyMod, float minChance, float useChance);
     }
     
 }
