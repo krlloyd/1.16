@@ -25,6 +25,11 @@ public class CRTPulverizerCatalystManager implements IRecipeManager {
         CraftTweakerAPI.apply(new ActionAddRecipe(this, pulverizerCatalyst, ""));
     }
     
+    @Override
+    public void removeRecipe(IItemStack output) {
+        removeCatalyst(output);
+    }
+    
     @ZenCodeType.Method
     public void removeCatalyst(IItemStack input) {
         CraftTweakerAPI.apply(new ActionRemoveThermalCatalystByOutput(this, input));
