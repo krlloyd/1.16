@@ -23,7 +23,7 @@ public class CRTCompressionManager implements IRecipeManager {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
         
-        CompressionFuel recipe = new CRTFuel(resourceLocation, energy).fluid(ingredient).compression();
+        CompressionFuel recipe = new CRTFuel(resourceLocation, energy).fluid(ingredient).fuel(CompressionFuel::new);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     

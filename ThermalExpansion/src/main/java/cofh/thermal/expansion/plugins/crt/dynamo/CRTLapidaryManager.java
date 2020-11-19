@@ -3,7 +3,7 @@ package cofh.thermal.expansion.plugins.crt.dynamo;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalFuelByOutput;
 import cofh.thermal.expansion.plugins.crt.base.CRTFuel;
-import cofh.thermal.expansion.util.recipes.dynamo.*;
+import cofh.thermal.expansion.util.recipes.dynamo.LapidaryFuel;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.*;
@@ -22,7 +22,7 @@ public class CRTLapidaryManager implements IRecipeManager {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
         
-        LapidaryFuel recipe = new CRTFuel(resourceLocation, energy).item(ingredient).lapidary();
+        LapidaryFuel recipe = new CRTFuel(resourceLocation, energy).item(ingredient).fuel(LapidaryFuel::new);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     

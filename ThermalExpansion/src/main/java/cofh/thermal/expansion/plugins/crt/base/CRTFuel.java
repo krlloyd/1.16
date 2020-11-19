@@ -1,12 +1,13 @@
 package cofh.thermal.expansion.plugins.crt.base;
 
-import cofh.thermal.expansion.util.recipes.dynamo.*;
+import cofh.thermal.core.util.recipes.ThermalFuel;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.item.IIngredient;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class CRTFuel {
@@ -31,24 +32,13 @@ public class CRTFuel {
         return this;
     }
     
-    public CompressionFuel compression() {
-        return new CompressionFuel(name, energy, item, fluid);
+    public <T extends ThermalFuel> T fuel(IFuelBuilder<T> builder) {
+        return builder.apply(name, energy, item, fluid);
     }
     
-    public LapidaryFuel lapidary() {
-        return new LapidaryFuel(name, energy, item, fluid);
-    }
-    
-    public MagmaticFuel magmatic() {
-        return new MagmaticFuel(name, energy, item, fluid);
-    }
-    
-    public NumismaticFuel numismatic() {
-        return new NumismaticFuel(name, energy, item, fluid);
-    }
-    
-    public StirlingFuel stirling() {
-        return new StirlingFuel(name, energy, item, fluid);
+    public interface IFuelBuilder<T extends ThermalFuel> {
+        
+        T apply(ResourceLocation recipeId, int energy, @Nullable List<Ingredient> inputItems, @Nullable List<FluidStack> inputFluids);
     }
     
     

@@ -3,18 +3,15 @@ package cofh.thermal.expansion.plugins.crt.dynamo;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalFuelByOutput;
 import cofh.thermal.expansion.plugins.crt.base.CRTFuel;
-import cofh.thermal.expansion.util.recipes.dynamo.*;
+import cofh.thermal.expansion.util.recipes.dynamo.StirlingFuel;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.*;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
 import org.openzen.zencode.java.ZenCodeType;
-
-import java.util.*;
 
 @ZenRegister
 @ZenCodeType.Name("mods.thermal.StirlingFuel")
@@ -25,7 +22,7 @@ public class CRTStirlingManager implements IRecipeManager {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
         
-        StirlingFuel recipe = new CRTFuel(resourceLocation, energy).item(ingredient).stirling();
+        StirlingFuel recipe = new CRTFuel(resourceLocation, energy).item(ingredient).fuel(StirlingFuel::new);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     
