@@ -2,6 +2,7 @@ package cofh.thermal.expansion.plugins.crt.machine;
 
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.plugins.crt.actions.*;
+import cofh.thermal.expansion.plugins.crt.base.CRTCatalyst;
 import cofh.thermal.expansion.util.recipes.machine.InsolatorCatalyst;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
@@ -21,8 +22,8 @@ public class CRTInsolatorCatalystManager implements IRecipeManager {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
         
-        InsolatorCatalyst insolatorCatalyst = new InsolatorCatalyst(resourceLocation, ingredient.asVanillaIngredient(), primaryMod, secondaryMod, energyMod, minChance, useChance);
-        CraftTweakerAPI.apply(new ActionAddRecipe(this, insolatorCatalyst, ""));
+        InsolatorCatalyst catalyst = new CRTCatalyst(resourceLocation, ingredient, primaryMod, secondaryMod, energyMod, minChance, useChance).insolator();
+        CraftTweakerAPI.apply(new ActionAddRecipe(this, catalyst, ""));
     }
     
     @Override

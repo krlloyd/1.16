@@ -2,6 +2,7 @@ package cofh.thermal.expansion.plugins.crt.machine;
 
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalCatalystByOutput;
+import cofh.thermal.expansion.plugins.crt.base.CRTCatalyst;
 import cofh.thermal.expansion.util.recipes.machine.*;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
@@ -20,9 +21,9 @@ public class CRTSmelterCatalystManager implements IRecipeManager {
     public void addCatalyst(String name, IIngredient ingredient, float primaryMod, float secondaryMod, float energyMod, float minChance, float useChance) {
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-        
-        SmelterCatalyst smelterCatalyst = new SmelterCatalyst(resourceLocation, ingredient.asVanillaIngredient(), primaryMod, secondaryMod, energyMod, minChance, useChance);
-        CraftTweakerAPI.apply(new ActionAddRecipe(this, smelterCatalyst, ""));
+    
+        SmelterCatalyst catalyst = new CRTCatalyst(resourceLocation, ingredient, primaryMod, secondaryMod, energyMod, minChance, useChance).smelter();
+        CraftTweakerAPI.apply(new ActionAddRecipe(this, catalyst, ""));
     }
     
     @Override
