@@ -43,6 +43,7 @@ public class CRTBrewerManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_BREWER;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         throw new IllegalArgumentException("The Brewer only outputs fluids! Please provide an IFluidStack");
     }

@@ -47,6 +47,7 @@ public class CRTPressManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_PRESS;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output}, new IFluidStack[0]);
     }

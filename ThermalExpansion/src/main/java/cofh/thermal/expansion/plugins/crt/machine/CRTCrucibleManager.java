@@ -48,6 +48,7 @@ public class CRTCrucibleManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_CRUCIBLE;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         throw new IllegalArgumentException("The Crucible only outputs fluids! Please provide an IFluidStack");
     }

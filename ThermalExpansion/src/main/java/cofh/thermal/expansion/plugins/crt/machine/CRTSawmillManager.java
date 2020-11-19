@@ -46,6 +46,7 @@ public class CRTSawmillManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_SAWMILL;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output});
     }

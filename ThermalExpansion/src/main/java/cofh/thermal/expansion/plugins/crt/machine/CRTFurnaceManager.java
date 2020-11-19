@@ -41,6 +41,7 @@ public class CRTFurnaceManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_FURNACE;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output});
     }

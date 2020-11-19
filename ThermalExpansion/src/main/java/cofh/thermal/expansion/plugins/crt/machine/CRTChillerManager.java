@@ -47,6 +47,7 @@ public class CRTChillerManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_CHILLER;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output});
     }

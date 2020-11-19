@@ -43,6 +43,7 @@ public class CRTSmelterManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_SMELTER;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output});
     }

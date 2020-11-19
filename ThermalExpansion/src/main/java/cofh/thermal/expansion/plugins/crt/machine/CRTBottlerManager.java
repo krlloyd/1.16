@@ -43,6 +43,7 @@ public class CRTBottlerManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_BOTTLER;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output});
     }

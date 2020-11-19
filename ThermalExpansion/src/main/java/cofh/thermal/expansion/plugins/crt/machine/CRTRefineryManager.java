@@ -47,6 +47,7 @@ public class CRTRefineryManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_REFINERY;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output}, new IFluidStack[0]);
     }

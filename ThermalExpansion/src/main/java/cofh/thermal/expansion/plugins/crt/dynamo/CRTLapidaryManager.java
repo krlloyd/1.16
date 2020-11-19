@@ -30,7 +30,6 @@ public class CRTLapidaryManager implements IRecipeManager {
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
     
-    
     @Override
     public void removeRecipe(IItemStack output) {
         removeFuel(output);

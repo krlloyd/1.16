@@ -48,6 +48,7 @@ public class CRTInsolatorManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_INSOLATOR;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output});
     }

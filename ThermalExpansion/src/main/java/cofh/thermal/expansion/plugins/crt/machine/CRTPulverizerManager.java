@@ -46,6 +46,7 @@ public class CRTPulverizerManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_PULVERIZER;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output});
     }

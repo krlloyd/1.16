@@ -45,6 +45,7 @@ public class CRTCentrifugeManager implements IRecipeManager {
         return TExpRecipeTypes.RECIPE_CENTRIFUGE;
     }
     
+    @Override
     public void removeRecipe(IItemStack output) {
         removeRecipe(new IItemStack[] {output}, new IFluidStack[0]);
     }
