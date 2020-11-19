@@ -129,7 +129,7 @@ public class AreaEffectClientEvents {
         if (progress < 0) {
             return;
         }
-        progress = Math.min(progress, 9); // Ensure that for whatever reason the progress level doesn't go OOB.
+        progress = Math.min(progress, 8); // Ensure that for whatever reason the progress level doesn't go OOB.
 
         BlockRendererDispatcher dispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
         IVertexBuilder vertexBuilder = worldRender.renderTypeTextures.getCrumblingBufferSource().getBuffer(ModelBakery.DESTROY_RENDER_TYPES.get(progress + 1));
