@@ -1,7 +1,7 @@
 package cofh.thermal.expansion.plugins.crt.machine;
 
 import cofh.thermal.expansion.init.TExpRecipeTypes;
-import cofh.thermal.expansion.plugins.crt.actions.*;
+import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalCatalystByOutput;
 import cofh.thermal.expansion.plugins.crt.base.CRTCatalyst;
 import cofh.thermal.expansion.util.recipes.machine.InsolatorCatalyst;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
