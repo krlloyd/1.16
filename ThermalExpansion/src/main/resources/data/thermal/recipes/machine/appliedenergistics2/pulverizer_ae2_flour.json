@@ -8,9 +8,9 @@
       "item": "appliedenergistics2:flour",
       "count": 1
     }
-   
+
   ],
- 
+
   "conditions": [
     {
       "type": "forge:mod_loaded",

@@ -8,6 +8,7 @@ import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
 import cofh.thermal.core.util.managers.device.TreeExtractorManager;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
@@ -205,6 +206,14 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
         if (curFluid != renderFluid.getFluid()) {
             TileStatePacket.sendToClient(this);
         }
+        updateActiveState();
+    }
+
+    @Override
+    public void neighborChanged(Block blockIn, BlockPos fromPos) {
+
+        super.neighborChanged(blockIn, fromPos);
+        updateValidity();
         updateActiveState();
     }
 

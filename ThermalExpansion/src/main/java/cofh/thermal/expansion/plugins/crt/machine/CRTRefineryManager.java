@@ -18,28 +18,33 @@ import org.openzen.zencode.java.ZenCodeType;
 @ZenRegister
 @ZenCodeType.Name("mods.thermal.Refinery")
 public class CRTRefineryManager implements IRecipeManager {
-    
+
     @ZenCodeType.Method
     public void addRecipe(String name, MCWeightedItemStack itemOutput, IFluidStack[] fluidsOutput, IFluidStack inputFluid, int energy) {
+
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-        
+
         CRTRecipe crtRecipe = new CRTRecipe(resourceLocation).energy(energy).input(inputFluid).output(fluidsOutput).output(itemOutput);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, crtRecipe.recipe(RefineryRecipe::new), ""));
     }
-    
+
     @Override
     public IRecipeType<RefineryRecipe> getRecipeType() {
+
         return TExpRecipeTypes.RECIPE_REFINERY;
     }
-    
+
     @Override
     public void removeRecipe(IItemStack output) {
-        removeRecipe(new IItemStack[] {output}, new IFluidStack[0]);
+
+        removeRecipe(new IItemStack[]{output}, new IFluidStack[0]);
     }
-    
+
     @ZenCodeType.Method
     public void removeRecipe(IItemStack[] itemOutputs, IFluidStack[] fluidOutputs) {
+
         CraftTweakerAPI.apply(new ActionRemoveThermalRecipeByOutput(this, itemOutputs, fluidOutputs));
     }
+
 }

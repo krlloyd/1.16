@@ -17,28 +17,33 @@ import org.openzen.zencode.java.ZenCodeType;
 @ZenRegister
 @ZenCodeType.Name("mods.thermal.MagmaticFuel")
 public class CRTMagmaticManager implements IRecipeManager {
-    
+
     @ZenCodeType.Method
     public void addFuel(String name, IFluidStack ingredient, int energy) {
+
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-        
+
         MagmaticFuel recipe = new CRTFuel(resourceLocation, energy).fluid(ingredient).fuel(MagmaticFuel::new);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
-    
+
     @Override
     public void removeRecipe(IItemStack output) {
+
         throw new IllegalArgumentException("Magmatic Fuel only works with fluids! Please provide an IFluidStack");
     }
-    
+
     @ZenCodeType.Method
     public void removeFuel(IFluidStack outputFluid) {
-        CraftTweakerAPI.apply(new ActionRemoveThermalFuelByOutput(this, new IFluidStack[] {outputFluid}));
+
+        CraftTweakerAPI.apply(new ActionRemoveThermalFuelByOutput(this, new IFluidStack[]{outputFluid}));
     }
-    
+
     @Override
     public IRecipeType<MagmaticFuel> getRecipeType() {
+
         return TExpRecipeTypes.FUEL_MAGMATIC;
     }
+
 }

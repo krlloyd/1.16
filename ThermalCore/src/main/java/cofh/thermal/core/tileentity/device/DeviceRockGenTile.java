@@ -3,7 +3,6 @@ package cofh.thermal.core.tileentity.device;
 import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.inventory.ItemStorageInfinite;
 import cofh.core.network.packet.client.TileControlPacket;
-import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
 import net.minecraft.block.Block;
@@ -29,7 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static cofh.core.util.StorageGroup.OUTPUT;
-import static cofh.core.util.constants.Constants.*;
+import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.core.util.helpers.ItemHelper.cloneStack;
 import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_ROCK_GEN_TILE;

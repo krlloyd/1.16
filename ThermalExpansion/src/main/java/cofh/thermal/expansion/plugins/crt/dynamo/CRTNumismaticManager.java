@@ -16,28 +16,33 @@ import org.openzen.zencode.java.ZenCodeType;
 @ZenRegister
 @ZenCodeType.Name("mods.thermal.NumismaticFuel")
 public class CRTNumismaticManager implements IRecipeManager {
-    
+
     @ZenCodeType.Method
     public void addFuel(String name, IIngredient ingredient, int energy) {
+
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-        
+
         NumismaticFuel recipe = new CRTFuel(resourceLocation, energy).item(ingredient).fuel(NumismaticFuel::new);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
     }
-    
+
     @Override
     public void removeRecipe(IItemStack output) {
+
         removeFuel(output);
     }
-    
+
     @ZenCodeType.Method
     public void removeFuel(IItemStack outputItem) {
-        CraftTweakerAPI.apply(new ActionRemoveThermalFuelByOutput(this, new IItemStack[] {outputItem}));
+
+        CraftTweakerAPI.apply(new ActionRemoveThermalFuelByOutput(this, new IItemStack[]{outputItem}));
     }
-    
+
     @Override
     public IRecipeType<NumismaticFuel> getRecipeType() {
+
         return TExpRecipeTypes.FUEL_NUMISMATIC;
     }
+
 }

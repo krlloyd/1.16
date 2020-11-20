@@ -17,28 +17,33 @@ import org.openzen.zencode.java.ZenCodeType;
 @ZenRegister
 @ZenCodeType.Name("mods.thermal.Chiller")
 public class CRTChillerManager implements IRecipeManager {
-    
+
     @ZenCodeType.Method
     public void addRecipe(String name, IItemStack output, IIngredient ingredient, IFluidStack inputFluid, int energy) {
+
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-        
+
         CRTRecipe crtRecipe = new CRTRecipe(resourceLocation).energy(energy).input(ingredient).input(inputFluid).output(output);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, crtRecipe.recipe(ChillerRecipe::new), ""));
     }
-    
+
     @Override
     public IRecipeType<ChillerRecipe> getRecipeType() {
+
         return TExpRecipeTypes.RECIPE_CHILLER;
     }
-    
+
     @Override
     public void removeRecipe(IItemStack output) {
-        removeRecipe(new IItemStack[] {output});
+
+        removeRecipe(new IItemStack[]{output});
     }
-    
+
     @ZenCodeType.Method
     public void removeRecipe(IItemStack... output) {
+
         CraftTweakerAPI.apply(new ActionRemoveThermalRecipeByOutput(this, output));
     }
+
 }

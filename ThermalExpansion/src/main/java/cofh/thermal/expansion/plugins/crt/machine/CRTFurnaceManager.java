@@ -16,29 +16,33 @@ import org.openzen.zencode.java.ZenCodeType;
 @ZenRegister
 @ZenCodeType.Name("mods.thermal.Furnace")
 public class CRTFurnaceManager implements IRecipeManager {
-    
+
     @ZenCodeType.Method
     public void addRecipe(String name, IItemStack output, IIngredient ingredient, float experience, int energy) {
+
         name = fixRecipeName(name);
         ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-        
+
         CRTRecipe crtRecipe = new CRTRecipe(resourceLocation).energy(energy).input(ingredient).output(output).experience(experience);
         CraftTweakerAPI.apply(new ActionAddRecipe(this, crtRecipe.recipe(FurnaceRecipe::new), ""));
     }
-    
+
     @Override
     public IRecipeType<FurnaceRecipe> getRecipeType() {
+
         return TExpRecipeTypes.RECIPE_FURNACE;
     }
-    
+
     @Override
     public void removeRecipe(IItemStack output) {
-        removeRecipe(new IItemStack[] {output});
+
+        removeRecipe(new IItemStack[]{output});
     }
-    
+
     @ZenCodeType.Method
     public void removeRecipe(IItemStack... output) {
+
         CraftTweakerAPI.apply(new ActionRemoveThermalRecipeByOutput(this, output));
     }
-    
+
 }

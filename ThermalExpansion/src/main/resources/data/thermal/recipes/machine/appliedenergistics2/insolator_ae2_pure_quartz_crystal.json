@@ -9,7 +9,7 @@
       "count": 1
     }
   ],
-  "energy": 30000, 
+  "energy": 30000,
   "conditions": [
     {
       "type": "forge:mod_loaded",
