@@ -138,7 +138,6 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
         if (nugget != null) {
             String nuggetName = nugget.getRegistryName().getPath();
             if (ingot != null) {
-                generateStorageRecipes(reg, consumer, ingot, nugget);
                 String ingotName = ingot.getRegistryName().getPath();
                 ShapedRecipeBuilder.shapedRecipe(ingot)
                         .key('#', nugget)
