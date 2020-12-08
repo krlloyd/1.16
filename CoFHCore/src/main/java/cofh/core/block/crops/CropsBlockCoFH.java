@@ -98,7 +98,7 @@ public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
                 int age = getAge(state);
                 float growthChance = MathHelper.maxF(getGrowthChance(this, worldIn, pos) * growMod, 0.1F);
                 if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt((int) (25.0F / growthChance) + 1) == 0)) {
-                    int newAge = age + 1 == getPostHarvestAge() ? getHarvestAge() : age + 1;
+                    int newAge = age + 1 == getPostHarvestAge() ? getMaxAge() : age + 1;
                     worldIn.setBlockState(pos, withAge(newAge), 2);
                     ForgeHooks.onCropsGrowPost(worldIn, pos, state);
                 }
@@ -144,11 +144,6 @@ public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
         return state.get(getAgeProperty());
     }
 
-    protected int getHarvestAge() {
-
-        return 7;
-    }
-
     protected int getPostHarvestAge() {
 
         return -1;
@@ -164,7 +159,7 @@ public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
     @Override
     public boolean canHarvest(BlockState state) {
 
-        return getAge(state) == getHarvestAge();
+        return isMaxAge(state);
     }
 
     @Override
@@ -205,16 +200,15 @@ public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
         if (canHarvest(state)) {
             return;
         }
+        int postHarvest = getPostHarvestAge();
         int age = getAge(state);
         int newAge = age + getBonemealAgeIncrease(worldIn);
 
-        int harvestAge = getHarvestAge();
-        int postHarvestAge = getPostHarvestAge();
-
-        if (age < postHarvestAge && newAge >= postHarvestAge) {
-            newAge = harvestAge;
+        if (age < postHarvest && newAge >= postHarvest) {
+            worldIn.setBlockState(pos, withAge(getMaxAge()), 2);
+        } else {
+            worldIn.setBlockState(pos, withAge(Math.min(newAge, getMaxAge())), 2);
         }
-        worldIn.setBlockState(pos, withAge(Math.min(newAge, harvestAge)), 2);
     }
     // endregion
 

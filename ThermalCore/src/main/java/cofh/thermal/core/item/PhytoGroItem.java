@@ -28,7 +28,7 @@ public class PhytoGroItem extends ItemCoFH {
 
     protected static final int CLOUD_DURATION = 20;
 
-    protected int strength = 4;
+    protected int strength = 3;
 
     public PhytoGroItem(Properties builder) {
 
@@ -64,7 +64,7 @@ public class PhytoGroItem extends ItemCoFH {
         boolean used;
         used = growPlant(world, pos, state, strength);
         used |= growSeagrass(world, pos, context.getFace());
-        if (Utils.isServerWorld(world) && used) {
+        if (Utils.isServerWorld(world) && used && world.rand.nextInt(strength) == 0) {
             stack.shrink(1);
         }
         return used;
@@ -75,23 +75,25 @@ public class PhytoGroItem extends ItemCoFH {
         if (state.getBlock() instanceof IGrowable) {
             IGrowable growable = (IGrowable) state.getBlock();
             boolean used = false;
-            for (int i = 0; i < strength; ++i) {
-                if (growable.canGrow(worldIn, pos, state, worldIn.isRemote)) {
-                    if (worldIn instanceof ServerWorld) {
-                        if (growable.canUseBonemeal(worldIn, worldIn.rand, pos, state)) {
-                            // TODO: Remove try/catch when Mojang fixes base issue.
-                            try {
-                                growable.grow((ServerWorld) worldIn, worldIn.rand, pos, state);
-                            } catch (Exception e) {
-                                // Vanilla issue causes bamboo to crash if grown close to world height
-                                if (!(growable instanceof BambooBlock)) {
-                                    throw e;
-                                }
+            if (growable.canGrow(worldIn, pos, state, worldIn.isRemote)) {
+                if (worldIn instanceof ServerWorld) {
+                    boolean canUse = false;
+                    for (int i = 0; i < strength; ++i) {
+                        canUse |= growable.canUseBonemeal(worldIn, worldIn.rand, pos, state);
+                    }
+                    if (canUse) {
+                        // TODO: Remove try/catch when Mojang fixes base issue.
+                        try {
+                            growable.grow((ServerWorld) worldIn, worldIn.rand, pos, state);
+                        } catch (Exception e) {
+                            // Vanilla issue causes bamboo to crash if grown close to world height
+                            if (!(growable instanceof BambooBlock)) {
+                                throw e;
                             }
                         }
                     }
-                    used = true;
                 }
+                used = true;
             }
             return used;
         }

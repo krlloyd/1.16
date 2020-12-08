@@ -14,8 +14,7 @@ import net.minecraft.loot.functions.ApplyBonus;
 import net.minecraft.loot.functions.LimitCount;
 import net.minecraft.loot.functions.SetCount;
 
-import static cofh.core.util.constants.Constants.AGE;
-import static cofh.core.util.constants.Constants.AGE_PERENNIAL;
+import static cofh.core.util.constants.Constants.*;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
 import static cofh.thermal.core.util.RegistrationHelper.block;
@@ -42,6 +41,7 @@ public class TCulLootTables extends LootTableProviderCoFH {
         DeferredRegisterCoFH<Item> regItems = ITEMS;
 
         createCropTable(ID_BARLEY);
+        createTallCropTable(ID_CORN);
         createCropTable(ID_ONION);
         createCropTable(ID_RADISH);
         createCropTable(ID_RICE);
@@ -105,9 +105,14 @@ public class TCulLootTables extends LootTableProviderCoFH {
         lootTables.put(BLOCKS.get(id), createCropTable(BLOCKS.get(id), ITEMS.get(id), ITEMS.get(seeds(id)), AGE, 7));
     }
 
+    protected void createTallCropTable(String id) {
+
+        lootTables.put(BLOCKS.get(id), createCropTable(BLOCKS.get(id), ITEMS.get(id), ITEMS.get(seeds(id)), AGE_0_9, 9));
+    }
+
     protected void createPerennialCropTable(String id) {
 
-        lootTables.put(BLOCKS.get(id), createCropTable(BLOCKS.get(id), ITEMS.get(id), ITEMS.get(seeds(id)), AGE_PERENNIAL, 10));
+        lootTables.put(BLOCKS.get(id), createCropTable(BLOCKS.get(id), ITEMS.get(id), ITEMS.get(seeds(id)), AGE_0_10, 10));
     }
 
     protected LootTable.Builder createSyncDropTable(Block block) {

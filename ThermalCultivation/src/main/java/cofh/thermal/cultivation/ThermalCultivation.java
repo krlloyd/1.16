@@ -61,6 +61,7 @@ public class ThermalCultivation {
                 float chance = 0.65F;
 
                 ComposterBlock.CHANCES.put(ITEMS.get(ID_BARLEY), chance);
+                ComposterBlock.CHANCES.put(ITEMS.get(ID_BARLEY), chance);
                 ComposterBlock.CHANCES.put(ITEMS.get(ID_ONION), chance);
                 ComposterBlock.CHANCES.put(ITEMS.get(ID_RADISH), chance);
                 ComposterBlock.CHANCES.put(ITEMS.get(ID_RICE), chance);
@@ -89,6 +90,7 @@ public class ThermalCultivation {
                 float chance = 0.3F;
 
                 ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_BARLEY)), chance);
+                ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_CORN)), chance);
                 ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_ONION)), chance);
                 ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_RADISH)), chance);
                 ComposterBlock.CHANCES.put(ITEMS.get(seeds(ID_RICE)), chance);
@@ -130,6 +132,7 @@ public class ThermalCultivation {
         RenderType cutout = RenderType.getCutout();
 
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_BARLEY), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_CORN), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ONION), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_RADISH), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_RICE), cutout);

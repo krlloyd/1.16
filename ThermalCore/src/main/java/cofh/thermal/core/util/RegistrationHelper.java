@@ -2,6 +2,7 @@ package cofh.thermal.core.util;
 
 import cofh.core.block.crops.CropsBlockCoFH;
 import cofh.core.block.crops.CropsBlockPerennial;
+import cofh.core.block.crops.CropsBlockTall;
 import cofh.core.item.*;
 import cofh.core.util.helpers.MathHelper;
 import net.minecraft.block.Block;
@@ -184,6 +185,11 @@ public class RegistrationHelper {
     public static void registerAnnual(String id) {
 
         BLOCKS.register(id, () -> new CropsBlockCoFH(create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F, 0.0F).sound(SoundType.CROP)).crop(ITEMS.getSup(id)).seed(ITEMS.getSup(seeds(id))));
+    }
+
+    public static void registerTallAnnual(String id) {
+
+        BLOCKS.register(id, () -> new CropsBlockTall(create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F, 0.0F).sound(SoundType.CROP)).crop(ITEMS.getSup(id)).seed(ITEMS.getSup(seeds(id))));
     }
 
     public static void registerPerennial(String id) {

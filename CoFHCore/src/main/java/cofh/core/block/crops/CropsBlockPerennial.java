@@ -5,7 +5,7 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.PlantType;
 
-import static cofh.core.util.constants.Constants.AGE_PERENNIAL;
+import static cofh.core.util.constants.Constants.AGE_0_10;
 
 public class CropsBlockPerennial extends CropsBlockCoFH {
 
@@ -28,11 +28,11 @@ public class CropsBlockPerennial extends CropsBlockCoFH {
     @Override
     public IntegerProperty getAgeProperty() {
 
-        return AGE_PERENNIAL;
+        return AGE_0_10;
     }
 
     @Override
-    protected int getHarvestAge() {
+    public int getMaxAge() {
 
         return 10;
     }

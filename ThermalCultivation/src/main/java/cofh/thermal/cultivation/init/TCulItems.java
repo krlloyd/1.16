@@ -33,12 +33,7 @@ public class TCulItems {
 
         // ANNUAL
         registerCropAndSeed(ID_BARLEY);
-
-        // TODO: Implement Corn
-        // registerCropAndSeed(ID_CORN, CORN);
-        ITEMS.register(ID_CORN, () -> new ItemCoFH(new Item.Properties().group(THERMAL_ITEMS).food(CORN)));
-        ITEMS.register(seeds(ID_CORN), () -> new ItemCoFH(new Item.Properties().group(THERMAL_ITEMS)));
-
+        registerCropAndSeed(ID_CORN, CORN);
         registerCropAndSeed(ID_ONION, ONION);
         registerCropAndSeed(ID_RADISH, RADISH);
         registerCropAndSeed(ID_RICE);

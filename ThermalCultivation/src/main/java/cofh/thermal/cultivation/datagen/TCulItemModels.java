@@ -38,7 +38,7 @@ public class TCulItemModels extends ItemModelProviderCoFH {
         generated(reg.getSup(ID_BARLEY), CROPS);
         generated(reg.getSup(ID_BELL_PEPPER), CROPS);
         generated(reg.getSup(ID_COFFEE), CROPS);
-        // generated(reg.getSup(ID_CORN), CROPS);
+        generated(reg.getSup(ID_CORN), CROPS);
         generated(reg.getSup(ID_EGGPLANT), CROPS);
         generated(reg.getSup(ID_GREEN_BEAN), CROPS);
         // generated(reg.getSup(ID_HOPS), CROPS);
@@ -56,7 +56,7 @@ public class TCulItemModels extends ItemModelProviderCoFH {
         generated(reg.getSup(seeds(ID_BARLEY)), SEEDS);
         generated(reg.getSup(seeds(ID_BELL_PEPPER)), SEEDS);
         generated(reg.getSup(seeds(ID_COFFEE)), SEEDS);
-        // generated(reg.getSup(seeds(ID_CORN)), SEEDS);
+        generated(reg.getSup(seeds(ID_CORN)), SEEDS);
         generated(reg.getSup(seeds(ID_EGGPLANT)), SEEDS);
         generated(reg.getSup(seeds(ID_FROST_MELON)), SEEDS);
         generated(reg.getSup(seeds(ID_GREEN_BEAN)), SEEDS);

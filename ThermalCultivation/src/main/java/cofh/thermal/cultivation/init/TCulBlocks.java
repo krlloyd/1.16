@@ -55,6 +55,7 @@ public class TCulBlocks {
         FireBlock fire = (FireBlock) Blocks.FIRE;
 
         fire.setFireInfo(BLOCKS.get(block(ID_BARLEY)), 60, 20);
+        fire.setFireInfo(BLOCKS.get(block(ID_CORN)), 60, 20);
     }
 
     // region HELPERS
@@ -62,7 +63,7 @@ public class TCulBlocks {
 
         // ANNUAL
         registerAnnual(ID_BARLEY);
-        // registerTallAnnual(ID_CORN);
+        registerTallAnnual(ID_CORN);
         registerAnnual(ID_ONION);
         registerAnnual(ID_RADISH);
         registerAnnual(ID_RICE);

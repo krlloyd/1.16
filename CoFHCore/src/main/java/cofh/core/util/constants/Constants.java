@@ -34,6 +34,16 @@ public class Constants {
             Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D),
             Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D),
             Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
+
+    public static final VoxelShape[] TALL_CROPS_BY_AGE = new VoxelShape[]{
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
+            Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
     // endregion
 
     // region MOD IDS
@@ -63,11 +73,11 @@ public class Constants {
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
     public static final IntegerProperty CHARGED = IntegerProperty.create("charged", 0, 4);
     public static final BooleanProperty TILLED = BooleanProperty.create("tilled");
+    public static final BooleanProperty TOP = BooleanProperty.create("top");
 
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 7);
-    public static final IntegerProperty AGE_PERENNIAL = IntegerProperty.create("age", 0, 10);
-    public static final IntegerProperty AGE_TALL = IntegerProperty.create("age", 0, 11);
-    public static final IntegerProperty AGE_TALL_PERENNIAL = IntegerProperty.create("age", 0, 15);
+    public static final IntegerProperty AGE_0_9 = IntegerProperty.create("age", 0, 9);
+    public static final IntegerProperty AGE_0_10 = IntegerProperty.create("age", 0, 10);
 
     public static final DirectionProperty FACING_ALL = DirectionProperty.create("facing", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.UP, Direction.DOWN);
     public static final DirectionProperty FACING_HORIZONTAL = DirectionProperty.create("facing", Plane.HORIZONTAL);
