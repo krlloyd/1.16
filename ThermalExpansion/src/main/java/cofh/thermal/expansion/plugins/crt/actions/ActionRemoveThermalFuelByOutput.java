@@ -2,7 +2,8 @@ package cofh.thermal.expansion.plugins.crt.actions;
 
 import cofh.thermal.core.util.recipes.ThermalFuel;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;
-import com.blamejared.crafttweaker.api.item.*;
+import com.blamejared.crafttweaker.api.item.IIngredient;
+import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRecipeBase;
 import com.blamejared.crafttweaker.impl.fluid.MCFluidStackMutable;

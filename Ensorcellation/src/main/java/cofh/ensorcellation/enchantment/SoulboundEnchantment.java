@@ -5,7 +5,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
 
 public class SoulboundEnchantment extends EnchantmentCoFH {
 
@@ -33,12 +32,6 @@ public class SoulboundEnchantment extends EnchantmentCoFH {
     public int getMaxLevel() {
 
         return permanent ? 1 : maxLevel;
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack) {
-
-        return enable;
     }
 
     @Override

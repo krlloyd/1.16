@@ -1,20 +1,16 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.DamageEnchantmentCoFH;
-import net.minecraft.enchantment.EnchantmentType;
+import cofh.core.init.CoreEnchantmentTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.AbstractRaiderEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 
 public class DamageIllagerEnchantment extends DamageEnchantmentCoFH {
 
     public DamageIllagerEnchantment() {
 
-        super(Rarity.UNCOMMON, EnchantmentType.WEAPON, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.UNCOMMON, CoreEnchantmentTypes.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 5;
     }
 
@@ -24,13 +20,6 @@ public class DamageIllagerEnchantment extends DamageEnchantmentCoFH {
     //
     //        return creatureType == CreatureAttribute.ILLAGER ? getExtraDamage(level) : 0.0F;
     //    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack) {
-
-        Item item = stack.getItem();
-        return enable && (item instanceof SwordItem || item instanceof AxeItem || supportsEnchantment(stack));
-    }
 
     public static boolean validTarget(Entity entity) {
 

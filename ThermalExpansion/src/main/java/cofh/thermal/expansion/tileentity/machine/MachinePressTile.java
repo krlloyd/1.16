@@ -17,7 +17,7 @@ import java.util.List;
 import static cofh.core.util.StorageGroup.*;
 import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.core.util.constants.Constants.TANK_SMALL;
-import static cofh.core.util.references.CoFHTags.Items.MACHINE_DIES;
+import static cofh.core.util.references.ItemTagsCoFH.MACHINE_DIES;
 import static cofh.thermal.core.common.ThermalConfig.machineAugments;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_PRESS_TILE;
 

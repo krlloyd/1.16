@@ -59,6 +59,12 @@ public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
         this(builder, PlantType.CROP, 9, 1.0F);
     }
 
+    public CropsBlockCoFH growMod(float growMod) {
+
+        this.growMod = growMod;
+        return this;
+    }
+
     public CropsBlockCoFH crop(Supplier<Item> crop) {
 
         this.crop = crop;

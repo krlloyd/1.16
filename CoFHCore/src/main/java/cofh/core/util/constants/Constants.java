@@ -172,7 +172,7 @@ public class Constants {
     public static final int RGB_DURABILITY_FLUX = 0xD01010;
     public static final int RGB_DURABILITY_WATER = 0x4060FF;
     public static final int RGB_DURABILITY_ENDER = 0x14594D;
-    public static final int RGB_DURABILITY_EXP = 0x7AAC52;
+    public static final int RGB_DURABILITY_XP = 0x7AAC52;
 
     public static float AUG_SCALE_MIN = 0.0F;
     public static float AUG_SCALE_MAX = 100.0F;

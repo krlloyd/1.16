@@ -1,12 +1,8 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.EnchantmentCoFH;
-import net.minecraft.enchantment.EnchantmentType;
+import cofh.core.init.CoreEnchantmentTypes;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 
 public class CavalierEnchantment extends EnchantmentCoFH {
 
@@ -14,7 +10,7 @@ public class CavalierEnchantment extends EnchantmentCoFH {
 
     public CavalierEnchantment() {
 
-        super(Rarity.UNCOMMON, EnchantmentType.WEAPON, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.UNCOMMON, CoreEnchantmentTypes.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 4;
     }
 
@@ -28,13 +24,6 @@ public class CavalierEnchantment extends EnchantmentCoFH {
     protected int maxDelegate(int level) {
 
         return getMinEnchantability(level) + 50;
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack) {
-
-        Item item = stack.getItem();
-        return enable && (item instanceof SwordItem || item instanceof AxeItem || supportsEnchantment(stack));
     }
 
 }

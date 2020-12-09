@@ -189,12 +189,22 @@ public class RegistrationHelper {
 
     public static void registerTallAnnual(String id) {
 
+        registerTallAnnual(id, CropsBlockTall.DEFAULT_TALL_AGE);
+    }
+
+    public static void registerTallAnnual(String id, int splitAge) {
+
         BLOCKS.register(id, () -> new CropsBlockTall(create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F, 0.0F).sound(SoundType.CROP)).crop(ITEMS.getSup(id)).seed(ITEMS.getSup(seeds(id))));
     }
 
     public static void registerPerennial(String id) {
 
-        BLOCKS.register(id, () -> new CropsBlockPerennial(create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F, 0.0F).sound(SoundType.CROP)).crop(ITEMS.getSup(id)).seed(ITEMS.getSup(seeds(id))));
+        registerPerennial(id, CropsBlockPerennial.DEFAULT_POST_HARVEST_AGE);
+    }
+
+    public static void registerPerennial(String id, int postHarvestAge) {
+
+        BLOCKS.register(id, () -> new CropsBlockPerennial(create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F, 0.0F).sound(SoundType.CROP)).postHarvestAge(postHarvestAge).crop(ITEMS.getSup(id)).seed(ITEMS.getSup(seeds(id))));
     }
 
     public static void registerCropAndSeed(String id) {

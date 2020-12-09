@@ -3,9 +3,6 @@ package cofh.ensorcellation.enchantment;
 import cofh.core.enchantment.EnchantmentCoFH;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.FishingRodItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class PilferingEnchantment extends EnchantmentCoFH {
 
@@ -27,13 +24,6 @@ public class PilferingEnchantment extends EnchantmentCoFH {
     protected int maxDelegate(int level) {
 
         return getMinEnchantability(level) + 50;
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack) {
-
-        Item item = stack.getItem();
-        return enable && (item instanceof FishingRodItem || supportsEnchantment(stack));
     }
 
 }

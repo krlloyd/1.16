@@ -71,6 +71,7 @@ public class CoFHCore {
         CoreBlocks.register();
         CoreFluids.register();
         CoreEffects.register();
+        CoreEnchantmentTypes.register();
         CoreItems.register();
         // CoreParticles.register();
     }

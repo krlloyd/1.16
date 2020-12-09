@@ -1,6 +1,7 @@
 package cofh.core.util.helpers;
 
 import cofh.core.fluid.FluidStorageCoFH;
+import cofh.core.util.references.CoreReferences;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
@@ -45,6 +46,7 @@ public class FluidHelper {
 
     public static final Predicate<FluidStack> IS_WATER = e -> e.getFluid().equals(Fluids.WATER);
     public static final Predicate<FluidStack> IS_LAVA = e -> e.getFluid().equals(Fluids.LAVA);
+    public static final Predicate<FluidStack> IS_XP = e -> e.getFluid().equals(CoreReferences.FLUID_EXPERIENCE);
 
     public static HashMap<Fluid, Integer> colorCache = new HashMap<>();
 

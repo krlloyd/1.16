@@ -5,7 +5,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.HorseArmorItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
@@ -59,8 +58,7 @@ public class ProtectionEnchantmentImp extends EnchantmentOverride {
         if (!enable) {
             return super.canApplyAtEnchantingTable(stack);
         }
-        Item item = stack.getItem();
-        return enable && (type != null && type.canEnchantItem(item) || item instanceof HorseArmorItem || supportsEnchantment(stack));
+        return super.canApplyAtEnchantingTable(stack) || stack.getItem() instanceof HorseArmorItem;
     }
 
     @Override
@@ -81,7 +79,7 @@ public class ProtectionEnchantmentImp extends EnchantmentOverride {
     @Override
     public boolean isAllowedOnBooks() {
 
-        return this.protectionType == Type.MAGIC ? enable && allowOnBooks : allowOnBooks;
+        return this.protectionType == Type.MAGIC ? enable && allowOnBooks : super.isAllowedOnBooks();
     }
 
     // region TYPE

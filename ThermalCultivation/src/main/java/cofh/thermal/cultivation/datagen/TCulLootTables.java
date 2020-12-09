@@ -56,6 +56,7 @@ public class TCulLootTables extends LootTableProviderCoFH {
         createPerennialCropTable(ID_TOMATO);
 
         createPerennialCropTable(ID_COFFEE);
+        // createTallCropTable(ID_HOPS);
         createPerennialCropTable(ID_TEA);
 
         lootTables.put(regBlocks.get(ID_FROST_MELON),

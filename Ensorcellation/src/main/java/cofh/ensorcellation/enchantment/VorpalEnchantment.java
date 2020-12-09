@@ -1,14 +1,10 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.EnchantmentCoFH;
+import cofh.core.init.CoreEnchantmentTypes;
 import cofh.core.util.Utils;
-import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -24,7 +20,7 @@ public class VorpalEnchantment extends EnchantmentCoFH {
 
     public VorpalEnchantment() {
 
-        super(Rarity.RARE, EnchantmentType.WEAPON, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.RARE, CoreEnchantmentTypes.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 3;
     }
 
@@ -38,13 +34,6 @@ public class VorpalEnchantment extends EnchantmentCoFH {
     protected int maxDelegate(int level) {
 
         return getMinEnchantability(level) + 50;
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack) {
-
-        Item item = stack.getItem();
-        return enable && (item instanceof SwordItem || item instanceof AxeItem || supportsEnchantment(stack));
     }
 
     // region HELPERS

@@ -23,7 +23,9 @@ import static cofh.core.util.constants.Constants.*;
 
 public class CropsBlockTall extends CropsBlockCoFH {
 
-    protected int splitAge = 4;
+    public static final int DEFAULT_TALL_AGE = 4;
+
+    protected int tallAge = DEFAULT_TALL_AGE;
 
     public CropsBlockTall(Properties builder, PlantType type, int growLight, float growMod) {
 
@@ -33,15 +35,18 @@ public class CropsBlockTall extends CropsBlockCoFH {
 
     public CropsBlockTall(Properties builder, int growLight, float growMod) {
 
-        super(builder, growLight, growMod);
-        this.setDefaultState(this.stateContainer.getBaseState().with(this.getAgeProperty(), 0).with(TOP, false));
+        this(builder, PlantType.CROP, growLight, growMod);
     }
 
     public CropsBlockTall(Properties builder) {
 
-        super(builder);
-        this.setDefaultState(this.stateContainer.getBaseState().with(this.getAgeProperty(), 0).with(TOP, false));
-        growMod = 1.25F;
+        this(builder, 9, 1.25F);
+    }
+
+    public CropsBlockTall tallAge(int tallAge) {
+
+        this.tallAge = tallAge;
+        return this;
     }
 
     @Override
@@ -75,6 +80,11 @@ public class CropsBlockTall extends CropsBlockCoFH {
         return 9;
     }
 
+    protected int getTallAge() {
+
+        return tallAge;
+    }
+
     @Override
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 
@@ -88,7 +98,7 @@ public class CropsBlockTall extends CropsBlockCoFH {
                 if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt((int) (25.0F / growthChance) + 1) == 0)) {
                     int newAge = age + 1 == getPostHarvestAge() ? getMaxAge() : age + 1;
                     worldIn.setBlockState(pos, withAge(newAge), 2);
-                    if (newAge >= splitAge) {
+                    if (newAge >= getTallAge()) {
                         worldIn.setBlockState(pos.up(), withAge(newAge).with(TOP, true), 2);
                     }
                     ForgeHooks.onCropsGrowPost(worldIn, pos, state);
@@ -103,7 +113,7 @@ public class CropsBlockTall extends CropsBlockCoFH {
         if (isTop(state)) {
             return worldIn.getBlockState(pos.down()).getBlock() == this;
         }
-        if (getAge(state) >= splitAge) {
+        if (getAge(state) >= getTallAge()) {
             return worldIn.getBlockState(pos.up()).getBlock() == this;
         }
         return pos.getY() < 255 && super.isValidPosition(state, worldIn, pos) && (worldIn.isAirBlock(pos.up()));
@@ -129,7 +139,7 @@ public class CropsBlockTall extends CropsBlockCoFH {
         int newAge = getAge(state) + getBonemealAgeIncrease(worldIn);
         newAge = Math.min(newAge, getMaxAge());
         worldIn.setBlockState(pos, withAge(newAge), 2);
-        if (newAge >= splitAge) {
+        if (newAge >= getTallAge()) {
             worldIn.setBlockState(above, withAge(newAge).with(TOP, true), 2);
         }
     }
@@ -148,12 +158,12 @@ public class CropsBlockTall extends CropsBlockCoFH {
         if (getPostHarvestAge() >= 0) {
             Utils.dropItemStackIntoWorldWithRandomness(new ItemStack(getCropItem(), 2 + MathHelper.binomialDist(fortune, 0.5D)), world, pos);
             if (isTop(state)) {
-                world.setBlockState(pos, this.withAge(getPostHarvestAge() + splitAge), 2);
+                world.setBlockState(pos, this.withAge(getPostHarvestAge() + getTallAge()), 2);
                 world.setBlockState(pos.down(), this.withAge(getPostHarvestAge()), 2);
                 Utils.dropItemStackIntoWorldWithRandomness(new ItemStack(getCropItem(), 2 + MathHelper.binomialDist(fortune, 0.5D)), world, pos.down());
             } else {
                 world.setBlockState(pos, this.withAge(getPostHarvestAge()), 2);
-                world.setBlockState(pos.up(), this.withAge(getPostHarvestAge() + splitAge), 2);
+                world.setBlockState(pos.up(), this.withAge(getPostHarvestAge() + getTallAge()), 2);
                 Utils.dropItemStackIntoWorldWithRandomness(new ItemStack(getCropItem(), 2 + MathHelper.binomialDist(fortune, 0.5D)), world, pos.up());
             }
         } else {

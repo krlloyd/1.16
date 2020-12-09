@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import static cofh.core.util.StorageGroup.*;
 import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.core.util.constants.Constants.TANK_MEDIUM;
-import static cofh.core.util.references.CoFHTags.Items.MACHINE_CASTS;
+import static cofh.core.util.references.ItemTagsCoFH.MACHINE_CASTS;
 import static cofh.thermal.core.common.ThermalConfig.machineAugments;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_CHILLER_TILE;
 

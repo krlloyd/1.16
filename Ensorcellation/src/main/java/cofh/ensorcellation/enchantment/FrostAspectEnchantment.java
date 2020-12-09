@@ -1,19 +1,15 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.EnchantmentCoFH;
+import cofh.core.init.CoreEnchantmentTypes;
 import cofh.core.util.Utils;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.BlazeEntity;
 import net.minecraft.entity.monster.MagmaCubeEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.world.server.ServerWorld;
@@ -24,7 +20,7 @@ public class FrostAspectEnchantment extends EnchantmentCoFH {
 
     public FrostAspectEnchantment() {
 
-        super(Rarity.RARE, EnchantmentType.WEAPON, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.RARE, CoreEnchantmentTypes.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 2;
     }
 
@@ -38,13 +34,6 @@ public class FrostAspectEnchantment extends EnchantmentCoFH {
     protected int maxDelegate(int level) {
 
         return super.getMinEnchantability(level) + 50;
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack) {
-
-        Item item = stack.getItem();
-        return enable && (item instanceof SwordItem || item instanceof AxeItem || supportsEnchantment(stack));
     }
 
     @Override

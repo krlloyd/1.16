@@ -66,6 +66,12 @@ public abstract class EnchantmentCoFH extends Enchantment {
     }
 
     @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack) {
+
+        return enable && (super.canApplyAtEnchantingTable(stack) || supportsEnchantment(stack));
+    }
+
+    @Override
     public boolean isAllowedOnBooks() {
 
         return enable && allowOnBooks;

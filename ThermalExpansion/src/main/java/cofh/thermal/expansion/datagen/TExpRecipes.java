@@ -2,7 +2,7 @@ package cofh.thermal.expansion.datagen;
 
 import cofh.core.datagen.RecipeProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.core.util.references.CoFHTags;
+import cofh.core.util.references.ItemTagsCoFH;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -49,7 +49,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_FURNACE))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_COPPER)
+                .key('I', ItemTagsCoFH.GEARS_COPPER)
                 .key('P', rfCoil)
                 .key('X', Tags.Items.DUSTS_REDSTONE)
                 .key('Y', Blocks.BRICKS)
@@ -61,7 +61,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_SAWMILL))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_COPPER)
+                .key('I', ItemTagsCoFH.GEARS_COPPER)
                 .key('P', rfCoil)
                 .key('X', reg.get("saw_blade"))
                 .key('Y', Tags.Items.STONE)
@@ -73,7 +73,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_PULVERIZER))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_COPPER)
+                .key('I', ItemTagsCoFH.GEARS_COPPER)
                 .key('P', rfCoil)
                 .key('X', Blocks.PISTON)
                 .key('Y', Items.FLINT)
@@ -85,7 +85,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_SMELTER))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_INVAR)
+                .key('I', ItemTagsCoFH.GEARS_INVAR)
                 .key('P', rfCoil)
                 .key('X', Blocks.BLAST_FURNACE)
                 .key('Y', Tags.Items.SAND)
@@ -97,7 +97,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_INSOLATOR))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_LUMIUM)
+                .key('I', ItemTagsCoFH.GEARS_LUMIUM)
                 .key('P', rfCoil)
                 .key('X', Blocks.DIRT)
                 .key('Y', Tags.Items.GLASS)
@@ -109,10 +109,10 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_CENTRIFUGE))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_CONSTANTAN)
+                .key('I', ItemTagsCoFH.GEARS_CONSTANTAN)
                 .key('P', rfCoil)
                 .key('X', Items.COMPASS)
-                .key('Y', CoFHTags.Items.INGOTS_TIN)
+                .key('Y', ItemTagsCoFH.INGOTS_TIN)
                 .patternLine(" X ")
                 .patternLine("YCY")
                 .patternLine("IPI")
@@ -121,10 +121,10 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_PRESS))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_CONSTANTAN)
+                .key('I', ItemTagsCoFH.GEARS_CONSTANTAN)
                 .key('P', rfCoil)
                 .key('X', Tags.Items.STORAGE_BLOCKS_IRON)
-                .key('Y', CoFHTags.Items.INGOTS_BRONZE)
+                .key('Y', ItemTagsCoFH.INGOTS_BRONZE)
                 .patternLine(" X ")
                 .patternLine("YCY")
                 .patternLine("IPI")
@@ -133,7 +133,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_CRUCIBLE))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_INVAR)
+                .key('I', ItemTagsCoFH.GEARS_INVAR)
                 .key('P', rfCoil)
                 .key('X', Tags.Items.GLASS)
                 .key('Y', Blocks.NETHER_BRICKS)
@@ -145,7 +145,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_CHILLER))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_INVAR)
+                .key('I', ItemTagsCoFH.GEARS_INVAR)
                 .key('P', rfCoil)
                 .key('X', Tags.Items.GLASS)
                 .key('Y', Blocks.PACKED_ICE)
@@ -157,10 +157,10 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_REFINERY))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_INVAR)
+                .key('I', ItemTagsCoFH.GEARS_INVAR)
                 .key('P', rfCoil)
                 .key('X', Tags.Items.GLASS)
-                .key('Y', CoFHTags.Items.INGOTS_COPPER)
+                .key('Y', ItemTagsCoFH.INGOTS_COPPER)
                 .patternLine(" X ")
                 .patternLine("YCY")
                 .patternLine("IPI")
@@ -169,7 +169,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_BREWER))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_CONSTANTAN)
+                .key('I', ItemTagsCoFH.GEARS_CONSTANTAN)
                 .key('P', rfCoil)
                 .key('X', Blocks.BREWING_STAND)
                 .key('Y', Tags.Items.GLASS)
@@ -181,7 +181,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_BOTTLER))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_COPPER)
+                .key('I', ItemTagsCoFH.GEARS_COPPER)
                 .key('P', rfCoil)
                 .key('X', Items.BUCKET)
                 .key('Y', Tags.Items.GLASS)
@@ -193,10 +193,10 @@ public class TExpRecipes extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_CRAFTER))
                 .key('C', machineFrame)
-                .key('I', CoFHTags.Items.GEARS_COPPER)
+                .key('I', ItemTagsCoFH.GEARS_COPPER)
                 .key('P', rfCoil)
                 .key('X', Items.CRAFTING_TABLE)
-                .key('Y', CoFHTags.Items.INGOTS_TIN)
+                .key('Y', ItemTagsCoFH.INGOTS_TIN)
                 .patternLine(" X ")
                 .patternLine("YCY")
                 .patternLine("IPI")
@@ -213,7 +213,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_DYNAMO_STIRLING))
                 .key('C', rfCoil)
                 .key('I', Tags.Items.INGOTS_IRON)
-                .key('G', CoFHTags.Items.GEARS_IRON)
+                .key('G', ItemTagsCoFH.GEARS_IRON)
                 .key('X', Tags.Items.DUSTS_REDSTONE)
                 .key('Y', Tags.Items.STONE)
                 .patternLine(" C ")
@@ -225,9 +225,9 @@ public class TExpRecipes extends RecipeProviderCoFH {
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_DYNAMO_COMPRESSION))
                 .key('C', rfCoil)
                 .key('I', Tags.Items.INGOTS_IRON)
-                .key('G', CoFHTags.Items.GEARS_BRONZE)
+                .key('G', ItemTagsCoFH.GEARS_BRONZE)
                 .key('X', Tags.Items.DUSTS_REDSTONE)
-                .key('Y', CoFHTags.Items.INGOTS_BRONZE)
+                .key('Y', ItemTagsCoFH.INGOTS_BRONZE)
                 .patternLine(" C ")
                 .patternLine("IGI")
                 .patternLine("YXY")
@@ -237,9 +237,9 @@ public class TExpRecipes extends RecipeProviderCoFH {
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_DYNAMO_MAGMATIC))
                 .key('C', rfCoil)
                 .key('I', Tags.Items.INGOTS_IRON)
-                .key('G', CoFHTags.Items.GEARS_INVAR)
+                .key('G', ItemTagsCoFH.GEARS_INVAR)
                 .key('X', Tags.Items.DUSTS_REDSTONE)
-                .key('Y', CoFHTags.Items.INGOTS_INVAR)
+                .key('Y', ItemTagsCoFH.INGOTS_INVAR)
                 .patternLine(" C ")
                 .patternLine("IGI")
                 .patternLine("YXY")
@@ -249,9 +249,9 @@ public class TExpRecipes extends RecipeProviderCoFH {
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_DYNAMO_NUMISMATIC))
                 .key('C', rfCoil)
                 .key('I', Tags.Items.INGOTS_IRON)
-                .key('G', CoFHTags.Items.GEARS_TIN)
+                .key('G', ItemTagsCoFH.GEARS_TIN)
                 .key('X', Tags.Items.DUSTS_REDSTONE)
-                .key('Y', CoFHTags.Items.INGOTS_CONSTANTAN)
+                .key('Y', ItemTagsCoFH.INGOTS_CONSTANTAN)
                 .patternLine(" C ")
                 .patternLine("IGI")
                 .patternLine("YXY")
@@ -261,7 +261,7 @@ public class TExpRecipes extends RecipeProviderCoFH {
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_DYNAMO_LAPIDARY))
                 .key('C', rfCoil)
                 .key('I', Tags.Items.INGOTS_IRON)
-                .key('G', CoFHTags.Items.GEARS_GOLD)
+                .key('G', ItemTagsCoFH.GEARS_GOLD)
                 .key('X', Tags.Items.DUSTS_REDSTONE)
                 .key('Y', Tags.Items.GEMS_LAPIS)
                 .patternLine(" C ")
@@ -276,60 +276,60 @@ public class TExpRecipes extends RecipeProviderCoFH {
         DeferredRegisterCoFH<Item> reg = ITEMS;
 
         ShapedRecipeBuilder.shapedRecipe(reg.get("press_coin_die"))
-                .key('P', CoFHTags.Items.PLATES_INVAR)
+                .key('P', ItemTagsCoFH.PLATES_INVAR)
                 .key('X', Tags.Items.GEMS_EMERALD)
                 .patternLine(" P ")
                 .patternLine("PXP")
                 .patternLine(" P ")
-                .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
+                .addCriterion("has_invar_plate", hasItem(ItemTagsCoFH.PLATES_INVAR))
                 .build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(reg.get("press_gear_die"))
-                .key('P', CoFHTags.Items.PLATES_INVAR)
-                .key('X', CoFHTags.Items.GEARS_DIAMOND)
+                .key('P', ItemTagsCoFH.PLATES_INVAR)
+                .key('X', ItemTagsCoFH.GEARS_DIAMOND)
                 .patternLine(" P ")
                 .patternLine("PXP")
                 .patternLine(" P ")
-                .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
+                .addCriterion("has_invar_plate", hasItem(ItemTagsCoFH.PLATES_INVAR))
                 .build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(reg.get("press_packing_2x2_die"))
-                .key('C', CoFHTags.Items.PLATES_CONSTANTAN)
-                .key('I', CoFHTags.Items.PLATES_INVAR)
+                .key('C', ItemTagsCoFH.PLATES_CONSTANTAN)
+                .key('I', ItemTagsCoFH.PLATES_INVAR)
                 .key('X', ItemTags.PLANKS)
                 .patternLine(" C ")
                 .patternLine("IXI")
                 .patternLine(" C ")
-                .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
+                .addCriterion("has_invar_plate", hasItem(ItemTagsCoFH.PLATES_INVAR))
                 .build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(reg.get("press_packing_3x3_die"))
-                .key('C', CoFHTags.Items.PLATES_CONSTANTAN)
-                .key('I', CoFHTags.Items.PLATES_INVAR)
+                .key('C', ItemTagsCoFH.PLATES_CONSTANTAN)
+                .key('I', ItemTagsCoFH.PLATES_INVAR)
                 .key('X', ItemTags.PLANKS)
                 .patternLine(" I ")
                 .patternLine("CXC")
                 .patternLine(" I ")
-                .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
+                .addCriterion("has_invar_plate", hasItem(ItemTagsCoFH.PLATES_INVAR))
                 .build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(reg.get("press_unpacking_die"))
-                .key('C', CoFHTags.Items.PLATES_CONSTANTAN)
-                .key('I', CoFHTags.Items.PLATES_INVAR)
+                .key('C', ItemTagsCoFH.PLATES_CONSTANTAN)
+                .key('I', ItemTagsCoFH.PLATES_INVAR)
                 .key('X', ItemTags.PLANKS)
                 .patternLine("C I")
                 .patternLine(" X ")
                 .patternLine("I C")
-                .addCriterion("has_invar_plate", hasItem(CoFHTags.Items.PLATES_INVAR))
+                .addCriterion("has_invar_plate", hasItem(ItemTagsCoFH.PLATES_INVAR))
                 .build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(reg.get("chiller_ball_cast"))
-                .key('P', CoFHTags.Items.PLATES_BRONZE)
+                .key('P', ItemTagsCoFH.PLATES_BRONZE)
                 .key('X', Items.MAGMA_CREAM)
                 .patternLine(" P ")
                 .patternLine("PXP")
                 .patternLine(" P ")
-                .addCriterion("has_bronze_plate", hasItem(CoFHTags.Items.PLATES_BRONZE))
+                .addCriterion("has_bronze_plate", hasItem(ItemTagsCoFH.PLATES_BRONZE))
                 .build(consumer);
     }
 

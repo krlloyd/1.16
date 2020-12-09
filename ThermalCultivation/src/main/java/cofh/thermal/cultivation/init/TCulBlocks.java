@@ -78,7 +78,7 @@ public class TCulBlocks {
         registerPerennial(ID_STRAWBERRY);
         registerPerennial(ID_TOMATO);
 
-        registerPerennial(ID_COFFEE);
+        registerPerennial(ID_COFFEE, 6);
         // registerTallPerennial(ID_HOPS);
         registerPerennial(ID_TEA);
 

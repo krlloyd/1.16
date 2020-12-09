@@ -1,12 +1,10 @@
 package cofh.ensorcellation.enchantment.override;
 
 import cofh.core.enchantment.EnchantmentOverride;
+import cofh.core.init.CoreEnchantmentTypes;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 
 public class FireAspectEnchantmentImp extends EnchantmentOverride {
 
@@ -34,8 +32,7 @@ public class FireAspectEnchantmentImp extends EnchantmentOverride {
         if (!enable) {
             return super.canApplyAtEnchantingTable(stack);
         }
-        Item item = stack.getItem();
-        return enable && (item instanceof SwordItem || item instanceof AxeItem || supportsEnchantment(stack));
+        return CoreEnchantmentTypes.SWORD_OR_AXE.canEnchantItem(stack.getItem()) || supportsEnchantment(stack);
     }
 
 }

@@ -1,6 +1,6 @@
 package cofh.thermal.expansion.datagen;
 
-import cofh.core.util.references.CoFHTags;
+import cofh.core.util.references.ItemTagsCoFH;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;
@@ -48,13 +48,13 @@ public class TExpTags {
         @Override
         protected void registerTags() {
 
-            getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_coin_die"));
-            getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_gear_die"));
-            getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_packing_2x2_die"));
-            getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_packing_3x3_die"));
-            getOrCreateBuilder(CoFHTags.Items.MACHINE_DIES).add(ITEMS.get("press_unpacking_die"));
+            getOrCreateBuilder(ItemTagsCoFH.MACHINE_DIES).add(ITEMS.get("press_coin_die"));
+            getOrCreateBuilder(ItemTagsCoFH.MACHINE_DIES).add(ITEMS.get("press_gear_die"));
+            getOrCreateBuilder(ItemTagsCoFH.MACHINE_DIES).add(ITEMS.get("press_packing_2x2_die"));
+            getOrCreateBuilder(ItemTagsCoFH.MACHINE_DIES).add(ITEMS.get("press_packing_3x3_die"));
+            getOrCreateBuilder(ItemTagsCoFH.MACHINE_DIES).add(ITEMS.get("press_unpacking_die"));
 
-            getOrCreateBuilder(CoFHTags.Items.MACHINE_CASTS).add(ITEMS.get("chiller_ball_cast"));
+            getOrCreateBuilder(ItemTagsCoFH.MACHINE_CASTS).add(ITEMS.get("chiller_ball_cast"));
         }
 
     }

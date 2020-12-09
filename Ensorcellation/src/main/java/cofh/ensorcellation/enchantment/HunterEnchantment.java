@@ -3,8 +3,6 @@ package cofh.ensorcellation.enchantment;
 import cofh.core.enchantment.EnchantmentCoFH;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import static cofh.core.util.helpers.ArcheryHelper.validBow;
@@ -35,8 +33,7 @@ public class HunterEnchantment extends EnchantmentCoFH {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack) {
 
-        Item item = stack.getItem();
-        return enable && (item instanceof BowItem || validBow(stack) || supportsEnchantment(stack));
+        return enable && (stack.canApplyAtEnchantingTable(this) || validBow(stack) || supportsEnchantment(stack));
     }
 
 }

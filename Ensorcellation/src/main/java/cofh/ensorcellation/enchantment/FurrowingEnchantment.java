@@ -1,12 +1,9 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.EnchantmentCoFH;
+import cofh.core.init.CoreEnchantmentTypes;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import static cofh.core.util.references.EnsorcReferences.TILLING;
 
@@ -14,7 +11,7 @@ public class FurrowingEnchantment extends EnchantmentCoFH {
 
     public FurrowingEnchantment() {
 
-        super(Rarity.UNCOMMON, EnchantmentType.DIGGER, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.UNCOMMON, CoreEnchantmentTypes.HOE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 4;
     }
 
@@ -28,13 +25,6 @@ public class FurrowingEnchantment extends EnchantmentCoFH {
     protected int maxDelegate(int level) {
 
         return getMinEnchantability(level) + 50;
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack) {
-
-        Item item = stack.getItem();
-        return enable && (item instanceof HoeItem || supportsEnchantment(stack));
     }
 
     @Override

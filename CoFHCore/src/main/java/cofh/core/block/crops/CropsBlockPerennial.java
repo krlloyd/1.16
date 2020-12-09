@@ -9,6 +9,10 @@ import static cofh.core.util.constants.Constants.AGE_0_10;
 
 public class CropsBlockPerennial extends CropsBlockCoFH {
 
+    public static final int DEFAULT_POST_HARVEST_AGE = 7;
+
+    public int postHarvestAge = DEFAULT_POST_HARVEST_AGE;
+
     public CropsBlockPerennial(Properties builder, PlantType type, int growLight, float growMod) {
 
         super(builder, type, growLight, growMod);
@@ -16,13 +20,18 @@ public class CropsBlockPerennial extends CropsBlockCoFH {
 
     public CropsBlockPerennial(Properties builder, int growLight, float growMod) {
 
-        super(builder, growLight, growMod);
+        this(builder, PlantType.CROP, growLight, growMod);
     }
 
     public CropsBlockPerennial(Properties builder) {
 
-        super(builder);
-        growMod = 0.25F;
+        this(builder, 9, 0.80F);
+    }
+
+    public CropsBlockPerennial postHarvestAge(int postHarvestAge) {
+
+        this.postHarvestAge = postHarvestAge;
+        return this;
     }
 
     @Override
@@ -40,7 +49,7 @@ public class CropsBlockPerennial extends CropsBlockCoFH {
     @Override
     protected int getPostHarvestAge() {
 
-        return 7;
+        return postHarvestAge;
     }
 
     @Override
