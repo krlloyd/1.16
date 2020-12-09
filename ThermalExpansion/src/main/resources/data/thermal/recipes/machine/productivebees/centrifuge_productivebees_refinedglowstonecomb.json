@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:nuggets/refined_glowstone",
+      "item": "mekanism:nugget_refined_glowstone",
       "chance": 1.75
     },
     {

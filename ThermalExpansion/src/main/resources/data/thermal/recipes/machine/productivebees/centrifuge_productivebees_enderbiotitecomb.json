@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:gems/biotite",
+      "item": "quark:biotite",
       "chance": 0.95
     },
     {

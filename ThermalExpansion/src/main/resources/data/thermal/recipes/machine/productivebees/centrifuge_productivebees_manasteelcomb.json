@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:nuggets/manasteel",
+      "item": "botania:manasteel_nugget",
       "chance": 0.65
     },
     {

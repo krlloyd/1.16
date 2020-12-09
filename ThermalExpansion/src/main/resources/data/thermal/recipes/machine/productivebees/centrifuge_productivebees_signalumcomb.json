@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:dusts/signalum",
+      "item": "thermal:signalum_dust",
       "chance": 0.9
     },
     {

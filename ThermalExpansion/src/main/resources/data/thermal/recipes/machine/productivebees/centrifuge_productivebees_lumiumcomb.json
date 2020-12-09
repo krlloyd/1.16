@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:dusts/lumium",
+      "item": "thermal:lumium_dust",
       "chance": 0.9
     },
     {

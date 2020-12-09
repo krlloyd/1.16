@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:nuggets/unobtanium",
+       "item": "allthemodium:unobtanium_nugget",
       "chance": 0.1
     },
     {

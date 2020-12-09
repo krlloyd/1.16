@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:dusts/cinnabar",
+      "item": "thermal:cinnabar_dust",
       "chance": 1.0
     },
     {

@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:nuggets/elementium",
+      "item": "botania:elementium_nugget",
       "chance": 0.25
     },
     {

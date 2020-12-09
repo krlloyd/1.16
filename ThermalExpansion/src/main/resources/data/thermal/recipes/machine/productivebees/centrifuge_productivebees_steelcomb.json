@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:dusts/steel",
+      "item": "mekanism:dust_steel",
       "chance": 0.9
     },
     {

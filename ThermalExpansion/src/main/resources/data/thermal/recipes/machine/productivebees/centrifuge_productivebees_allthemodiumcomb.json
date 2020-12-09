@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:nuggets/allthemodium",
+      "item": "allthemodium:allthemodium_nugget",
       "chance": 0.1
     },
     {

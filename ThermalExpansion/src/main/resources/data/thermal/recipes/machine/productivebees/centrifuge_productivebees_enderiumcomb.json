@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:dusts/enderium",
+      "item": "thermal:enderium_dust",
       "chance": 0.7
     },
     {

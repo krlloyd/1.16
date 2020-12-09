@@ -5,7 +5,7 @@
   },
   "result": [
 	{
-      "tag": "forge:dusts/constantan",
+      "tag": "thermal:constantan_dust",
       "chance": 0.9
     },
     {
