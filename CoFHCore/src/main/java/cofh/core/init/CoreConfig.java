@@ -113,6 +113,10 @@ public class CoreConfig {
                 .comment("If TRUE, Item descriptions will be added to their tooltips if possible.")
                 .define("Show Item Descriptions", enableItemDescriptions);
 
+        clientEnableItemTags = CLIENT_CONFIG
+                .comment("If TRUE and Advanced Tooltips are enabled (F3+H), Tags will be will be added to item tooltips if possible.")
+                .define("Show Item Tags", enableItemTags);
+
         CLIENT_CONFIG.pop();
 
         CLIENT_CONFIG.push("Render");
@@ -150,6 +154,7 @@ public class CoreConfig {
 
         enableEnchantmentDescriptions = clientEnableEnchantmentDescriptions.get();
         enableItemDescriptions = clientEnableItemDescriptions.get();
+        enableItemTags = clientEnableItemTags.get();
 
         enableAreaEffectBlockBreaking = clientEnableAreaEffectBlockBreaking.get();
     }
@@ -173,6 +178,7 @@ public class CoreConfig {
 
     public static boolean enableEnchantmentDescriptions = true;
     public static boolean enableItemDescriptions = true;
+    public static boolean enableItemTags = true;
 
     public static boolean enableAreaEffectBlockBreaking = true;
 
@@ -187,6 +193,7 @@ public class CoreConfig {
 
     private static BooleanValue clientEnableEnchantmentDescriptions;
     private static BooleanValue clientEnableItemDescriptions;
+    private static BooleanValue clientEnableItemTags;
 
     private static BooleanValue clientEnableAreaEffectBlockBreaking;
     // endregion

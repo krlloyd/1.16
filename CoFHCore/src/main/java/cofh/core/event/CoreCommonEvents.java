@@ -72,23 +72,24 @@ public class CoreCommonEvents {
         if (event.isCanceled()) {
             return;
         }
-        if (!CoreConfig.improvedMending) {
-            return;
-        }
         PlayerEntity player = event.getPlayer();
         ExperienceOrbEntity orb = event.getOrb();
 
-        player.xpCooldown = 2;
-        player.onItemPickup(orb, 1);
-        Map.Entry<EquipmentSlotType, ItemStack> entry = getMostDamagedItem(player);
-        if (entry != null) {
-            ItemStack itemstack = entry.getValue();
-            if (!itemstack.isEmpty() && itemstack.isDamaged()) {
-                int i = Math.min((int) (orb.xpValue * itemstack.getXpRepairRatio()), itemstack.getDamage());
-                orb.xpValue -= durabilityToXp(i);
-                itemstack.setDamage(itemstack.getDamage() - i);
+        if (CoreConfig.improvedMending)
+        {
+            player.xpCooldown = 2;
+            player.onItemPickup(orb, 1);
+            Map.Entry<EquipmentSlotType, ItemStack> entry = getMostDamagedItem(player);
+            if (entry != null) {
+                ItemStack itemstack = entry.getValue();
+                if (!itemstack.isEmpty() && itemstack.isDamaged()) {
+                    int i = Math.min((int) (orb.xpValue * itemstack.getXpRepairRatio()), itemstack.getDamage());
+                    orb.xpValue -= durabilityToXp(i);
+                    itemstack.setDamage(itemstack.getDamage() - i);
+                }
             }
         }
+        // TODO: XP Storage Items
         if (orb.xpValue > 0) {
             player.giveExperiencePoints(orb.xpValue);
         }

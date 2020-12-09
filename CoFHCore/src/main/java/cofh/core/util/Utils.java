@@ -1,5 +1,6 @@
 package cofh.core.util;
 
+import cofh.core.util.helpers.MathHelper;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import com.google.gson.Gson;
@@ -43,6 +44,7 @@ import javax.annotation.Nullable;
 import java.nio.file.Path;
 import java.util.Random;
 
+import static cofh.core.util.constants.Constants.MAX_CAPACITY;
 import static cofh.core.util.constants.NBTTags.TAG_ENCHANTMENTS;
 import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
@@ -279,7 +281,7 @@ public class Utils {
     // region ENCHANT UTILS
     public static int getEnchantedCapacity(int amount, int holding) {
 
-        return amount + amount * holding / 2;
+        return MathHelper.clamp(amount + amount * holding / 2, 0, MAX_CAPACITY);
     }
 
     public static int getHeldEnchantmentLevel(LivingEntity living, Enchantment ench) {

@@ -6,14 +6,13 @@ import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;
 import net.minecraft.data.ItemTagsProvider;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static cofh.core.util.constants.Constants.ID_THERMAL;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
 import static cofh.thermal.core.init.TCoreIDs.*;
-import static net.minecraftforge.common.Tags.Blocks.ORES;
-import static net.minecraftforge.common.Tags.Blocks.STORAGE_BLOCKS;
 import static net.minecraftforge.common.Tags.Items.*;
 
 public class TCoreTags {
@@ -70,7 +69,7 @@ public class TCoreTags {
             getOrCreateBuilder(BlockTagsCoFH.ORES_SULFUR).add(BLOCKS.get(ID_SULFUR_ORE));
             getOrCreateBuilder(BlockTagsCoFH.ORES_TIN).add(BLOCKS.get(ID_TIN_ORE));
 
-            getOrCreateBuilder(ORES).addTags(
+            getOrCreateBuilder(Tags.Blocks.ORES).addTags(
                     BlockTagsCoFH.ORES_APATITE,
                     BlockTagsCoFH.ORES_CINNABAR,
                     BlockTagsCoFH.ORES_COPPER,
@@ -94,6 +93,7 @@ public class TCoreTags {
             getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_COPPER).add(BLOCKS.get(ID_COPPER_BLOCK));
             getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_ELECTRUM).add(BLOCKS.get(ID_ELECTRUM_BLOCK));
             getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_ENDERIUM).add(BLOCKS.get(ID_ENDERIUM_BLOCK));
+            getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_GUNPOWDER).add(BLOCKS.get(ID_GUNPOWDER_BLOCK));
             getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_INVAR).add(BLOCKS.get(ID_INVAR_BLOCK));
             getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_LEAD).add(BLOCKS.get(ID_LEAD_BLOCK));
             getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_LUMIUM).add(BLOCKS.get(ID_LUMIUM_BLOCK));
@@ -107,7 +107,7 @@ public class TCoreTags {
             getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_SULFUR).add(BLOCKS.get(ID_SULFUR_BLOCK));
             getOrCreateBuilder(BlockTagsCoFH.STORAGE_BLOCKS_TIN).add(BLOCKS.get(ID_TIN_BLOCK));
 
-            getOrCreateBuilder(STORAGE_BLOCKS).addTags(
+            getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTags(
                     BlockTagsCoFH.STORAGE_BLOCKS_APATITE,
                     BlockTagsCoFH.STORAGE_BLOCKS_BAMBOO,
                     BlockTagsCoFH.STORAGE_BLOCKS_BRONZE,
@@ -118,6 +118,7 @@ public class TCoreTags {
                     BlockTagsCoFH.STORAGE_BLOCKS_COPPER,
                     BlockTagsCoFH.STORAGE_BLOCKS_ELECTRUM,
                     BlockTagsCoFH.STORAGE_BLOCKS_ENDERIUM,
+                    BlockTagsCoFH.STORAGE_BLOCKS_GUNPOWDER,
                     BlockTagsCoFH.STORAGE_BLOCKS_INVAR,
                     BlockTagsCoFH.STORAGE_BLOCKS_LEAD,
                     BlockTagsCoFH.STORAGE_BLOCKS_LUMIUM,
@@ -166,6 +167,20 @@ public class TCoreTags {
             copy(BlockTagsCoFH.ORES_SULFUR, ItemTagsCoFH.ORES_SULFUR);
             copy(BlockTagsCoFH.ORES_TIN, ItemTagsCoFH.ORES_TIN);
 
+            getOrCreateBuilder(Tags.Items.ORES).addTags(
+                    ItemTagsCoFH.ORES_APATITE,
+                    ItemTagsCoFH.ORES_CINNABAR,
+                    ItemTagsCoFH.ORES_COPPER,
+                    ItemTagsCoFH.ORES_LEAD,
+                    ItemTagsCoFH.ORES_NICKEL,
+                    ItemTagsCoFH.ORES_NITER,
+                    ItemTagsCoFH.ORES_RUBY,
+                    ItemTagsCoFH.ORES_SAPPHIRE,
+                    ItemTagsCoFH.ORES_SILVER,
+                    ItemTagsCoFH.ORES_SULFUR,
+                    ItemTagsCoFH.ORES_TIN
+            );
+
             copy(BlockTagsCoFH.STORAGE_BLOCKS_APATITE, ItemTagsCoFH.STORAGE_BLOCKS_APATITE);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_BAMBOO, ItemTagsCoFH.STORAGE_BLOCKS_BAMBOO);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_BRONZE, ItemTagsCoFH.STORAGE_BLOCKS_BRONZE);
@@ -176,6 +191,7 @@ public class TCoreTags {
             copy(BlockTagsCoFH.STORAGE_BLOCKS_COPPER, ItemTagsCoFH.STORAGE_BLOCKS_COPPER);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_ELECTRUM, ItemTagsCoFH.STORAGE_BLOCKS_ELECTRUM);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_ENDERIUM, ItemTagsCoFH.STORAGE_BLOCKS_ENDERIUM);
+            copy(BlockTagsCoFH.STORAGE_BLOCKS_GUNPOWDER, ItemTagsCoFH.STORAGE_BLOCKS_GUNPOWDER);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_INVAR, ItemTagsCoFH.STORAGE_BLOCKS_INVAR);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_LEAD, ItemTagsCoFH.STORAGE_BLOCKS_LEAD);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_LUMIUM, ItemTagsCoFH.STORAGE_BLOCKS_LUMIUM);
@@ -188,6 +204,32 @@ public class TCoreTags {
             copy(BlockTagsCoFH.STORAGE_BLOCKS_SUGAR_CANE, ItemTagsCoFH.STORAGE_BLOCKS_SUGAR_CANE);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_SULFUR, ItemTagsCoFH.STORAGE_BLOCKS_SULFUR);
             copy(BlockTagsCoFH.STORAGE_BLOCKS_TIN, ItemTagsCoFH.STORAGE_BLOCKS_TIN);
+
+            getOrCreateBuilder(Tags.Items.STORAGE_BLOCKS).addTags(
+                    ItemTagsCoFH.STORAGE_BLOCKS_APATITE,
+                    ItemTagsCoFH.STORAGE_BLOCKS_BAMBOO,
+                    ItemTagsCoFH.STORAGE_BLOCKS_BRONZE,
+                    ItemTagsCoFH.STORAGE_BLOCKS_CHARCOAL,
+                    ItemTagsCoFH.STORAGE_BLOCKS_CINNABAR,
+                    ItemTagsCoFH.STORAGE_BLOCKS_COAL_COKE,
+                    ItemTagsCoFH.STORAGE_BLOCKS_CONSTANTAN,
+                    ItemTagsCoFH.STORAGE_BLOCKS_COPPER,
+                    ItemTagsCoFH.STORAGE_BLOCKS_ELECTRUM,
+                    ItemTagsCoFH.STORAGE_BLOCKS_ENDERIUM,
+                    ItemTagsCoFH.STORAGE_BLOCKS_GUNPOWDER,
+                    ItemTagsCoFH.STORAGE_BLOCKS_INVAR,
+                    ItemTagsCoFH.STORAGE_BLOCKS_LEAD,
+                    ItemTagsCoFH.STORAGE_BLOCKS_LUMIUM,
+                    ItemTagsCoFH.STORAGE_BLOCKS_NICKEL,
+                    ItemTagsCoFH.STORAGE_BLOCKS_NITER,
+                    ItemTagsCoFH.STORAGE_BLOCKS_RUBY,
+                    ItemTagsCoFH.STORAGE_BLOCKS_SAPPHIRE,
+                    ItemTagsCoFH.STORAGE_BLOCKS_SIGNALUM,
+                    ItemTagsCoFH.STORAGE_BLOCKS_SILVER,
+                    ItemTagsCoFH.STORAGE_BLOCKS_SUGAR_CANE,
+                    ItemTagsCoFH.STORAGE_BLOCKS_SULFUR,
+                    ItemTagsCoFH.STORAGE_BLOCKS_TIN
+            );
 
             getOrCreateBuilder(ItemTagsCoFH.COINS_BRONZE).add(ITEMS.get("bronze_coin"));
             getOrCreateBuilder(ItemTagsCoFH.COINS_CONSTANTAN).add(ITEMS.get("constantan_coin"));
@@ -210,7 +252,9 @@ public class TCoreTags {
                     ItemTagsCoFH.COINS_COPPER,
                     ItemTagsCoFH.COINS_ELECTRUM,
                     ItemTagsCoFH.COINS_ENDERIUM,
+                    ItemTagsCoFH.COINS_GOLD,
                     ItemTagsCoFH.COINS_INVAR,
+                    ItemTagsCoFH.COINS_IRON,
                     ItemTagsCoFH.COINS_LEAD,
                     ItemTagsCoFH.COINS_LUMIUM,
                     ItemTagsCoFH.COINS_NICKEL,
@@ -246,10 +290,15 @@ public class TCoreTags {
                     ItemTagsCoFH.DUSTS_CINNABAR,
                     ItemTagsCoFH.DUSTS_CONSTANTAN,
                     ItemTagsCoFH.DUSTS_COPPER,
+                    ItemTagsCoFH.DUSTS_DIAMOND,
                     ItemTagsCoFH.DUSTS_ELECTRUM,
+                    ItemTagsCoFH.DUSTS_EMERALD,
                     ItemTagsCoFH.DUSTS_ENDER_PEARL,
                     ItemTagsCoFH.DUSTS_ENDERIUM,
+                    ItemTagsCoFH.DUSTS_GOLD,
                     ItemTagsCoFH.DUSTS_INVAR,
+                    ItemTagsCoFH.DUSTS_IRON,
+                    ItemTagsCoFH.DUSTS_LAPIS,
                     ItemTagsCoFH.DUSTS_LEAD,
                     ItemTagsCoFH.DUSTS_LUMIUM,
                     ItemTagsCoFH.DUSTS_NICKEL,
@@ -288,12 +337,18 @@ public class TCoreTags {
                     ItemTagsCoFH.GEARS_BRONZE,
                     ItemTagsCoFH.GEARS_CONSTANTAN,
                     ItemTagsCoFH.GEARS_COPPER,
+                    ItemTagsCoFH.GEARS_DIAMOND,
                     ItemTagsCoFH.GEARS_ELECTRUM,
+                    ItemTagsCoFH.GEARS_EMERALD,
                     ItemTagsCoFH.GEARS_ENDERIUM,
+                    ItemTagsCoFH.GEARS_GOLD,
                     ItemTagsCoFH.GEARS_INVAR,
+                    ItemTagsCoFH.GEARS_IRON,
+                    ItemTagsCoFH.GEARS_LAPIS,
                     ItemTagsCoFH.GEARS_LEAD,
                     ItemTagsCoFH.GEARS_LUMIUM,
                     ItemTagsCoFH.GEARS_NICKEL,
+                    ItemTagsCoFH.GEARS_QUARTZ,
                     ItemTagsCoFH.GEARS_RUBY,
                     ItemTagsCoFH.GEARS_SAPPHIRE,
                     ItemTagsCoFH.GEARS_SIGNALUM,
@@ -406,7 +461,9 @@ public class TCoreTags {
                     ItemTagsCoFH.PLATES_COPPER,
                     ItemTagsCoFH.PLATES_ELECTRUM,
                     ItemTagsCoFH.PLATES_ENDERIUM,
+                    ItemTagsCoFH.PLATES_GOLD,
                     ItemTagsCoFH.PLATES_INVAR,
+                    ItemTagsCoFH.PLATES_IRON,
                     ItemTagsCoFH.PLATES_LEAD,
                     ItemTagsCoFH.PLATES_LUMIUM,
                     ItemTagsCoFH.PLATES_NICKEL,

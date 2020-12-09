@@ -29,10 +29,10 @@ public class CoreItems {
         }
         overrideHorseArmor = true;
 
-        ITEMS.register("minecraft:iron_horse_armor", () -> new HorseArmorItemCoFH(5, "iron", (new Item.Properties()).maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(9));
-        ITEMS.register("minecraft:golden_horse_armor", () -> new HorseArmorItemCoFH(7, "gold", (new Item.Properties()).maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(25));
-        ITEMS.register("minecraft:diamond_horse_armor", () -> new HorseArmorItemCoFH(11, "diamond", (new Item.Properties()).maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(10));
-        ITEMS.register("minecraft:leather_horse_armor", () -> new DyeableHorseArmorItemCoFH(3, "leather", (new Item.Properties()).maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(15));
+        ITEMS.register("minecraft:iron_horse_armor", () -> new HorseArmorItemCoFH(5, "iron", new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(9));
+        ITEMS.register("minecraft:golden_horse_armor", () -> new HorseArmorItemCoFH(7, "gold", new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(25));
+        ITEMS.register("minecraft:diamond_horse_armor", () -> new HorseArmorItemCoFH(11, "diamond", new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(10));
+        ITEMS.register("minecraft:leather_horse_armor", () -> new DyeableHorseArmorItemCoFH(3, "leather", new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(15));
     }
 
     public static void registerShearsOverride() {
@@ -42,7 +42,7 @@ public class CoreItems {
         }
         overrideShears = true;
 
-        ITEMS.register("minecraft:shears", () -> new ShearsItemCoFH((new Item.Properties()).maxDamage(238).group(ItemGroup.TOOLS)));
+        ITEMS.register("minecraft:shears", () -> new ShearsItemCoFH(new Item.Properties().maxDamage(238).group(ItemGroup.TOOLS)));
     }
 
     public static void registerShieldOverride() {
@@ -52,7 +52,7 @@ public class CoreItems {
         }
         overrideShield = true;
 
-        ITEMS.register("minecraft:shield", () -> new ShieldItemCoFH((new Item.Properties()).maxDamage(336).group(ItemGroup.COMBAT)).setEnchantability(15));
+        ITEMS.register("minecraft:shield", () -> new ShieldItemCoFH(new Item.Properties().maxDamage(336).group(ItemGroup.COMBAT)).setEnchantability(15));
     }
 
     private static boolean overrideHorseArmor;

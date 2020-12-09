@@ -1,6 +1,7 @@
 package cofh.core.util.references;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;
@@ -35,6 +36,7 @@ public class BlockTagsCoFH {
     public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
     public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_ELECTRUM = forgeTag("storage_blocks/electrum");
     public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_ENDERIUM = forgeTag("storage_blocks/enderium");
+    public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_GUNPOWDER = forgeTag("storage_blocks/gunpowder");
     public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_INVAR = forgeTag("storage_blocks/invar");
     public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_LEAD = forgeTag("storage_blocks/lead");
     public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_LUMIUM = forgeTag("storage_blocks/lumium");

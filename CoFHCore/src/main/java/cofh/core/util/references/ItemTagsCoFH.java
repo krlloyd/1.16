@@ -195,6 +195,7 @@ public class ItemTagsCoFH {
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_ELECTRUM = forgeTag("storage_blocks/electrum");
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_ENDERIUM = forgeTag("storage_blocks/enderium");
+    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_GUNPOWDER = forgeTag("storage_blocks/gunpowder");
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_INVAR = forgeTag("storage_blocks/invar");
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_LEAD = forgeTag("storage_blocks/lead");
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_LUMIUM = forgeTag("storage_blocks/lumium");

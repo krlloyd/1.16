@@ -26,7 +26,6 @@ public class NBTTags {
     public static final String TAG_ENTITY = "EntityTag";
     public static final String TAG_STORED_ENCHANTMENTS = "StoredEnchantments";
     public static final String TAG_ENERGY = "Energy";
-    public static final String TAG_EXP = "XP";
     public static final String TAG_FACING = "Facing";
     public static final String TAG_FUEL = "Fuel";
     public static final String TAG_FUEL_MAX = "FuelMax";
@@ -57,6 +56,8 @@ public class NBTTags {
     public static final String TAG_TRACK_OUT = "TrackOut";
     public static final String TAG_TYPE = "Type";
     public static final String TAG_UUID = "UUID";
+    public static final String TAG_XP = "XP";
+    public static final String TAG_XP_TIMER = "XPTimer";
 
     public static final String TAG_SECURITY = "Security";
     public static final String TAG_SEC_ACCESS = "SecAccess";
