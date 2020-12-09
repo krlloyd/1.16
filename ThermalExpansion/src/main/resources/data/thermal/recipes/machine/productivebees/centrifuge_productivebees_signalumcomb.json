@@ -1,0 +1,22 @@
+{
+  "type": "thermal:centrifuge",
+  "ingredient": {
+    "item": "productivebees:honeycomb_signalum"
+  },
+  "result": [
+	{
+      "tag": "forge:dusts/signalum",
+      "chance": 0.9
+    },
+    {
+      "fluid": "cofh_core:honey",
+      "amount": 150
+    }
+  ],
+  "conditions": [
+  {
+      "type": "forge:mod_loaded",
+      "modid": "productivebees"
+  }
+  ]
+}

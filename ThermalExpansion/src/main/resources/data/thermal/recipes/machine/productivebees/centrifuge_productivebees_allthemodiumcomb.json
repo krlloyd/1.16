@@ -1,0 +1,22 @@
+{
+  "type": "thermal:centrifuge",
+  "ingredient": {
+    "item": "productivebees:honeycomb_allthemodium"
+  },
+  "result": [
+	{
+      "tag": "forge:nuggets/allthemodium",
+      "chance": 0.1
+    },
+    {
+      "fluid": "cofh_core:honey",
+      "amount": 250
+    }
+  ],
+  "conditions": [
+  {
+      "type": "forge:mod_loaded",
+      "modid": "productivebees"
+  }
+  ]
+}

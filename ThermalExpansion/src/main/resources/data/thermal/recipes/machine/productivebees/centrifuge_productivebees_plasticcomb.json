@@ -1,0 +1,22 @@
+{
+  "type": "thermal:centrifuge",
+  "ingredient": {
+    "item": "productivebees:honeycomb_plastic"
+  },
+  "result": [
+	{
+      "tag": "forge:plastic",
+      "chance": 1.0
+    },
+    {
+      "fluid": "cofh_core:honey",
+      "amount": 250
+    }
+  ],
+  "conditions": [
+  {
+      "type": "forge:mod_loaded",
+      "modid": "productivebees"
+  }
+  ]
+}

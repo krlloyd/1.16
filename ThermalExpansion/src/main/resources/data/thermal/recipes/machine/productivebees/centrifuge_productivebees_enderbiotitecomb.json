@@ -1,0 +1,22 @@
+{
+  "type": "thermal:centrifuge",
+  "ingredient": {
+    "item": "productivebees:honeycomb_ender_biotite"
+  },
+  "result": [
+	{
+      "tag": "forge:gems/biotite",
+      "chance": 0.95
+    },
+    {
+      "fluid": "cofh_core:honey",
+      "amount": 250
+    }
+  ],
+  "conditions": [
+  {
+      "type": "forge:mod_loaded",
+      "modid": "productivebees"
+  }
+  ]
+}

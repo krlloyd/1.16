@@ -1,0 +1,26 @@
+{
+  "type": "thermal:centrifuge",
+  "ingredient": {
+    "item": "productivebees:honeycomb_fossilised"
+  },
+  "result": [
+	{
+      "item": "minecraft:coal",
+      "chance": 0.3
+    },
+	{
+      "item": "forge:dusts/sulfur",
+      "chance": 0.3
+    },
+    {
+      "fluid": "cofh_core:honey",
+      "amount": 250
+    }
+  ],
+  "conditions": [
+  {
+      "type": "forge:mod_loaded",
+      "modid": "productivebees"
+  }
+  ]
+}

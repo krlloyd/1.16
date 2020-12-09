@@ -1,0 +1,22 @@
+{
+  "type": "thermal:centrifuge",
+  "ingredient": {
+    "item": "productivebees:honeycomb_unobtanium"
+  },
+  "result": [
+	{
+      "tag": "forge:nuggets/unobtanium",
+      "chance": 0.1
+    },
+    {
+      "fluid": "cofh_core:honey",
+      "amount": 250
+    }
+  ],
+  "conditions": [
+  {
+      "type": "forge:mod_loaded",
+      "modid": "productivebees"
+  }
+  ]
+}
