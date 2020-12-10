@@ -47,7 +47,7 @@ public class OMGourd {
         OMGBlocks.register();
 
         CoreItems.registerShearsOverride();
-        CarvedPumpkinBlockCoFH.updateTest();
+        CarvedPumpkinBlockCoFH.updatePredicate();
     }
 
     // region INITIALIZATION

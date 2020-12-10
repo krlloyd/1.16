@@ -1,7 +1,6 @@
 package cofh.core.init;
 
 import cofh.core.enchantment.HoldingEnchantment;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.item.*;
 
@@ -17,6 +16,9 @@ public class CoreEnchantments {
     public static void register() {
 
         Types.register();
+    }
+
+    public static void registerHoldingEnchantment() {
 
         ENCHANTMENTS.register(ID_HOLDING, HoldingEnchantment::new);
     }

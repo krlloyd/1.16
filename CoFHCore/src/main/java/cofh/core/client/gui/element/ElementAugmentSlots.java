@@ -9,10 +9,11 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
 
 import static cofh.core.util.GuiHelper.SLOT_SIZE;
-import static cofh.core.util.constants.Constants.MAX_AUGMENTS;
+import static cofh.core.util.constants.Constants.*;
 
 public class ElementAugmentSlots extends ElementBase {
 
@@ -21,6 +22,11 @@ public class ElementAugmentSlots extends ElementBase {
     private final List<ElementSlot> slots = new ArrayList<>(MAX_AUGMENTS);
 
     public ElementAugmentSlots(IGuiAccess gui, int posX, int posY, @Nonnull IntSupplier numSlots, @Nonnull List<SlotCoFH> augmentSlots) {
+
+        this(gui, posX, posY, numSlots, augmentSlots, null, TRUE);
+    }
+
+    public ElementAugmentSlots(IGuiAccess gui, int posX, int posY, @Nonnull IntSupplier numSlots, @Nonnull List<SlotCoFH> augmentSlots, String texture, BooleanSupplier drawUnderlay) {
 
         super(gui, posX, posY);
 
@@ -35,6 +41,7 @@ public class ElementAugmentSlots extends ElementBase {
             int slotIndex = i;
             ElementSlot slot = GuiHelper.createSlot(gui, 18 * i, 0);
             slot.setVisible(() -> slotIndex < this.numSlots.getAsInt());
+            slot.setUnderlayTexture(texture, drawUnderlay);
             slots.add(slot);
         }
     }

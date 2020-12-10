@@ -5,6 +5,7 @@ import cofh.archersparadox.init.APConfig;
 import cofh.archersparadox.init.APEffects;
 import cofh.archersparadox.init.APEntities;
 import cofh.archersparadox.init.APItems;
+import cofh.core.init.CoreItems;
 import cofh.core.registries.DeferredRegisterCoFH;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -57,6 +58,8 @@ public class ArchersParadox {
 
         APEffects.register();
         APEntities.register();
+
+        CoreItems.registerEctoplasm();
     }
 
     // region INITIALIZATION

@@ -2,6 +2,7 @@ package cofh.thermal.core;
 
 import cofh.core.client.renderer.entity.SpriteRendererCoFH;
 import cofh.core.client.renderer.entity.TNTRendererCoFH;
+import cofh.core.init.CoreEnchantments;
 import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.thermal.core.client.gui.device.DeviceHiveExtractorScreen;
 import cofh.thermal.core.client.gui.device.DeviceRockGenScreen;
@@ -86,6 +87,8 @@ public class ThermalCore {
         TILE_ENTITIES.register(modEventBus);
 
         ThermalConfig.register();
+
+        CoreEnchantments.registerHoldingEnchantment();
     }
 
     private void setFeatureFlags() {

@@ -32,6 +32,8 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
         this.maxEnergy = maxEnergy;
         this.extract = extract;
         this.receive = receive;
+
+        setEnchantability(5);
     }
 
     public EnergyContainerItem(Properties builder, int maxEnergy, int maxTransfer) {

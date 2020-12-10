@@ -39,14 +39,12 @@ import java.util.List;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.Constants.MAX_POTION_AMPLIFIER;
 import static cofh.core.util.constants.Constants.MAX_POTION_DURATION;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.ArcheryHelper.findArrows;
 import static cofh.core.util.helpers.AugmentableHelper.*;
 import static cofh.core.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
-import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.*;
 import static cofh.core.util.references.CoreReferences.HOLDING;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
@@ -109,6 +107,13 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
             effects.add(new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack), getEffectAmplifier(effect, stack), effect.isAmbient(), effect.doesShowParticles()));
         }
         potionTooltip(stack, worldIn, tooltip, flagIn, effects, 0.125F);
+    }
+
+    @Override
+    public int getItemEnchantability(ItemStack stack) {
+
+        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
+        return Math.round(super.getItemEnchantability(stack) * base);
     }
 
     @Override

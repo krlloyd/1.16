@@ -11,7 +11,7 @@ public class UnderwaterMinecartItem extends MinecartItemCoFH {
     public UnderwaterMinecartItem(Properties builder) {
 
         super(UnderwaterMinecartEntity::new, builder);
-        setEnchantability(1);
+        setEnchantability(10);
     }
 
     @Override

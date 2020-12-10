@@ -21,6 +21,8 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -51,15 +53,14 @@ import java.util.Set;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.*;
-import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 
 public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
 
     protected static final Set<ToolType> TOOL_TYPES = new ObjectOpenHashSet<>();
     protected static final Set<Material> MATERIALS = new ObjectOpenHashSet<>();
+    protected static final Set<Enchantment> VALID_ENCHANTS = new ObjectOpenHashSet<>();
 
     public static final int ENERGY_PER_USE = 200;
 
@@ -71,6 +72,10 @@ public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem
         MATERIALS.add(Material.ANVIL);
         MATERIALS.add(Material.IRON);
         MATERIALS.add(Material.ROCK);
+
+        VALID_ENCHANTS.add(Enchantments.EFFICIENCY);
+        VALID_ENCHANTS.add(Enchantments.SILK_TOUCH);
+        VALID_ENCHANTS.add(Enchantments.FORTUNE);
     }
 
     protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
@@ -109,6 +114,19 @@ public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem
             addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
         }
         super.tooltipDelegate(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
+    public int getItemEnchantability(ItemStack stack) {
+
+        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
+        return Math.round(super.getItemEnchantability(stack) * base);
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+
+        return super.canApplyAtEnchantingTable(stack, enchantment) || VALID_ENCHANTS.contains(enchantment);
     }
 
     @Override

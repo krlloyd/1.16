@@ -31,12 +31,10 @@ import java.util.List;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.Constants.MAX_POTION_AMPLIFIER;
 import static cofh.core.util.constants.Constants.MAX_POTION_DURATION;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.*;
-import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
@@ -96,6 +94,13 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
     }
 
     @Override
+    public int getItemEnchantability(ItemStack stack) {
+
+        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
+        return Math.round(super.getItemEnchantability(stack) * base);
+    }
+
+    @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 
         if (worldIn.getGameTime() % TIME_CONSTANT != 0) {
@@ -135,6 +140,22 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
     }
 
     @Override
+    public int getRGBDurabilityForDisplay(ItemStack stack) {
+
+        if (getFluidAmount(stack) <= 0) {
+            return super.getRGBDurabilityForDisplay(stack);
+        }
+        return getFluid(stack).getFluid().getAttributes().getColor(getFluid(stack));
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+
+        ItemStack stack = playerIn.getHeldItem(handIn);
+        return useDelegate(stack, playerIn, handIn) ? ActionResult.resultSuccess(stack) : ActionResult.resultPass(stack);
+    }
+
+    @Override
     public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
 
         FluidStack fluid = getFluid(stack);
@@ -156,22 +177,6 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
             return ActionResultType.SUCCESS;
         }
         return ActionResultType.PASS;
-    }
-
-    @Override
-    public int getRGBDurabilityForDisplay(ItemStack stack) {
-
-        if (getFluidAmount(stack) <= 0) {
-            return super.getRGBDurabilityForDisplay(stack);
-        }
-        return getFluid(stack).getFluid().getAttributes().getColor(getFluid(stack));
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-
-        ItemStack stack = playerIn.getHeldItem(handIn);
-        return useDelegate(stack, playerIn, handIn) ? ActionResult.resultSuccess(stack) : ActionResult.resultPass(stack);
     }
 
     @Override

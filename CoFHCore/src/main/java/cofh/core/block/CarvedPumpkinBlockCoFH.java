@@ -31,7 +31,7 @@ public class CarvedPumpkinBlockCoFH extends CarvedPumpkinBlock {
     /**
      * This ensures that the predicate check isn't stupid. Can't do this for other hardcoded cases unfortunately.
      */
-    public static void updateTest() {
+    public static void updatePredicate() {
 
         IS_PUMPKIN = (state) -> state != null && (state.getBlock() instanceof CarvedPumpkinBlockCoFH);
     }

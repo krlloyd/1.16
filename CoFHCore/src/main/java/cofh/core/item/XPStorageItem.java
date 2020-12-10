@@ -39,7 +39,6 @@ public class XPStorageItem extends FluidContainerItem {
     public XPStorageItem(Properties builder, int fluidCapacity) {
 
         super(builder, fluidCapacity, FluidHelper.IS_XP); // TODO: Validator w/ xp fluid tag
-        setEnchantability(10);
         xpCapacity = fluidCapacity / MB_PER_XP;
     }
 

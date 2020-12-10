@@ -19,15 +19,14 @@ public class CoreItems {
 
     public static void register() {
 
+    }
+
+    public static void registerEctoplasm() {
+
         ITEMS.register(ID_ECTOPLASM, () -> new ItemCoFH(new Item.Properties().group(ItemGroup.BREWING)));
     }
 
     public static void registerHorseArmorOverrides() {
-
-        if (overrideHorseArmor) {
-            return;
-        }
-        overrideHorseArmor = true;
 
         ITEMS.register("minecraft:iron_horse_armor", () -> new HorseArmorItemCoFH(5, "iron", new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(9));
         ITEMS.register("minecraft:golden_horse_armor", () -> new HorseArmorItemCoFH(7, "gold", new Item.Properties().maxStackSize(1).group(ItemGroup.MISC)).setEnchantability(25));
@@ -37,26 +36,12 @@ public class CoreItems {
 
     public static void registerShearsOverride() {
 
-        if (overrideShears) {
-            return;
-        }
-        overrideShears = true;
-
         ITEMS.register("minecraft:shears", () -> new ShearsItemCoFH(new Item.Properties().maxDamage(238).group(ItemGroup.TOOLS)));
     }
 
     public static void registerShieldOverride() {
 
-        if (overrideShield) {
-            return;
-        }
-        overrideShield = true;
-
         ITEMS.register("minecraft:shield", () -> new ShieldItemCoFH(new Item.Properties().maxDamage(336).group(ItemGroup.COMBAT)).setEnchantability(15));
     }
-
-    private static boolean overrideHorseArmor;
-    private static boolean overrideShears;
-    private static boolean overrideShield;
 
 }

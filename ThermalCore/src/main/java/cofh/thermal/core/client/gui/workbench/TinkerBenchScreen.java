@@ -13,6 +13,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import static cofh.core.util.GuiHelper.*;
 import static cofh.core.util.constants.Constants.ID_THERMAL;
+import static cofh.core.util.constants.Constants.PATH_ELEMENTS;
 
 public class TinkerBenchScreen extends ThermalScreenBase<TinkerBenchContainer> {
 
@@ -37,7 +38,8 @@ public class TinkerBenchScreen extends ThermalScreenBase<TinkerBenchContainer> {
 
         addElement(setClearable(createDefaultEnergyStorage(this, 8, 8, tile.getEnergyStorage()), tile, 0));
         addElement(setClearable(createMediumFluidStorage(this, 151, 8, tile.getTank(0)), tile, 0));
-        addElement(new ElementAugmentSlots(this, 80, 17, container::getNumTinkerAugmentSlots, container.getTinkerAugmentSlots()));
+        addElement(new ElementAugmentSlots(this, 80, 17, container::getNumTinkerAugmentSlots, container.getTinkerAugmentSlots(),
+                PATH_ELEMENTS + "disable_underlay_slot.png", () -> !container.tile.allowAugmentation()));
 
         addElement(new ElementButton(this, 43, 52) {
 

@@ -39,14 +39,12 @@ import java.util.Set;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.core.util.constants.Constants.RGB_DURABILITY_WATER;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.*;
 import static cofh.core.util.helpers.FluidHelper.IS_WATER;
 import static cofh.core.util.helpers.FluidHelper.isWater;
-import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class WateringCanItem extends FluidContainerItem implements IAugmentableItem, IMultiModeItem {

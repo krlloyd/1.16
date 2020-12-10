@@ -28,11 +28,9 @@ import java.util.List;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.getAttributeFromAugmentMax;
 import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
-import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 
 public class RFCapacitorItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
@@ -73,6 +71,13 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
         addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
 
         super.tooltipDelegate(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
+    public int getItemEnchantability(ItemStack stack) {
+
+        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
+        return Math.round(super.getItemEnchantability(stack) * base);
     }
 
     @Override
