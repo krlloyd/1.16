@@ -1,14 +1,14 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.EnchantmentCoFH;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import net.minecraft.inventory.EquipmentSlotType;
 
 public class LeechEnchantment extends EnchantmentCoFH {
 
     public LeechEnchantment() {
 
-        super(Rarity.UNCOMMON, CoreEnchantmentTypes.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.UNCOMMON, CoreEnchantments.Types.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 4;
     }
 

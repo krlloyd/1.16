@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.EnchantmentCoFH;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import cofh.core.util.Utils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
@@ -20,7 +20,7 @@ public class FrostAspectEnchantment extends EnchantmentCoFH {
 
     public FrostAspectEnchantment() {
 
-        super(Rarity.RARE, CoreEnchantmentTypes.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.RARE, CoreEnchantments.Types.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 2;
     }
 

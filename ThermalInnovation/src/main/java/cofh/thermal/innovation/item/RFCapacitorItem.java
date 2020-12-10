@@ -20,8 +20,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nullable;
@@ -35,7 +33,7 @@ import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.AugmentableHelper.getAttributeFromAugmentMax;
 import static cofh.core.util.helpers.AugmentableHelper.getPropertyWithDefault;
 import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
-import static cofh.core.util.helpers.StringHelper.*;
+import static cofh.core.util.helpers.StringHelper.getTextComponent;
 
 public class RFCapacitorItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
 
@@ -65,18 +63,16 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
         tooltip.add(isActive(stack)
                 ? new TranslationTextComponent("info.cofh_use_sneak_deactivate").mergeStyle(TextFormatting.DARK_GRAY)
                 : new TranslationTextComponent("info.cofh.use_sneak_activate").mergeStyle(TextFormatting.DARK_GRAY));
 
         tooltip.add(getTextComponent("info.thermal.capacitor.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
-        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
+        addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
 
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(getTextComponent(localize("info.cofh.transfer") + ": " + getScaledNumber(getExtract(stack)) + " RF/t"));
+        super.tooltipDelegate(stack, worldIn, tooltip, flagIn);
     }
 
     @Override

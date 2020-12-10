@@ -13,7 +13,6 @@ import cofh.core.util.Utils;
 import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.thermal.core.common.ThermalConfig;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -28,8 +27,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -94,17 +91,13 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-        if (Screen.hasShiftDown()) {
-            return;
-        }
         tooltip.add(getTextComponent("info.thermal.quiver.use").mergeStyle(TextFormatting.GRAY));
         tooltip.add(getTextComponent("info.thermal.quiver.use.sneak").mergeStyle(TextFormatting.DARK_GRAY));
 
         tooltip.add(getTextComponent("info.thermal.quiver.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
-        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
+        addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
 
         tooltip.add(getTextComponent(localize("info.cofh.arrows") + ": " + (isCreative(stack)
                 ? localize("info.cofh.infinite")
@@ -115,7 +108,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         for (EffectInstance effect : PotionUtils.getEffectsFromTag(fluid.getTag())) {
             effects.add(new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack), getEffectAmplifier(effect, stack), effect.isAmbient(), effect.doesShowParticles()));
         }
-        super.addInformation(stack, worldIn, tooltip, flagIn, effects, 0.125F);
+        potionTooltip(stack, worldIn, tooltip, flagIn, effects, 0.125F);
     }
 
     @Override

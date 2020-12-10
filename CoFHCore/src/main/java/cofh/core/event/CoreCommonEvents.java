@@ -1,10 +1,12 @@
 package cofh.core.event;
 
 import cofh.core.init.CoreConfig;
+import cofh.core.item.XPStorageItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayer;
@@ -20,6 +22,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.Map;
 
 import static cofh.core.util.constants.Constants.ID_COFH_CORE;
+import static cofh.core.util.constants.NBTTags.TAG_XP_TIMER;
 import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.enchantment.EnchantmentHelper.getMaxEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.FEATHER_FALLING;
@@ -75,8 +78,8 @@ public class CoreCommonEvents {
         PlayerEntity player = event.getPlayer();
         ExperienceOrbEntity orb = event.getOrb();
 
-        if (CoreConfig.improvedMending)
-        {
+        // Improved Mending
+        if (CoreConfig.improvedMending) {
             player.xpCooldown = 2;
             player.onItemPickup(orb, 1);
             Map.Entry<EquipmentSlotType, ItemStack> entry = getMostDamagedItem(player);
@@ -89,7 +92,16 @@ public class CoreCommonEvents {
                 }
             }
         }
-        // TODO: XP Storage Items
+        // XP Storage Items
+        if (player.world.getGameTime() - player.getPersistentData().getLong(TAG_XP_TIMER) <= 40) {
+            PlayerInventory inventory = player.inventory;
+            for (int i = 0; i < inventory.getSizeInventory(); i++) {
+                ItemStack stack = inventory.getStackInSlot(i);
+                if (stack.getItem() instanceof XPStorageItem && XPStorageItem.storeXPOrb(event, stack)) {
+                    break;
+                }
+            }
+        }
         if (orb.xpValue > 0) {
             player.giveExperiencePoints(orb.xpValue);
         }

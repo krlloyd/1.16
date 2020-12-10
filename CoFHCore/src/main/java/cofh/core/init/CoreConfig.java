@@ -1,6 +1,7 @@
 package cofh.core.init;
 
 import cofh.core.command.*;
+import cofh.core.enchantment.EnchantmentCoFH;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
@@ -9,6 +10,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import static cofh.core.util.constants.Constants.MAX_ENCHANT_LEVEL;
+import static cofh.core.util.references.CoreReferences.HOLDING;
 
 public class CoreConfig {
 
@@ -117,6 +121,14 @@ public class CoreConfig {
                 .comment("If TRUE and Advanced Tooltips are enabled (F3+H), Tags will be will be added to item tooltips if possible.")
                 .define("Show Item Tags", enableItemTags);
 
+        clientAlwaysShowDetails = CLIENT_CONFIG
+                .comment("If TRUE, CoFH Items will always show full details (charge state, etc.) and will not require Shift to be held down.")
+                .define("Always Show Item Details", alwaysShowDetails);
+
+        clientHoldShiftForDetails = CLIENT_CONFIG
+                .comment("If TRUE, CoFH Items will display a message prompting to hold Shift to see full details (charge state, etc.). This does not change the behavior, only if the informational message should display.")
+                .define("Show 'Hold Shift for Details' Message", holdShiftForDetails);
+
         CLIENT_CONFIG.pop();
 
         CLIENT_CONFIG.push("Render");
@@ -130,6 +142,28 @@ public class CoreConfig {
         clientSpec = CLIENT_CONFIG.build();
 
         refreshClientConfig();
+    }
+
+    private static void genEnchantmentConfig() {
+
+        String treasure = "This sets whether or not the Enchantment is considered a 'treasure' enchantment.";
+        String level = "This option adjusts the maximum allowable level for the Enchantment.";
+
+        SERVER_CONFIG.push("Enchantments");
+
+        SERVER_CONFIG.push("Holding");
+        enableHolding = SERVER_CONFIG
+                .comment("If TRUE, the Holding Enchantment is available for various Storage Items and Blocks.")
+                .define("Enable", true);
+        treasureHolding = SERVER_CONFIG
+                .comment(treasure)
+                .define("Treasure", false);
+        levelHolding = SERVER_CONFIG
+                .comment(level)
+                .defineInRange("Max Level", 4, 1, MAX_ENCHANT_LEVEL);
+        SERVER_CONFIG.pop();
+
+        SERVER_CONFIG.pop();
     }
 
     private static void refreshServerConfig() {
@@ -156,7 +190,19 @@ public class CoreConfig {
         enableItemDescriptions = clientEnableItemDescriptions.get();
         enableItemTags = clientEnableItemTags.get();
 
+        alwaysShowDetails = clientAlwaysShowDetails.get();
+        holdShiftForDetails = clientHoldShiftForDetails.get();
+
         enableAreaEffectBlockBreaking = clientEnableAreaEffectBlockBreaking.get();
+    }
+
+    private static void refreshEnchantmentConfig() {
+
+        if (HOLDING instanceof EnchantmentCoFH) {
+            ((EnchantmentCoFH) HOLDING).setEnable(enableHolding.get());
+            ((EnchantmentCoFH) HOLDING).setTreasure(treasureHolding.get());
+            ((EnchantmentCoFH) HOLDING).setMaxLevel(levelHolding.get());
+        }
     }
     // endregion
 
@@ -180,6 +226,9 @@ public class CoreConfig {
     public static boolean enableItemDescriptions = true;
     public static boolean enableItemTags = true;
 
+    public static boolean alwaysShowDetails = false;
+    public static boolean holdShiftForDetails = true;
+
     public static boolean enableAreaEffectBlockBreaking = true;
 
     private static BooleanValue serverImprovedFeatherFalling;
@@ -195,7 +244,14 @@ public class CoreConfig {
     private static BooleanValue clientEnableItemDescriptions;
     private static BooleanValue clientEnableItemTags;
 
+    private static BooleanValue clientAlwaysShowDetails;
+    private static BooleanValue clientHoldShiftForDetails;
+
     private static BooleanValue clientEnableAreaEffectBlockBreaking;
+
+    private static BooleanValue enableHolding;
+    private static BooleanValue treasureHolding;
+    private static IntValue levelHolding;
     // endregion
 
     // region CONFIGURATION

@@ -39,8 +39,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -99,8 +97,7 @@ public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
         int radius = getMode(stack) * 2 + 1;
         if (radius <= 1) {
@@ -109,9 +106,9 @@ public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem
             tooltip.add(new TranslationTextComponent("info.cofh.area").appendString(": " + radius + "x" + radius).mergeStyle(TextFormatting.ITALIC));
         }
         if (getNumModes(stack) > 1) {
-            tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
+            addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
         }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.tooltipDelegate(stack, worldIn, tooltip, flagIn);
     }
 
     @Override

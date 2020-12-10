@@ -23,8 +23,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
@@ -81,22 +79,20 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
         tooltip.add(getTextComponent("info.thermal.infuser.use").mergeStyle(TextFormatting.GRAY));
         tooltip.add(getTextComponent("info.thermal.infuser.use.sneak").mergeStyle(TextFormatting.DARK_GRAY));
 
         tooltip.add(getTextComponent("info.thermal.infuser.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
-        tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
+        addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
 
         FluidStack fluid = getFluid(stack);
         List<EffectInstance> effects = new ArrayList<>();
         for (EffectInstance effect : PotionUtils.getEffectsFromTag(fluid.getTag())) {
             effects.add(new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack), getEffectAmplifier(effect, stack), effect.isAmbient(), effect.doesShowParticles()));
         }
-        super.addInformation(stack, worldIn, tooltip, flagIn, effects);
+        potionTooltip(stack, worldIn, tooltip, flagIn, effects);
     }
 
     @Override

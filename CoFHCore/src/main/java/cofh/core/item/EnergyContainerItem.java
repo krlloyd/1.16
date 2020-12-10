@@ -10,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
@@ -28,7 +26,7 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
     protected int extract;
     protected int receive;
 
-    public EnergyContainerItem(Properties builder, int maxEnergy, int extract, int receive) {
+    private EnergyContainerItem(Properties builder, int maxEnergy, int extract, int receive) {
 
         super(builder);
         this.maxEnergy = maxEnergy;
@@ -42,12 +40,21 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-        tooltip.add(isCreative(stack)
+        boolean creative = isCreative(stack);
+        tooltip.add(creative
                 ? getTextComponent("info.cofh.infinite_source")
                 : getTextComponent(localize("info.cofh.energy") + ": " + getScaledNumber(getEnergyStored(stack)) + " / " + getScaledNumber(getMaxEnergyStored(stack)) + " RF"));
+
+        int extract = getExtract(stack);
+        int receive = getReceive(stack);
+
+        if (extract == receive || creative) {
+            tooltip.add(getTextComponent(localize("info.cofh.transfer") + ": " + getScaledNumber(extract) + " RF/t"));
+        } else {
+            tooltip.add(getTextComponent(localize("info.cofh.send") + "/" + localize("info.cofh.receive") + ": " + getScaledNumber(extract) + "/" + getScaledNumber(receive) + " RF/t"));
+        }
     }
 
     @Override

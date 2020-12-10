@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.DamageEnchantmentCoFH;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import cofh.core.util.Utils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -12,7 +12,7 @@ public class MagicEdgeEnchantment extends DamageEnchantmentCoFH {
 
     public MagicEdgeEnchantment() {
 
-        super(Rarity.RARE, CoreEnchantmentTypes.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.RARE, CoreEnchantments.Types.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 3;
         treasure = true;
     }

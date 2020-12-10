@@ -32,9 +32,10 @@ public class ArchersParadox {
 
     public static final Logger LOG = LogManager.getLogger(ID_ARCHERS_PARADOX);
 
+    public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_ARCHERS_PARADOX);
+
     public static final DeferredRegisterCoFH<Effect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.POTIONS, ID_ARCHERS_PARADOX);
     public static final DeferredRegisterCoFH<EntityType<?>> ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.ENTITIES, ID_ARCHERS_PARADOX);
-    public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_ARCHERS_PARADOX);
 
     public static ItemGroup itemGroup;
 
@@ -45,15 +46,17 @@ public class ArchersParadox {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
+        ITEMS.register(modEventBus);
+
         EFFECTS.register(modEventBus);
         ENTITIES.register(modEventBus);
-        ITEMS.register(modEventBus);
 
         APConfig.register();
 
+        APItems.register();
+
         APEffects.register();
         APEntities.register();
-        APItems.register();
     }
 
     // region INITIALIZATION

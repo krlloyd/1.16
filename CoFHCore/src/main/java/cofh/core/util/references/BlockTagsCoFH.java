@@ -1,7 +1,6 @@
 package cofh.core.util.references;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags.IOptionalNamedTag;

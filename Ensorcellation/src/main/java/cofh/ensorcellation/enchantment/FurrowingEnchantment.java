@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.EnchantmentCoFH;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 
@@ -11,7 +11,7 @@ public class FurrowingEnchantment extends EnchantmentCoFH {
 
     public FurrowingEnchantment() {
 
-        super(Rarity.UNCOMMON, CoreEnchantmentTypes.HOE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.UNCOMMON, CoreEnchantments.Types.HOE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 4;
     }
 

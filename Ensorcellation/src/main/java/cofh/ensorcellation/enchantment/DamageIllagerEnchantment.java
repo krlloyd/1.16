@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.DamageEnchantmentCoFH;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.AbstractRaiderEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -10,7 +10,7 @@ public class DamageIllagerEnchantment extends DamageEnchantmentCoFH {
 
     public DamageIllagerEnchantment() {
 
-        super(Rarity.UNCOMMON, CoreEnchantmentTypes.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.UNCOMMON, CoreEnchantments.Types.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 5;
     }
 

@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.DamageEnchantmentCoFH;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -13,7 +13,7 @@ public class DamageVillagerEnchantment extends DamageEnchantmentCoFH {
 
     public DamageVillagerEnchantment() {
 
-        super(Rarity.UNCOMMON, CoreEnchantmentTypes.SWORD_OR_AXE_OR_CROSSBOW, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.UNCOMMON, CoreEnchantments.Types.SWORD_OR_AXE_OR_CROSSBOW, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 5;
     }
 

@@ -115,6 +115,11 @@
   "info.thermal.redprint.data.Sides": "Side Configuration",
   "info.thermal.redprint.data.Xfer": "Transfer Control",
 
+  "info.thermal.xp_crystal.mode.0": "Auto-Collect Disabled",
+  "info.thermal.xp_crystal.mode.1": "Auto-Collect Enabled",
+  "info.thermal.xp_crystal.use": "Use to store experience in the crystal.",
+  "info.thermal.xp_crystal.use.sneak": "Use while sneaking to retrieve stored experience.",
+
   "item.thermal.redstone_servo": "Redstone Servo",
   "item.thermal.rf_coil": "Redstone Flux Coil",
 
@@ -179,6 +184,8 @@
   "item.thermal.redprint.desc": "Copies and transfers settings between blocks.",
   "item.thermal.wrench": "Crescent Hammer",
   "item.thermal.wrench.desc": "Rotates many blocks. Also known as a Wrench.",
+  "item.thermal.xp_crystal": "Insightful Crystal",
+  "item.thermal.xp_crystal.desc": "Stores experience.",
 
   "item.thermal.copper_coin": "Copper Coin",
   "item.thermal.copper_dust": "Copper Dust",
@@ -407,6 +414,7 @@
   "item.thermal.saw_blade": "Saw Blade",
 
   "item.thermal.rf_potato": "Capacitato",
+  "item.thermal.rf_potato.desc": "Stores Redstone Flux.",
 
   "item.thermal.phyto_grenade": "Phyto-Gronade",
   "item.thermal.phyto_grenade.desc": "Throwable Phyto-Gro with increased area.",
@@ -693,8 +701,8 @@
 
   "item.thermal.press_coin_die": "Numismatic Die",
   "item.thermal.press_gear_die": "Gearworking Die",
-  "item.thermal.press_packing_2x2_die": "Packing (2x2) Die",
-  "item.thermal.press_packing_3x3_die": "Packing (3x3) Die",
+  "item.thermal.press_packing_2x2_die": "Packing Die (2x2)",
+  "item.thermal.press_packing_3x3_die": "Packing Die (3x3)",
   "item.thermal.press_unpacking_die": "Unpacking Die",
 
   "_comment": "========================================================================================================",

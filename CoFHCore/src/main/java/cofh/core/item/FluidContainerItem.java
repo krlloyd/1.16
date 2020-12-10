@@ -13,8 +13,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -49,8 +47,7 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
         FluidStack fluid = getFluid(stack);
         if (!fluid.isEmpty()) {
@@ -67,12 +64,12 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
         }
     }
 
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, List<EffectInstance> effects) {
+    protected void potionTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, List<EffectInstance> effects) {
 
-        addInformation(stack, worldIn, tooltip, flagIn, effects, 1.0F);
+        potionTooltip(stack, worldIn, tooltip, flagIn, effects, 1.0F);
     }
 
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, List<EffectInstance> effects, float durationFactor) {
+    protected void potionTooltip(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, List<EffectInstance> effects, float durationFactor) {
 
         FluidStack fluid = getFluid(stack);
         if (!fluid.isEmpty()) {

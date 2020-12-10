@@ -467,14 +467,6 @@ public class EnsorcConfig {
         SERVER_CONFIG.pop();
 
         // MISC
-        // TODO: Revisit
-        //        COMMON_CONFIG.push("Holding");
-        //        comment = "If TRUE, the Holding Enchantment is available for various Storage Items.";
-        //        enableHolding = COMMON_CONFIG.comment(comment).define("Enable", true);
-        //        comment = "This option adjusts the maximum allowable level for the Enchantment.";
-        //        levelHolding = COMMON_CONFIG.comment(comment).defineInRange("Max Level", 4, 1, MAX_ENCHANT_LEVEL);
-        //        COMMON_CONFIG.pop();
-
         SERVER_CONFIG.push("Soulbound");
         enableSoulbound = SERVER_CONFIG
                 .comment("If TRUE, the Soulbound Enchantment is available.")
@@ -811,11 +803,6 @@ public class EnsorcConfig {
             ((EnchantmentCoFH) PHALANX).setMaxLevel(levelPhalanx.get());
         }
         // MISC
-        // TODO: Revisit
-        //        if (HOLDING instanceof EnchantmentCoFH) {
-        //            ((EnchantmentCoFH) HOLDING).setEnable(enableHolding.get());
-        //            ((EnchantmentCoFH) HOLDING).setMaxLevel(levelHolding.get());
-        //        }
         if (SOULBOUND instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) SOULBOUND).setEnable(enableSoulbound.get());
             ((EnchantmentCoFH) SOULBOUND).setTreasure(treasureSoulbound.get());
@@ -1030,10 +1017,6 @@ public class EnsorcConfig {
     private static IntValue levelPhalanx;
 
     // MISC
-    // TODO: Revisit
-    //    private static BooleanValue enableHolding;
-    //    private static IntValue levelHolding;
-
     private static BooleanValue enableSoulbound;
     private static BooleanValue treasureSoulbound;
     private static IntValue levelSoulbound;

@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment.override;
 
 import cofh.core.enchantment.EnchantmentOverride;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
@@ -36,7 +36,7 @@ public class LootingEnchantmentImp extends EnchantmentOverride {
         if (!enable) {
             return super.canApplyAtEnchantingTable(stack);
         }
-        return CoreEnchantmentTypes.SWORD_OR_AXE.canEnchantItem(stack.getItem()) || supportsEnchantment(stack);
+        return CoreEnchantments.Types.SWORD_OR_AXE.canEnchantItem(stack.getItem()) || supportsEnchantment(stack);
     }
 
     @Override

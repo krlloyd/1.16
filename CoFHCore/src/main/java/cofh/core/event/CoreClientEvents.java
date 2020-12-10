@@ -2,8 +2,8 @@ package cofh.core.event;
 
 import cofh.core.init.CoreConfig;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,8 @@ import java.util.Set;
 import static cofh.core.util.constants.Constants.ID_COFH_CORE;
 import static cofh.core.util.constants.NBTTags.TAG_STORED_ENCHANTMENTS;
 import static cofh.core.util.helpers.StringHelper.*;
-import static net.minecraft.util.text.TextFormatting.*;
+import static net.minecraft.util.text.TextFormatting.DARK_GRAY;
+import static net.minecraft.util.text.TextFormatting.GRAY;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = ID_COFH_CORE)
@@ -36,6 +37,7 @@ public class CoreClientEvents {
     public static void handleItemTooltipEvent(ItemTooltipEvent event) {
 
         List<ITextComponent> tooltip = event.getToolTip();
+        ITooltipFlag flags = event.getFlags();
         if (tooltip.isEmpty()) {
             return;
         }
@@ -60,7 +62,7 @@ public class CoreClientEvents {
                 }
             }
         }
-        if (CoreConfig.enableItemTags && Minecraft.getInstance().gameSettings.advancedItemTooltips) {
+        if (CoreConfig.enableItemTags && event.getFlags().isAdvanced()) {
             Item item = event.getItemStack().getItem();
 
             Set<ResourceLocation> blockTags = Block.getBlockFromItem(item).getTags();
@@ -87,7 +89,7 @@ public class CoreClientEvents {
                                 .forEach(lines::add);
                     }
                 } else {
-                    lines.add(getTextComponent("info.cofh.hold_ctrl_for_tags").mergeStyle(GRAY).mergeStyle(ITALIC));
+                    lines.add(getTextComponent("info.cofh.hold_ctrl_for_tags").mergeStyle(GRAY));
                 }
             }
         }

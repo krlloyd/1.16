@@ -19,8 +19,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
-import static cofh.core.util.constants.Constants.FALSE;
-import static cofh.core.util.constants.Constants.TRUE;
+import static cofh.core.util.constants.Constants.*;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
@@ -162,6 +161,8 @@ public class TCoreItems {
 
         registerItem("wrench", () -> new WrenchItem(new Item.Properties().maxStackSize(1).group(group).addToolType(ToolTypes.WRENCH, 1)));
         registerItem("redprint", () -> new RedprintItem(new Item.Properties().maxStackSize(1).group(group)));
+        registerItem("xp_crystal", () -> new XPCrystalItem(new Item.Properties().maxStackSize(1).group(group), MB_PER_XP * 100000));
+        registerItem("rf_potato", () -> new EnergyContainerItem(new Item.Properties().maxStackSize(1).group(group), 200000, 200));
         registerItem("lock", () -> new LockItem(new Item.Properties().group(group)));
         registerItem("phytogro", () -> new PhytoGroItem(new Item.Properties().group(group)));
 
@@ -170,7 +171,6 @@ public class TCoreItems {
         registerItem("lightning_charge", () -> new LightningChargeItem(new Item.Properties().group(group)));
 
         registerItem("detonator", () -> new DetonatorItem(new Item.Properties().group(group)));
-        //registerItem("rf_potato", () -> new EnergyContainerItem(new Item.Properties().maxStackSize(1).group(group), 480000, 40, 800));
 
         registerItem("explosive_grenade", () -> new GrenadeItem(new GrenadeItem.IGrenadeFactory<AbstractGrenadeEntity>() {
 

@@ -21,17 +21,13 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static cofh.core.key.CoreKeys.MULTIMODE_INCREMENT;
 import static cofh.core.util.constants.NBTTags.TAG_PRIMED;
-import static cofh.core.util.helpers.KeyHelper.getKeynameFromKeycode;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
@@ -56,8 +52,7 @@ public class DetonatorItem extends ItemCoFH implements IMultiModeItem {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
         tooltip.add(getTextComponent("info.thermal.detonator.use." + getMode(stack)).mergeStyle(TextFormatting.GRAY));
         tooltip.add(getTextComponent("info.thermal.detonator.primed").mergeStyle(TextFormatting.GRAY).append(getTextComponent(" " + getPrimedCount(stack) + "/" + MAX_PRIMED).mergeStyle(getPrimedCount(stack) <= 0 ? TextFormatting.RED : getMode(stack) == 0 ? TextFormatting.YELLOW : TextFormatting.GREEN)));
@@ -65,9 +60,8 @@ public class DetonatorItem extends ItemCoFH implements IMultiModeItem {
 
         tooltip.add(getTextComponent("info.thermal.detonator.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
         if (getPrimedCount(stack) > 0) {
-            tooltip.add(new TranslationTextComponent("info.cofh.mode_change", getKeynameFromKeycode(MULTIMODE_INCREMENT.getKey().getKeyCode())).mergeStyle(TextFormatting.YELLOW));
+            addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
         }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     protected boolean useDelegate(ItemStack stack, ItemUseContext context) {

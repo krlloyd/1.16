@@ -1,0 +1,22 @@
+{
+  "type": "thermal:centrifuge",
+  "ingredient": {
+    "item": "productivebees:honeycomb_radioactive"
+  },
+  "result": [
+    {
+      "item": "mekanism:dust_uranium",
+      "chance": 0.6
+    },
+    {
+      "fluid": "cofh_core:honey",
+      "amount": 150
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "productivebees"
+    }
+  ]
+}

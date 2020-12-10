@@ -1,12 +1,10 @@
 package cofh.core.item;
 
-import cofh.core.util.ChatHelper;
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.MathHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -15,27 +13,26 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
-
 import java.util.List;
 
 import static cofh.core.util.constants.Constants.MB_PER_XP;
 import static cofh.core.util.constants.Constants.RGB_DURABILITY_XP;
 import static cofh.core.util.constants.NBTTags.TAG_XP;
-import static cofh.core.util.constants.NBTTags.TAG_XP_TIMER;
+import static cofh.core.util.helpers.StringHelper.*;
 import static cofh.core.util.helpers.XPHelper.*;
 import static cofh.core.util.references.CoreReferences.FLUID_EXPERIENCE;
 import static cofh.core.util.references.CoreReferences.HOLDING;
 
-public class XPStorageItem extends FluidContainerItem implements IMultiModeItem {
+/**
+ * This class does not XP Timer on the player entity.
+ */
+public class XPStorageItem extends FluidContainerItem {
 
     protected int xpCapacity;
 
@@ -47,18 +44,9 @@ public class XPStorageItem extends FluidContainerItem implements IMultiModeItem 
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-    }
-
-    @Override
-    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-
-        if (Utils.isClientWorld(worldIn) || Utils.isFakePlayer(entityIn) || getMode(stack) <= 0) {
-            return;
-        }
-        entityIn.getPersistentData().putLong(TAG_XP_TIMER, entityIn.world.getGameTime());
+        tooltip.add(getTextComponent(localize("info.cofh.amount") + ": " + getScaledNumber(getStoredXP(stack)) + " / " + getScaledNumber(getCapacityXP(stack))));
     }
 
     @Override
@@ -150,11 +138,9 @@ public class XPStorageItem extends FluidContainerItem implements IMultiModeItem 
 
             item.modifyXP(stack, toAdd);
             orb.xpValue -= toAdd;
-            if (orb.xpValue <= 0) {
-                orb.remove();
-            }
+            return true;
         }
-        return !orb.isAlive();
+        return false;
     }
 
     // region IFluidContainerItem
@@ -201,14 +187,5 @@ public class XPStorageItem extends FluidContainerItem implements IMultiModeItem 
         return new FluidStack(FLUID_EXPERIENCE, drained * MB_PER_XP);
     }
 
-    // endregion
-
-    // region IMultiModeItem
-    @Override
-    public void onModeChange(PlayerEntity player, ItemStack stack) {
-
-        player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.4F, 0.6F + 0.2F * getMode(stack));
-        ChatHelper.sendIndexedChatMessageToPlayer(player, new TranslationTextComponent("info.cofh_core.xp_storage.mode." + getMode(stack)));
-    }
     // endregion
 }

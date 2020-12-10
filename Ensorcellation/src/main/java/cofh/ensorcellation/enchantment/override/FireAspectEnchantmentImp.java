@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment.override;
 
 import cofh.core.enchantment.EnchantmentOverride;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -32,7 +32,7 @@ public class FireAspectEnchantmentImp extends EnchantmentOverride {
         if (!enable) {
             return super.canApplyAtEnchantingTable(stack);
         }
-        return CoreEnchantmentTypes.SWORD_OR_AXE.canEnchantItem(stack.getItem()) || supportsEnchantment(stack);
+        return CoreEnchantments.Types.SWORD_OR_AXE.canEnchantItem(stack.getItem()) || supportsEnchantment(stack);
     }
 
 }

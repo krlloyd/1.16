@@ -14,6 +14,7 @@ import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.core.util.Proxy;
 import cofh.core.util.ProxyClient;
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleType;
@@ -43,8 +44,10 @@ public class CoFHCore {
 
     public static final DeferredRegisterCoFH<Block> BLOCKS = DeferredRegisterCoFH.create(ForgeRegistries.BLOCKS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<Fluid> FLUIDS = DeferredRegisterCoFH.create(ForgeRegistries.FLUIDS, ID_COFH_CORE);
-    public static final DeferredRegisterCoFH<Effect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.POTIONS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_COFH_CORE);
+
+    public static final DeferredRegisterCoFH<Effect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.POTIONS, ID_COFH_CORE);
+    public static final DeferredRegisterCoFH<Enchantment> ENCHANTMENTS = DeferredRegisterCoFH.create(ForgeRegistries.ENCHANTMENTS, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<ParticleType<?>> PARTICLES = DeferredRegisterCoFH.create(ForgeRegistries.PARTICLE_TYPES, ID_COFH_CORE);
     public static final DeferredRegisterCoFH<TileEntityType<?>> TILE_ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.TILE_ENTITIES, ID_COFH_CORE);
 
@@ -61,8 +64,10 @@ public class CoFHCore {
 
         BLOCKS.register(modEventBus);
         FLUIDS.register(modEventBus);
-        EFFECTS.register(modEventBus);
         ITEMS.register(modEventBus);
+
+        EFFECTS.register(modEventBus);
+        ENCHANTMENTS.register(modEventBus);
         // PARTICLES.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
 
@@ -70,9 +75,10 @@ public class CoFHCore {
 
         CoreBlocks.register();
         CoreFluids.register();
-        CoreEffects.register();
-        CoreEnchantmentTypes.register();
         CoreItems.register();
+
+        CoreEffects.register();
+        CoreEnchantments.register();
         // CoreParticles.register();
     }
 

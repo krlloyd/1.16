@@ -1,7 +1,7 @@
 package cofh.ensorcellation.enchantment;
 
 import cofh.core.enchantment.EnchantmentCoFH;
-import cofh.core.init.CoreEnchantmentTypes;
+import cofh.core.init.CoreEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 
@@ -11,7 +11,7 @@ public class TillingEnchantment extends EnchantmentCoFH {
 
     public TillingEnchantment() {
 
-        super(Rarity.RARE, CoreEnchantmentTypes.HOE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.RARE, CoreEnchantments.Types.HOE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 4;
         treasure = true;
     }
