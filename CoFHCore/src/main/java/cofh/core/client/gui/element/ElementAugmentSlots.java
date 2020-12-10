@@ -41,7 +41,9 @@ public class ElementAugmentSlots extends ElementBase {
             int slotIndex = i;
             ElementSlot slot = GuiHelper.createSlot(gui, 18 * i, 0);
             slot.setVisible(() -> slotIndex < this.numSlots.getAsInt());
-            slot.setUnderlayTexture(texture, drawUnderlay);
+            if (texture != null && drawUnderlay != null) {
+                slot.setUnderlayTexture(texture, drawUnderlay);
+            }
             slots.add(slot);
         }
     }

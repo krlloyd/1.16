@@ -27,12 +27,12 @@ public class APDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        APTags.Block blockTags = new APTags.Block(gen, exFileHelper);
+        APTagsProvider.Block blockTags = new APTagsProvider.Block(gen, exFileHelper);
 
         gen.addProvider(blockTags);
-        gen.addProvider(new APTags.Item(gen, blockTags, exFileHelper));
+        gen.addProvider(new APTagsProvider.Item(gen, blockTags, exFileHelper));
 
-        gen.addProvider(new APRecipes(gen));
+        gen.addProvider(new APRecipeProvider(gen));
     }
 
     private static void registerClientProviders(GatherDataEvent event) {
@@ -40,7 +40,7 @@ public class APDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        gen.addProvider(new APItemModels(gen, exFileHelper));
+        gen.addProvider(new APItemModelProvider(gen, exFileHelper));
     }
 
 }

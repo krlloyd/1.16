@@ -30,14 +30,14 @@ public class TCoreDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        TCoreTags.Block blockTags = new TCoreTags.Block(gen, exFileHelper);
+        TCoreTagsProvider.Block blockTags = new TCoreTagsProvider.Block(gen, exFileHelper);
 
         gen.addProvider(blockTags);
-        gen.addProvider(new TCoreTags.Item(gen, blockTags, exFileHelper));
-        gen.addProvider(new TCoreTags.Fluid(gen, exFileHelper));
+        gen.addProvider(new TCoreTagsProvider.Item(gen, blockTags, exFileHelper));
+        gen.addProvider(new TCoreTagsProvider.Fluid(gen, exFileHelper));
 
-        gen.addProvider(new TCoreLootTables(gen));
-        gen.addProvider(new TCoreRecipes(gen));
+        gen.addProvider(new TCoreLootTableProvider(gen));
+        gen.addProvider(new TCoreRecipeProvider(gen));
     }
 
     private static void registerClientProviders(GatherDataEvent event) {
@@ -45,8 +45,8 @@ public class TCoreDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        gen.addProvider(new TCoreBlockStates(gen, exFileHelper));
-        gen.addProvider(new TCoreItemModels(gen, exFileHelper));
+        gen.addProvider(new TCoreBlockStateProvider(gen, exFileHelper));
+        gen.addProvider(new TCoreItemModelProvider(gen, exFileHelper));
     }
 
 }

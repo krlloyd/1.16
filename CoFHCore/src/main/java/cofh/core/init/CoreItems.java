@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 
 import static cofh.core.CoFHCore.ITEMS;
+import static cofh.core.init.CoreFlags.FLAG_ECTOPLASM;
+import static cofh.core.init.CoreFlags.getFlag;
 import static cofh.core.util.references.CoreIDs.ID_ECTOPLASM;
 
 public class CoreItems {
@@ -19,11 +21,7 @@ public class CoreItems {
 
     public static void register() {
 
-    }
-
-    public static void registerEctoplasm() {
-
-        ITEMS.register(ID_ECTOPLASM, () -> new ItemCoFH(new Item.Properties().group(ItemGroup.BREWING)));
+        ITEMS.register(ID_ECTOPLASM, () -> new ItemCoFH(new Item.Properties().group(ItemGroup.BREWING)).setShowInGroups(getFlag(FLAG_ECTOPLASM)));
     }
 
     public static void registerHorseArmorOverrides() {

@@ -101,45 +101,6 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-
-        if (worldIn.getGameTime() % TIME_CONSTANT != 0) {
-            return;
-        }
-        if (Utils.isClientWorld(worldIn)) {
-            return;
-        }
-        if (!(entityIn instanceof LivingEntity) || Utils.isFakePlayer(entityIn) || getMode(stack) <= 0) {
-            return;
-        }
-        LivingEntity living = (LivingEntity) entityIn;
-        FluidStack fluid = getFluid(stack);
-        if (fluid != null && fluid.getAmount() >= MB_PER_CYCLE) {
-            boolean used = false;
-            for (EffectInstance effect : PotionUtils.getEffectsFromTag(fluid.getTag())) {
-                EffectInstance active = living.getActivePotionMap().get(effect.getPotion());
-
-                if (active != null && active.getDuration() >= 40) {
-                    continue;
-                }
-                if (effect.getPotion().isInstant()) {
-                    effect.getPotion().affectEntity(null, null, (LivingEntity) entityIn, effect.getAmplifier(), 0.5D);
-                } else {
-                    EffectInstance potion = new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack) / 4, getEffectAmplifier(effect, stack), effect.isAmbient(), false);
-                    living.addPotionEffect(potion);
-                }
-                used = true;
-            }
-            if (entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).abilities.isCreativeMode) {
-                return;
-            }
-            if (used) {
-                drain(stack, MB_PER_CYCLE, EXECUTE);
-            }
-        }
-    }
-
-    @Override
     public int getRGBDurabilityForDisplay(ItemStack stack) {
 
         if (getFluidAmount(stack) <= 0) {
@@ -183,6 +144,45 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
 
         return useDelegate(stack, context.getPlayer(), context.getHand()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+
+        if (worldIn.getGameTime() % TIME_CONSTANT != 0) {
+            return;
+        }
+        if (Utils.isClientWorld(worldIn)) {
+            return;
+        }
+        if (!(entityIn instanceof LivingEntity) || Utils.isFakePlayer(entityIn) || getMode(stack) <= 0) {
+            return;
+        }
+        LivingEntity living = (LivingEntity) entityIn;
+        FluidStack fluid = getFluid(stack);
+        if (fluid != null && fluid.getAmount() >= MB_PER_CYCLE) {
+            boolean used = false;
+            for (EffectInstance effect : PotionUtils.getEffectsFromTag(fluid.getTag())) {
+                EffectInstance active = living.getActivePotionMap().get(effect.getPotion());
+
+                if (active != null && active.getDuration() >= 40) {
+                    continue;
+                }
+                if (effect.getPotion().isInstant()) {
+                    effect.getPotion().affectEntity(null, null, (LivingEntity) entityIn, effect.getAmplifier(), 0.5D);
+                } else {
+                    EffectInstance potion = new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack) / 4, getEffectAmplifier(effect, stack), effect.isAmbient(), false);
+                    living.addPotionEffect(potion);
+                }
+                used = true;
+            }
+            if (entityIn instanceof PlayerEntity && ((PlayerEntity) entityIn).abilities.isCreativeMode) {
+                return;
+            }
+            if (used) {
+                drain(stack, MB_PER_CYCLE, EXECUTE);
+            }
+        }
     }
 
     // region HELPERS

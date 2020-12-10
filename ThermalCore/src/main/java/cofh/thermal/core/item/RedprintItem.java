@@ -16,7 +16,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -24,6 +23,8 @@ import java.util.List;
 
 import static cofh.core.util.helpers.StringHelper.canLocalize;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static net.minecraft.util.text.TextFormatting.DARK_GRAY;
+import static net.minecraft.util.text.TextFormatting.GRAY;
 
 public class RedprintItem extends ItemCoFH implements IPlacementItem {
 
@@ -37,16 +38,21 @@ public class RedprintItem extends ItemCoFH implements IPlacementItem {
 
         CompoundNBT conveyableData = stack.getTag();
 
-        if (conveyableData != null) {
+        if (conveyableData == null) {
+            tooltip.add(getTextComponent("info.thermal.redprint.use").mergeStyle(GRAY));
+        } else {
+            tooltip.add(getTextComponent("info.thermal.redprint.use.contents").mergeStyle(GRAY));
+            tooltip.add(getTextComponent("info.thermal.redprint.use.sneak").mergeStyle(DARK_GRAY));
+
             tooltip.add(getTextComponent("info.thermal.redprint.contents"));
             for (String type : conveyableData.keySet()) {
                 if (!canLocalize("info.thermal.redprint.data." + type)) {
                     tooltip.add(getTextComponent("info.thermal.redprint.unknown")
-                            .mergeStyle(TextFormatting.DARK_GRAY));
+                            .mergeStyle(DARK_GRAY));
                 }
                 tooltip.add(new StringTextComponent(" - ")
                         .append(getTextComponent("info.thermal.redprint.data." + type)
-                                .mergeStyle(TextFormatting.GRAY))
+                                .mergeStyle(GRAY))
                 );
             }
         }

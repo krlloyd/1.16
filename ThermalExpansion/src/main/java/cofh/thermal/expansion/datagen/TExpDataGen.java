@@ -27,14 +27,14 @@ public class TExpDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        TExpTags.Block blockTags = new TExpTags.Block(gen, exFileHelper);
+        TExpTagsProvider.Block blockTags = new TExpTagsProvider.Block(gen, exFileHelper);
 
         gen.addProvider(blockTags);
-        gen.addProvider(new TExpTags.Item(gen, blockTags, exFileHelper));
-        gen.addProvider(new TExpTags.Fluid(gen, exFileHelper));
+        gen.addProvider(new TExpTagsProvider.Item(gen, blockTags, exFileHelper));
+        gen.addProvider(new TExpTagsProvider.Fluid(gen, exFileHelper));
 
-        gen.addProvider(new TExpLootTables(gen));
-        gen.addProvider(new TExpRecipes(gen));
+        gen.addProvider(new TExpLootTableProvider(gen));
+        gen.addProvider(new TExpRecipeProvider(gen));
     }
 
     private static void registerClientProviders(GatherDataEvent event) {
@@ -42,8 +42,8 @@ public class TExpDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        gen.addProvider(new TExpBlockStates(gen, exFileHelper));
-        gen.addProvider(new TExpItemModels(gen, exFileHelper));
+        gen.addProvider(new TExpBlockStateProvider(gen, exFileHelper));
+        gen.addProvider(new TExpItemModelProvider(gen, exFileHelper));
     }
 
 }

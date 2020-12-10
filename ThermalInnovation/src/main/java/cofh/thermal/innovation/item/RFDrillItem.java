@@ -117,13 +117,6 @@ public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem
     }
 
     @Override
-    public int getItemEnchantability(ItemStack stack) {
-
-        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
-        return Math.round(super.getItemEnchantability(stack) * base);
-    }
-
-    @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
 
         return super.canApplyAtEnchantingTable(stack, enchantment) || VALID_ENCHANTS.contains(enchantment);
@@ -146,6 +139,13 @@ public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem
     public int getHarvestLevel(ItemStack stack, ToolType tool, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
 
         return getToolTypes(stack).contains(tool) ? getHarvestLevel(stack) : -1;
+    }
+
+    @Override
+    public int getItemEnchantability(ItemStack stack) {
+
+        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
+        return Math.round(super.getItemEnchantability(stack) * base);
     }
 
     @Override
@@ -367,7 +367,7 @@ public class RFDrillItem extends EnergyContainerItem implements IAugmentableItem
         @Override
         public ImmutableList<BlockPos> getAreaEffectBlocks(BlockPos pos, PlayerEntity player) {
 
-            return AreaEffectHelper.getAreaEffectBlocksRadius(container, pos, player, getMode(container));
+            return AreaEffectHelper.getBreakableBlocksRadius(container, pos, player, getMode(container));
         }
 
         // region ICapabilityProvider

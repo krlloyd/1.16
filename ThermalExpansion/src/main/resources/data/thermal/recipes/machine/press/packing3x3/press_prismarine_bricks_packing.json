@@ -1,0 +1,18 @@
+{
+  "type": "thermal:press",
+  "input": [
+    {
+      "tag": "forge:gems/prismarine",
+      "count": 9
+    },
+    {
+      "item": "thermal:press_packing_3x3_die"
+    }
+  ],
+  "result": [
+    {
+      "item": "minecraft:prismarine_bricks"
+    }
+  ],
+  "energy": 400
+}

@@ -5,7 +5,6 @@ import cofh.archersparadox.init.APConfig;
 import cofh.archersparadox.init.APEffects;
 import cofh.archersparadox.init.APEntities;
 import cofh.archersparadox.init.APItems;
-import cofh.core.init.CoreItems;
 import cofh.core.registries.DeferredRegisterCoFH;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -26,6 +25,8 @@ import org.apache.logging.log4j.Logger;
 
 import static cofh.archersparadox.init.APIDs.ID_BLAZE_ARROW;
 import static cofh.archersparadox.init.APReferences.*;
+import static cofh.core.init.CoreFlags.FLAG_ECTOPLASM;
+import static cofh.core.init.CoreFlags.setFlag;
 import static cofh.core.util.constants.Constants.ID_ARCHERS_PARADOX;
 
 @Mod(ID_ARCHERS_PARADOX)
@@ -59,7 +60,7 @@ public class ArchersParadox {
         APEffects.register();
         APEntities.register();
 
-        CoreItems.registerEctoplasm();
+        setFlag(FLAG_ECTOPLASM, true);
     }
 
     // region INITIALIZATION

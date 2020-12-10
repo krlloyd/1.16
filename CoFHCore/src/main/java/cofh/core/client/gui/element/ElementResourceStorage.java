@@ -11,10 +11,12 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import org.jline.utils.Log;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
+import static cofh.core.CoFHCore.LOG;
 import static cofh.core.util.constants.Constants.FALSE;
 import static cofh.core.util.constants.Constants.TRUE;
 import static cofh.core.util.helpers.StringHelper.format;
@@ -48,6 +50,10 @@ public abstract class ElementResourceStorage extends ElementBase {
 
     public final ElementResourceStorage setUnderlayTexture(String texture, BooleanSupplier draw) {
 
+        if (texture == null || draw == null) {
+            LOG.warn("Attempted to assign a NULL underlay texture.");
+            return this;
+        }
         this.underlayTexture = new ResourceLocation(texture);
         this.drawUnderlay = draw;
         return this;
@@ -60,6 +66,10 @@ public abstract class ElementResourceStorage extends ElementBase {
 
     public final ElementResourceStorage setOverlayTexture(String texture, BooleanSupplier draw) {
 
+        if (texture == null || draw == null) {
+            LOG.warn("Attempted to assign a NULL overlay texture.");
+            return this;
+        }
         this.overlayTexture = new ResourceLocation(texture);
         this.drawOverlay = draw;
         return this;

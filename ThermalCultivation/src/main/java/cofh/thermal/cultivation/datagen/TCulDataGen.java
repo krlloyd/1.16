@@ -27,14 +27,14 @@ public class TCulDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        TCulTags.Block blockTags = new TCulTags.Block(gen, exFileHelper);
+        TCulTagsProvider.Block blockTags = new TCulTagsProvider.Block(gen, exFileHelper);
 
         gen.addProvider(blockTags);
-        gen.addProvider(new TCulTags.Item(gen, blockTags, exFileHelper));
-        gen.addProvider(new TCulTags.Fluid(gen, exFileHelper));
+        gen.addProvider(new TCulTagsProvider.Item(gen, blockTags, exFileHelper));
+        gen.addProvider(new TCulTagsProvider.Fluid(gen, exFileHelper));
 
-        gen.addProvider(new TCulLootTables(gen));
-        gen.addProvider(new TCulRecipes(gen));
+        gen.addProvider(new TCulLootTableProvider(gen));
+        gen.addProvider(new TCulRecipeProvider(gen));
     }
 
     private static void registerClientProviders(GatherDataEvent event) {
@@ -42,8 +42,8 @@ public class TCulDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        gen.addProvider(new TCulBlockStates(gen, exFileHelper));
-        gen.addProvider(new TCulItemModels(gen, exFileHelper));
+        gen.addProvider(new TCulBlockStateProvider(gen, exFileHelper));
+        gen.addProvider(new TCulItemModelProvider(gen, exFileHelper));
     }
 
 }

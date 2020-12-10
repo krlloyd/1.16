@@ -81,6 +81,19 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
     }
 
     @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+
+        ItemStack stack = playerIn.getHeldItem(handIn);
+        return useDelegate(stack, playerIn) ? ActionResult.resultSuccess(stack) : ActionResult.resultPass(stack);
+    }
+
+    @Override
+    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
+
+        return useDelegate(stack, context.getPlayer()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+    }
+
+    @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 
         if (Utils.isClientWorld(worldIn) || Utils.isFakePlayer(entityIn) || !isActive(stack)) {
@@ -109,19 +122,7 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
         }
     }
 
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-
-        ItemStack stack = playerIn.getHeldItem(handIn);
-        return useDelegate(stack, playerIn) ? ActionResult.resultSuccess(stack) : ActionResult.resultPass(stack);
-    }
-
-    @Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-
-        return useDelegate(stack, context.getPlayer()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
-    }
-
+    // region HELPERS
     protected boolean useDelegate(ItemStack stack, PlayerEntity player) {
 
         if (Utils.isFakePlayer(player)) {
@@ -155,6 +156,7 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
         getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
         getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
     }
+    // endregion
 
     // region IEnergyContainerItem
     @Override

@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.function.BooleanSupplier;
 
+import static cofh.core.CoFHCore.LOG;
 import static cofh.core.util.constants.Constants.TRUE;
 
 public class ElementSlot extends ElementBase {
@@ -29,6 +30,10 @@ public class ElementSlot extends ElementBase {
 
     public final ElementSlot setUnderlayTexture(String texture, BooleanSupplier draw) {
 
+        if (texture == null || draw == null) {
+            LOG.warn("Attempted to assign a NULL underlay texture.");
+            return this;
+        }
         this.underlayTexture = new ResourceLocation(texture);
         this.drawUnderlay = draw;
         return this;
@@ -41,6 +46,10 @@ public class ElementSlot extends ElementBase {
 
     public final ElementSlot setOverlayTexture(String texture, BooleanSupplier draw) {
 
+        if (texture == null || draw == null) {
+            LOG.warn("Attempted to assign a NULL overlay texture.");
+            return this;
+        }
         this.overlayTexture = new ResourceLocation(texture);
         this.drawOverlay = draw;
         return this;

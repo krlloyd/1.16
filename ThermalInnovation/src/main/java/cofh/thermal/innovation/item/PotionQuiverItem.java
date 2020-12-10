@@ -117,18 +117,18 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
     }
 
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-
-        return !oldStack.equals(newStack) && (slotChanged || !areItemStacksEqualIgnoreTags(oldStack, newStack, TAG_ARROWS, TAG_FLUID));
-    }
-
-    @Override
     public int getRGBDurabilityForDisplay(ItemStack stack) {
 
         if (getFluidAmount(stack) <= 0) {
             return super.getRGBDurabilityForDisplay(stack);
         }
         return getFluid(stack).getFluid().getAttributes().getColor(getFluid(stack));
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+
+        return !oldStack.equals(newStack) && (slotChanged || !areItemStacksEqualIgnoreTags(oldStack, newStack, TAG_ARROWS, TAG_FLUID));
     }
 
     @Override

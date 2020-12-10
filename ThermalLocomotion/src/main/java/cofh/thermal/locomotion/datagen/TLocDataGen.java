@@ -27,14 +27,14 @@ public class TLocDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        TLocTags.Block blockTags = new TLocTags.Block(gen, exFileHelper);
+        TLocTagsProvider.Block blockTags = new TLocTagsProvider.Block(gen, exFileHelper);
 
         gen.addProvider(blockTags);
-        gen.addProvider(new TLocTags.Item(gen, blockTags, exFileHelper));
-        gen.addProvider(new TLocTags.Fluid(gen, exFileHelper));
+        gen.addProvider(new TLocTagsProvider.Item(gen, blockTags, exFileHelper));
+        gen.addProvider(new TLocTagsProvider.Fluid(gen, exFileHelper));
 
-        gen.addProvider(new TLocLootTables(gen));
-        gen.addProvider(new TLocRecipes(gen));
+        gen.addProvider(new TLocLootTableProvider(gen));
+        gen.addProvider(new TLocRecipeProvider(gen));
     }
 
     private static void registerClientProviders(GatherDataEvent event) {
@@ -42,8 +42,8 @@ public class TLocDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        gen.addProvider(new TLocBlockStates(gen, exFileHelper));
-        gen.addProvider(new TLocItemModels(gen, exFileHelper));
+        gen.addProvider(new TLocBlockStateProvider(gen, exFileHelper));
+        gen.addProvider(new TLocItemModelProvider(gen, exFileHelper));
     }
 
 }

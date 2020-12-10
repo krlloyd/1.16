@@ -27,13 +27,13 @@ public class TInoDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
-        TInoTags.Block blockTags = new TInoTags.Block(gen, exFileHelper);
+        TInoTagsProvider.Block blockTags = new TInoTagsProvider.Block(gen, exFileHelper);
 
         gen.addProvider(blockTags);
-        gen.addProvider(new TInoTags.Item(gen, blockTags, exFileHelper));
-        gen.addProvider(new TInoTags.Fluid(gen, exFileHelper));
+        gen.addProvider(new TInoTagsProvider.Item(gen, blockTags, exFileHelper));
+        gen.addProvider(new TInoTagsProvider.Fluid(gen, exFileHelper));
 
-        gen.addProvider(new TInoRecipes(gen));
+        gen.addProvider(new TInoRecipeProvider(gen));
     }
 
     private static void registerClientProviders(GatherDataEvent event) {

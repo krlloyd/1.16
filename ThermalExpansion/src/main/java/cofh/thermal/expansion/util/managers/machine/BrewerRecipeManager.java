@@ -249,7 +249,11 @@ public class BrewerRecipeManager extends AbstractManager implements IRecipeManag
 
     protected BrewerRecipe convert(Potion inputPotion, Ingredient reagent, Potion outputPotion) {
 
-        return new BrewerRecipe(new ResourceLocation(ID_THERMAL, "brewer_" + inputPotion.hashCode()), defaultEnergy, 0.0F, -1, Collections.singletonList(reagent), Collections.singletonList(PotionFluid.getPotionAsFluid(defaultPotion, inputPotion)), Collections.emptyList(), Collections.emptyList(), Collections.singletonList(PotionFluid.getPotionAsFluid(defaultPotion, outputPotion)));
+        return new BrewerRecipe(new ResourceLocation(ID_THERMAL, "brewer_" + inputPotion.hashCode()), defaultEnergy, 0.0F, -1,
+                Collections.singletonList(reagent),
+                Collections.singletonList(PotionFluid.getPotionAsFluid(defaultPotion, inputPotion)),
+                Collections.emptyList(), Collections.emptyList(),
+                Collections.singletonList(PotionFluid.getPotionAsFluid(defaultPotion, outputPotion)));
     }
     // endregion
 }

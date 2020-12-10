@@ -100,19 +100,6 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-
-        if (!hasActiveTag(stack)) {
-            return;
-        }
-        long activeTime = stack.getOrCreateTag().getLong(TAG_ACTIVE);
-
-        if (entityIn.world.getGameTime() > activeTime) {
-            stack.getOrCreateTag().remove(TAG_ACTIVE);
-        }
-    }
-
-    @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 
         return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) && (slotChanged || getFluidAmount(oldStack) > 0 != getFluidAmount(newStack) > 0 || getFluidAmount(newStack) > 0 && hasActiveTag(oldStack) != hasActiveTag(newStack));
@@ -213,6 +200,19 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
             return ActionResult.resultSuccess(stack);
         }
         return ActionResult.resultPass(stack);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+
+        if (!hasActiveTag(stack)) {
+            return;
+        }
+        long activeTime = stack.getOrCreateTag().getLong(TAG_ACTIVE);
+
+        if (entityIn.world.getGameTime() > activeTime) {
+            stack.getOrCreateTag().remove(TAG_ACTIVE);
+        }
     }
 
     // region HELPERS

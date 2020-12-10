@@ -92,6 +92,19 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     }
 
     @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+
+        ItemStack stack = playerIn.getHeldItem(handIn);
+        return useDelegate(stack, playerIn, handIn) ? ActionResult.resultSuccess(stack) : ActionResult.resultPass(stack);
+    }
+
+    @Override
+    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
+
+        return useDelegate(stack, context.getPlayer(), context.getHand()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+    }
+
+    @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 
         if (worldIn.getGameTime() % TIME_CONSTANT != 0) {
@@ -142,19 +155,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         }
     }
 
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-
-        ItemStack stack = playerIn.getHeldItem(handIn);
-        return useDelegate(stack, playerIn, handIn) ? ActionResult.resultSuccess(stack) : ActionResult.resultPass(stack);
-    }
-
-    @Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-
-        return useDelegate(stack, context.getPlayer(), context.getHand()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
-    }
-
+    // region HELPERS
     // TODO: Filter
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
 
@@ -224,6 +225,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_STORAGE);
         getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
     }
+    // endregion
 
     // region IEnergyContainerItem
     @Override

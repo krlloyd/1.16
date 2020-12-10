@@ -23,13 +23,13 @@ public class OMGDataGen {
 
     private static void registerServerProviders(DataGenerator generator) {
 
-        generator.addProvider(new OMGLootTables(generator));
+        generator.addProvider(new OMGLootTableProvider(generator));
         generator.addProvider(new OMGRecipeProvider(generator));
     }
 
     private static void registerClientProviders(DataGenerator generator, GatherDataEvent event) {
 
-        generator.addProvider(new OMGItemModels(generator, event.getExistingFileHelper()));
+        generator.addProvider(new OMGItemModelProvider(generator, event.getExistingFileHelper()));
     }
 
 }

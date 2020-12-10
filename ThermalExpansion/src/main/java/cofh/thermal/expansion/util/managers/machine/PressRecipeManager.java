@@ -164,10 +164,54 @@ public class PressRecipeManager extends AbstractManager implements IRecipeManage
     public void refresh(RecipeManager recipeManager) {
 
         clear();
+        //        if (true) {
+        //            ThermalCore.LOG.debug("Adding default Packing and Unpacking recipes to the Multiservo Press...");
+        //            createPackingRecipes(recipeManager);
+        //            for (ThermalRecipe recipe : getPackingRecipes()) {
+        //                addRecipe(recipe);
+        //            }
+        //        }
         Map<ResourceLocation, IRecipe<FalseIInventory>> recipes = recipeManager.getRecipes(TExpRecipeTypes.RECIPE_PRESS);
         for (Map.Entry<ResourceLocation, IRecipe<FalseIInventory>> entry : recipes.entrySet()) {
             addRecipe((ThermalRecipe) entry.getValue());
         }
     }
+    // endregion
+
+    // region PACKING
+    //    protected List<PressRecipe> packingRecipes = new ArrayList<>();
+    //
+    //    public List<PressRecipe> getPackingRecipes() {
+    //
+    //        return packingRecipes;
+    //    }
+    //
+    //    protected void createPackingRecipes(RecipeManager recipeManager) {
+    //
+    //        for (IRecipe<CraftingInventory> recipe : recipeManager.getRecipes(IRecipeType.CRAFTING).values()) {
+    //            createPackingRecipe(recipe);
+    //        }
+    //    }
+    //
+    //    protected boolean createPackingRecipe(IRecipe<CraftingInventory> recipe) {
+    //
+    //        if (recipe.isDynamic() || recipe.getRecipeOutput().isEmpty() || recipe.getIngredients().isEmpty()) {
+    //            return false;
+    //        }
+    //        int input = recipe.getIngredients().size();
+    //        int output = recipe.getRecipeOutput().getCount();
+    //        if (output == 4 || output == 9) {
+    //            if (input == 1) {
+    //                System.out.println("Unpacking " + recipe.getRecipeOutput());
+    //            }
+    //            return false;
+    //        } else if (output == 1) {
+    //            //            if (input == 4 || input == 9) {
+    //            //                System.out.println("Packing " + recipe.getRecipeOutput());
+    //            //            }
+    //            return false;
+    //        }
+    //        return true;
+    //    }
     // endregion
 }
