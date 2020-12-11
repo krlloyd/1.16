@@ -9,10 +9,12 @@ import cofh.thermal.core.entity.item.*;
 import cofh.thermal.core.inventory.container.device.DeviceHiveExtractorContainer;
 import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
+import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import cofh.thermal.core.tileentity.device.DeviceHiveExtractorTile;
 import cofh.thermal.core.tileentity.device.DeviceTreeExtractorTile;
 import cofh.thermal.core.tileentity.device.DeviceWaterGenTile;
+import cofh.thermal.core.tileentity.storage.EnergyCellTile;
 import cofh.thermal.core.tileentity.workbench.TinkerBenchTile;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -238,14 +240,14 @@ public class TCoreBlocks {
 
     private static void registerMisc() {
 
-        registerBlock(ID_PHYTO_TNT, () -> new TNTBlockCoFH(PhytoTNTEntity::new, AbstractBlock.Properties.create(Material.TNT, MaterialColor.GREEN).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_PHYTOGRO_EXPLOSIVES));
+        registerBlock(ID_PHYTO_TNT, () -> new TNTBlockCoFH(PhytoTNTEntity::new, create(Material.TNT, MaterialColor.GREEN).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_PHYTOGRO_EXPLOSIVES));
 
-        registerBlock(ID_FIRE_TNT, () -> new TNTBlockCoFH(FireTNTEntity::new, AbstractBlock.Properties.create(Material.TNT, MaterialColor.RED).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_ELEMENTAL_EXPLOSIVES));
-        registerBlock(ID_EARTH_TNT, () -> new TNTBlockCoFH(EarthTNTEntity::new, AbstractBlock.Properties.create(Material.TNT, MaterialColor.OBSIDIAN).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_ELEMENTAL_EXPLOSIVES));
-        registerBlock(ID_ICE_TNT, () -> new TNTBlockCoFH(IceTNTEntity::new, AbstractBlock.Properties.create(Material.TNT, MaterialColor.ICE).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_ELEMENTAL_EXPLOSIVES));
-        registerBlock(ID_LIGHTNING_TNT, () -> new TNTBlockCoFH(LightningTNTEntity::new, AbstractBlock.Properties.create(Material.TNT, MaterialColor.YELLOW).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_ELEMENTAL_EXPLOSIVES));
+        registerBlock(ID_FIRE_TNT, () -> new TNTBlockCoFH(FireTNTEntity::new, create(Material.TNT, MaterialColor.RED).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_ELEMENTAL_EXPLOSIVES));
+        registerBlock(ID_EARTH_TNT, () -> new TNTBlockCoFH(EarthTNTEntity::new, create(Material.TNT, MaterialColor.OBSIDIAN).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_ELEMENTAL_EXPLOSIVES));
+        registerBlock(ID_ICE_TNT, () -> new TNTBlockCoFH(IceTNTEntity::new, create(Material.TNT, MaterialColor.ICE).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_ELEMENTAL_EXPLOSIVES));
+        registerBlock(ID_LIGHTNING_TNT, () -> new TNTBlockCoFH(LightningTNTEntity::new, create(Material.TNT, MaterialColor.YELLOW).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), getFlag(FLAG_ELEMENTAL_EXPLOSIVES));
 
-        registerBlock(ID_NUKE_TNT, () -> new TNTBlockCoFH(NukeTNTEntity::new, AbstractBlock.Properties.create(Material.TNT, MaterialColor.LIME_TERRACOTTA).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), Rarity.UNCOMMON, getFlag(FLAG_NUCLEAR_EXPLOSIVES));
+        registerBlock(ID_NUKE_TNT, () -> new TNTBlockCoFH(NukeTNTEntity::new, create(Material.TNT, MaterialColor.LIME_TERRACOTTA).hardnessAndResistance(0.0F).sound(SoundType.PLANT)), Rarity.UNCOMMON, getFlag(FLAG_NUCLEAR_EXPLOSIVES));
     }
 
     private static void registerTileBlocks() {
@@ -257,10 +259,12 @@ public class TCoreBlocks {
         registerAugBlock(ID_DEVICE_WATER_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceWaterGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_WATER_GEN));
         // registerAugBlock(ID_DEVICE_ROCK_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceRockGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_ROCK_GEN));
 
-        IntSupplier workbenchAugs = () -> ThermalConfig.storageAugments;
-        Predicate<ItemStack> workbenchValidator = (e) -> true;
+        IntSupplier storageAugs = () -> ThermalConfig.storageAugments;
+        Predicate<ItemStack> storageValidator = (e) -> true;
 
-        registerAugBlock(ID_TINKER_BENCH, () -> new TileBlock4Way(AbstractBlock.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), TinkerBenchTile::new), workbenchAugs, workbenchValidator, getFlag(ID_TINKER_BENCH));
+        registerAugBlock(ID_TINKER_BENCH, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), TinkerBenchTile::new), storageAugs, storageValidator, getFlag(ID_TINKER_BENCH));
+
+        registerAugBlock(ID_ENERGY_CELL, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), EnergyCellTile::new), storageAugs, storageValidator, getFlag(ID_ENERGY_CELL));
     }
 
     private static void registerTileContainers() {
@@ -271,6 +275,8 @@ public class TCoreBlocks {
         // CONTAINERS.register(ID_DEVICE_ROCK_GEN, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceRockGenContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
 
         CONTAINERS.register(ID_TINKER_BENCH, () -> IForgeContainerType.create((windowId, inv, data) -> new TinkerBenchContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
+
+        CONTAINERS.register(ID_ENERGY_CELL, () -> IForgeContainerType.create((windowId, inv, data) -> new EnergyCellContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
     }
 
     private static void registerTileEntities() {
@@ -281,6 +287,8 @@ public class TCoreBlocks {
         // TILE_ENTITIES.register(ID_DEVICE_ROCK_GEN, () -> TileEntityType.Builder.create(DeviceRockGenTile::new, DEVICE_ROCK_GEN_BLOCK).build(null));
 
         TILE_ENTITIES.register(ID_TINKER_BENCH, () -> TileEntityType.Builder.create(TinkerBenchTile::new, TINKER_BENCH_BLOCK).build(null));
+
+        TILE_ENTITIES.register(ID_ENERGY_CELL, () -> TileEntityType.Builder.create(EnergyCellTile::new, ENERGY_CELL_BLOCK).build(null));
     }
     // endregion
 }

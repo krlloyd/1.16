@@ -30,6 +30,8 @@ public class DynamoBakedModel extends UnderlayBakedModel implements IDynamicBake
         super(originalModel);
     }
 
+    // TODO: More coil types.
+
     //    @Override
     //    @Nonnull
     //    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {

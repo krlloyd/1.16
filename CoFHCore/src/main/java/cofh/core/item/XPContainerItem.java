@@ -2,19 +2,14 @@ package cofh.core.item;
 
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
-import cofh.core.util.helpers.MathHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
@@ -23,20 +18,19 @@ import java.util.List;
 
 import static cofh.core.util.constants.Constants.MB_PER_XP;
 import static cofh.core.util.constants.Constants.RGB_DURABILITY_XP;
-import static cofh.core.util.constants.NBTTags.TAG_XP;
 import static cofh.core.util.helpers.StringHelper.*;
 import static cofh.core.util.helpers.XPHelper.*;
 import static cofh.core.util.references.CoreReferences.FLUID_EXPERIENCE;
 import static cofh.core.util.references.CoreReferences.HOLDING;
 
 /**
- * This class does not XP Timer on the player entity.
+ * This class does not set the XP Timer on the player entity.
  */
-public class XPStorageItem extends FluidContainerItem {
+public class XPContainerItem extends FluidContainerItem implements IXPContainerItem {
 
     protected int xpCapacity;
 
-    public XPStorageItem(Properties builder, int fluidCapacity) {
+    public XPContainerItem(Properties builder, int fluidCapacity) {
 
         super(builder, fluidCapacity, FluidHelper.IS_XP); // TODO: Validator w/ xp fluid tag
         xpCapacity = fluidCapacity / MB_PER_XP;
@@ -95,52 +89,13 @@ public class XPStorageItem extends FluidContainerItem {
         return ActionResult.resultSuccess(stack);
     }
 
+    // region IXpContainerItem
     public int getCapacityXP(ItemStack stack) {
 
         int holding = EnchantmentHelper.getEnchantmentLevel(HOLDING, stack);
         return Utils.getEnchantedCapacity(xpCapacity, holding);
     }
-
-    public int getStoredXP(ItemStack stack) {
-
-        return stack.getOrCreateTag().getInt(TAG_XP);
-    }
-
-    public int getSpaceXP(ItemStack stack) {
-
-        return getCapacityXP(stack) - getStoredXP(stack);
-    }
-
-    public int modifyXP(ItemStack stack, int xp) {
-
-        int totalXP = getStoredXP(stack) + xp;
-
-        if (totalXP > getCapacityXP(stack)) {
-            totalXP = getCapacityXP(stack);
-        } else if (totalXP < 0) {
-            totalXP = 0;
-        }
-        stack.getOrCreateTag().putInt(TAG_XP, totalXP);
-        return totalXP;
-    }
-
-    public static boolean storeXPOrb(PlayerXpEvent.PickupXp event, ItemStack stack) {
-
-        XPStorageItem item = (XPStorageItem) stack.getItem();
-        ExperienceOrbEntity orb = event.getOrb();
-        int toAdd = Math.min(item.getSpace(stack), orb.xpValue);
-
-        if (toAdd > 0) {
-            stack.setAnimationsToGo(5);
-            PlayerEntity player = event.getPlayer();
-            player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.1F, (MathHelper.RANDOM.nextFloat() - MathHelper.RANDOM.nextFloat()) * 0.35F + 0.9F);
-
-            item.modifyXP(stack, toAdd);
-            orb.xpValue -= toAdd;
-            return true;
-        }
-        return false;
-    }
+    // endregion
 
     // region IFluidContainerItem
     @Override

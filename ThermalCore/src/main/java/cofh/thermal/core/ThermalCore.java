@@ -5,9 +5,9 @@ import cofh.core.client.renderer.entity.TNTRendererCoFH;
 import cofh.core.init.CoreEnchantments;
 import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.thermal.core.client.gui.device.DeviceHiveExtractorScreen;
-import cofh.thermal.core.client.gui.device.DeviceRockGenScreen;
 import cofh.thermal.core.client.gui.device.DeviceTreeExtractorScreen;
 import cofh.thermal.core.client.gui.device.DeviceWaterGenScreen;
+import cofh.thermal.core.client.gui.storage.EnergyCellScreen;
 import cofh.thermal.core.client.gui.workbench.TinkerBenchScreen;
 import cofh.thermal.core.client.renderer.entity.*;
 import cofh.thermal.core.common.ThermalConfig;
@@ -107,6 +107,8 @@ public class ThermalCore {
         setFlag(FLAG_UPGRADE_AUGMENTS, true);
 
         setFlag(ID_TINKER_BENCH, true);
+
+        setFlag(ID_ENERGY_CELL, true);
     }
 
     // region INITIALIZATION
@@ -134,9 +136,11 @@ public class ThermalCore {
         ScreenManager.registerFactory(DEVICE_HIVE_EXTRACTOR_CONTAINER, DeviceHiveExtractorScreen::new);
         ScreenManager.registerFactory(DEVICE_TREE_EXTRACTOR_CONTAINER, DeviceTreeExtractorScreen::new);
         ScreenManager.registerFactory(DEVICE_WATER_GEN_CONTAINER, DeviceWaterGenScreen::new);
-        ScreenManager.registerFactory(DEVICE_ROCK_GEN_CONTAINER, DeviceRockGenScreen::new);
+        // ScreenManager.registerFactory(DEVICE_ROCK_GEN_CONTAINER, DeviceRockGenScreen::new);
 
         ScreenManager.registerFactory(TINKER_BENCH_CONTAINER, TinkerBenchScreen::new);
+
+        ScreenManager.registerFactory(ENERGY_CELL_CONTAINER, EnergyCellScreen::new);
     }
 
     private void registerRenderLayers() {

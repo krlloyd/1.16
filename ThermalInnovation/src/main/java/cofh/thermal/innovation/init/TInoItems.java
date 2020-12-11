@@ -24,7 +24,7 @@ public class TInoItems {
 
         ItemGroup group = THERMAL_TOOLS;
 
-        int energy = 40000;
+        int energy = 50000;
         int xfer = 1000;
         int fluid = 4000;
         int arrows = 80;

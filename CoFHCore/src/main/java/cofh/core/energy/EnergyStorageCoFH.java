@@ -2,6 +2,7 @@ package cofh.core.energy;
 
 import cofh.core.util.IResourceStorage;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.energy.IEnergyStorage;
 
@@ -110,6 +111,24 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
         }
         return energyExtracted;
     }
+
+    // region NETWORK
+    public void readFromBuffer(PacketBuffer buffer) {
+
+        setCapacity(buffer.readInt());
+        setEnergyStored(buffer.readInt());
+        setMaxExtract(buffer.readInt());
+        setMaxReceive(buffer.readInt());
+    }
+
+    public void writeToBuffer(PacketBuffer buffer) {
+
+        buffer.writeInt(getMaxEnergyStored());
+        buffer.writeInt(getEnergyStored());
+        buffer.writeInt(getMaxExtract());
+        buffer.writeInt(getMaxReceive());
+    }
+    // endregion
 
     // region NBT
     public EnergyStorageCoFH read(CompoundNBT nbt) {

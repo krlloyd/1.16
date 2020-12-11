@@ -66,7 +66,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     protected static final int MIN_PROCESS_TICK = 5;
     protected static final int BASE_PROCESS_TICK = 20;
-    protected static final int BASE_ENERGY = 20000;
+    protected static final int BASE_ENERGY = 50000;
 
     protected TimeTracker timeTracker = new TimeTracker();
     protected ManagedItemInv inventory = new ManagedItemInv(this, TAG_ITEM_INV);
@@ -96,7 +96,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     protected int getBaseEnergyXfer() {
 
-        return BASE_PROCESS_TICK * 8;
+        return BASE_PROCESS_TICK * 10;
     }
 
     protected int getBaseProcessTick() {
@@ -355,8 +355,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         buffer.writeBoolean(isActive);
         buffer.writeFluidStack(renderFluid);
-        buffer.writeInt(energyStorage.getMaxEnergyStored());
-        buffer.writeInt(energyStorage.getEnergyStored());
+
+        energyStorage.writeToBuffer(buffer);
 
         for (int i = 0; i < tankInv.getTanks(); ++i) {
             buffer.writeFluidStack(tankInv.get(i));
@@ -403,8 +403,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         isActive = buffer.readBoolean();
         renderFluid = buffer.readFluidStack();
-        energyStorage.setCapacity(buffer.readInt());
-        energyStorage.setEnergyStored(buffer.readInt());
+
+        energyStorage.readFromBuffer(buffer);
 
         for (int i = 0; i < tankInv.getTanks(); ++i) {
             tankInv.set(i, buffer.readFluidStack());

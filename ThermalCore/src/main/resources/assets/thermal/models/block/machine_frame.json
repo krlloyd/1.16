@@ -1,5 +1,5 @@
 {
-  "parent": "thermal:block/core_cube",
+  "parent": "thermal:block/frame_base",
   "textures": {
     "particle": "thermal:block/machines/machine_frame_top",
     "down": "thermal:block/machines/machine_frame_bottom",

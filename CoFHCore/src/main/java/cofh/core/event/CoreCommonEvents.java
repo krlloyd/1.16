@@ -1,7 +1,7 @@
 package cofh.core.event;
 
 import cofh.core.init.CoreConfig;
-import cofh.core.item.XPStorageItem;
+import cofh.core.item.IXPContainerItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
@@ -97,7 +97,7 @@ public class CoreCommonEvents {
             PlayerInventory inventory = player.inventory;
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 ItemStack stack = inventory.getStackInSlot(i);
-                if (stack.getItem() instanceof XPStorageItem && XPStorageItem.storeXPOrb(event, stack)) {
+                if (stack.getItem() instanceof IXPContainerItem && IXPContainerItem.storeXPOrb(event, stack)) {
                     break;
                 }
             }

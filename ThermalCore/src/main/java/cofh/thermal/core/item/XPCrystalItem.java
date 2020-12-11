@@ -1,7 +1,7 @@
 package cofh.thermal.core.item;
 
 import cofh.core.item.IMultiModeItem;
-import cofh.core.item.XPStorageItem;
+import cofh.core.item.XPContainerItem;
 import cofh.core.util.ChatHelper;
 import cofh.core.util.Utils;
 import net.minecraft.client.util.ITooltipFlag;
@@ -21,7 +21,7 @@ import java.util.List;
 import static cofh.core.util.constants.NBTTags.TAG_XP_TIMER;
 import static cofh.core.util.helpers.StringHelper.getTextComponent;
 
-public class XPCrystalItem extends XPStorageItem implements IMultiModeItem {
+public class XPCrystalItem extends XPContainerItem implements IMultiModeItem {
 
     public XPCrystalItem(Properties builder, int fluidCapacity) {
 

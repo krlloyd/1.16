@@ -3,6 +3,7 @@ package cofh.thermal.core.event;
 import cofh.core.client.renderer.model.SimpleModelLoader;
 import cofh.core.client.renderer.model.entity.ArmorModelFullSuit;
 import cofh.core.util.ProxyUtils;
+import cofh.thermal.core.client.renderer.model.CellBakedModel;
 import cofh.thermal.core.client.renderer.model.DynamoBakedModel;
 import cofh.thermal.core.client.renderer.model.ReconfigurableBakedModel;
 import cofh.thermal.core.client.renderer.model.UnderlayBakedModel;
@@ -30,6 +31,7 @@ public class TCoreClientSetupEvents {
         ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "underlay"), new SimpleModelLoader(UnderlayBakedModel::new));
         ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "dynamo"), new SimpleModelLoader(DynamoBakedModel::new));
         ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "reconfigurable"), new SimpleModelLoader(ReconfigurableBakedModel::new));
+        ModelLoaderRegistry.registerLoader(new ResourceLocation(ID_THERMAL, "cell"), new SimpleModelLoader(CellBakedModel::new));
 
         ProxyUtils.addModel(ITEMS.get(ID_BEEKEEPER_HELMET), ArmorModelFullSuit.LARGE);
         ProxyUtils.addModel(ITEMS.get(ID_BEEKEEPER_CHESTPLATE), ArmorModelFullSuit.DEFAULT);

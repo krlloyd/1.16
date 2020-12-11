@@ -369,6 +369,8 @@
   "block.thermal.device_tree_extractor": "Arboreal Extractor",
   "block.thermal.device_water_gen": "Aqueous Accumulator",
 
+  "block.thermal.energy_cell": "Redstone Flux Cell",
+
   "block.thermal.tinker_bench": "Tinker's Workbench",
 
   "info.thermal.device_hive_extractor.0": "Carefully extracts products from beehives.",
@@ -386,6 +388,9 @@
   "info.thermal.device_water_gen.0": "Provides copious amounts of water.",
   "info.thermal.device_water_gen.1": "Requires adjacent water sources to function.",
   "info.thermal.device_water_gen.2": "Don't drown.",
+
+  "info.thermal.energy_cell.0": "Stores and transfers Redstone Flux.",
+  "info.thermal.energy_cell.1": "Hold §e§oShift§r and/or §e§oCtrl§r to fine tune amounts.",
 
   "info.thermal.tinker_bench.0": "Multipurpose table for augmenting, recharging, and refilling.",
   "info.thermal.tinker_bench.1": "Storages may be filled using their respective slots.",
@@ -628,11 +633,11 @@
 
   "info.thermal.device_fluid_buffer.0": "Stores and transfers fluids. Can automatically extract.",
   "info.thermal.device_fluid_buffer.1": "It's like a hopper, for fluids!",
-  "info.thermal.device_fluid_buffer.2": "Hold Shift or Ctrl to fine tune quantities.",
+  "info.thermal.device_fluid_buffer.2": "Hold §e§oShift§r and/or §e§oCtrl§r to fine tune amounts.",
 
   "info.thermal.device_item_buffer.0": "Stores and transfers items. Can automatically extract.",
   "info.thermal.device_item_buffer.1": "Better than a Hopper, really!",
-  "info.thermal.device_item_buffer.2": "Hold Shift or Ctrl to fine tune quantities.",
+  "info.thermal.device_item_buffer.2": "Hold §e§oShift§r and/or §e§oCtrl§r to fine tune amounts.",
 
   "info.thermal.dynamo.throttle": "Output rate throttles based on local feedback.",
 

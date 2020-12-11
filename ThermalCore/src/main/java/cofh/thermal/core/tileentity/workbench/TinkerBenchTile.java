@@ -38,9 +38,6 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
 
     protected FluidStorageCoFH tank = new FluidStorageCoFH(TANK_MEDIUM);
 
-    protected static final int BASE_ENERGY = 200000;
-    protected static final int BASE_TRANSFER = 1000;
-
     protected static final byte REPLENISH = 0;
     protected static final byte AUGMENT = 1;
 
@@ -57,7 +54,7 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
 
         super(TINKER_BENCH_TILE);
 
-        energyStorage = new EnergyStorageCoFH(BASE_ENERGY, BASE_TRANSFER);
+        energyStorage = new EnergyStorageCoFH(getBaseEnergyStorage(), getBaseEnergyXfer());
 
         inventory.addSlot(tinkerSlot, INTERNAL);
         inventory.addSlot(chargeSlot, INTERNAL);
@@ -68,6 +65,18 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
         addAugmentSlots(storageAugments);
         initHandlers();
     }
+
+    // region BASE PARAMETERS
+    protected int getBaseEnergyStorage() {
+
+        return 500000;
+    }
+
+    protected int getBaseEnergyXfer() {
+
+        return 1000;
+    }
+    // endregion
 
     @Override
     public void tick() {

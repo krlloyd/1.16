@@ -89,32 +89,6 @@ public class ReconfigurableBakedModel extends UnderlayBakedModel implements IDyn
     }
 
     // region HELPERS
-    static TextureAtlasSprite getTexture(SideConfig[] config, int side) {
-
-        return getTexture(config[side]);
-    }
-
-    static TextureAtlasSprite getTexture(SideConfig side) {
-
-        switch (side) {
-            case SIDE_INPUT:
-                return ThermalTextures.MACHINE_CONFIG_INPUT;
-            case SIDE_OUTPUT:
-                return ThermalTextures.MACHINE_CONFIG_OUTPUT;
-            case SIDE_BOTH:
-                return ThermalTextures.MACHINE_CONFIG_BOTH;
-            case SIDE_ACCESSIBLE:
-                return ThermalTextures.MACHINE_CONFIG_ACCESSIBLE;
-            default:
-                return ThermalTextures.MACHINE_CONFIG_NONE;
-        }
-    }
-
-    static TextureAtlasSprite getTextureRaw(byte[] config, int side) {
-
-        return getTextureRaw(config[side]);
-    }
-
     static TextureAtlasSprite getTextureRaw(byte side) {
 
         switch (side) {

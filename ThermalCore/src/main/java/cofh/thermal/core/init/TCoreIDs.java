@@ -101,6 +101,11 @@ public class TCoreIDs {
     public static final String ID_DEVICE_WATER_GEN = "device_water_gen";
     // endregion
 
+    // region STORAGE
+    public static final String ID_ENERGY_CELL = "energy_cell";
+    public static final String ID_FLUID_CELL = "fluid_cell";
+    // endregion
+
     // region WORKBENCHES
     public static final String ID_CHARGE_BENCH = "charge_bench";
     public static final String ID_PROJECT_BENCH = "project_bench";
