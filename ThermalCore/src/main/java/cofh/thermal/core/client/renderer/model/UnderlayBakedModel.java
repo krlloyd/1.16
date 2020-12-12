@@ -1,6 +1,7 @@
 package cofh.thermal.core.client.renderer.model;
 
 import cofh.core.client.renderer.model.BakedQuadRetextured;
+import cofh.core.client.renderer.model.ModelUtils;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.RenderHelper;
 import cofh.thermal.core.tileentity.ThermalTileBase;
@@ -46,8 +47,8 @@ public class UnderlayBakedModel extends BakedModelWrapper<IBakedModel> implement
         }
         int sideIndex = side.getIndex();
         // FLUID
-        if (extraData.hasProperty(ThermalTileBase.FLUID)) {
-            FluidStack fluid = extraData.getData(ThermalTileBase.FLUID);
+        if (extraData.hasProperty(ModelUtils.FLUID)) {
+            FluidStack fluid = extraData.getData(ModelUtils.FLUID);
             if (fluid != null && !fluid.isEmpty()) {
                 FluidCacheWrapper wrapper = new FluidCacheWrapper(state, fluid);
                 BakedQuad[] cachedFluidQuads = FLUID_QUAD_CACHE.get(wrapper);
@@ -60,8 +61,8 @@ public class UnderlayBakedModel extends BakedModelWrapper<IBakedModel> implement
                 }
                 quads.offerFirst(cachedFluidQuads[sideIndex]);
             }
-        } else if (extraData.hasProperty(ThermalTileBase.UNDERLAY)) {
-            ResourceLocation loc = extraData.getData(ThermalTileBase.UNDERLAY);
+        } else if (extraData.hasProperty(ModelUtils.UNDERLAY)) {
+            ResourceLocation loc = extraData.getData(ModelUtils.UNDERLAY);
             BakedQuad[] cachedUnderlayQuads = UNDERLAY_QUAD_CACHE.get(state);
             if (cachedUnderlayQuads == null || cachedUnderlayQuads.length < 6) {
                 cachedUnderlayQuads = new BakedQuad[6];

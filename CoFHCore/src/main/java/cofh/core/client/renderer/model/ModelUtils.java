@@ -6,8 +6,11 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.model.data.ModelProperty;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,12 @@ public class ModelUtils {
     private ModelUtils() {
 
     }
+
+    public static final ModelProperty<Direction> FACING = new ModelProperty<>();
+    public static final ModelProperty<FluidStack> FLUID = new ModelProperty<>();
+    public static final ModelProperty<Integer> LEVEL = new ModelProperty<>();
+    public static final ModelProperty<byte[]> SIDES = new ModelProperty<>();
+    public static final ModelProperty<ResourceLocation> UNDERLAY = new ModelProperty<>();
 
     @OnlyIn(Dist.CLIENT)
     public static class WrappedBakedModelBuilder {
@@ -36,6 +45,8 @@ public class ModelUtils {
             for (Direction direction : Direction.values()) {
                 this.builderFaceQuads.put(direction, new ArrayList<>(model.getQuads(null, direction, MathHelper.RANDOM)));
             }
+            this.builderGeneralQuads.addAll(model.getQuads(null, null, MathHelper.RANDOM));
+
             builderItemOverrideList = model.getOverrides();
             builderAmbientOcclusion = model.isAmbientOcclusion();
             builderTexture = model.getParticleTexture();
@@ -44,20 +55,9 @@ public class ModelUtils {
             builderCameraTransforms = model.getItemCameraTransforms();
         }
 
-        public WrappedBakedModelBuilder addQuads(Map<Direction, BakedQuad> quad) {
-
-            return this;
-        }
-
         public WrappedBakedModelBuilder addFaceQuad(Direction facing, BakedQuad quad) {
 
             this.builderFaceQuads.get(facing).add(quad);
-            return this;
-        }
-
-        public WrappedBakedModelBuilder addRetexturedQuad(Direction facing, TextureAtlasSprite textureIn) {
-
-            addFaceQuad(facing, new BakedQuadRetextured(getQuads(facing).get(0), textureIn));
             return this;
         }
 

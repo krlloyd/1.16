@@ -33,6 +33,8 @@ public class PanelConfiguration extends PanelBase {
     private final ITransferControllable myTransfer;
     private final Supplier<Direction> myFacing;
 
+    private boolean allowFacingConfig = false;
+
     public PanelConfiguration(IGuiAccess gui, IReconfigurable reconfig, Supplier<Direction> facingSup) {
 
         this(gui, defaultSide, null, reconfig, facingSup);
@@ -59,6 +61,12 @@ public class PanelConfiguration extends PanelBase {
         myFacing = facingSup;
 
         this.setVisible(myReconfig::isReconfigurable);
+    }
+
+    public PanelConfiguration allowFacingConfig(boolean allowFacingConfig) {
+
+        this.allowFacingConfig = allowFacingConfig;
+        return this;
     }
 
     public PanelConfiguration addConditionals(ElementConditionalLayered... c) {
@@ -251,7 +259,7 @@ public class PanelConfiguration extends PanelBase {
             }
             return;
         }
-        if (side == facing) {
+        if (side == facing && !allowFacingConfig) {
             return;
         }
         if (mouseButton == 0) {

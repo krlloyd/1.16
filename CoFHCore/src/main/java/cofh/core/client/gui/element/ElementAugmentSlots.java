@@ -13,7 +13,8 @@ import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
 
 import static cofh.core.util.GuiHelper.SLOT_SIZE;
-import static cofh.core.util.constants.Constants.*;
+import static cofh.core.util.constants.Constants.MAX_AUGMENTS;
+import static cofh.core.util.constants.Constants.TRUE;
 
 public class ElementAugmentSlots extends ElementBase {
 

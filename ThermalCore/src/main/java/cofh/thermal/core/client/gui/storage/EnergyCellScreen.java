@@ -5,7 +5,7 @@ import cofh.core.client.gui.element.ElementButton;
 import cofh.core.client.gui.element.ElementTexture;
 import cofh.core.network.packet.server.TileConfigPacket;
 import cofh.core.util.helpers.StringHelper;
-import cofh.thermal.core.client.gui.ThermalScreenBase;
+import cofh.thermal.core.client.gui.CellScreenReconfigurable;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
 import cofh.thermal.core.tileentity.storage.EnergyCellTile;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -23,7 +23,7 @@ import static cofh.core.util.helpers.SoundHelper.playClickSound;
 import static cofh.core.util.helpers.StringHelper.format;
 import static cofh.core.util.helpers.StringHelper.localize;
 
-public class EnergyCellScreen extends ThermalScreenBase<EnergyCellContainer> {
+public class EnergyCellScreen extends CellScreenReconfigurable<EnergyCellContainer> {
 
     public static final String TEX_PATH = ID_THERMAL + ":textures/gui/storage/energy_cell.png";
     public static final ResourceLocation TEXTURE = new ResourceLocation(TEX_PATH);
@@ -39,6 +39,7 @@ public class EnergyCellScreen extends ThermalScreenBase<EnergyCellContainer> {
         tile = container.tile;
         texture = TEXTURE;
         info = generatePanelInfo("info.thermal.energy_cell");
+        name = "energy_cell";
     }
 
     @Override

@@ -3,7 +3,6 @@ package cofh.thermal.core.client.renderer.model;
 import cofh.core.client.renderer.model.BakedQuadRetextured;
 import cofh.core.client.renderer.model.ModelUtils;
 import cofh.core.util.ComparableItemStack;
-import cofh.thermal.core.tileentity.ThermalTileBase;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -30,25 +29,12 @@ import java.util.Random;
 import static cofh.core.util.constants.NBTTags.TAG_BLOCK_ENTITY;
 import static cofh.core.util.constants.NBTTags.TAG_SIDES;
 import static cofh.thermal.core.client.gui.ThermalTextures.*;
-import static cofh.thermal.core.common.ThermalConfig.DEFAULT_MACHINE_SIDES_RAW;
+import static cofh.thermal.core.common.ThermalConfig.DEFAULT_CELL_SIDES_RAW;
 import static net.minecraft.util.Direction.*;
 
-public class ReconfigurableBakedModel extends UnderlayBakedModel implements IDynamicBakedModel {
+public class EnergyCellBakedModel extends CellBakedModel {
 
-    protected static final Int2ObjectMap<BakedQuad[]> SIDE_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
-
-    protected static final Int2ObjectMap<BakedQuad[]> ITEM_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
-    protected static final Map<List<Integer>, IBakedModel> MODEL_CACHE = new Object2ObjectOpenHashMap<>();
-
-    public static void clearCache() {
-
-        SIDE_QUAD_CACHE.clear();
-
-        ITEM_QUAD_CACHE.clear();
-        MODEL_CACHE.clear();
-    }
-
-    public ReconfigurableBakedModel(IBakedModel originalModel) {
+    public EnergyCellBakedModel(IBakedModel originalModel) {
 
         super(originalModel);
     }
@@ -62,6 +48,7 @@ public class ReconfigurableBakedModel extends UnderlayBakedModel implements IDyn
             return quads;
         }
         byte[] sideConfigRaw = extraData.getData(ModelUtils.SIDES);
+        Direction facing = extraData.getData(ModelUtils.FACING);
         if (sideConfigRaw == null) {
             // This shouldn't happen, but playing it safe.
             return quads;
@@ -87,34 +74,7 @@ public class ReconfigurableBakedModel extends UnderlayBakedModel implements IDyn
         return overrideList;
     }
 
-    // region HELPERS
-    private TextureAtlasSprite getTextureRaw(byte side) {
-
-        switch (side) {
-            case 1:
-                return MACHINE_CONFIG_INPUT;
-            case 2:
-                return MACHINE_CONFIG_OUTPUT;
-            case 3:
-                return MACHINE_CONFIG_BOTH;
-            case 4:
-                return MACHINE_CONFIG_ACCESSIBLE;
-            default:
-                return MACHINE_CONFIG_NONE;
-        }
-    }
-
-    private byte[] getSideConfigRaw(CompoundNBT tag) {
-
-        if (tag == null) {
-            return DEFAULT_MACHINE_SIDES_RAW;
-        }
-        byte[] ret = tag.getByteArray(TAG_SIDES);
-        return ret.length == 0 ? DEFAULT_MACHINE_SIDES_RAW : ret;
-    }
-    // endregion
-
-    private final ItemOverrideList overrideList = new ItemOverrideList() {
+    protected final ItemOverrideList overrideList = new ItemOverrideList() {
 
         @Nullable
         @Override

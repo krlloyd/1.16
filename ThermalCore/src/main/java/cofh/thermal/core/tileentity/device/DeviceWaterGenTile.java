@@ -31,6 +31,7 @@ import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.util.StorageGroup.INTERNAL;
 import static cofh.core.util.StorageGroup.OUTPUT;
 import static cofh.core.util.constants.Constants.BUCKET_VOLUME;

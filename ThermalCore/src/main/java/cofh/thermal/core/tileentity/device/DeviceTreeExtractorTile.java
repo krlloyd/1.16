@@ -32,6 +32,7 @@ import javax.annotation.Nullable;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.util.StorageGroup.INPUT;
 import static cofh.core.util.StorageGroup.OUTPUT;
 import static cofh.core.util.constants.Constants.TANK_MEDIUM;

@@ -178,6 +178,7 @@ public class ThermalConfig {
 
     // region GLOBALS
     public static final byte[] DEFAULT_MACHINE_SIDES_RAW = new byte[]{0, 0, 0, 0, 0, 0};
+    public static final byte[] DEFAULT_CELL_SIDES_RAW = new byte[]{0, 0, 0, 0, 0, 0};
     // endregion
 
     // region SERVER VARIABLES

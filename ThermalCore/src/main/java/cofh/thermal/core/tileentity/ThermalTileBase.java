@@ -60,10 +60,6 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile, IRedstoneControllableTile, INamedContainerProvider, IThermalInventory {
 
-    public static final ModelProperty<byte[]> SIDES = new ModelProperty<>();
-    public static final ModelProperty<FluidStack> FLUID = new ModelProperty<>();
-    public static final ModelProperty<ResourceLocation> UNDERLAY = new ModelProperty<>();
-
     protected static final int MIN_PROCESS_TICK = 5;
     protected static final int BASE_PROCESS_TICK = 20;
     protected static final int BASE_ENERGY = 50000;

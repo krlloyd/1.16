@@ -34,6 +34,8 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static cofh.core.client.renderer.model.ModelUtils.FLUID;
+import static cofh.core.client.renderer.model.ModelUtils.SIDES;
 import static cofh.core.util.StorageGroup.*;
 import static cofh.core.util.constants.Constants.DIRECTIONS;
 import static cofh.core.util.constants.Constants.FACING_HORIZONTAL;

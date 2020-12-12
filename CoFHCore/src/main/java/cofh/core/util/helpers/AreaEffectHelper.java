@@ -352,7 +352,6 @@ public class AreaEffectHelper {
     private static boolean isBucketable(Item toolItem, ItemStack toolStack, World world, BlockPos pos) {
 
         BlockState state = world.getBlockState(pos);
-        System.out.println(pos + ": " + (state.getBlock() instanceof IBucketPickupHandler));
         return state.getBlock() instanceof IBucketPickupHandler;
     }
     // endregion

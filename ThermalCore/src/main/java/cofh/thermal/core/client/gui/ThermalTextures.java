@@ -1,5 +1,6 @@
 package cofh.thermal.core.client.gui;
 
+import cofh.thermal.core.client.renderer.model.CellBakedModel;
 import cofh.thermal.core.client.renderer.model.DynamoBakedModel;
 import cofh.thermal.core.client.renderer.model.ReconfigurableBakedModel;
 import cofh.thermal.core.client.renderer.model.UnderlayBakedModel;
@@ -48,6 +49,7 @@ public class ThermalTextures {
         UnderlayBakedModel.clearCache();
         DynamoBakedModel.clearCache();
         ReconfigurableBakedModel.clearCache();
+        CellBakedModel.clearCache();
 
         AtlasTexture map = event.getMap();
         MACHINE_CONFIG_NONE = map.getSprite(MACHINE_CONFIG_NONE_LOC);

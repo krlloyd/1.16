@@ -8,6 +8,7 @@ import cofh.core.client.gui.element.ElementScaledFluid;
 import cofh.core.client.gui.element.panel.PanelResource;
 import cofh.core.util.GuiHelper;
 import cofh.core.util.helpers.BlockHelper;
+import cofh.thermal.core.tileentity.CellTileBase;
 import cofh.thermal.core.tileentity.ReconfigurableTile4Way;
 import cofh.thermal.core.tileentity.ThermalTileBase;
 import net.minecraft.util.ResourceLocation;
@@ -108,6 +109,86 @@ public class ThermalGuiHelper {
                 createDefaultMachineConfigRight(gui, machine, tile),
                 createDefaultMachineConfigBottom(gui, machine, tile),
                 createDefaultMachineConfigBack(gui, machine, tile)
+        };
+    }
+    // endregion
+
+    // region CELL CONFIG
+    public static ElementConditionalLayered createDefaultCellConfigTop(IGuiAccess gui, String cell, CellTileBase tile) {
+
+        String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_top";
+        return (ElementConditionalLayered) new ElementConditionalLayered(gui)
+                .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_top", TRUE)
+                .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(UP) == SIDE_INPUT)
+                .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(UP) == SIDE_OUTPUT)
+                .setSize(16, 16);
+    }
+
+    public static ElementConditionalLayered createDefaultCellConfigBottom(IGuiAccess gui, String cell, CellTileBase tile) {
+
+        String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_bottom";
+        return (ElementConditionalLayered) new ElementConditionalLayered(gui)
+                .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_bottom", TRUE)
+                .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(DOWN) == SIDE_INPUT)
+                .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(DOWN) == SIDE_OUTPUT)
+                .setSize(16, 16);
+    }
+
+    public static ElementConditionalLayered createDefaultCellConfigLeft(IGuiAccess gui, String cell, CellTileBase tile) {
+
+        String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_side";
+        return (ElementConditionalLayered) new ElementConditionalLayered(gui)
+                .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_side", TRUE)
+                .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.left(tile.getFacing())) == SIDE_INPUT)
+                .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.left(tile.getFacing())) == SIDE_OUTPUT)
+                .setSize(16, 16);
+    }
+
+    public static ElementConditionalLayered createDefaultCellConfigRight(IGuiAccess gui, String cell, CellTileBase tile) {
+
+        String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_side";
+        return (ElementConditionalLayered) new ElementConditionalLayered(gui)
+                .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_side", TRUE)
+                .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.right(tile.getFacing())) == SIDE_INPUT)
+                .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.right(tile.getFacing())) == SIDE_OUTPUT)
+                .setSize(16, 16);
+    }
+
+    public static ElementConditionalLayered createDefaultCellConfigFace(IGuiAccess gui, String cell, CellTileBase tile) {
+
+        String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_side";
+        return (ElementConditionalLayered) new ElementConditionalLayered(gui)
+                .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_side", TRUE)
+                .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(tile.getFacing()) == SIDE_INPUT)
+                .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(tile.getFacing()) == SIDE_OUTPUT)
+                .setSize(16, 16);
+    }
+
+    public static ElementConditionalLayered createDefaultCellConfigBack(IGuiAccess gui, String cell, CellTileBase tile) {
+
+        String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_side";
+        return (ElementConditionalLayered) new ElementConditionalLayered(gui)
+                .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_side", TRUE)
+                .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.opposite(tile.getFacing())) == SIDE_INPUT)
+                .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.opposite(tile.getFacing())) == SIDE_OUTPUT)
+                .setSize(16, 16);
+    }
+
+    public static ElementConditionalLayered[] createDefaultCellConfigs(IGuiAccess gui, String cell, CellTileBase tile) {
+
+        return new ElementConditionalLayered[]{
+                createDefaultCellConfigTop(gui, cell, tile),
+                createDefaultCellConfigLeft(gui, cell, tile),
+                createDefaultCellConfigFace(gui, cell, tile),
+                createDefaultCellConfigRight(gui, cell, tile),
+                createDefaultCellConfigBottom(gui, cell, tile),
+                createDefaultCellConfigBack(gui, cell, tile)
         };
     }
     // endregion
