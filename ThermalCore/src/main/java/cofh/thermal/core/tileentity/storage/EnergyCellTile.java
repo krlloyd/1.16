@@ -1,33 +1,39 @@
 package cofh.thermal.core.tileentity.storage;
 
-import cofh.core.energy.EnergyStorageCoFH;
-import cofh.core.util.control.ReconfigControlModule;
+import cofh.core.energy.EnergyStorageConstrained;
+import cofh.core.network.packet.client.TileStatePacket;
+import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
 import cofh.thermal.core.tileentity.CellTileBase;
-import cofh.thermal.core.util.control.CellReconfigControlModule;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static cofh.core.client.renderer.model.ModelUtils.*;
 import static cofh.thermal.core.common.ThermalConfig.storageAugments;
 import static cofh.thermal.core.init.TCoreReferences.ENERGY_CELL_TILE;
 
 public class EnergyCellTile extends CellTileBase implements ITickableTileEntity {
 
-    public int amountInput;
-    public int amountOutput;
-
-    protected ReconfigControlModule reconfigControl = new CellReconfigControlModule(this);
-
     public EnergyCellTile() {
 
         super(ENERGY_CELL_TILE);
 
-        energyStorage = new EnergyStorageCoFH(getBaseEnergyStorage(), getBaseEnergyXfer());
+        energyStorage = new EnergyStorageConstrained(getBaseEnergyStorage(), getBaseEnergyXfer())
+                .setConstraints(() -> amountInput, () -> amountOutput);
 
         amountInput = energyStorage.getMaxReceive();
         amountOutput = energyStorage.getMaxExtract();
@@ -37,10 +43,51 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
     }
 
     @Override
+    public void neighborChanged(Block blockIn, BlockPos fromPos) {
+
+        super.neighborChanged(blockIn, fromPos);
+
+        // TODO: Handle caching of neighbor caps.
+    }
+
+    @Override
     public void tick() {
 
         if (redstoneControl.getState()) {
+            transferRF();
+        }
+        if (timeCheck()) {
+            updateTrackers(true);
+        }
+    }
 
+    protected void transferRF() {
+
+        if (amountOutput <= 0 || energyStorage.isEmpty()) {
+            return;
+        }
+        for (int i = outputTracker; i < 6 && energyStorage.getEnergyStored() > 0; ++i) {
+            if (reconfigControl.getSideConfig(i).isOutput()) {
+                attemptTransferRF(Direction.byIndex(i));
+            }
+        }
+        for (int i = 0; i < outputTracker && energyStorage.getEnergyStored() > 0; ++i) {
+            if (reconfigControl.getSideConfig(i).isOutput()) {
+                attemptTransferRF(Direction.byIndex(i));
+            }
+        }
+        ++outputTracker;
+        outputTracker %= 6;
+    }
+
+    protected void attemptTransferRF(Direction side) {
+
+        TileEntity adjTile = BlockHelper.getAdjacentTileEntity(this, side);
+        if (adjTile != null) {
+            Direction opposite = side.getOpposite();
+            int maxTransfer = Math.min(amountOutput, energyStorage.getEnergyStored());
+            adjTile.getCapability(CapabilityEnergy.ENERGY, opposite)
+                    .ifPresent(e -> energyStorage.modify(-e.receiveEnergy(maxTransfer, false)));
         }
     }
 
@@ -51,6 +98,36 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
         return new EnergyCellContainer(i, world, pos, inventory, player);
     }
 
+    @Nonnull
+    @Override
+    public IModelData getModelData() {
+
+        return new ModelDataMap.Builder()
+                .withInitial(SIDES, reconfigControl().getRawSideConfig())
+                .withInitial(FACING, reconfigControl.getFacing())
+                .withInitial(LEVEL, levelTracker)
+                .build();
+    }
+
+    @Override
+    protected void updateTrackers(boolean send) {
+
+        int curScale = energyStorage.getEnergyStored() > 0 ? 1 + (int) (energyStorage.getRatio() * 14) : 0;
+        if (curScale != compareTracker) {
+            compareTracker = curScale;
+            if (send) {
+                markDirty();
+            }
+        }
+        curScale = energyStorage.getEnergyStored() > 0 ? 1 + Math.min((int) (energyStorage.getRatio() * 8), 7) : 0;
+        if (levelTracker != curScale) {
+            levelTracker = curScale;
+            if (send) {
+                TileStatePacket.sendToClient(this);
+            }
+        }
+    }
+
     // region AUGMENTS
     @Override
     protected void finalizeAttributes() {
@@ -59,6 +136,37 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
 
         amountInput = MathHelper.clamp(amountInput, 0, energyStorage.getMaxReceive());
         amountOutput = MathHelper.clamp(amountOutput, 0, energyStorage.getMaxExtract());
+    }
+    // endregion
+
+    // region CAPABILITIES
+    protected final LazyOptional<?>[] sidedEnergyCaps = new LazyOptional<?>[]{
+            LazyOptional.empty(),
+            LazyOptional.empty(),
+            LazyOptional.empty(),
+            LazyOptional.empty(),
+            LazyOptional.empty(),
+            LazyOptional.empty()
+    };
+
+    @Override
+    protected void updateSidedHandlers() {
+        // ENERGY
+        for (int i = 0; i < 6; ++i) {
+            sidedEnergyCaps[i].invalidate();
+            sidedEnergyCaps[i] = reconfigControl.getSideConfig(i).isInput()
+                    ? LazyOptional.of(() -> energyStorage)
+                    : LazyOptional.empty();
+        }
+    }
+
+    @Override
+    protected <T> LazyOptional<T> getEnergyCapability(@Nullable Direction side) {
+
+        if (side == null) {
+            return super.getItemHandlerCapability(side);
+        }
+        return sidedEnergyCaps[side.ordinal()].cast();
     }
     // endregion
 }

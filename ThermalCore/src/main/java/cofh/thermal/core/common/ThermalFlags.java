@@ -31,7 +31,7 @@ public class ThermalFlags {
 
     public static BooleanSupplier getFlag(String flag) {
 
-        return () -> FLAG_MANAGER.getFlag(flag).getAsBoolean();
+        return FLAG_MANAGER.getFlag(flag);
     }
 
     // region SPECIFIC FEATURES

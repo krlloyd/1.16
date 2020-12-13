@@ -33,12 +33,10 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -645,7 +643,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     protected <T> LazyOptional<T> getEnergyCapability(@Nullable Direction side) {
 
-        if (!energyCap.isPresent()) {
+        if (!energyCap.isPresent() && energyStorage.getCapacity() > 0) {
             energyCap = LazyOptional.of(() -> energyStorage);
         }
         return energyCap.cast();
@@ -653,7 +651,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     protected <T> LazyOptional<T> getItemHandlerCapability(@Nullable Direction side) {
 
-        if (!itemCap.isPresent()) {
+        if (!itemCap.isPresent() && inventory.hasSlots()) {
             itemCap = LazyOptional.of(() -> inventory.getHandler(StorageGroup.ACCESSIBLE));
         }
         return itemCap.cast();
@@ -661,7 +659,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     protected <T> LazyOptional<T> getFluidHandlerCapability(@Nullable Direction side) {
 
-        if (!fluidCap.isPresent()) {
+        if (!fluidCap.isPresent() && tankInv.hasTanks()) {
             fluidCap = LazyOptional.of(() -> tankInv.getHandler(StorageGroup.ACCESSIBLE));
         }
         return fluidCap.cast();

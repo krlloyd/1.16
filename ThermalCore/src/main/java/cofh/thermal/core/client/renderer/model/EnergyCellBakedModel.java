@@ -3,6 +3,7 @@ package cofh.thermal.core.client.renderer.model;
 import cofh.core.client.renderer.model.BakedQuadRetextured;
 import cofh.core.client.renderer.model.ModelUtils;
 import cofh.core.util.ComparableItemStack;
+import cofh.core.util.helpers.MathHelper;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -16,15 +17,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
+import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.data.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.IModelData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static cofh.core.util.constants.NBTTags.TAG_BLOCK_ENTITY;
 import static cofh.core.util.constants.NBTTags.TAG_SIDES;
@@ -32,7 +31,22 @@ import static cofh.thermal.core.client.gui.ThermalTextures.*;
 import static cofh.thermal.core.common.ThermalConfig.DEFAULT_CELL_SIDES_RAW;
 import static net.minecraft.util.Direction.*;
 
-public class EnergyCellBakedModel extends CellBakedModel {
+public class EnergyCellBakedModel extends BakedModelWrapper<IBakedModel> implements IDynamicBakedModel {
+
+    protected static final Map<List<Integer>, BakedQuad> FACE_QUAD_CACHE = new Object2ObjectOpenHashMap<>();
+    protected static final Int2ObjectMap<BakedQuad[]> SIDE_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
+
+    protected static final Int2ObjectMap<BakedQuad[]> ITEM_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
+    protected static final Map<List<Integer>, IBakedModel> MODEL_CACHE = new Object2ObjectOpenHashMap<>();
+
+    public static void clearCache() {
+
+        FACE_QUAD_CACHE.clear();
+        SIDE_QUAD_CACHE.clear();
+
+        ITEM_QUAD_CACHE.clear();
+        MODEL_CACHE.clear();
+    }
 
     public EnergyCellBakedModel(IBakedModel originalModel) {
 
@@ -43,25 +57,39 @@ public class EnergyCellBakedModel extends CellBakedModel {
     @Nonnull
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
 
-        List<BakedQuad> quads = super.getQuads(state, side, rand, extraData);
+        LinkedList<BakedQuad> quads = new LinkedList<>(originalModel.getQuads(state, side, rand, extraData));
         if (side == null || quads.isEmpty()) {
             return quads;
         }
+        // FACE
+        Direction face = extraData.getData(ModelUtils.FACING);
+        if (side == face) {
+            Integer level = extraData.getData(ModelUtils.LEVEL);
+            if (level == null) {
+                // This shouldn't happen, but playing it safe.
+                return quads;
+            }
+            BakedQuad faceQuad = FACE_QUAD_CACHE.get(Arrays.asList(face.getIndex(), level));
+            if (faceQuad == null) {
+                faceQuad = new BakedQuadRetextured(quads.get(0), getLevelTexture(level));
+                FACE_QUAD_CACHE.put(Arrays.asList(face.getIndex(), level), faceQuad);
+            }
+            quads.add(faceQuad);
+        }
+        // SIDES
         byte[] sideConfigRaw = extraData.getData(ModelUtils.SIDES);
-        Direction facing = extraData.getData(ModelUtils.FACING);
         if (sideConfigRaw == null) {
             // This shouldn't happen, but playing it safe.
             return quads;
         }
         int sideIndex = side.getIndex();
-        // SIDES
         int configHash = Arrays.hashCode(sideConfigRaw);
         BakedQuad[] cachedSideQuads = SIDE_QUAD_CACHE.get(configHash);
         if (cachedSideQuads == null || cachedSideQuads.length < 6) {
             cachedSideQuads = new BakedQuad[6];
         }
         if (cachedSideQuads[sideIndex] == null) {
-            cachedSideQuads[sideIndex] = new BakedQuadRetextured(quads.get(0), getTextureRaw(sideConfigRaw[sideIndex]));
+            cachedSideQuads[sideIndex] = new BakedQuadRetextured(quads.get(0), getConfigTexture(sideConfigRaw[sideIndex]));
             SIDE_QUAD_CACHE.put(configHash, cachedSideQuads);
         }
         quads.add(cachedSideQuads[sideIndex]);
@@ -74,7 +102,39 @@ public class EnergyCellBakedModel extends CellBakedModel {
         return overrideList;
     }
 
-    protected final ItemOverrideList overrideList = new ItemOverrideList() {
+    // region HELPERS
+    private TextureAtlasSprite getConfigTexture(byte side) {
+
+        switch (side) {
+            case 1:
+                return CELL_CONFIG_INPUT;
+            case 2:
+                return CELL_CONFIG_OUTPUT;
+            default:
+                return CELL_CONFIG_NONE;
+        }
+    }
+
+    private TextureAtlasSprite getLevelTexture(int level) {
+
+        // Creative returned as -1;
+        if (level < 0) {
+            return CELL_LEVEL_C;
+        }
+        return CELL_LEVELS[MathHelper.clamp(level, 0, 8)];
+    }
+
+    private byte[] getSideConfigRaw(CompoundNBT tag) {
+
+        if (tag == null) {
+            return DEFAULT_CELL_SIDES_RAW;
+        }
+        byte[] ret = tag.getByteArray(TAG_SIDES);
+        return ret.length == 0 ? DEFAULT_CELL_SIDES_RAW : ret;
+    }
+    // endregion
+
+    private final ItemOverrideList overrideList = new ItemOverrideList() {
 
         @Nullable
         @Override
@@ -92,12 +152,12 @@ public class EnergyCellBakedModel extends CellBakedModel {
                 if (cachedQuads == null || cachedQuads.length < 6) {
                     cachedQuads = new BakedQuad[6];
 
-                    cachedQuads[0] = new BakedQuadRetextured(builder.getQuads(DOWN).get(0), getTextureRaw(sideConfigRaw[0]));
-                    cachedQuads[1] = new BakedQuadRetextured(builder.getQuads(UP).get(0), getTextureRaw(sideConfigRaw[1]));
-                    cachedQuads[2] = new BakedQuadRetextured(builder.getQuads(NORTH).get(0), getTextureRaw(sideConfigRaw[2]));
-                    cachedQuads[3] = new BakedQuadRetextured(builder.getQuads(SOUTH).get(0), getTextureRaw(sideConfigRaw[3]));
-                    cachedQuads[4] = new BakedQuadRetextured(builder.getQuads(WEST).get(0), getTextureRaw(sideConfigRaw[4]));
-                    cachedQuads[5] = new BakedQuadRetextured(builder.getQuads(EAST).get(0), getTextureRaw(sideConfigRaw[5]));
+                    cachedQuads[0] = new BakedQuadRetextured(builder.getQuads(DOWN).get(0), getConfigTexture(sideConfigRaw[0]));
+                    cachedQuads[1] = new BakedQuadRetextured(builder.getQuads(UP).get(0), getConfigTexture(sideConfigRaw[1]));
+                    cachedQuads[2] = new BakedQuadRetextured(builder.getQuads(NORTH).get(0), getConfigTexture(sideConfigRaw[2]));
+                    cachedQuads[3] = new BakedQuadRetextured(builder.getQuads(SOUTH).get(0), getConfigTexture(sideConfigRaw[3]));
+                    cachedQuads[4] = new BakedQuadRetextured(builder.getQuads(WEST).get(0), getConfigTexture(sideConfigRaw[4]));
+                    cachedQuads[5] = new BakedQuadRetextured(builder.getQuads(EAST).get(0), getConfigTexture(sideConfigRaw[5]));
                     ITEM_QUAD_CACHE.put(configHash, cachedQuads);
                 }
                 builder.addFaceQuad(DOWN, cachedQuads[0]);

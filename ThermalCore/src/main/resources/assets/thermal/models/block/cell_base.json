@@ -1,4 +1,5 @@
 {
+  "loader": "thermal:cell",
   "parent": "block/block",
   "elements": [
     {

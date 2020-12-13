@@ -324,6 +324,7 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
             LazyOptional.empty(),
             LazyOptional.empty()
     };
+
     protected final LazyOptional<?>[] sidedFluidCaps = new LazyOptional<?>[]{
             LazyOptional.empty(),
             LazyOptional.empty(),
@@ -353,7 +354,7 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
                 default:
                     handler = inventory.getHandler(ACCESSIBLE);
             }
-            sidedItemCaps[i] = LazyOptional.of(() -> handler).cast();
+            sidedItemCaps[i] = LazyOptional.of(() -> handler);
         }
 
         // FLUID
@@ -374,7 +375,7 @@ public abstract class ReconfigurableTile4Way extends ThermalTileBase implements 
                 default:
                     handler = tankInv.getHandler(ACCESSIBLE);
             }
-            sidedFluidCaps[i] = LazyOptional.of(() -> handler).cast();
+            sidedFluidCaps[i] = LazyOptional.of(() -> handler);
         }
     }
 

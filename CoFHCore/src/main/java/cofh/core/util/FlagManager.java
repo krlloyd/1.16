@@ -24,7 +24,7 @@ public class FlagManager {
         Registry.register(Registry.LOOT_CONDITION_TYPE, new ResourceLocation(modId, "flag"), flagConditionType);
     }
 
-    private BooleanSupplier getFlagRaw(String flag) {
+    private BooleanSupplier getOrCreateFlag(String flag) {
 
         FLAGS.putIfAbsent(flag, FALSE);
         return FLAGS.get(flag);
@@ -42,7 +42,7 @@ public class FlagManager {
 
     public BooleanSupplier getFlag(String flag) {
 
-        return getFlagRaw(flag);
+        return () -> getOrCreateFlag(flag).getAsBoolean();
     }
 
 }

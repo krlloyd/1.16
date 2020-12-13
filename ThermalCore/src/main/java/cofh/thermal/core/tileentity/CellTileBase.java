@@ -15,17 +15,16 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.model.ModelDataManager;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
 
-import javax.annotation.Nonnull;
-
-import static cofh.core.client.renderer.model.ModelUtils.*;
 import static cofh.core.util.constants.Constants.FACING_HORIZONTAL;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.core.util.helpers.BlockHelper.*;
 
 public abstract class CellTileBase extends ThermalTileBase implements IReconfigurableTile {
+
+    protected int compareTracker;
+    protected int levelTracker;
+    protected int outputTracker;
 
     public int amountInput;
     public int amountOutput;
@@ -35,6 +34,8 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     public CellTileBase(TileEntityType<?> tileEntityTypeIn) {
 
         super(tileEntityTypeIn);
+
+        compareTracker = 10;
     }
 
     @Override
@@ -65,17 +66,6 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     }
     // endregion
 
-    @Nonnull
-    @Override
-    public IModelData getModelData() {
-
-        return new ModelDataMap.Builder()
-                .withInitial(SIDES, reconfigControl().getRawSideConfig())
-                .withInitial(FACING, reconfigControl.getFacing())
-                .withInitial(LEVEL, 0)
-                .build();
-    }
-
     // region HELPERS
     protected void updateSideCache() {
 
@@ -105,6 +95,10 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
             reconfigControl.setSideConfig(sides);
         }
         updateSidedHandlers();
+    }
+
+    protected void updateTrackers(boolean send) {
+
     }
     // endregion
 
@@ -150,6 +144,17 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     }
 
     @Override
+    public PacketBuffer getStatePacket(PacketBuffer buffer) {
+
+        super.getStatePacket(buffer);
+
+        buffer.writeInt(compareTracker);
+        buffer.writeInt(levelTracker);
+
+        return buffer;
+    }
+
+    @Override
     public void handleConfigPacket(PacketBuffer buffer) {
 
         super.handleConfigPacket(buffer);
@@ -182,6 +187,9 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         super.handleStatePacket(buffer);
 
+        compareTracker = buffer.readInt();
+        levelTracker = buffer.readInt();
+
         ModelDataManager.requestModelDataRefresh(this);
     }
     // endregion
@@ -197,6 +205,8 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         amountInput = nbt.getInt(TAG_AMOUNT_IN);
         amountOutput = nbt.getInt(TAG_AMOUNT_OUT);
+
+        updateTrackers(false);
 
         updateSidedHandlers();
     }

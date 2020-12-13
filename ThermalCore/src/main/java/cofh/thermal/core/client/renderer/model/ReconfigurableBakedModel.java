@@ -3,7 +3,6 @@ package cofh.thermal.core.client.renderer.model;
 import cofh.core.client.renderer.model.BakedQuadRetextured;
 import cofh.core.client.renderer.model.ModelUtils;
 import cofh.core.util.ComparableItemStack;
-import cofh.thermal.core.tileentity.ThermalTileBase;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -61,20 +60,20 @@ public class ReconfigurableBakedModel extends UnderlayBakedModel implements IDyn
         if (side == null || quads.isEmpty()) {
             return quads;
         }
+        // SIDES
         byte[] sideConfigRaw = extraData.getData(ModelUtils.SIDES);
         if (sideConfigRaw == null) {
             // This shouldn't happen, but playing it safe.
             return quads;
         }
         int sideIndex = side.getIndex();
-        // SIDES
         int configHash = Arrays.hashCode(sideConfigRaw);
         BakedQuad[] cachedSideQuads = SIDE_QUAD_CACHE.get(configHash);
         if (cachedSideQuads == null || cachedSideQuads.length < 6) {
             cachedSideQuads = new BakedQuad[6];
         }
         if (cachedSideQuads[sideIndex] == null) {
-            cachedSideQuads[sideIndex] = new BakedQuadRetextured(quads.get(0), getTextureRaw(sideConfigRaw[sideIndex]));
+            cachedSideQuads[sideIndex] = new BakedQuadRetextured(quads.get(0), getConfigTexture(sideConfigRaw[sideIndex]));
             SIDE_QUAD_CACHE.put(configHash, cachedSideQuads);
         }
         quads.add(cachedSideQuads[sideIndex]);
@@ -88,7 +87,7 @@ public class ReconfigurableBakedModel extends UnderlayBakedModel implements IDyn
     }
 
     // region HELPERS
-    private TextureAtlasSprite getTextureRaw(byte side) {
+    private TextureAtlasSprite getConfigTexture(byte side) {
 
         switch (side) {
             case 1:
@@ -132,12 +131,12 @@ public class ReconfigurableBakedModel extends UnderlayBakedModel implements IDyn
                 if (cachedQuads == null || cachedQuads.length < 6) {
                     cachedQuads = new BakedQuad[6];
 
-                    cachedQuads[0] = new BakedQuadRetextured(builder.getQuads(DOWN).get(0), getTextureRaw(sideConfigRaw[0]));
-                    cachedQuads[1] = new BakedQuadRetextured(builder.getQuads(UP).get(0), getTextureRaw(sideConfigRaw[1]));
-                    cachedQuads[2] = new BakedQuadRetextured(builder.getQuads(NORTH).get(0), getTextureRaw(sideConfigRaw[2]));
-                    cachedQuads[3] = new BakedQuadRetextured(builder.getQuads(SOUTH).get(0), getTextureRaw(sideConfigRaw[3]));
-                    cachedQuads[4] = new BakedQuadRetextured(builder.getQuads(WEST).get(0), getTextureRaw(sideConfigRaw[4]));
-                    cachedQuads[5] = new BakedQuadRetextured(builder.getQuads(EAST).get(0), getTextureRaw(sideConfigRaw[5]));
+                    cachedQuads[0] = new BakedQuadRetextured(builder.getQuads(DOWN).get(0), getConfigTexture(sideConfigRaw[0]));
+                    cachedQuads[1] = new BakedQuadRetextured(builder.getQuads(UP).get(0), getConfigTexture(sideConfigRaw[1]));
+                    cachedQuads[2] = new BakedQuadRetextured(builder.getQuads(NORTH).get(0), getConfigTexture(sideConfigRaw[2]));
+                    cachedQuads[3] = new BakedQuadRetextured(builder.getQuads(SOUTH).get(0), getConfigTexture(sideConfigRaw[3]));
+                    cachedQuads[4] = new BakedQuadRetextured(builder.getQuads(WEST).get(0), getConfigTexture(sideConfigRaw[4]));
+                    cachedQuads[5] = new BakedQuadRetextured(builder.getQuads(EAST).get(0), getConfigTexture(sideConfigRaw[5]));
                     ITEM_QUAD_CACHE.put(configHash, cachedQuads);
                 }
                 builder.addFaceQuad(DOWN, cachedQuads[0]);

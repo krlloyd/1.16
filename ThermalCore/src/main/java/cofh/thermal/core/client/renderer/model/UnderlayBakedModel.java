@@ -4,7 +4,6 @@ import cofh.core.client.renderer.model.BakedQuadRetextured;
 import cofh.core.client.renderer.model.ModelUtils;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.RenderHelper;
-import cofh.thermal.core.tileentity.ThermalTileBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;

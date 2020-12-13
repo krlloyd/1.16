@@ -1,7 +1,7 @@
 package cofh.thermal.core.client.gui;
 
-import cofh.thermal.core.client.renderer.model.CellBakedModel;
 import cofh.thermal.core.client.renderer.model.DynamoBakedModel;
+import cofh.thermal.core.client.renderer.model.EnergyCellBakedModel;
 import cofh.thermal.core.client.renderer.model.ReconfigurableBakedModel;
 import cofh.thermal.core.client.renderer.model.UnderlayBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -38,6 +38,11 @@ public class ThermalTextures {
         event.addSprite(CELL_CONFIG_NONE_LOC);
         event.addSprite(CELL_CONFIG_INPUT_LOC);
         event.addSprite(CELL_CONFIG_OUTPUT_LOC);
+
+        for (int i = 0; i < 9; ++i) {
+            event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_" + i));
+        }
+        event.addSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_c"));
     }
 
     @SubscribeEvent
@@ -49,7 +54,7 @@ public class ThermalTextures {
         UnderlayBakedModel.clearCache();
         DynamoBakedModel.clearCache();
         ReconfigurableBakedModel.clearCache();
-        CellBakedModel.clearCache();
+        EnergyCellBakedModel.clearCache();
 
         AtlasTexture map = event.getMap();
         MACHINE_CONFIG_NONE = map.getSprite(MACHINE_CONFIG_NONE_LOC);
@@ -61,6 +66,11 @@ public class ThermalTextures {
         CELL_CONFIG_NONE = map.getSprite(CELL_CONFIG_NONE_LOC);
         CELL_CONFIG_INPUT = map.getSprite(CELL_CONFIG_INPUT_LOC);
         CELL_CONFIG_OUTPUT = map.getSprite(CELL_CONFIG_OUTPUT_LOC);
+
+        for (int i = 0; i < 9; ++i) {
+            CELL_LEVELS[i] = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_" + i));
+        }
+        CELL_LEVEL_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_c"));
     }
 
     // region CONFIG
@@ -85,5 +95,8 @@ public class ThermalTextures {
     public static TextureAtlasSprite CELL_CONFIG_NONE;
     public static TextureAtlasSprite CELL_CONFIG_INPUT;
     public static TextureAtlasSprite CELL_CONFIG_OUTPUT;
+
+    public static TextureAtlasSprite[] CELL_LEVELS = new TextureAtlasSprite[9];
+    public static TextureAtlasSprite CELL_LEVEL_C;
     // endregion
 }

@@ -86,7 +86,6 @@ public class CellReconfigControlModule extends ReconfigControlModule {
             return false;
         }
         sides[side.ordinal()] = config;
-
         if (Utils.isClientWorld(tile.world())) {
             SideConfigPacket.sendToServer(tile);
         } else {

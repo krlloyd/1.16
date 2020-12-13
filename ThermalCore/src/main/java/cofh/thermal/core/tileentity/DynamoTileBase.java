@@ -2,7 +2,6 @@ package cofh.thermal.core.tileentity;
 
 import cofh.core.energy.EnergyStorageCoFH;
 import cofh.core.tileentity.TileCoFH;
-import cofh.core.util.StorageGroup;
 import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.MathHelper;
 import net.minecraft.block.Block;
@@ -153,9 +152,8 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
     protected void transferRF() {
 
         TileEntity adjTile = BlockHelper.getAdjacentTileEntity(this, getFacing());
-        Direction opposite = getFacing().getOpposite();
-
         if (adjTile != null) {
+            Direction opposite = getFacing().getOpposite();
             int maxTransfer = Math.min(energyStorage.getMaxExtract(), energyStorage.getEnergyStored());
             adjTile.getCapability(CapabilityEnergy.ENERGY, opposite)
                     .ifPresent(e -> energyStorage.modify(-e.receiveEnergy(maxTransfer, false)));
@@ -352,10 +350,7 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
         if (side != null && side.equals(getFacing())) {
             return LazyOptional.empty();
         }
-        if (!itemCap.isPresent()) {
-            itemCap = LazyOptional.of(() -> inventory.getHandler(StorageGroup.ACCESSIBLE));
-        }
-        return itemCap.cast();
+        return super.getItemHandlerCapability(side);
     }
 
     @Override
@@ -364,10 +359,7 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
         if (side != null && side.equals(getFacing())) {
             return LazyOptional.empty();
         }
-        if (!fluidCap.isPresent()) {
-            fluidCap = LazyOptional.of(() -> tankInv.getHandler(StorageGroup.ACCESSIBLE));
-        }
-        return fluidCap.cast();
+        return super.getFluidHandlerCapability(side);
     }
     // endregion
 }

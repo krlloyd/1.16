@@ -1,5 +1,4 @@
 {
-  "loader": "thermal:energy_cell",
   "parent": "thermal:block/cell_base",
   "textures": {
     "particle": "thermal:block/cells/energy_cell_top",
