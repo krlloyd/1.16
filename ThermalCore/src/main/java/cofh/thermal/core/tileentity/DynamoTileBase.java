@@ -4,7 +4,6 @@ import cofh.core.energy.EnergyStorageCoFH;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.MathHelper;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
@@ -14,7 +13,6 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.model.ModelDataManager;
 import net.minecraftforge.common.util.LazyOptional;
@@ -73,13 +71,13 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
         updateFacing();
     }
 
-    @Override
-    public void neighborChanged(Block blockIn, BlockPos fromPos) {
-
-        super.neighborChanged(blockIn, fromPos);
-
-        // TODO: Handle caching of neighbor caps.
-    }
+    //    @Override
+    //    public void neighborChanged(Block blockIn, BlockPos fromPos) {
+    //
+    //        super.neighborChanged(blockIn, fromPos);
+    //
+    //        // TODO: Handle caching of neighbor caps.
+    //    }
 
     @Override
     public void tick() {

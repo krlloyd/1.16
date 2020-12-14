@@ -54,6 +54,24 @@ public class SimpleItemInv extends SimpleItemHandler {
         return slots.get(slot).getItemStack();
     }
 
+    // TODO: Works but not used atm. Commented out for safety.
+    //    public List<ItemStack> getStacksInSlots(int startSlot, int endSlot) {
+    //
+    //        if (startSlot < 0 || endSlot >= slots.size()) {
+    //            return Collections.emptyList();
+    //        }
+    //        if (startSlot > endSlot) {
+    //            int temp = endSlot;
+    //            endSlot = startSlot;
+    //            startSlot = temp;
+    //        }
+    //        ArrayList<ItemStack> ret = new ArrayList<>();
+    //        for (int i = startSlot; i <= endSlot; ++i) {
+    //            ret.add(get(i));
+    //        }
+    //        return ret;
+    //    }
+
     public ItemStorageCoFH getSlot(int slot) {
 
         return slots.get(slot);

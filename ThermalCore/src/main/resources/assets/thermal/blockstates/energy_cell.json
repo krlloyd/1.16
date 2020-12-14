@@ -1,33 +1,18 @@
 {
   "variants": {
-    "facing=north,active=false": {
+    "facing=north": {
       "model": "thermal:block/energy_cell"
     },
-    "facing=east,active=false": {
+    "facing=east": {
       "model": "thermal:block/energy_cell",
       "y": 90
     },
-    "facing=south,active=false": {
+    "facing=south": {
       "model": "thermal:block/energy_cell",
       "y": 180
     },
-    "facing=west,active=false": {
+    "facing=west": {
       "model": "thermal:block/energy_cell",
-      "y": 270
-    },
-    "facing=north,active=true": {
-      "model": "thermal:block/energy_cell_active"
-    },
-    "facing=east,active=true": {
-      "model": "thermal:block/energy_cell_active",
-      "y": 90
-    },
-    "facing=south,active=true": {
-      "model": "thermal:block/energy_cell_active",
-      "y": 180
-    },
-    "facing=west,active=true": {
-      "model": "thermal:block/energy_cell_active",
       "y": 270
     }
   }

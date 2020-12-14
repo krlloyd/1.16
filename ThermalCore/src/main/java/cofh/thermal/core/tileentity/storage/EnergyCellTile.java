@@ -6,14 +6,12 @@ import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
 import cofh.thermal.core.tileentity.CellTileBase;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.util.LazyOptional;
@@ -42,13 +40,13 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
         initHandlers();
     }
 
-    @Override
-    public void neighborChanged(Block blockIn, BlockPos fromPos) {
-
-        super.neighborChanged(blockIn, fromPos);
-
-        // TODO: Handle caching of neighbor caps.
-    }
+    //    @Override
+    //    public void neighborChanged(Block blockIn, BlockPos fromPos) {
+    //
+    //        super.neighborChanged(blockIn, fromPos);
+    //
+    //        // TODO: Handle caching of neighbor caps.
+    //    }
 
     @Override
     public void tick() {

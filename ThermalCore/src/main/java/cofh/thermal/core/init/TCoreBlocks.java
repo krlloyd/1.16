@@ -257,15 +257,15 @@ public class TCoreBlocks {
 
         IntSupplier deviceAugs = () -> ThermalConfig.deviceAugments;
 
-        registerAugBlock(ID_DEVICE_HIVE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceHiveExtractorTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_HIVE_EXTRACTOR));
-        registerAugBlock(ID_DEVICE_TREE_EXTRACTOR, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceTreeExtractorTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_TREE_EXTRACTOR));
-        registerAugBlock(ID_DEVICE_WATER_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceWaterGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_WATER_GEN));
+        registerAugBlock(ID_DEVICE_HIVE_EXTRACTOR, () -> new TileBlockActive4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceHiveExtractorTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_HIVE_EXTRACTOR));
+        registerAugBlock(ID_DEVICE_TREE_EXTRACTOR, () -> new TileBlockActive4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), DeviceTreeExtractorTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_TREE_EXTRACTOR));
+        registerAugBlock(ID_DEVICE_WATER_GEN, () -> new TileBlockActive4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceWaterGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_WATER_GEN));
         // registerAugBlock(ID_DEVICE_ROCK_GEN, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DeviceRockGenTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_ROCK_GEN));
 
         IntSupplier storageAugs = () -> ThermalConfig.storageAugments;
         Predicate<ItemStack> storageValidator = (e) -> true;
 
-        registerAugBlock(ID_TINKER_BENCH, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), TinkerBenchTile::new), storageAugs, storageValidator, getFlag(ID_TINKER_BENCH));
+        registerAugBlock(ID_TINKER_BENCH, () -> new TileBlockCoFH(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), TinkerBenchTile::new), storageAugs, storageValidator, getFlag(ID_TINKER_BENCH));
 
         BLOCKS.register(ID_ENERGY_CELL, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(7)).notSolid(), EnergyCellTile::new));
         ITEMS.register(ID_ENERGY_CELL, (Supplier<Item>) () -> new BlockItemEnergyCell(BLOCKS.get(ID_ENERGY_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(storageValidator).setShowInGroups(getFlag(ID_ENERGY_CELL)));

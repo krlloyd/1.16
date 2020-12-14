@@ -23,6 +23,8 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
     public BlockItemEnergyCell(Block blockIn, Properties builder) {
 
         super(blockIn, builder);
+
+        setEnchantability(5);
     }
 
     @Override

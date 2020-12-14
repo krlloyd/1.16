@@ -35,8 +35,6 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     public CellTileBase(TileEntityType<?> tileEntityTypeIn) {
 
         super(tileEntityTypeIn);
-
-        compareTracker = 10;
     }
 
     @Override

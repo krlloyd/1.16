@@ -2,7 +2,7 @@ package cofh.thermal.cultivation.init;
 
 import cofh.core.block.Block4Way;
 import cofh.core.block.CakeBlockCoFH;
-import cofh.core.block.TileBlock4Way;
+import cofh.core.block.TileBlockActive4Way;
 import cofh.core.block.crops.AttachedStemBlockCoFH;
 import cofh.core.block.crops.StemBlockCoFH;
 import cofh.core.util.ProxyUtils;
@@ -127,7 +127,7 @@ public class TCulBlocks {
 
         IntSupplier deviceAugs = () -> ThermalConfig.deviceAugments;
 
-        registerAugBlock(ID_DEVICE_SOIL_INFUSER, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE).setLightLevel(lightValue(ACTIVE, 10)), DeviceSoilInfuserTile::new), deviceAugs, DEVICE_VALIDATOR);
+        registerAugBlock(ID_DEVICE_SOIL_INFUSER, () -> new TileBlockActive4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE).setLightLevel(lightValue(ACTIVE, 10)), DeviceSoilInfuserTile::new), deviceAugs, DEVICE_VALIDATOR);
     }
 
     private static void registerTileContainers() {

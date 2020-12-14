@@ -5,6 +5,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
+import static cofh.core.util.constants.Constants.MAX_CAPACITY;
+
 public class InvWrapperCoFH implements IInventory {
 
     protected SimpleItemInv inventory;
@@ -18,7 +20,7 @@ public class InvWrapperCoFH implements IInventory {
     public InvWrapperCoFH(SimpleItemInv inventory, int stackLimit) {
 
         this.inventory = inventory;
-        this.stackLimit = MathHelper.clamp(stackLimit, 1, Integer.MAX_VALUE);
+        this.stackLimit = MathHelper.clamp(stackLimit, 1, MAX_CAPACITY);
     }
 
     public int getSlotLimit(int slot) {

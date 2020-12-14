@@ -5,6 +5,7 @@ import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.fluid.ManagedTankInv;
 import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.inventory.ManagedItemInv;
+import cofh.core.item.IAugmentableItem;
 import cofh.core.network.packet.client.TileControlPacket;
 import cofh.core.network.packet.client.TileRedstonePacket;
 import cofh.core.network.packet.client.TileStatePacket;
@@ -20,12 +21,15 @@ import cofh.thermal.core.util.IThermalInventory;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -44,12 +48,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static cofh.core.util.GuiHelper.*;
 import static cofh.core.util.StorageGroup.INTERNAL;
 import static cofh.core.util.constants.Constants.*;
 import static cofh.core.util.constants.NBTTags.*;
+import static cofh.core.util.references.CoreReferences.HOLDING;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile, IRedstoneControllableTile, INamedContainerProvider, IThermalInventory {
@@ -68,6 +76,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
     protected List<ItemStorageCoFH> augments = new ArrayList<>();
     protected Set<String> augmentTypes = new ObjectOpenHashSet<>();
+
+    protected ListNBT enchantments = new ListNBT();
 
     public boolean isActive;
     public boolean wasActive;
@@ -144,7 +154,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         // TODO: Config time delay
         if (!wasActive && curActive != isActive || wasActive && (timeTracker.hasDelayPassed(world, 40) || timeTracker.notSet())) {
             wasActive = false;
-            world.setBlockState(pos, getBlockState().with(ACTIVE, isActive));
+            if (getBlockState().hasProperty(ACTIVE)) {
+                world.setBlockState(pos, getBlockState().with(ACTIVE, isActive));
+            }
             TileStatePacket.sendToClient(this);
         }
     }
@@ -200,6 +212,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         super.onPlacedBy(worldIn, pos, state, placer, stack);
 
+        enchantments = stack.getEnchantmentTagList();
+
         updateAugmentState();
         onControlUpdate();
     }
@@ -231,6 +245,10 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         }
         if (ThermalConfig.keepAugments.get() && augSize() > 0) {
             getItemInv().writeSlotsToNBTUnordered(nbt, TAG_AUGMENTS, invSize() - augSize());
+            if (stack.getItem() instanceof IAugmentableItem) {
+                List<ItemStack> items = augments.stream().map(ItemStorageCoFH::getItemStack).flatMap(Stream::of).collect(Collectors.toList());
+                ((IAugmentableItem) stack.getItem()).updateAugmentState(stack, items);
+            }
         }
         if (ThermalConfig.keepFluids.get()) {
             getTankInv().write(nbt);
@@ -249,6 +267,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         }
         if (!nbt.isEmpty()) {
             stack.setTagInfo(TAG_BLOCK_ENTITY, nbt);
+        }
+        if (!enchantments.isEmpty()) {
+            stack.getOrCreateTag().put(TAG_ENCHANTMENTS, enchantments);
         }
         return super.createItemStackTag(stack);
     }
@@ -457,6 +478,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         isActive = nbt.getBoolean(TAG_ACTIVE);
         wasActive = nbt.getBoolean(TAG_ACTIVE_TRACK);
 
+        enchantments = nbt.getList(TAG_ENCHANTMENTS, 10);
+
         inventory.read(nbt);
 
         if (nbt.contains(TAG_AUGMENTS)) {
@@ -480,6 +503,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         nbt.putBoolean(TAG_ACTIVE, isActive);
         nbt.putBoolean(TAG_ACTIVE_TRACK, wasActive);
+
+        nbt.put(TAG_ENCHANTMENTS, enchantments);
 
         inventory.write(nbt);
         tankInv.write(nbt);
@@ -595,9 +620,14 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         float scaleMin = AUG_SCALE_MIN;
         float scaleMax = AUG_SCALE_MAX;
 
-        energyStorageMod = MathHelper.clamp(energyStorageMod, scaleMin, scaleMax);
+        Map<Enchantment, Integer> encMap = EnchantmentHelper.deserializeEnchantments(enchantments);
+
+        int holding = encMap.getOrDefault(HOLDING, 0);
+        float holdingMod = 1 + holding / 2F;
+
+        energyStorageMod = holdingMod * MathHelper.clamp(energyStorageMod, scaleMin, scaleMax);
         energyXferMod = MathHelper.clamp(energyXferMod, scaleMin, scaleMax);
-        fluidStorageMod = MathHelper.clamp(fluidStorageMod, scaleMin, scaleMax);
+        fluidStorageMod = holdingMod * MathHelper.clamp(fluidStorageMod, scaleMin, scaleMax);
 
         energyStorage.applyModifiers(getEnergyStorageMod(), getEnergyXferMod());
         for (int i = 0; i < tankInv.getTanks(); ++i) {

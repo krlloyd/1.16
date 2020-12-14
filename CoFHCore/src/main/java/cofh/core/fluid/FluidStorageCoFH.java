@@ -1,6 +1,7 @@
 package cofh.core.fluid;
 
 import cofh.core.util.IResourceStorage;
+import cofh.core.util.helpers.MathHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -10,6 +11,7 @@ import javax.annotation.Nonnull;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
+import static cofh.core.util.constants.Constants.MAX_CAPACITY;
 import static cofh.core.util.constants.Constants.TRUE;
 
 /**
@@ -47,7 +49,7 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
 
     public FluidStorageCoFH setCapacity(int capacity) {
 
-        this.capacity = capacity;
+        this.capacity = MathHelper.clamp(capacity, 0, MAX_CAPACITY);
         if (!isEmpty()) {
             fluid.setAmount(Math.max(0, Math.min(capacity, getAmount())));
         }

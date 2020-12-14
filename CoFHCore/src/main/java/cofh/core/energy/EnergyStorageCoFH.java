@@ -1,11 +1,13 @@
 package cofh.core.energy;
 
 import cofh.core.util.IResourceStorage;
+import cofh.core.util.helpers.MathHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.energy.IEnergyStorage;
 
+import static cofh.core.util.constants.Constants.MAX_CAPACITY;
 import static cofh.core.util.constants.NBTTags.TAG_ENERGY;
 
 /**
@@ -61,7 +63,7 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
 
     public EnergyStorageCoFH setCapacity(int capacity) {
 
-        this.capacity = capacity;
+        this.capacity = MathHelper.clamp(capacity, 0, MAX_CAPACITY);
         this.energy = Math.max(0, Math.min(capacity, energy));
         return this;
     }
