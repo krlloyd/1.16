@@ -252,7 +252,7 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
         float mod = getPropertyWithDefault(container, TAG_AUGMENT_FLUID_STORAGE, 1.0F);
-        return Math.round(super.getCapacity(container) * mod * base);
+        return getMaxStored(container, Math.round(fluidCapacity * mod * base));
     }
     // endregion
 

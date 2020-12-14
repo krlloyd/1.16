@@ -7,6 +7,7 @@ import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.util.control.CellReconfigControlModule;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
@@ -52,6 +53,17 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         super.updateContainingBlockInfo();
         updateSideCache();
+    }
+
+    @Override
+    public ItemStack createItemStackTag(ItemStack stack) {
+
+        CompoundNBT nbt = stack.getOrCreateChildTag(TAG_BLOCK_ENTITY);
+
+        nbt.putInt(TAG_AMOUNT_IN, amountInput);
+        nbt.putInt(TAG_AMOUNT_OUT, amountOutput);
+
+        return super.createItemStackTag(stack);
     }
 
     // region BASE PARAMETERS
@@ -180,8 +192,6 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         compareTracker = buffer.readInt();
         levelTracker = buffer.readInt();
-
-        System.out.println(levelTracker);
 
         ModelDataManager.requestModelDataRefresh(this);
     }

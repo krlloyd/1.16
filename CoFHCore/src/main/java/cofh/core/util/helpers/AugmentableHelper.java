@@ -99,15 +99,15 @@ public class AugmentableHelper {
     // region INTERNAL HELPERS
     private static void writeAugmentsToItem(ItemStack stack, ListNBT list) {
 
-        CompoundNBT blockTag = stack.getChildTag(TAG_BLOCK_ENTITY);
-        if (blockTag != null) {
-            blockTag.put(TAG_AUGMENTS, list);
+        CompoundNBT nbt = stack.getChildTag(TAG_BLOCK_ENTITY);
+        if (nbt != null) {
+            nbt.put(TAG_AUGMENTS, list);
             return;
         }
         if (stack.getItem() instanceof BlockItem) {
-            blockTag = new CompoundNBT();
-            blockTag.put(TAG_AUGMENTS, list);
-            stack.setTagInfo(TAG_BLOCK_ENTITY, blockTag);
+            nbt = new CompoundNBT();
+            nbt.put(TAG_AUGMENTS, list);
+            stack.setTagInfo(TAG_BLOCK_ENTITY, nbt);
             return;
         }
         stack.setTagInfo(TAG_AUGMENTS, list);
@@ -127,9 +127,9 @@ public class AugmentableHelper {
         if (stack.getTag() == null) {
             return new ListNBT();
         }
-        CompoundNBT blockTag = stack.getChildTag(TAG_BLOCK_ENTITY);
-        if (blockTag != null) {
-            return blockTag.contains(TAG_AUGMENTS) ? blockTag.getList(TAG_AUGMENTS, TAG_COMPOUND) : new ListNBT();
+        CompoundNBT nbt = stack.getChildTag(TAG_BLOCK_ENTITY);
+        if (nbt != null) {
+            return nbt.contains(TAG_AUGMENTS) ? nbt.getList(TAG_AUGMENTS, TAG_COMPOUND) : new ListNBT();
         }
         return stack.getTag().getList(TAG_AUGMENTS, TAG_COMPOUND);
     }

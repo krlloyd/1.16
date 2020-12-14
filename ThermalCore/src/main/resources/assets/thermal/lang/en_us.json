@@ -370,6 +370,7 @@
   "block.thermal.device_water_gen": "Aqueous Accumulator",
 
   "block.thermal.energy_cell": "Redstone Flux Cell",
+  "block.thermal.energy_cell_frame": "Redstone Flux Cell Frame",
 
   "block.thermal.tinker_bench": "Tinker's Workbench",
 

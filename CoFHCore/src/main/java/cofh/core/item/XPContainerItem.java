@@ -3,7 +3,6 @@ package cofh.core.item;
 import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -21,7 +20,6 @@ import static cofh.core.util.constants.Constants.RGB_DURABILITY_XP;
 import static cofh.core.util.helpers.StringHelper.*;
 import static cofh.core.util.helpers.XPHelper.*;
 import static cofh.core.util.references.CoreReferences.FLUID_EXPERIENCE;
-import static cofh.core.util.references.CoreReferences.HOLDING;
 
 /**
  * This class does not set the XP Timer on the player entity.
@@ -92,8 +90,7 @@ public class XPContainerItem extends FluidContainerItem implements IXPContainerI
     // region IXpContainerItem
     public int getCapacityXP(ItemStack stack) {
 
-        int holding = EnchantmentHelper.getEnchantmentLevel(HOLDING, stack);
-        return Utils.getEnchantedCapacity(xpCapacity, holding);
+        return getMaxStored(stack, xpCapacity);
     }
     // endregion
 

@@ -74,6 +74,7 @@ public class TCoreIDs {
     public static final String ID_ENDERIUM_GLASS = "enderium_glass";
 
     public static final String ID_MACHINE_FRAME = "machine_frame";
+    public static final String ID_ENERGY_CELL_FRAME = "energy_cell_frame";
 
     public static final String ID_WHITE_ROCKWOOL = "white_rockwool";
     public static final String ID_ORANGE_ROCKWOOL = "orange_rockwool";

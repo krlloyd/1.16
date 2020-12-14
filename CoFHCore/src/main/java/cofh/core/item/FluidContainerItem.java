@@ -2,12 +2,10 @@ package cofh.core.item;
 
 import cofh.core.fluid.FluidContainerItemWrapper;
 import cofh.core.fluid.IFluidContainerItem;
-import cofh.core.util.Utils;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.core.util.helpers.StringHelper;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
@@ -27,7 +25,6 @@ import static cofh.core.util.constants.NBTTags.TAG_FLUID;
 import static cofh.core.util.helpers.FluidHelper.addPotionTooltip;
 import static cofh.core.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
 import static cofh.core.util.helpers.StringHelper.*;
-import static cofh.core.util.references.CoreReferences.HOLDING;
 
 public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem, IColorableItem {
 
@@ -128,8 +125,7 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
     @Override
     public int getCapacity(ItemStack container) {
 
-        int holding = EnchantmentHelper.getEnchantmentLevel(HOLDING, container);
-        return Utils.getEnchantedCapacity(fluidCapacity, holding);
+        return getMaxStored(container, fluidCapacity);
     }
 
     @Override

@@ -222,33 +222,33 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     @Override
     public ItemStack createItemStackTag(ItemStack stack) {
 
-        CompoundNBT blockTag = new CompoundNBT();
+        CompoundNBT nbt = stack.getOrCreateChildTag(TAG_BLOCK_ENTITY);
         if (ThermalConfig.keepEnergy.get()) {
-            getEnergyStorage().write(blockTag);
+            getEnergyStorage().write(nbt);
         }
         if (ThermalConfig.keepItems.get()) {
-            getItemInv().writeSlotsToNBT(blockTag, 0, invSize() - augSize());
+            getItemInv().writeSlotsToNBT(nbt, 0, invSize() - augSize());
         }
         if (ThermalConfig.keepAugments.get() && augSize() > 0) {
-            getItemInv().writeSlotsToNBTUnordered(blockTag, TAG_AUGMENTS, invSize() - augSize());
+            getItemInv().writeSlotsToNBTUnordered(nbt, TAG_AUGMENTS, invSize() - augSize());
         }
         if (ThermalConfig.keepFluids.get()) {
-            getTankInv().write(blockTag);
+            getTankInv().write(nbt);
         }
         if (ThermalConfig.keepRSControl.get()) {
-            redstoneControl().write(blockTag);
+            redstoneControl().write(nbt);
         }
         if (ThermalConfig.keepSideConfig.get() && this instanceof IReconfigurableTile) {
-            ((IReconfigurableTile) this).reconfigControl().write(blockTag);
+            ((IReconfigurableTile) this).reconfigControl().write(nbt);
         }
         if (ThermalConfig.keepTransferControl.get() && this instanceof ITransferControllableTile) {
-            ((ITransferControllableTile) this).transferControl().write(blockTag);
+            ((ITransferControllableTile) this).transferControl().write(nbt);
         }
         if (hasSecurity()) {
-            securityControl().write(blockTag);
+            securityControl().write(nbt);
         }
-        if (!blockTag.isEmpty()) {
-            stack.setTagInfo(TAG_BLOCK_ENTITY, blockTag);
+        if (!nbt.isEmpty()) {
+            stack.setTagInfo(TAG_BLOCK_ENTITY, nbt);
         }
         return super.createItemStackTag(stack);
     }

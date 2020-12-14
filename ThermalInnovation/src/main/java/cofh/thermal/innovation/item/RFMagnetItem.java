@@ -249,7 +249,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
         float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_STORAGE, 1.0F);
-        return Math.round(super.getMaxEnergyStored(container) * mod * base);
+        return getMaxStored(container, Math.round(maxEnergy * mod * base));
     }
     // endregion
 

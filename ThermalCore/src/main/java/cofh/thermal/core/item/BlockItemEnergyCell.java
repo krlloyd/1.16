@@ -148,7 +148,7 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
         }
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
         float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_STORAGE, 1.0F);
-        return Math.round(tag.getInt(TAG_ENERGY_MAX) * mod * base);
+        return getMaxStored(container, Math.round(tag.getInt(TAG_ENERGY_MAX) * mod * base));
     }
     // endregion
 }

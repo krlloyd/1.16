@@ -86,9 +86,9 @@ public class SecurityHelper {
     // region ITEM HELPERS
     public static CompoundNBT getSecurityTag(ItemStack stack) {
 
-        CompoundNBT blockTag = stack.getChildTag(TAG_BLOCK_ENTITY);
-        if (blockTag != null) {
-            return blockTag.contains(TAG_SECURITY) ? blockTag.getCompound(TAG_SECURITY) : null;
+        CompoundNBT nbt = stack.getChildTag(TAG_BLOCK_ENTITY);
+        if (nbt != null) {
+            return nbt.contains(TAG_SECURITY) ? nbt.getCompound(TAG_SECURITY) : null;
         }
         return stack.getChildTag(TAG_SECURITY);
     }

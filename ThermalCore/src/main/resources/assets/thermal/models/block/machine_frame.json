@@ -8,7 +8,6 @@
     "east": "thermal:block/machines/machine_frame_side",
     "south": "thermal:block/machines/machine_frame_side",
     "west": "thermal:block/machines/machine_frame_side",
-    "inner": "thermal:block/machines/machine_frame_inner",
-    "center": "thermal:block/machines/machine_frame_inner"
+    "inner": "thermal:block/machines/machine_frame_inner"
   }
 }

@@ -53,6 +53,9 @@ public class ThermalExpansion {
         setFlag(ID_DEVICE_TREE_EXTRACTOR, true);
         setFlag(ID_DEVICE_WATER_GEN, true);
         setFlag(ID_DEVICE_ROCK_GEN, true);
+
+        setFlag(ID_ENERGY_CELL_FRAME, true);
+        setFlag(ID_ENERGY_CELL, true);
     }
 
     // region INITIALIZATION

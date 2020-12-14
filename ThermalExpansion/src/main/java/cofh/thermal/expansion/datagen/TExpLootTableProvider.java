@@ -2,15 +2,9 @@ package cofh.thermal.expansion.datagen;
 
 import cofh.core.datagen.LootTableProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.core.util.loot.TileNBTSync;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
-import net.minecraft.loot.ConstantRange;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.conditions.SurvivesExplosion;
 
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;

@@ -101,8 +101,6 @@ public class TCoreBlockStateProvider extends BlockStateProviderCoFH {
 
     private void registerBuildingBlocks(DeferredRegisterCoFH<Block> reg) {
 
-        // TODO: Missing - Machine Frame
-
         glassBlock(reg.getSup(ID_OBSIDIAN_GLASS));
         glassBlock(reg.getSup(ID_SIGNALUM_GLASS));
         glassBlock(reg.getSup(ID_LUMIUM_GLASS));

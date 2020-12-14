@@ -46,7 +46,6 @@ import static cofh.core.util.helpers.ArcheryHelper.findArrows;
 import static cofh.core.util.helpers.AugmentableHelper.*;
 import static cofh.core.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
 import static cofh.core.util.helpers.StringHelper.*;
-import static cofh.core.util.references.CoreReferences.HOLDING;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 
@@ -193,8 +192,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
     protected int getMaxArrows(ItemStack stack) {
 
         float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
-        int holding = EnchantmentHelper.getEnchantmentLevel(HOLDING, stack);
-        return Math.round(Utils.getEnchantedCapacity(arrowCapacity, holding) * base);
+        return getMaxStored(stack, Math.round(arrowCapacity * base));
     }
 
     protected int putArrows(ItemStack stack, int maxArrows, boolean simulate) {
@@ -256,7 +254,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
 
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
         float mod = getPropertyWithDefault(container, TAG_AUGMENT_FLUID_STORAGE, 1.0F);
-        return Math.round(super.getCapacity(container) * mod * base);
+        return getMaxStored(container, Math.round(fluidCapacity * mod * base));
     }
     // endregion
 

@@ -2,10 +2,8 @@ package cofh.core.item;
 
 import cofh.core.energy.EnergyContainerItemWrapper;
 import cofh.core.energy.IEnergyContainerItem;
-import cofh.core.util.Utils;
 import cofh.core.util.helpers.MathHelper;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
@@ -16,9 +14,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import static cofh.core.util.constants.Constants.RGB_DURABILITY_FLUX;
-import static cofh.core.util.constants.NBTTags.TAG_ENERGY;
 import static cofh.core.util.helpers.StringHelper.*;
-import static cofh.core.util.references.CoreReferences.HOLDING;
 
 public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerItem {
 
@@ -114,8 +110,7 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
     @Override
     public int getMaxEnergyStored(ItemStack container) {
 
-        int holding = EnchantmentHelper.getEnchantmentLevel(HOLDING, container);
-        return Utils.getEnchantedCapacity(maxEnergy, holding);
+        return getMaxStored(container, maxEnergy);
     }
     // endregion
 }
