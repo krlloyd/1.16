@@ -2,7 +2,7 @@ package cofh.thermal.core.datagen;
 
 import cofh.core.datagen.LootTableProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.thermal.core.util.loot.TileNBTSync;
+import cofh.core.util.loot.TileNBTSync;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLootTables;
@@ -112,7 +112,11 @@ public class TCoreLootTableProvider extends LootTableProviderCoFH {
 
         lootTables.put(regBlocks.get(ID_DEVICE_HIVE_EXTRACTOR), createSyncDropTable(regBlocks.get(ID_DEVICE_HIVE_EXTRACTOR)));
         lootTables.put(regBlocks.get(ID_DEVICE_TREE_EXTRACTOR), createSyncDropTable(regBlocks.get(ID_DEVICE_TREE_EXTRACTOR)));
+        lootTables.put(regBlocks.get(ID_DEVICE_WATER_GEN), createSyncDropTable(regBlocks.get(ID_DEVICE_WATER_GEN)));
+
         lootTables.put(regBlocks.get(ID_TINKER_BENCH), createSyncDropTable(regBlocks.get(ID_TINKER_BENCH)));
+
+        lootTables.put(regBlocks.get(ID_ENERGY_CELL), createSyncDropTable(regBlocks.get(ID_ENERGY_CELL)));
 
         lootTables.put(regBlocks.get(ID_PHYTO_TNT), createSimpleDropTable(regBlocks.get(ID_PHYTO_TNT)));
 

@@ -2,6 +2,8 @@ package cofh.thermal.core.client.renderer.model;
 
 import cofh.core.client.renderer.model.BakedQuadRetextured;
 import cofh.core.client.renderer.model.ModelUtils;
+import cofh.core.energy.IEnergyContainerItem;
+import cofh.core.item.ICoFHItem;
 import cofh.core.util.ComparableItemStack;
 import cofh.core.util.helpers.MathHelper;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -14,6 +16,7 @@ import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -132,6 +135,18 @@ public class EnergyCellBakedModel extends BakedModelWrapper<IBakedModel> impleme
         byte[] ret = tag.getByteArray(TAG_SIDES);
         return ret.length == 0 ? DEFAULT_CELL_SIDES_RAW : ret;
     }
+
+    private int getLevel(ItemStack stack) {
+
+        Item item = stack.getItem();
+        if (item instanceof ICoFHItem && ((ICoFHItem) item).isCreative(stack)) {
+            return -1;
+        }
+        if (item instanceof IEnergyContainerItem && ((IEnergyContainerItem) item).getEnergyStored(stack) > 0) {
+            return 1 + Math.min(((IEnergyContainerItem) item).getScaledEnergyStored(stack, 8), 7);
+        }
+        return 0;
+    }
     // endregion
 
     private final ItemOverrideList overrideList = new ItemOverrideList() {
@@ -143,11 +158,15 @@ public class EnergyCellBakedModel extends BakedModelWrapper<IBakedModel> impleme
             CompoundNBT tag = stack.getChildTag(TAG_BLOCK_ENTITY);
             byte[] sideConfigRaw = getSideConfigRaw(tag);
             int itemHash = new ComparableItemStack(stack).hashCode();
+            int level = getLevel(stack);
             int configHash = Arrays.hashCode(sideConfigRaw);
 
-            IBakedModel ret = MODEL_CACHE.get(Arrays.asList(itemHash, configHash));
+            IBakedModel ret = MODEL_CACHE.get(Arrays.asList(itemHash, level, configHash));
             if (ret == null) {
                 ModelUtils.WrappedBakedModelBuilder builder = new ModelUtils.WrappedBakedModelBuilder(model);
+                // FACE
+                builder.addFaceQuad(NORTH, new BakedQuadRetextured(builder.getQuads(NORTH).get(0), getLevelTexture(level)));
+                // SIDES
                 BakedQuad[] cachedQuads = ITEM_QUAD_CACHE.get(configHash);
                 if (cachedQuads == null || cachedQuads.length < 6) {
                     cachedQuads = new BakedQuad[6];
@@ -168,7 +187,7 @@ public class EnergyCellBakedModel extends BakedModelWrapper<IBakedModel> impleme
                 builder.addFaceQuad(EAST, cachedQuads[5]);
 
                 ret = builder.build();
-                MODEL_CACHE.put(Arrays.asList(itemHash, configHash), ret);
+                MODEL_CACHE.put(Arrays.asList(itemHash, level, configHash), ret);
             }
             return ret;
         }

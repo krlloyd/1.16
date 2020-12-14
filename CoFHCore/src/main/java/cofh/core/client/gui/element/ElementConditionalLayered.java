@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
+import static cofh.core.util.helpers.RenderHelper.textureExists;
+
 public class ElementConditionalLayered extends ElementBase {
 
     protected ArrayList<Pair<Supplier<TextureAtlasSprite>, BooleanSupplier>> conditionalTextures = new ArrayList<>();
@@ -27,11 +29,17 @@ public class ElementConditionalLayered extends ElementBase {
 
     public ElementConditionalLayered addSprite(String location, BooleanSupplier condition) {
 
+        if (location == null) {
+            return this;
+        }
         return addSprite(new ResourceLocation(location), condition);
     }
 
     public ElementConditionalLayered addSprite(ResourceLocation location, BooleanSupplier condition) {
 
+        if (!textureExists(location)) {
+            return this;
+        }
         return addSprite(() -> RenderHelper.getTexture(location), condition);
     }
 

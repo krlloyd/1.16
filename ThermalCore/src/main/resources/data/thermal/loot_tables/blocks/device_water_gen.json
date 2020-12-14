@@ -11,7 +11,7 @@
               "function": "cofh_core:nbt_sync"
             }
           ],
-          "name": "thermal:machine_crafter"
+          "name": "thermal:device_water_gen"
         }
       ],
       "conditions": [

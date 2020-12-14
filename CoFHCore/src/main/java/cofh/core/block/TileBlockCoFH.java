@@ -107,7 +107,6 @@ public class TileBlockCoFH extends Block implements IDismantleable, IWrenchable 
         if (tile != null) {
             tile.onPlacedBy(worldIn, pos, state, placer, stack);
         }
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
     @Override

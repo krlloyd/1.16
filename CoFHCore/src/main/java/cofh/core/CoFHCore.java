@@ -13,6 +13,7 @@ import cofh.core.network.packet.server.*;
 import cofh.core.registries.DeferredRegisterCoFH;
 import cofh.core.util.Proxy;
 import cofh.core.util.ProxyClient;
+import cofh.core.util.loot.TileNBTSync;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.fluid.Fluid;
@@ -111,6 +112,8 @@ public class CoFHCore {
         CapabilityArchery.register();
         CapabilityEnchantableItem.register();
         CapabilityShieldItem.register();
+
+        event.enqueueWork(TileNBTSync::setup);
 
         // AttributeEvents.setup();
     }

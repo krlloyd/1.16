@@ -8,7 +8,7 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "thermal:nbt_sync"
+              "function": "cofh_core:nbt_sync"
             }
           ],
           "name": "thermal:machine_brewer"

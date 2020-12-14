@@ -1,19 +1,29 @@
 package cofh.core.item;
 
+import cofh.core.init.CoreConfig;
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 import static cofh.core.util.constants.Constants.TRUE;
+import static cofh.core.util.helpers.StringHelper.getTextComponent;
+import static net.minecraft.util.text.TextFormatting.GRAY;
 
 public class BlockItemCoFH extends BlockItem implements ICoFHItem {
 
@@ -54,6 +64,10 @@ public class BlockItemCoFH extends BlockItem implements ICoFHItem {
         return this;
     }
 
+    protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+    }
+
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
 
@@ -61,6 +75,22 @@ public class BlockItemCoFH extends BlockItem implements ICoFHItem {
             return;
         }
         super.fillItemGroup(group, items);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        List<ITextComponent> additionalTooltips = new ArrayList<>();
+        tooltipDelegate(stack, worldIn, additionalTooltips, flagIn);
+
+        if (!additionalTooltips.isEmpty()) {
+            if (Screen.hasShiftDown() || CoreConfig.alwaysShowDetails) {
+                tooltip.addAll(additionalTooltips);
+            } else if (CoreConfig.holdShiftForDetails) {
+                tooltip.add(getTextComponent("info.cofh.hold_shift_for_details").mergeStyle(GRAY));
+            }
+        }
     }
 
     @Override

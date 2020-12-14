@@ -1,9 +1,9 @@
 package cofh.core.energy;
 
 import cofh.core.item.IContainerItem;
-import cofh.core.util.helpers.EnergyHelper;
 import cofh.core.util.helpers.MathHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 
 import static cofh.core.util.constants.NBTTags.TAG_ENERGY;
 
@@ -18,7 +18,13 @@ public interface IEnergyContainerItem extends IContainerItem {
 
     default ItemStack setDefaultTag(ItemStack stack, int energy) {
 
-        return EnergyHelper.setDefaultEnergyTag(stack, energy);
+        stack.getOrCreateTag().putInt(TAG_ENERGY, energy);
+        return stack;
+    }
+
+    default CompoundNBT getEnergyTag(ItemStack container) {
+
+        return container.getTag();
     }
 
     default int getSpace(ItemStack container) {
@@ -36,10 +42,11 @@ public interface IEnergyContainerItem extends IContainerItem {
      */
     default int getEnergyStored(ItemStack container) {
 
-        if (container.getTag() == null) {
+        CompoundNBT tag = getEnergyTag(container);
+        if (tag == null) {
             return 0;
         }
-        return Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
+        return Math.min(tag.getInt(TAG_ENERGY), getMaxEnergyStored(container));
     }
 
     int getExtract(ItemStack container);
@@ -51,6 +58,16 @@ public interface IEnergyContainerItem extends IContainerItem {
      */
     int getMaxEnergyStored(ItemStack container);
 
+    default void setEnergyStored(ItemStack container, int energy) {
+
+        CompoundNBT tag = getEnergyTag(container);
+        if (tag == null) {
+            setDefaultTag(container, 0);
+            tag = getEnergyTag(container);
+        }
+        tag.putInt(TAG_ENERGY, MathHelper.clamp(energy, 0, getMaxEnergyStored(container)));
+    }
+
     /**
      * Adds energy to a container item. Returns the quantity of energy that was accepted. This should always return 0
      * if the item cannot be externally charged.
@@ -60,7 +77,25 @@ public interface IEnergyContainerItem extends IContainerItem {
      * @param simulate   If TRUE, the charge will only be simulated.
      * @return Amount of energy that was (or would have been, if simulated) received by the item.
      */
-    int receiveEnergy(ItemStack container, int maxReceive, boolean simulate);
+    default int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
+
+        CompoundNBT tag = getEnergyTag(container);
+        if (tag == null) {
+            setDefaultTag(container, 0);
+            tag = getEnergyTag(container);
+        }
+        if (isCreative(container)) {
+            return 0;
+        }
+        int stored = Math.min(tag.getInt(TAG_ENERGY), getMaxEnergyStored(container));
+        int receive = Math.min(Math.min(maxReceive, getReceive(container)), getSpace(container));
+
+        if (!simulate) {
+            stored += receive;
+            tag.putInt(TAG_ENERGY, stored);
+        }
+        return receive;
+    }
 
     /**
      * Removes energy from a container item. Returns the quantity of energy that was removed. This should always
@@ -71,6 +106,24 @@ public interface IEnergyContainerItem extends IContainerItem {
      * @param simulate   If TRUE, the discharge will only be simulated.
      * @return Amount of energy that was (or would have been, if simulated) extracted from the item.
      */
-    int extractEnergy(ItemStack container, int maxExtract, boolean simulate);
+    default int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+
+        CompoundNBT tag = getEnergyTag(container);
+        if (tag == null) {
+            setDefaultTag(container, 0);
+            tag = getEnergyTag(container);
+        }
+        if (isCreative(container)) {
+            return maxExtract;
+        }
+        int stored = Math.min(tag.getInt(TAG_ENERGY), getMaxEnergyStored(container));
+        int extract = Math.min(Math.min(maxExtract, getExtract(container)), stored);
+
+        if (!simulate) {
+            stored -= extract;
+            tag.putInt(TAG_ENERGY, stored);
+        }
+        return extract;
+    }
 
 }

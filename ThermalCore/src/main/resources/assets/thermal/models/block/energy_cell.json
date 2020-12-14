@@ -9,6 +9,6 @@
     "south": "thermal:block/cells/energy_cell_side",
     "west": "thermal:block/cells/energy_cell_side",
     "inner": "thermal:block/cells/energy_cell_inner",
-    "center": "thermal:block/fluids/redstone_still"
+    "center": "thermal:block/cells/energy_cell_center"
   }
 }

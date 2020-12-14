@@ -29,6 +29,7 @@ public class EnergyContainerItemWrapper implements IEnergyStorage, ICapabilityPr
         this.item = itemIn;
     }
 
+    // region IEnergyStorage
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
 
@@ -70,6 +71,7 @@ public class EnergyContainerItemWrapper implements IEnergyStorage, ICapabilityPr
 
         return item.getReceive(container) > 0;
     }
+    // endregion
 
     // region ICapabilityProvider
     @Nonnull

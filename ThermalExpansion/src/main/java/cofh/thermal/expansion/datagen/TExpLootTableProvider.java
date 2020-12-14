@@ -2,7 +2,7 @@ package cofh.thermal.expansion.datagen;
 
 import cofh.core.datagen.LootTableProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.thermal.core.util.loot.TileNBTSync;
+import cofh.core.util.loot.TileNBTSync;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
@@ -54,16 +54,6 @@ public class TExpLootTableProvider extends LootTableProviderCoFH {
         lootTables.put(regBlocks.get(ID_DYNAMO_MAGMATIC), createSyncDropTable(regBlocks.get(ID_DYNAMO_MAGMATIC)));
         lootTables.put(regBlocks.get(ID_DYNAMO_NUMISMATIC), createSyncDropTable(regBlocks.get(ID_DYNAMO_NUMISMATIC)));
         lootTables.put(regBlocks.get(ID_DYNAMO_LAPIDARY), createSyncDropTable(regBlocks.get(ID_DYNAMO_LAPIDARY)));
-    }
-
-    protected LootTable.Builder createSyncDropTable(Block block) {
-
-        LootPool.Builder builder = LootPool.builder()
-                .rolls(ConstantRange.of(1))
-                .addEntry(ItemLootEntry.builder(block)
-                        .acceptFunction(TileNBTSync.builder()))
-                .acceptCondition(SurvivesExplosion.builder());
-        return LootTable.builder().addLootPool(builder);
     }
 
 }

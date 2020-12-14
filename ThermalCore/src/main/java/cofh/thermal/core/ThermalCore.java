@@ -12,7 +12,6 @@ import cofh.thermal.core.client.gui.workbench.TinkerBenchScreen;
 import cofh.thermal.core.client.renderer.entity.*;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.init.*;
-import cofh.thermal.core.util.loot.TileNBTSync;
 import cofh.thermal.core.world.gen.feature.ThermalFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
@@ -118,7 +117,6 @@ public class ThermalCore {
         event.enqueueWork(TCoreItems::setup);
         event.enqueueWork(TCoreEntities::setup);
 
-        event.enqueueWork(TileNBTSync::setup);
         event.enqueueWork(ThermalFeatures::setup);
     }
 

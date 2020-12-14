@@ -1,5 +1,6 @@
 package cofh.core.datagen;
 
+import cofh.core.util.loot.TileNBTSync;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.advancements.criterion.EnchantmentPredicate;
@@ -127,6 +128,16 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
                                 .addOperation("Energy", "BlockEntityTag.Energy", CopyNbt.Action.REPLACE))
                         .acceptFunction(SetContents.builderIn()
                                 .addLootEntry(DynamicLootEntry.func_216162_a(new ResourceLocation("minecraft", "contents")))));
+        return LootTable.builder().addLootPool(builder);
+    }
+
+    protected LootTable.Builder createSyncDropTable(Block block) {
+
+        LootPool.Builder builder = LootPool.builder()
+                .rolls(ConstantRange.of(1))
+                .addEntry(ItemLootEntry.builder(block)
+                        .acceptFunction(TileNBTSync.builder()))
+                .acceptCondition(SurvivesExplosion.builder());
         return LootTable.builder().addLootPool(builder);
     }
 

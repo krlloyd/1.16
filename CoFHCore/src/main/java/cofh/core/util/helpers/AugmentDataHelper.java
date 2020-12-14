@@ -39,7 +39,6 @@ public class AugmentDataHelper {
     public static String getAugmentType(ItemStack augment) {
 
         CompoundNBT augmentTag = getAugmentData(augment);
-
         return augmentTag != null ? augmentTag.getString(TAG_TYPE) : "";
     }
 

@@ -117,8 +117,10 @@ public class ThermalGuiHelper {
     public static ElementConditionalLayered createDefaultCellConfigTop(IGuiAccess gui, String cell, CellTileBase tile) {
 
         String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_top";
+        String centerTexture = ID_THERMAL + ":block/cells/" + cell + "_center";
         return (ElementConditionalLayered) new ElementConditionalLayered(gui)
                 .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(centerTexture)) ? centerTexture : null, TRUE)
                 .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_top", TRUE)
                 .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(UP) == SIDE_INPUT)
                 .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(UP) == SIDE_OUTPUT)
@@ -128,8 +130,10 @@ public class ThermalGuiHelper {
     public static ElementConditionalLayered createDefaultCellConfigBottom(IGuiAccess gui, String cell, CellTileBase tile) {
 
         String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_bottom";
+        String centerTexture = ID_THERMAL + ":block/cells/" + cell + "_center";
         return (ElementConditionalLayered) new ElementConditionalLayered(gui)
                 .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(centerTexture)) ? centerTexture : null, TRUE)
                 .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_bottom", TRUE)
                 .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(DOWN) == SIDE_INPUT)
                 .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(DOWN) == SIDE_OUTPUT)
@@ -139,8 +143,10 @@ public class ThermalGuiHelper {
     public static ElementConditionalLayered createDefaultCellConfigLeft(IGuiAccess gui, String cell, CellTileBase tile) {
 
         String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_side";
+        String centerTexture = ID_THERMAL + ":block/cells/" + cell + "_center";
         return (ElementConditionalLayered) new ElementConditionalLayered(gui)
                 .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(centerTexture)) ? centerTexture : null, TRUE)
                 .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_side", TRUE)
                 .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.left(tile.getFacing())) == SIDE_INPUT)
                 .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.left(tile.getFacing())) == SIDE_OUTPUT)
@@ -150,8 +156,10 @@ public class ThermalGuiHelper {
     public static ElementConditionalLayered createDefaultCellConfigRight(IGuiAccess gui, String cell, CellTileBase tile) {
 
         String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_side";
+        String centerTexture = ID_THERMAL + ":block/cells/" + cell + "_center";
         return (ElementConditionalLayered) new ElementConditionalLayered(gui)
                 .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(centerTexture)) ? centerTexture : null, TRUE)
                 .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_side", TRUE)
                 .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.right(tile.getFacing())) == SIDE_INPUT)
                 .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.right(tile.getFacing())) == SIDE_OUTPUT)
@@ -161,19 +169,33 @@ public class ThermalGuiHelper {
     public static ElementConditionalLayered createDefaultCellConfigFace(IGuiAccess gui, String cell, CellTileBase tile) {
 
         String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_side";
-        return (ElementConditionalLayered) new ElementConditionalLayered(gui)
+        String centerTexture = ID_THERMAL + ":block/cells/" + cell + "_center";
+        String levelTexture = ID_THERMAL + ":block/cells/" + cell + "_level_";
+
+        ElementConditionalLayered ret = (ElementConditionalLayered) new ElementConditionalLayered(gui)
                 .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(centerTexture)) ? centerTexture : null, TRUE)
                 .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_side", TRUE)
                 .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(tile.getFacing()) == SIDE_INPUT)
                 .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(tile.getFacing()) == SIDE_OUTPUT)
                 .setSize(16, 16);
+
+        for (int i = 0; i < 9; ++i) {
+            int level = i;
+            String levelTex = levelTexture + level;
+            ret.addSprite(textureExists(new ResourceLocation(levelTex)) ? levelTex : null, () -> tile.getLevelTracker() == level);
+        }
+        // TODO: CREATIVE
+        return ret;
     }
 
     public static ElementConditionalLayered createDefaultCellConfigBack(IGuiAccess gui, String cell, CellTileBase tile) {
 
         String specificTexture = ID_THERMAL + ":block/cells/" + cell + "_side";
+        String centerTexture = ID_THERMAL + ":block/cells/" + cell + "_center";
         return (ElementConditionalLayered) new ElementConditionalLayered(gui)
                 .addSprite(() -> getFluidTexture(tile.getRenderFluid()), () -> !tile.getRenderFluid().isEmpty())
+                .addSprite(textureExists(new ResourceLocation(centerTexture)) ? centerTexture : null, TRUE)
                 .addSprite(textureExists(new ResourceLocation(specificTexture)) ? specificTexture : "thermal:block/cells/cell_side", TRUE)
                 .addSprite(CELL_CONFIG_INPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.opposite(tile.getFacing())) == SIDE_INPUT)
                 .addSprite(CELL_CONFIG_OUTPUT, () -> tile.reconfigControl().getSideConfig(BlockHelper.opposite(tile.getFacing())) == SIDE_OUTPUT)

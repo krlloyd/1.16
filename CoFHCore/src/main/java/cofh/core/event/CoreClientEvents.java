@@ -3,7 +3,6 @@ package cofh.core.event;
 import cofh.core.init.CoreConfig;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,7 +36,6 @@ public class CoreClientEvents {
     public static void handleItemTooltipEvent(ItemTooltipEvent event) {
 
         List<ITextComponent> tooltip = event.getToolTip();
-        ITooltipFlag flags = event.getFlags();
         if (tooltip.isEmpty()) {
             return;
         }

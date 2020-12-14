@@ -11,6 +11,7 @@ import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
+import cofh.thermal.core.item.BlockItemEnergyCell;
 import cofh.thermal.core.tileentity.device.DeviceHiveExtractorTile;
 import cofh.thermal.core.tileentity.device.DeviceTreeExtractorTile;
 import cofh.thermal.core.tileentity.device.DeviceWaterGenTile;
@@ -36,6 +37,7 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import static cofh.core.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.*;
@@ -264,7 +266,8 @@ public class TCoreBlocks {
 
         registerAugBlock(ID_TINKER_BENCH, () -> new TileBlock4Way(create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), TinkerBenchTile::new), storageAugs, storageValidator, getFlag(ID_TINKER_BENCH));
 
-        registerAugBlock(ID_ENERGY_CELL, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).notSolid(), EnergyCellTile::new), storageAugs, storageValidator, getFlag(ID_ENERGY_CELL));
+        BLOCKS.register(ID_ENERGY_CELL, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(7)).notSolid(), EnergyCellTile::new));
+        ITEMS.register(ID_ENERGY_CELL, (Supplier<Item>) () -> new BlockItemEnergyCell(BLOCKS.get(ID_ENERGY_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(storageValidator).setShowInGroups(getFlag(ID_ENERGY_CELL)));
     }
 
     private static void registerTileContainers() {

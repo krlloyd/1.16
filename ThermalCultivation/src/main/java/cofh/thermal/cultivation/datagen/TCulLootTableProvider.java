@@ -2,7 +2,7 @@ package cofh.thermal.cultivation.datagen;
 
 import cofh.core.datagen.LootTableProviderCoFH;
 import cofh.core.registries.DeferredRegisterCoFH;
-import cofh.thermal.core.util.loot.TileNBTSync;
+import cofh.core.util.loot.TileNBTSync;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLootTables;

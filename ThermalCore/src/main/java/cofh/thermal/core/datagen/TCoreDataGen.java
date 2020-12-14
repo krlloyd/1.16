@@ -1,6 +1,5 @@
 package cofh.thermal.core.datagen;
 
-import cofh.thermal.core.util.loot.TileNBTSync;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,8 +13,6 @@ public class TCoreDataGen {
 
     @SubscribeEvent
     public static void gatherData(final GatherDataEvent event) {
-
-        TileNBTSync.setup();
 
         if (event.includeServer()) {
             registerServerProviders(event);

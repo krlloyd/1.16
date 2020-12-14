@@ -55,7 +55,7 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
         if (extract == receive || creative) {
             tooltip.add(getTextComponent(localize("info.cofh.transfer") + ": " + getScaledNumber(extract) + " RF/t"));
         } else {
-            tooltip.add(getTextComponent(localize("info.cofh.send") + "/" + localize("info.cofh.receive") + ": " + getScaledNumber(extract) + "/" + getScaledNumber(receive) + " RF/t"));
+            tooltip.add(getTextComponent(localize("info.cofh.send") + "|" + localize("info.cofh.receive") + ": " + getScaledNumber(extract) + "|" + getScaledNumber(receive) + " RF/t"));
         }
     }
 
@@ -98,14 +98,6 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
         return new EnergyContainerItemWrapper(stack, this);
     }
 
-    protected void setEnergyStored(ItemStack container, int energy) {
-
-        if (container.getTag() == null) {
-            setDefaultTag(container, 0);
-        }
-        container.getTag().putInt(TAG_ENERGY, MathHelper.clamp(energy, 0, getMaxEnergyStored(container)));
-    }
-
     // region IEnergyContainerItem
     @Override
     public int getExtract(ItemStack container) {
@@ -124,44 +116,6 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
 
         int holding = EnchantmentHelper.getEnchantmentLevel(HOLDING, container);
         return Utils.getEnchantedCapacity(maxEnergy, holding);
-    }
-
-    @Override
-    public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-
-        if (container.getTag() == null) {
-            setDefaultTag(container, 0);
-        }
-        if (isCreative(container)) {
-            return 0;
-        }
-        int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
-        int receive = Math.min(Math.min(maxReceive, getReceive(container)), getSpace(container));
-
-        if (!simulate) {
-            stored += receive;
-            container.getTag().putInt(TAG_ENERGY, stored);
-        }
-        return receive;
-    }
-
-    @Override
-    public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-
-        if (container.getTag() == null) {
-            setDefaultTag(container, 0);
-        }
-        if (isCreative(container)) {
-            return maxExtract;
-        }
-        int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
-        int extract = Math.min(Math.min(maxExtract, getExtract(container)), stored);
-
-        if (!simulate) {
-            stored -= extract;
-            container.getTag().putInt(TAG_ENERGY, stored);
-        }
-        return extract;
     }
     // endregion
 }

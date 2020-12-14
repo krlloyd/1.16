@@ -100,6 +100,11 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     protected void updateTrackers(boolean send) {
 
     }
+
+    public int getLevelTracker() {
+
+        return levelTracker;
+    }
     // endregion
 
     // region NETWORK
@@ -128,6 +133,9 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
         super.getControlPacket(buffer);
 
         reconfigControl.writeToBuffer(buffer);
+
+        buffer.writeInt(compareTracker);
+        buffer.writeInt(levelTracker);
 
         return buffer;
     }
@@ -170,6 +178,11 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         reconfigControl.readFromBuffer(buffer);
 
+        compareTracker = buffer.readInt();
+        levelTracker = buffer.readInt();
+
+        System.out.println(levelTracker);
+
         ModelDataManager.requestModelDataRefresh(this);
     }
 
@@ -207,7 +220,6 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
         amountOutput = nbt.getInt(TAG_AMOUNT_OUT);
 
         updateTrackers(false);
-
         updateSidedHandlers();
     }
 
@@ -250,6 +262,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     public void onControlUpdate() {
 
         updateSidedHandlers();
+        updateTrackers(false);
         super.onControlUpdate();
     }
     // endregion

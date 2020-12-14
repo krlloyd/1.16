@@ -12,15 +12,11 @@ import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.StorageGroup;
 import cofh.core.util.TimeTracker;
 import cofh.core.util.Utils;
-import cofh.core.util.control.IRedstoneControllableTile;
-import cofh.core.util.control.ISecurableTile;
-import cofh.core.util.control.RedstoneControlModule;
-import cofh.core.util.control.SecurityControlModule;
+import cofh.core.util.control.*;
 import cofh.core.util.helpers.AugmentDataHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.util.IThermalInventory;
-import cofh.thermal.core.util.loot.TileNBTSync;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -223,9 +219,38 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         }
     }
 
+    @Override
     public ItemStack createItemStackTag(ItemStack stack) {
 
-        return TileNBTSync.applyToStack(stack, this);
+        CompoundNBT blockTag = new CompoundNBT();
+        if (ThermalConfig.keepEnergy.get()) {
+            getEnergyStorage().write(blockTag);
+        }
+        if (ThermalConfig.keepItems.get()) {
+            getItemInv().writeSlotsToNBT(blockTag, 0, invSize() - augSize());
+        }
+        if (ThermalConfig.keepAugments.get() && augSize() > 0) {
+            getItemInv().writeSlotsToNBTUnordered(blockTag, TAG_AUGMENTS, invSize() - augSize());
+        }
+        if (ThermalConfig.keepFluids.get()) {
+            getTankInv().write(blockTag);
+        }
+        if (ThermalConfig.keepRSControl.get()) {
+            redstoneControl().write(blockTag);
+        }
+        if (ThermalConfig.keepSideConfig.get() && this instanceof IReconfigurableTile) {
+            ((IReconfigurableTile) this).reconfigControl().write(blockTag);
+        }
+        if (ThermalConfig.keepTransferControl.get() && this instanceof ITransferControllableTile) {
+            ((ITransferControllableTile) this).transferControl().write(blockTag);
+        }
+        if (hasSecurity()) {
+            securityControl().write(blockTag);
+        }
+        if (!blockTag.isEmpty()) {
+            stack.setTagInfo(TAG_BLOCK_ENTITY, blockTag);
+        }
+        return super.createItemStackTag(stack);
     }
     // endregion
 
