@@ -10,6 +10,7 @@ import cofh.thermal.core.inventory.container.device.DeviceRockGenContainer;
 import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
+import cofh.thermal.core.inventory.container.storage.FluidCellContainer;
 import cofh.thermal.core.inventory.container.workbench.ChargeBenchContainer;
 import cofh.thermal.core.inventory.container.workbench.ProjectBenchContainer;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
@@ -18,6 +19,7 @@ import cofh.thermal.core.tileentity.device.DeviceRockGenTile;
 import cofh.thermal.core.tileentity.device.DeviceTreeExtractorTile;
 import cofh.thermal.core.tileentity.device.DeviceWaterGenTile;
 import cofh.thermal.core.tileentity.storage.EnergyCellTile;
+import cofh.thermal.core.tileentity.storage.FluidCellTile;
 import cofh.thermal.core.tileentity.workbench.ChargeBenchTile;
 import cofh.thermal.core.tileentity.workbench.ProjectBenchTile;
 import cofh.thermal.core.tileentity.workbench.TinkerBenchTile;
@@ -142,6 +144,13 @@ public class TCoreReferences {
     public static final TileEntityType<EnergyCellTile> ENERGY_CELL_TILE = null;
     @ObjectHolder(ID_ENERGY_CELL)
     public static final ContainerType<EnergyCellContainer> ENERGY_CELL_CONTAINER = null;
+
+    @ObjectHolder(ID_FLUID_CELL)
+    public static final Block FLUID_CELL_BLOCK = null;
+    @ObjectHolder(ID_FLUID_CELL)
+    public static final TileEntityType<FluidCellTile> FLUID_CELL_TILE = null;
+    @ObjectHolder(ID_FLUID_CELL)
+    public static final ContainerType<FluidCellContainer> FLUID_CELL_CONTAINER = null;
     // endregion
 
     // region WORKBENCHES

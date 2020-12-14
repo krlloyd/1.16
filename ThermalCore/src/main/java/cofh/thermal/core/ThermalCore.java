@@ -8,6 +8,7 @@ import cofh.thermal.core.client.gui.device.DeviceHiveExtractorScreen;
 import cofh.thermal.core.client.gui.device.DeviceTreeExtractorScreen;
 import cofh.thermal.core.client.gui.device.DeviceWaterGenScreen;
 import cofh.thermal.core.client.gui.storage.EnergyCellScreen;
+import cofh.thermal.core.client.gui.storage.FluidCellScreen;
 import cofh.thermal.core.client.gui.workbench.TinkerBenchScreen;
 import cofh.thermal.core.client.renderer.entity.*;
 import cofh.thermal.core.common.ThermalConfig;
@@ -137,6 +138,7 @@ public class ThermalCore {
         ScreenManager.registerFactory(TINKER_BENCH_CONTAINER, TinkerBenchScreen::new);
 
         ScreenManager.registerFactory(ENERGY_CELL_CONTAINER, EnergyCellScreen::new);
+        ScreenManager.registerFactory(FLUID_CELL_CONTAINER, FluidCellScreen::new);
     }
 
     private void registerRenderLayers() {
@@ -156,6 +158,9 @@ public class ThermalCore {
 
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ENERGY_CELL_FRAME), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ENERGY_CELL), cutout);
+
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_FLUID_CELL_FRAME), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_FLUID_CELL), cutout);
     }
 
     private void registerEntityRenderingHandlers() {

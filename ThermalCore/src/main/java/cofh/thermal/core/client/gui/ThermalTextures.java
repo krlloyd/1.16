@@ -1,9 +1,6 @@
 package cofh.thermal.core.client.gui;
 
-import cofh.thermal.core.client.renderer.model.DynamoBakedModel;
-import cofh.thermal.core.client.renderer.model.EnergyCellBakedModel;
-import cofh.thermal.core.client.renderer.model.ReconfigurableBakedModel;
-import cofh.thermal.core.client.renderer.model.UnderlayBakedModel;
+import cofh.thermal.core.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
@@ -55,6 +52,7 @@ public class ThermalTextures {
         DynamoBakedModel.clearCache();
         ReconfigurableBakedModel.clearCache();
         EnergyCellBakedModel.clearCache();
+        FluidCellBakedModel.clearCache();
 
         AtlasTexture map = event.getMap();
         MACHINE_CONFIG_NONE = map.getSprite(MACHINE_CONFIG_NONE_LOC);

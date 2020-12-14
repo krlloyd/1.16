@@ -372,6 +372,9 @@
   "block.thermal.energy_cell": "Redstone Flux Cell",
   "block.thermal.energy_cell_frame": "Redstone Flux Cell Frame",
 
+  "block.thermal.fluid_cell": "Fluid Cell",
+  "block.thermal.fluid_cell_frame": "Fluid Cell Frame",
+
   "block.thermal.tinker_bench": "Tinker's Workbench",
 
   "info.thermal.device_hive_extractor.0": "Carefully extracts products from beehives.",
@@ -392,6 +395,9 @@
 
   "info.thermal.energy_cell.0": "Stores and transfers Redstone Flux.",
   "info.thermal.energy_cell.1": "Hold §e§oShift§r and/or §e§oCtrl§r to fine tune amounts.",
+
+  "info.thermal.fluid_cell.0": "Stores and transfers Fluids.",
+  "info.thermal.fluid_cell.1": "Hold §e§oShift§r and/or §e§oCtrl§r to fine tune amounts.",
 
   "info.thermal.tinker_bench.0": "Multipurpose table for augmenting, recharging, and refilling.",
   "info.thermal.tinker_bench.1": "Storages may be filled using their respective slots.",

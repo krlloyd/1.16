@@ -64,17 +64,9 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
         return super.createItemStackTag(stack);
     }
 
-    // region BASE PARAMETERS
-    protected int getBaseEnergyStorage() {
+    public abstract int getMaxInput();
 
-        return 1000000;
-    }
-
-    protected int getBaseEnergyXfer() {
-
-        return 1000;
-    }
-    // endregion
+    public abstract int getMaxOutput();
 
     // region HELPERS
     protected void updateSideCache() {
@@ -177,8 +169,8 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         super.handleConfigPacket(buffer);
 
-        amountInput = MathHelper.clamp(buffer.readInt(), 0, energyStorage.getMaxReceive());
-        amountOutput = MathHelper.clamp(buffer.readInt(), 0, energyStorage.getMaxExtract());
+        amountInput = MathHelper.clamp(buffer.readInt(), 0, getMaxInput());
+        amountOutput = MathHelper.clamp(buffer.readInt(), 0, getMaxOutput());
     }
 
     @Override
@@ -252,8 +244,8 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         super.finalizeAttributes();
 
-        amountInput = MathHelper.clamp(amountInput, 0, energyStorage.getMaxReceive());
-        amountOutput = MathHelper.clamp(amountOutput, 0, energyStorage.getMaxExtract());
+        amountInput = MathHelper.clamp(amountInput, 0, getMaxInput());
+        amountOutput = MathHelper.clamp(amountOutput, 0, getMaxOutput());
     }
     // endregion
 

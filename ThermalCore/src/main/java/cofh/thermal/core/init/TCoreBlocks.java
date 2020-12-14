@@ -10,12 +10,15 @@ import cofh.thermal.core.inventory.container.device.DeviceHiveExtractorContainer
 import cofh.thermal.core.inventory.container.device.DeviceTreeExtractorContainer;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
+import cofh.thermal.core.inventory.container.storage.FluidCellContainer;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import cofh.thermal.core.item.BlockItemEnergyCell;
+import cofh.thermal.core.item.BlockItemFluidCell;
 import cofh.thermal.core.tileentity.device.DeviceHiveExtractorTile;
 import cofh.thermal.core.tileentity.device.DeviceTreeExtractorTile;
 import cofh.thermal.core.tileentity.device.DeviceWaterGenTile;
 import cofh.thermal.core.tileentity.storage.EnergyCellTile;
+import cofh.thermal.core.tileentity.storage.FluidCellTile;
 import cofh.thermal.core.tileentity.workbench.TinkerBenchTile;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -204,6 +207,7 @@ public class TCoreBlocks {
 
         registerBlock(ID_MACHINE_FRAME, () -> new Block(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).notSolid()), getFlag(ID_MACHINE_FRAME));
         registerBlock(ID_ENERGY_CELL_FRAME, () -> new Block(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).notSolid()), getFlag(ID_ENERGY_CELL_FRAME));
+        registerBlock(ID_FLUID_CELL_FRAME, () -> new Block(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).notSolid()), getFlag(ID_FLUID_CELL_FRAME));
 
         registerBlock(ID_OBSIDIAN_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.OBSIDIAN).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).notSolid()));
         registerBlock(ID_SIGNALUM_GLASS, () -> new HardenedGlassBlock(create(Material.GLASS, MaterialColor.RED).hardnessAndResistance(5.0F, 1000.0F).sound(SoundType.GLASS).setLightLevel(lightValue(7)).notSolid()) {
@@ -269,6 +273,9 @@ public class TCoreBlocks {
 
         BLOCKS.register(ID_ENERGY_CELL, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(7)).notSolid(), EnergyCellTile::new));
         ITEMS.register(ID_ENERGY_CELL, (Supplier<Item>) () -> new BlockItemEnergyCell(BLOCKS.get(ID_ENERGY_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(storageValidator).setShowInGroups(getFlag(ID_ENERGY_CELL)));
+
+        BLOCKS.register(ID_FLUID_CELL, () -> new TileBlock4Way(create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).setLightLevel(lightValue(7)).notSolid(), FluidCellTile::new));
+        ITEMS.register(ID_FLUID_CELL, (Supplier<Item>) () -> new BlockItemFluidCell(BLOCKS.get(ID_FLUID_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(storageValidator).setShowInGroups(getFlag(ID_FLUID_CELL)));
     }
 
     private static void registerTileContainers() {
@@ -281,6 +288,7 @@ public class TCoreBlocks {
         CONTAINERS.register(ID_TINKER_BENCH, () -> IForgeContainerType.create((windowId, inv, data) -> new TinkerBenchContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
 
         CONTAINERS.register(ID_ENERGY_CELL, () -> IForgeContainerType.create((windowId, inv, data) -> new EnergyCellContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
+        CONTAINERS.register(ID_FLUID_CELL, () -> IForgeContainerType.create((windowId, inv, data) -> new FluidCellContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
     }
 
     private static void registerTileEntities() {
@@ -293,6 +301,7 @@ public class TCoreBlocks {
         TILE_ENTITIES.register(ID_TINKER_BENCH, () -> TileEntityType.Builder.create(TinkerBenchTile::new, TINKER_BENCH_BLOCK).build(null));
 
         TILE_ENTITIES.register(ID_ENERGY_CELL, () -> TileEntityType.Builder.create(EnergyCellTile::new, ENERGY_CELL_BLOCK).build(null));
+        TILE_ENTITIES.register(ID_FLUID_CELL, () -> TileEntityType.Builder.create(FluidCellTile::new, FLUID_CELL_BLOCK).build(null));
     }
     // endregion
 }

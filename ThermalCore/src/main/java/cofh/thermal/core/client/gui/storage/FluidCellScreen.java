@@ -6,8 +6,8 @@ import cofh.core.client.gui.element.ElementTexture;
 import cofh.core.network.packet.server.TileConfigPacket;
 import cofh.core.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.CellScreenReconfigurable;
-import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
-import cofh.thermal.core.tileentity.storage.EnergyCellTile;
+import cofh.thermal.core.inventory.container.storage.FluidCellContainer;
+import cofh.thermal.core.tileentity.storage.FluidCellTile;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -23,23 +23,23 @@ import static cofh.core.util.helpers.SoundHelper.playClickSound;
 import static cofh.core.util.helpers.StringHelper.format;
 import static cofh.core.util.helpers.StringHelper.localize;
 
-public class EnergyCellScreen extends CellScreenReconfigurable<EnergyCellContainer> {
+public class FluidCellScreen extends CellScreenReconfigurable<FluidCellContainer> {
 
-    public static final String TEX_PATH = ID_THERMAL + ":textures/gui/storage/energy_cell.png";
+    public static final String TEX_PATH = ID_THERMAL + ":textures/gui/storage/fluid_cell.png";
     public static final ResourceLocation TEXTURE = new ResourceLocation(TEX_PATH);
 
     public static final String TEX_INCREMENT = ID_COFH_CORE + ":textures/gui/elements/button_increment.png";
     public static final String TEX_DECREMENT = ID_COFH_CORE + ":textures/gui/elements/button_decrement.png";
 
-    protected EnergyCellTile tile;
+    protected FluidCellTile tile;
 
-    public EnergyCellScreen(EnergyCellContainer container, PlayerInventory inv, ITextComponent titleIn) {
+    public FluidCellScreen(FluidCellContainer container, PlayerInventory inv, ITextComponent titleIn) {
 
-        super(container, inv, container.tile, StringHelper.getTextComponent("block.thermal.energy_cell"));
+        super(container, inv, container.tile, StringHelper.getTextComponent("block.thermal.fluid_cell"));
         tile = container.tile;
         texture = TEXTURE;
-        info = generatePanelInfo("info.thermal.energy_cell");
-        name = "energy_cell";
+        info = generatePanelInfo("info.thermal.fluid_cell");
+        name = "fluid_cell";
     }
 
     @Override
@@ -54,7 +54,7 @@ public class EnergyCellScreen extends CellScreenReconfigurable<EnergyCellContain
                 .setSize(20, 20)
                 .setTexture(INFO_OUTPUT, 20, 20));
 
-        addElement(setClearable(createDefaultEnergyStorage(this, 80, 22, tile.getEnergyStorage()), tile, 0));
+        addElement(setClearable(createMediumFluidStorage(this, 80, 22, tile.getTank(0)), tile, 0));
 
         addButtons();
     }
