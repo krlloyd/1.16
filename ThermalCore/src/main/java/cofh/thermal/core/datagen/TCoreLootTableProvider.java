@@ -87,6 +87,8 @@ public class TCoreLootTableProvider extends LootTableProviderCoFH {
         lootTables.put(regBlocks.get(ID_ENDERIUM_BLOCK), createSimpleDropTable(regBlocks.get(ID_ENDERIUM_BLOCK)));
 
         lootTables.put(regBlocks.get(ID_MACHINE_FRAME), createSimpleDropTable(regBlocks.get(ID_MACHINE_FRAME)));
+        lootTables.put(regBlocks.get(ID_ENERGY_CELL_FRAME), createSimpleDropTable(regBlocks.get(ID_ENERGY_CELL_FRAME)));
+        lootTables.put(regBlocks.get(ID_FLUID_CELL_FRAME), createSimpleDropTable(regBlocks.get(ID_FLUID_CELL_FRAME)));
 
         lootTables.put(regBlocks.get(ID_OBSIDIAN_GLASS), BlockLootTables.onlyWithSilkTouch(regBlocks.get(ID_OBSIDIAN_GLASS)));
         lootTables.put(regBlocks.get(ID_SIGNALUM_GLASS), BlockLootTables.onlyWithSilkTouch(regBlocks.get(ID_SIGNALUM_GLASS)));
@@ -117,6 +119,7 @@ public class TCoreLootTableProvider extends LootTableProviderCoFH {
         lootTables.put(regBlocks.get(ID_TINKER_BENCH), createSyncDropTable(regBlocks.get(ID_TINKER_BENCH)));
 
         lootTables.put(regBlocks.get(ID_ENERGY_CELL), createSyncDropTable(regBlocks.get(ID_ENERGY_CELL)));
+        lootTables.put(regBlocks.get(ID_FLUID_CELL), createSyncDropTable(regBlocks.get(ID_FLUID_CELL)));
 
         lootTables.put(regBlocks.get(ID_PHYTO_TNT), createSimpleDropTable(regBlocks.get(ID_PHYTO_TNT)));
 

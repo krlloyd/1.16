@@ -865,6 +865,16 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .addCriterion("has_lead", hasItem(ItemTagsCoFH.INGOTS_LEAD))
                 .build(consumer);
 
+        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_FLUID_CELL_FRAME))
+                .key('G', Tags.Items.GLASS)
+                .key('I', ItemTagsCoFH.INGOTS_COPPER)
+                .key('E', ItemTagsCoFH.GEARS_BRONZE)
+                .patternLine("IGI")
+                .patternLine("GEG")
+                .patternLine("IGI")
+                .addCriterion("has_copper", hasItem(ItemTagsCoFH.INGOTS_COPPER))
+                .build(consumer);
+
         ShapedRecipeBuilder.shapedRecipe(reg.get("redstone_servo"))
                 .key('I', Tags.Items.INGOTS_IRON)
                 .key('R', Tags.Items.DUSTS_REDSTONE)
@@ -934,6 +944,7 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
         DeferredRegisterCoFH<Item> reg = ITEMS;
 
         Item energyCellFrame = reg.get(ID_ENERGY_CELL_FRAME);
+        Item fluidCellFrame = reg.get(ID_FLUID_CELL_FRAME);
         Item redstoneServo = reg.get("redstone_servo");
         Item rfCoil = reg.get("rf_coil");
 
@@ -982,6 +993,17 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .patternLine("ICI")
                 .patternLine(" P ")
                 .addCriterion("has_energy_cell_frame", hasItem(energyCellFrame))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_FLUID_CELL))
+                .key('C', fluidCellFrame)
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('R', ItemTagsCoFH.HARDENED_GLASS)
+                .key('P', redstoneServo)
+                .patternLine(" R ")
+                .patternLine("ICI")
+                .patternLine(" P ")
+                .addCriterion("has_fluid_cell_frame", hasItem(fluidCellFrame))
                 .build(consumer);
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_TINKER_BENCH))
