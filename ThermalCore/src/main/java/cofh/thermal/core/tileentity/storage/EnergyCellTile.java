@@ -1,6 +1,6 @@
 package cofh.thermal.core.tileentity.storage;
 
-import cofh.core.energy.EnergyStorageConstrained;
+import cofh.core.energy.EnergyStorageAdjustable;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.helpers.BlockHelper;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
@@ -29,8 +29,8 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
 
         super(ENERGY_CELL_TILE);
 
-        energyStorage = new EnergyStorageConstrained(1000000, 1000, 1000)
-                .setConstraints(() -> amountInput, () -> amountOutput);
+        energyStorage = new EnergyStorageAdjustable(1000000, 1000, 1000)
+                .setTransferLimits(() -> amountInput, () -> amountOutput);
 
         amountInput = energyStorage.getMaxReceive();
         amountOutput = energyStorage.getMaxExtract();

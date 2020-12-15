@@ -91,7 +91,7 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
                     cachedFluidQuads = new BakedQuad[6];
                 }
                 if (cachedFluidQuads[sideIndex] == null) {
-                    cachedFluidQuads[sideIndex] = new BakedQuadRetextured(RenderHelper.mulColor(quads.get(0), fluid.getFluid().getAttributes().getColor(fluid)), RenderHelper.getFluidTexture(fluid));
+                    cachedFluidQuads[sideIndex] = new BakedQuadRetextured(RenderHelper.mulColor(quads.get(0), RenderHelper.getFluidColor(fluid)), RenderHelper.getFluidTexture(fluid));
                     FLUID_QUAD_CACHE.put(wrapper, cachedFluidQuads);
                 }
                 quads.offerFirst(cachedFluidQuads[sideIndex]);

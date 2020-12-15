@@ -9,35 +9,36 @@ import static cofh.core.util.constants.NBTTags.*;
 
 /**
  * Implementation of an Energy Storage object. See {@link IEnergyStorage}.
+ * Additional constraints (receive/extract) are provided.
  *
  * @author King Lemming
  */
-public class EnergyStorageConstrained extends EnergyStorageCoFH {
+public class EnergyStorageAdjustable extends EnergyStorageCoFH {
 
     protected IntSupplier curReceive = this::getMaxReceive;
     protected IntSupplier curExtract = this::getMaxExtract;
 
-    public EnergyStorageConstrained(int capacity) {
+    public EnergyStorageAdjustable(int capacity) {
 
         this(capacity, capacity, capacity, 0);
     }
 
-    public EnergyStorageConstrained(int capacity, int maxTransfer) {
+    public EnergyStorageAdjustable(int capacity, int maxTransfer) {
 
         this(capacity, maxTransfer, maxTransfer, 0);
     }
 
-    public EnergyStorageConstrained(int capacity, int maxReceive, int maxExtract) {
+    public EnergyStorageAdjustable(int capacity, int maxReceive, int maxExtract) {
 
         this(capacity, maxReceive, maxExtract, 0);
     }
 
-    public EnergyStorageConstrained(int capacity, int maxReceive, int maxExtract, int energy) {
+    public EnergyStorageAdjustable(int capacity, int maxReceive, int maxExtract, int energy) {
 
         super(capacity, maxReceive, maxExtract, energy);
     }
 
-    public EnergyStorageConstrained setConstraints(IntSupplier curReceive, IntSupplier curExtract) {
+    public EnergyStorageAdjustable setTransferLimits(IntSupplier curReceive, IntSupplier curExtract) {
 
         this.curReceive = curReceive;
         this.curExtract = curExtract;
@@ -71,21 +72,19 @@ public class EnergyStorageConstrained extends EnergyStorageCoFH {
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
 
-        int energyReceived = Math.min(capacity - energy, Math.min(curReceive.getAsInt(), maxReceive));
-        if (!simulate) {
-            energy += energyReceived;
+        if (maxReceive > this.curReceive.getAsInt()) {
+            return super.receiveEnergy(this.curReceive.getAsInt(), simulate);
         }
-        return energyReceived;
+        return super.receiveEnergy(maxReceive, simulate);
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
 
-        int energyExtracted = Math.min(energy, Math.min(curExtract.getAsInt(), maxExtract));
-        if (!simulate) {
-            energy -= energyExtracted;
+        if (maxExtract > this.curExtract.getAsInt()) {
+            return super.extractEnergy(this.curExtract.getAsInt(), simulate);
         }
-        return energyExtracted;
+        return super.extractEnergy(maxExtract, simulate);
     }
 
     @Override

@@ -61,16 +61,23 @@ public class SporeArrowEntity extends AbstractArrowEntity {
 
         super.onImpact(raytraceResultIn);
 
-        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
-            if (effectRadius > 0 && !isInWater()) {
-                if (Utils.isServerWorld(world)) {
-                    AreaUtils.transformMycelium(this, world, this.getPosition(), effectRadius);
-                    AreaUtils.growMushrooms(this, world, this.getPosition(), effectRadius, effectGrowCount);
-                    makeAreaOfEffectCloud();
-                }
-                discharged = true;
-            }
+        if (Utils.isServerWorld(world) && !discharged && !isInWater() && effectRadius > 0) {
+            AreaUtils.transformMycelium(this, world, this.getPosition(), effectRadius);
+            AreaUtils.growMushrooms(this, world, this.getPosition(), effectRadius, effectGrowCount);
+            makeAreaOfEffectCloud();
+            discharged = true;
         }
+
+        //        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
+        //            if (effectRadius > 0 && !isInWater()) {
+        //                if (Utils.isServerWorld(world)) {
+        //                    AreaUtils.transformMycelium(this, world, this.getPosition(), effectRadius);
+        //                    AreaUtils.growMushrooms(this, world, this.getPosition(), effectRadius, effectGrowCount);
+        //                    makeAreaOfEffectCloud();
+        //                }
+        //                discharged = true;
+        //            }
+        //        }
     }
 
     @Override

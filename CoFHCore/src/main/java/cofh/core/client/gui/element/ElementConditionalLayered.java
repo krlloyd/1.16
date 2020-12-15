@@ -5,17 +5,19 @@ import cofh.core.util.helpers.RenderHelper;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.function.BooleanSupplier;
+import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
 import static cofh.core.util.helpers.RenderHelper.textureExists;
 
 public class ElementConditionalLayered extends ElementBase {
 
-    protected ArrayList<Pair<Supplier<TextureAtlasSprite>, BooleanSupplier>> conditionalTextures = new ArrayList<>();
+    protected static final IntSupplier WHITE = () -> 0xFFFFFF;
+
+    protected ArrayList<IconWrapper> conditionalTextures = new ArrayList<>();
 
     public ElementConditionalLayered(IGuiAccess gui) {
 
@@ -40,7 +42,7 @@ public class ElementConditionalLayered extends ElementBase {
         if (!textureExists(location)) {
             return this;
         }
-        return addSprite(() -> RenderHelper.getTexture(location), condition);
+        return addSprite(RenderHelper.getTexture(location), condition);
     }
 
     public ElementConditionalLayered addSprite(TextureAtlasSprite sprite, BooleanSupplier condition) {
@@ -50,18 +52,43 @@ public class ElementConditionalLayered extends ElementBase {
 
     public ElementConditionalLayered addSprite(Supplier<TextureAtlasSprite> sprite, BooleanSupplier condition) {
 
-        conditionalTextures.add(Pair.of(sprite, condition));
+        return addSprite(sprite, WHITE, condition);
+    }
+
+    public ElementConditionalLayered addSprite(Supplier<TextureAtlasSprite> sprite, IntSupplier color, BooleanSupplier condition) {
+
+        conditionalTextures.add(new IconWrapper(sprite, color, condition));
         return this;
     }
 
     @Override
     public void drawBackground(MatrixStack matrixStack, int mouseX, int mouseY) {
 
-        for (Pair<Supplier<TextureAtlasSprite>, BooleanSupplier> entry : conditionalTextures) {
-            if (entry.getRight().getAsBoolean()) {
-                gui.drawIcon(matrixStack, entry.getLeft().get(), posX(), posY());
+        for (IconWrapper icon : conditionalTextures) {
+            if (icon.display.getAsBoolean()) {
+                if (icon.color != WHITE) {
+                    gui.drawIcon(matrixStack, icon.texture.get(), icon.color.getAsInt(), posX(), posY());
+                } else {
+                    gui.drawIcon(matrixStack, icon.texture.get(), posX(), posY());
+                }
             }
         }
     }
 
+    // region ICON WRAPPER
+    protected static class IconWrapper {
+
+        protected Supplier<TextureAtlasSprite> texture;
+        protected IntSupplier color;
+        protected BooleanSupplier display;
+
+        IconWrapper(Supplier<TextureAtlasSprite> texture, IntSupplier color, BooleanSupplier display) {
+
+            this.texture = texture;
+            this.color = color;
+            this.display = display;
+        }
+
+    }
+    // endregion
 }

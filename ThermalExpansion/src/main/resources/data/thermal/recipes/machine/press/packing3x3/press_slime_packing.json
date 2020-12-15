@@ -2,7 +2,7 @@
   "type": "thermal:press",
   "input": [
     {
-      "item": "minecraft:slimeball",
+      "item": "minecraft:slime_ball",
       "count": 9
     },
     {

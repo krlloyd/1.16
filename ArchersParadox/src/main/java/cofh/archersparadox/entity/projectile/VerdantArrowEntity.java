@@ -61,16 +61,23 @@ public class VerdantArrowEntity extends AbstractArrowEntity {
 
         super.onImpact(raytraceResultIn);
 
-        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
-            if (effectRadius > 0 && !isInWater()) {
-                if (Utils.isServerWorld(world)) {
-                    AreaUtils.transformGrass(this, world, this.getPosition(), effectRadius);
-                    AreaUtils.growPlants(this, world, this.getPosition(), effectRadius, effectGrowCount);
-                    makeAreaOfEffectCloud();
-                }
-                discharged = true;
-            }
+        if (Utils.isServerWorld(world) && !discharged && !isInWater() && effectRadius > 0) {
+            AreaUtils.transformGrass(this, world, this.getPosition(), effectRadius);
+            AreaUtils.growPlants(this, world, this.getPosition(), effectRadius, effectGrowCount);
+            makeAreaOfEffectCloud();
+            discharged = true;
         }
+
+        //        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
+        //            if (effectRadius > 0 && !isInWater()) {
+        //                if (Utils.isServerWorld(world)) {
+        //                    AreaUtils.transformGrass(this, world, this.getPosition(), effectRadius);
+        //                    AreaUtils.growPlants(this, world, this.getPosition(), effectRadius, effectGrowCount);
+        //                    makeAreaOfEffectCloud();
+        //                }
+        //                discharged = true;
+        //            }
+        //        }
     }
 
     @Override

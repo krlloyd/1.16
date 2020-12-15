@@ -96,6 +96,11 @@ public final class RenderHelper {
         GL11.glPopMatrix();
     }
 
+    public static int getFluidColor(FluidStack fluid) {
+
+        return fluid.getFluid().getAttributes().getColor(fluid);
+    }
+
     public static void drawIcon(TextureAtlasSprite icon, double z) {
 
         BufferBuilder buffer = Tessellator.getInstance().getBuffer();
@@ -340,11 +345,32 @@ public final class RenderHelper {
         return getTexture(fluid.getFluid().getAttributes().getStillTexture(fluid));
     }
 
+    public static boolean textureExists(String location) {
+
+        return textureExists(new ResourceLocation(location));
+    }
+
     public static boolean textureExists(ResourceLocation location) {
 
         return !(getTexture(location) instanceof MissingTextureSprite);
     }
     // endregion
+
+    private static int vertexColorIndex;
+
+    static {
+        VertexFormat from = DefaultVertexFormats.BLOCK; //Always BLOCK as of 1.15
+
+        vertexColorIndex = -1;
+        List<VertexFormatElement> elements = from.getElements();
+        for (int i = 0; i < from.getElements().size(); ++i) {
+            VertexFormatElement element = elements.get(i);
+            if (element.getUsage() == VertexFormatElement.Usage.COLOR) {
+                vertexColorIndex = i;
+                break;
+            }
+        }
+    }
 
     public static BakedQuad mulColor(BakedQuad quad, int color) {
 
@@ -355,24 +381,26 @@ public final class RenderHelper {
         float b = ((color) & 0xFF) / 255f; // blue
 
         // Cache this somewhere static, it will never change, and you will never use a different format.
-        int colorIdx = -1;
-        List<VertexFormatElement> elements = from.getElements();
-        for (int i = 0; i < from.getElements().size(); ++i) {
-            VertexFormatElement element = elements.get(i);
-            if (element.getUsage() == VertexFormatElement.Usage.COLOR) {
-                colorIdx = i;
-                break;
-            }
-        }
+        // See above.
+
+        //        int colorIdx = -1;
+        //        List<VertexFormatElement> elements = from.getElements();
+        //        for (int i = 0; i < from.getElements().size(); ++i) {
+        //            VertexFormatElement element = elements.get(i);
+        //            if (element.getUsage() == VertexFormatElement.Usage.COLOR) {
+        //                colorIdx = i;
+        //                break;
+        //            }
+        //        }
 
         int[] packedData = quad.getVertexData().clone();
         float[] data = new float[4];
         for (int v = 0; v < 4; v++) {
-            LightUtil.unpack(packedData, data, from, v, colorIdx);
+            LightUtil.unpack(packedData, data, from, v, vertexColorIndex);
             data[0] = MathHelper.clamp(data[0] * r, 0, 1);
             data[1] = MathHelper.clamp(data[1] * g, 0, 1);
             data[2] = MathHelper.clamp(data[2] * b, 0, 1);
-            LightUtil.pack(data, packedData, from, v, colorIdx);
+            LightUtil.pack(data, packedData, from, v, vertexColorIndex);
         }
         return new BakedQuad(packedData, quad.getTintIndex(), quad.getFace(), quad.getSprite(), quad.applyDiffuseLighting());
     }

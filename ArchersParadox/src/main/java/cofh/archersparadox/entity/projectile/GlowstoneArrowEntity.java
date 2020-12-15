@@ -59,15 +59,21 @@ public class GlowstoneArrowEntity extends AbstractArrowEntity {
 
         super.onImpact(raytraceResultIn);
 
-        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
-            if (effectRadius > 0 && !isInWater()) {
-                if (Utils.isServerWorld(world)) {
-                    AreaUtils.transformGlowAir(this, world, this.getPosition(), effectRadius);
-                    // makeAreaOfEffectCloud();
-                }
-                discharged = true;
-            }
+        if (Utils.isServerWorld(world) && !discharged && !isInWater() && effectRadius > 0) {
+            AreaUtils.transformGlowAir(this, world, this.getPosition(), effectRadius);
+            // makeAreaOfEffectCloud();
+            discharged = true;
         }
+
+        //        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
+        //            if (effectRadius > 0 && !isInWater()) {
+        //                if (Utils.isServerWorld(world)) {
+        //                    AreaUtils.transformGlowAir(this, world, this.getPosition(), effectRadius);
+        //                    // makeAreaOfEffectCloud();
+        //                }
+        //                discharged = true;
+        //            }
+        //        }
     }
 
     @Override

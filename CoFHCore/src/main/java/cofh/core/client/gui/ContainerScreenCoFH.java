@@ -499,9 +499,24 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
     }
 
     @Override
+    public void drawIcon(MatrixStack matrixStack, TextureAtlasSprite icon, int color, int x, int y) {
+
+        RenderHelper.setBlockTextureSheet();
+        RenderHelper.setGLColorFromInt(color);
+        blit(matrixStack, x, y, this.getBlitOffset(), 16, 16, icon);
+        RenderHelper.resetColor();
+    }
+
+    @Override
     public void drawIcon(MatrixStack matrixStack, ResourceLocation location, int x, int y) {
 
         drawIcon(matrixStack, RenderHelper.getTexture(location), x, y);
+    }
+
+    @Override
+    public void drawIcon(MatrixStack matrixStack, ResourceLocation location, int color, int x, int y) {
+
+        drawIcon(matrixStack, RenderHelper.getTexture(location), color, x, y);
     }
 
     @Override

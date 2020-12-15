@@ -62,19 +62,29 @@ public class BlazeArrowEntity extends AbstractArrowEntity {
 
         super.onImpact(raytraceResultIn);
 
-        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
-            if (effectRadius > 0 && !isInWater()) {
-                if (Utils.isServerWorld(world)) {
-                    if (effectDuration - 5 > 0) {
-                        AreaUtils.igniteNearbyEntities(this, world, this.getPosition(), effectRadius, effectDuration - 5);
-                    }
-                    AreaUtils.igniteSpecial(this, world, this.getPosition(), effectRadius, true, true, (LivingEntity) func_234616_v_());
-                    AreaUtils.igniteNearbyGround(this, world, this.getPosition(), effectRadius, 0.1);
-                    makeAreaOfEffectCloud();
-                }
-                discharged = true;
+        if (Utils.isServerWorld(world) && !discharged && !isInWater() && effectRadius > 0) {
+            if (effectDuration - 5 > 0) {
+                AreaUtils.igniteNearbyEntities(this, world, this.getPosition(), effectRadius, effectDuration - 5);
             }
+            AreaUtils.igniteSpecial(this, world, this.getPosition(), effectRadius, true, true, (LivingEntity) func_234616_v_());
+            AreaUtils.igniteNearbyGround(this, world, this.getPosition(), effectRadius, 0.1);
+            makeAreaOfEffectCloud();
+            discharged = true;
         }
+
+        //        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
+        //            if (effectRadius > 0 && !isInWater()) {
+        //                if (Utils.isServerWorld(world)) {
+        //                    if (effectDuration - 5 > 0) {
+        //                        AreaUtils.igniteNearbyEntities(this, world, this.getPosition(), effectRadius, effectDuration - 5);
+        //                    }
+        //                    AreaUtils.igniteSpecial(this, world, this.getPosition(), effectRadius, true, true, (LivingEntity) func_234616_v_());
+        //                    AreaUtils.igniteNearbyGround(this, world, this.getPosition(), effectRadius, 0.1);
+        //                    makeAreaOfEffectCloud();
+        //                }
+        //                discharged = true;
+        //            }
+        //        }
     }
 
     @Override

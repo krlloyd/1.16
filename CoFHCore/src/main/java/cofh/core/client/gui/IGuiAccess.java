@@ -17,7 +17,11 @@ public interface IGuiAccess {
 
     void drawIcon(MatrixStack matrixStack, TextureAtlasSprite icon, int x, int y);
 
+    void drawIcon(MatrixStack matrixStack, TextureAtlasSprite icon, int color, int x, int y);
+
     void drawIcon(MatrixStack matrixStack, ResourceLocation loc, int x, int y);
+
+    void drawIcon(MatrixStack matrixStack, ResourceLocation loc, int color, int x, int y);
 
     void drawSizedRect(int x1, int y1, int x2, int y2, int color);
 

@@ -52,15 +52,23 @@ public class LightningArrowEntity extends AbstractArrowEntity {
 
         super.onImpact(raytraceResultIn);
 
-        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
-            if (!isInWater() && !isInLava()) {
-                BlockPos pos = this.getPosition();
-                if (this.world.canSeeSky(pos)) {
-                    Utils.spawnLightningBolt(world, pos, func_234616_v_());
-                    discharged = true;
-                }
+        if (Utils.isServerWorld(world) && !discharged && !isInWater() && !isInLava()) {
+            BlockPos pos = this.getPosition();
+            if (this.world.canSeeSky(pos)) {
+                Utils.spawnLightningBolt(world, pos, func_234616_v_());
+                discharged = true;
             }
         }
+
+        //        if (!discharged && raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
+        //            if (!isInWater() && !isInLava()) {
+        //                BlockPos pos = this.getPosition();
+        //                if (this.world.canSeeSky(pos)) {
+        //                    Utils.spawnLightningBolt(world, pos, func_234616_v_());
+        //                    discharged = true;
+        //                }
+        //            }
+        //        }
     }
 
     @Override

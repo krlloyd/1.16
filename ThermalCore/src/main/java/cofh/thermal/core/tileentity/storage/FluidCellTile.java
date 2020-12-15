@@ -1,6 +1,7 @@
 package cofh.thermal.core.tileentity.storage;
 
 import cofh.core.fluid.FluidStorageCoFH;
+import cofh.core.fluid.FluidStorageAdjustable;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.StorageGroup;
 import cofh.core.util.helpers.BlockHelper;
@@ -30,7 +31,8 @@ import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXE
 
 public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
 
-    protected FluidStorageCoFH fluidStorage = new FluidStorageCoFH(TANK_MEDIUM * 4);
+    protected FluidStorageCoFH fluidStorage = new FluidStorageAdjustable(TANK_MEDIUM * 4)
+            .setTransferLimits(() -> amountInput, () -> amountOutput);
 
     public FluidCellTile() {
 
@@ -59,7 +61,7 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
         if (redstoneControl.getState()) {
             transferFluid();
         }
-        if (timeCheck()) {
+        if (timeCheck() || fluidStorage.getFluidStack() != renderFluid) {
             updateTrackers(true);
         }
     }

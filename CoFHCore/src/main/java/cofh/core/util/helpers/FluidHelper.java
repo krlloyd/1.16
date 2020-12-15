@@ -4,6 +4,8 @@ import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.util.references.CoreReferences;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -30,7 +32,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -48,14 +49,14 @@ public class FluidHelper {
     public static final Predicate<FluidStack> IS_LAVA = e -> e.getFluid().equals(Fluids.LAVA);
     public static final Predicate<FluidStack> IS_XP = e -> e.getFluid().equals(CoreReferences.FLUID_EXPERIENCE);
 
-    public static HashMap<Fluid, Integer> colorCache = new HashMap<>();
+    public static final Object2IntMap<Fluid> COLOR_CACHE = new Object2IntOpenHashMap<>();
 
     public static int getFluidColor(FluidStack stack) {
 
         int color = -1;
         if (stack != null && stack.getFluid() != null) {
-            color = colorCache.getOrDefault(stack.getFluid(), stack.getFluid().getAttributes().getColor(stack) != 0xffffffff ? stack.getFluid().getAttributes().getColor(stack) : ColorHelper.getColorFrom(stack.getFluid().getAttributes().getStillTexture(stack)));
-            if (!colorCache.containsKey(stack.getFluid())) colorCache.put(stack.getFluid(), color);
+            color = COLOR_CACHE.getOrDefault(stack.getFluid(), stack.getFluid().getAttributes().getColor(stack) != 0xFFFFFFFF ? stack.getFluid().getAttributes().getColor(stack) : ColorHelper.getColorFrom(stack.getFluid().getAttributes().getStillTexture(stack)));
+            if (!COLOR_CACHE.containsKey(stack.getFluid())) COLOR_CACHE.put(stack.getFluid(), color);
         }
         return color;
     }
@@ -64,8 +65,8 @@ public class FluidHelper {
 
         int color = -1;
         if (fluid != null) {
-            color = colorCache.getOrDefault(fluid, fluid.getAttributes().getColor() != 0xffffffff ? fluid.getAttributes().getColor() : ColorHelper.getColorFrom(fluid.getAttributes().getStillTexture()));
-            if (!colorCache.containsKey(fluid)) colorCache.put(fluid, color);
+            color = COLOR_CACHE.getOrDefault(fluid, fluid.getAttributes().getColor() != 0xFFFFFFFF ? fluid.getAttributes().getColor() : ColorHelper.getColorFrom(fluid.getAttributes().getStillTexture()));
+            if (!COLOR_CACHE.containsKey(fluid)) COLOR_CACHE.put(fluid, color);
         }
         return color;
     }

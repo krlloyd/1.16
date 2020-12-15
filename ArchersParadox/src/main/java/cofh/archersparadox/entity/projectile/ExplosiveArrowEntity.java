@@ -1,5 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
+import cofh.core.util.Utils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -52,8 +53,9 @@ public class ExplosiveArrowEntity extends AbstractArrowEntity {
 
         super.onImpact(raytraceResultIn);
 
-        if (raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
+        if (Utils.isServerWorld(world)) {
             world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) (explosionStrength + (knockbackBoost ? knockbackStrength : 0)), explosionsCauseFire && isBurning(), explosionsBreakBlocks ? Explosion.Mode.BREAK : Explosion.Mode.NONE);
+            this.world.setEntityState(this, (byte) 3);
             this.remove();
         }
     }
