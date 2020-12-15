@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import static cofh.core.util.constants.Constants.MAX_CAPACITY;
-import static cofh.core.util.constants.NBTTags.TAG_ENERGY;
+import static cofh.core.util.constants.NBTTags.*;
 
 /**
  * Implementation of an Energy Storage object. See {@link IEnergyStorage}.
@@ -144,10 +144,13 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
 
     public CompoundNBT write(CompoundNBT nbt) {
 
-        if (this.capacity <= 0 || this.energy <= 0) {
+        if (this.capacity <= 0) {
             return nbt;
         }
         nbt.putInt(TAG_ENERGY, energy);
+        nbt.putInt(TAG_ENERGY_MAX, baseCapacity);
+        nbt.putInt(TAG_ENERGY_RECV, this.maxReceive);
+        nbt.putInt(TAG_ENERGY_SEND, this.maxExtract);
         return nbt;
     }
 

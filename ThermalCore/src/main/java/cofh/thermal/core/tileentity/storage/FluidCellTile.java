@@ -1,7 +1,7 @@
 package cofh.thermal.core.tileentity.storage;
 
-import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.fluid.FluidStorageAdjustable;
+import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.StorageGroup;
 import cofh.core.util.helpers.BlockHelper;
@@ -30,6 +30,8 @@ import static cofh.thermal.core.init.TCoreReferences.FLUID_CELL_TILE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
+
+    public static final int BASE_CAPACITY = TANK_MEDIUM * 4;
 
     protected FluidStorageCoFH fluidStorage = new FluidStorageAdjustable(TANK_MEDIUM * 4)
             .setTransferLimits(() -> amountInput, () -> amountOutput);
@@ -94,6 +96,12 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
             adjTile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, opposite)
                     .ifPresent(e -> fluidStorage.modify(-e.fill(new FluidStack(fluidStorage.getFluidStack(), maxTransfer), EXECUTE)));
         }
+    }
+
+    @Override
+    protected boolean keepFluids() {
+
+        return true;
     }
 
     @Override

@@ -45,14 +45,7 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
                 ? getTextComponent("info.cofh.infinite_source")
                 : getTextComponent(localize("info.cofh.energy") + ": " + getScaledNumber(getEnergyStored(stack)) + " / " + getScaledNumber(getMaxEnergyStored(stack)) + " RF"));
 
-        int extract = getExtract(stack);
-        int receive = getReceive(stack);
-
-        if (extract == receive || creative) {
-            tooltip.add(getTextComponent(localize("info.cofh.transfer") + ": " + getScaledNumber(extract) + " RF/t"));
-        } else {
-            tooltip.add(getTextComponent(localize("info.cofh.send") + "|" + localize("info.cofh.receive") + ": " + getScaledNumber(extract) + "|" + getScaledNumber(receive) + " RF/t"));
-        }
+        addEnergyTooltip(stack, worldIn, tooltip, flagIn, getExtract(stack), getReceive(stack), creative);
     }
 
     @Override

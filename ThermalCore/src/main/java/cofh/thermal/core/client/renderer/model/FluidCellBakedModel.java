@@ -2,9 +2,10 @@ package cofh.thermal.core.client.renderer.model;
 
 import cofh.core.client.renderer.model.BakedQuadRetextured;
 import cofh.core.client.renderer.model.ModelUtils;
-import cofh.core.energy.IEnergyContainerItem;
+import cofh.core.fluid.IFluidContainerItem;
 import cofh.core.item.ICoFHItem;
 import cofh.core.util.ComparableItemStack;
+import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.core.util.helpers.RenderHelper;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -20,6 +21,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.client.model.data.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.IModelData;
@@ -29,25 +31,27 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
-import static cofh.core.util.constants.NBTTags.TAG_BLOCK_ENTITY;
-import static cofh.core.util.constants.NBTTags.TAG_SIDES;
+import static cofh.core.util.constants.NBTTags.*;
 import static cofh.thermal.core.client.gui.ThermalTextures.*;
 import static cofh.thermal.core.common.ThermalConfig.DEFAULT_CELL_SIDES_RAW;
 import static net.minecraft.util.Direction.*;
+import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicBakedModel {
 
-    protected static final Map<List<Integer>, BakedQuad> FACE_QUAD_CACHE = new Object2ObjectOpenHashMap<>();
-    protected static final Int2ObjectMap<BakedQuad[]> SIDE_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
+    private static final Map<List<Integer>, BakedQuad> FACE_QUAD_CACHE = new Object2ObjectOpenHashMap<>();
+    private static final Int2ObjectMap<BakedQuad[]> SIDE_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
 
-    protected static final Int2ObjectMap<BakedQuad[]> ITEM_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
-    protected static final Map<List<Integer>, IBakedModel> MODEL_CACHE = new Object2ObjectOpenHashMap<>();
+    private static final Int2ObjectMap<BakedQuad[]> ITEM_UNDERLAY_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
+    private static final Int2ObjectMap<BakedQuad[]> ITEM_QUAD_CACHE = new Int2ObjectOpenHashMap<>();
+    private static final Map<List<Integer>, IBakedModel> MODEL_CACHE = new Object2ObjectOpenHashMap<>();
 
     public static void clearCache() {
 
         FACE_QUAD_CACHE.clear();
         SIDE_QUAD_CACHE.clear();
 
+        ITEM_UNDERLAY_QUAD_CACHE.clear();
         ITEM_QUAD_CACHE.clear();
         MODEL_CACHE.clear();
     }
@@ -65,6 +69,9 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
         if (side == null || quads.isEmpty()) {
             return quads;
         }
+        BakedQuad baseQuad = quads.get(0);
+        int sideIndex = side.getIndex();
+
         // FACE
         Direction face = extraData.getData(ModelUtils.FACING);
         if (side == face) {
@@ -75,45 +82,32 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
             }
             BakedQuad faceQuad = FACE_QUAD_CACHE.get(Arrays.asList(face.getIndex(), level));
             if (faceQuad == null) {
-                faceQuad = new BakedQuadRetextured(quads.get(0), getLevelTexture(level));
+                faceQuad = new BakedQuadRetextured(baseQuad, getLevelTexture(level));
                 FACE_QUAD_CACHE.put(Arrays.asList(face.getIndex(), level), faceQuad);
             }
             quads.add(faceQuad);
         }
-        int sideIndex = side.getIndex();
-        // FLUID
-        if (extraData.hasProperty(ModelUtils.FLUID)) {
-            FluidStack fluid = extraData.getData(ModelUtils.FLUID);
-            if (fluid != null && !fluid.isEmpty()) {
-                FluidCacheWrapper wrapper = new FluidCacheWrapper(state, fluid);
-                BakedQuad[] cachedFluidQuads = FLUID_QUAD_CACHE.get(wrapper);
-                if (cachedFluidQuads == null || cachedFluidQuads.length < 6) {
-                    cachedFluidQuads = new BakedQuad[6];
-                }
-                if (cachedFluidQuads[sideIndex] == null) {
-                    cachedFluidQuads[sideIndex] = new BakedQuadRetextured(RenderHelper.mulColor(quads.get(0), RenderHelper.getFluidColor(fluid)), RenderHelper.getFluidTexture(fluid));
-                    FLUID_QUAD_CACHE.put(wrapper, cachedFluidQuads);
-                }
-                quads.offerFirst(cachedFluidQuads[sideIndex]);
-            }
-        }
+
         // SIDES
         byte[] sideConfigRaw = extraData.getData(ModelUtils.SIDES);
         if (sideConfigRaw == null) {
             // This shouldn't happen, but playing it safe.
             return quads;
         }
+
         int configHash = Arrays.hashCode(sideConfigRaw);
         BakedQuad[] cachedSideQuads = SIDE_QUAD_CACHE.get(configHash);
         if (cachedSideQuads == null || cachedSideQuads.length < 6) {
             cachedSideQuads = new BakedQuad[6];
         }
         if (cachedSideQuads[sideIndex] == null) {
-            cachedSideQuads[sideIndex] = new BakedQuadRetextured(quads.get(0), getConfigTexture(sideConfigRaw[sideIndex]));
+            cachedSideQuads[sideIndex] = new BakedQuadRetextured(baseQuad, getConfigTexture(sideConfigRaw[sideIndex]));
             SIDE_QUAD_CACHE.put(configHash, cachedSideQuads);
         }
         quads.add(cachedSideQuads[sideIndex]);
-        return quads;
+
+        // FLUID
+        return super.addUnderlayQuads(quads, state, side, rand, extraData);
     }
 
     @Override
@@ -121,50 +115,6 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
 
         return overrideList;
     }
-
-    // region HELPERS
-    private TextureAtlasSprite getConfigTexture(byte side) {
-
-        switch (side) {
-            case 1:
-                return CELL_CONFIG_INPUT;
-            case 2:
-                return CELL_CONFIG_OUTPUT;
-            default:
-                return CELL_CONFIG_NONE;
-        }
-    }
-
-    private TextureAtlasSprite getLevelTexture(int level) {
-
-        // Creative returned as -1;
-        if (level < 0) {
-            return CELL_LEVEL_C;
-        }
-        return CELL_LEVELS[MathHelper.clamp(level, 0, 8)];
-    }
-
-    private byte[] getSideConfigRaw(CompoundNBT tag) {
-
-        if (tag == null) {
-            return DEFAULT_CELL_SIDES_RAW;
-        }
-        byte[] ret = tag.getByteArray(TAG_SIDES);
-        return ret.length == 0 ? DEFAULT_CELL_SIDES_RAW : ret;
-    }
-
-    private int getLevel(ItemStack stack) {
-
-        Item item = stack.getItem();
-        if (item instanceof ICoFHItem && ((ICoFHItem) item).isCreative(stack)) {
-            return -1;
-        }
-        if (item instanceof IEnergyContainerItem && ((IEnergyContainerItem) item).getEnergyStored(stack) > 0) {
-            return 1 + Math.min(((IEnergyContainerItem) item).getScaledEnergyStored(stack, 8), 7);
-        }
-        return 0;
-    }
-    // endregion
 
     private final ItemOverrideList overrideList = new ItemOverrideList() {
 
@@ -178,11 +128,40 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
             int level = getLevel(stack);
             int configHash = Arrays.hashCode(sideConfigRaw);
 
-            IBakedModel ret = MODEL_CACHE.get(Arrays.asList(itemHash, level, configHash));
+            FluidStack fluid = getFluid(tag);
+            int fluidHash = fluid.isEmpty() ? 0 : FluidHelper.fluidHashcode(fluid);
+
+            IBakedModel ret = MODEL_CACHE.get(Arrays.asList(itemHash, level, configHash, fluidHash));
             if (ret == null) {
                 ModelUtils.WrappedBakedModelBuilder builder = new ModelUtils.WrappedBakedModelBuilder(model);
+
                 // FACE
                 builder.addFaceQuad(NORTH, new BakedQuadRetextured(builder.getQuads(NORTH).get(0), getLevelTexture(level)));
+
+                // FLUID
+                if (!fluid.isEmpty()) {
+                    BakedQuad[] cachedUnderlayQuads = ITEM_UNDERLAY_QUAD_CACHE.get(FluidHelper.fluidHashcode(fluid));
+                    if (cachedUnderlayQuads == null || cachedUnderlayQuads.length < 6) {
+                        cachedUnderlayQuads = new BakedQuad[6];
+                        TextureAtlasSprite fluidTexture = RenderHelper.getFluidTexture(fluid);
+                        int fluidColor = RenderHelper.getFluidColor(fluid);
+
+                        cachedUnderlayQuads[0] = new BakedQuadRetextured(RenderHelper.mulColor(builder.getQuads(DOWN).get(0), fluidColor), fluidTexture);
+                        cachedUnderlayQuads[1] = new BakedQuadRetextured(RenderHelper.mulColor(builder.getQuads(UP).get(0), fluidColor), fluidTexture);
+                        cachedUnderlayQuads[2] = new BakedQuadRetextured(RenderHelper.mulColor(builder.getQuads(NORTH).get(0), fluidColor), fluidTexture);
+                        cachedUnderlayQuads[3] = new BakedQuadRetextured(RenderHelper.mulColor(builder.getQuads(SOUTH).get(0), fluidColor), fluidTexture);
+                        cachedUnderlayQuads[4] = new BakedQuadRetextured(RenderHelper.mulColor(builder.getQuads(WEST).get(0), fluidColor), fluidTexture);
+                        cachedUnderlayQuads[5] = new BakedQuadRetextured(RenderHelper.mulColor(builder.getQuads(EAST).get(0), fluidColor), fluidTexture);
+                        ITEM_UNDERLAY_QUAD_CACHE.put(fluidHash, cachedUnderlayQuads);
+                    }
+                    builder.addUnderlayQuad(DOWN, cachedUnderlayQuads[0]);
+                    builder.addUnderlayQuad(UP, cachedUnderlayQuads[1]);
+                    builder.addUnderlayQuad(NORTH, cachedUnderlayQuads[2]);
+                    builder.addUnderlayQuad(SOUTH, cachedUnderlayQuads[3]);
+                    builder.addUnderlayQuad(WEST, cachedUnderlayQuads[4]);
+                    builder.addUnderlayQuad(EAST, cachedUnderlayQuads[5]);
+                }
+
                 // SIDES
                 BakedQuad[] cachedQuads = ITEM_QUAD_CACHE.get(configHash);
                 if (cachedQuads == null || cachedQuads.length < 6) {
@@ -204,10 +183,65 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
                 builder.addFaceQuad(EAST, cachedQuads[5]);
 
                 ret = builder.build();
-                MODEL_CACHE.put(Arrays.asList(itemHash, level, configHash), ret);
+                MODEL_CACHE.put(Arrays.asList(itemHash, level, configHash, fluidHash), ret);
             }
             return ret;
         }
     };
 
+    // region HELPERS
+    private TextureAtlasSprite getConfigTexture(byte side) {
+
+        switch (side) {
+            case 1:
+                return CELL_CONFIG_INPUT;
+            case 2:
+                return CELL_CONFIG_OUTPUT;
+            default:
+                return CELL_CONFIG_NONE;
+        }
+    }
+
+    private TextureAtlasSprite getLevelTexture(int level) {
+
+        // Creative returned as -1;
+        if (level < 0) {
+            return ENERGY_CELL_LEVEL_C;
+        }
+        return ENERGY_CELL_LEVELS[MathHelper.clamp(level, 0, 8)];
+    }
+
+    private FluidStack getFluid(CompoundNBT tag) {
+
+        if (tag == null) {
+            return FluidStack.EMPTY;
+        }
+        ListNBT tanks = tag.getList(TAG_TANK_INV, TAG_COMPOUND);
+        if (tanks.isEmpty()) {
+            return FluidStack.EMPTY;
+        }
+        return FluidStack.loadFluidStackFromNBT(tanks.getCompound(0));
+    }
+
+    private byte[] getSideConfigRaw(CompoundNBT tag) {
+
+        if (tag == null) {
+            return DEFAULT_CELL_SIDES_RAW;
+        }
+        byte[] ret = tag.getByteArray(TAG_SIDES);
+        return ret.length == 0 ? DEFAULT_CELL_SIDES_RAW : ret;
+    }
+
+    private int getLevel(ItemStack stack) {
+
+        Item item = stack.getItem();
+        if (item instanceof ICoFHItem && ((ICoFHItem) item).isCreative(stack)) {
+            return -1;
+        }
+        if (item instanceof IFluidContainerItem && ((IFluidContainerItem) item).getFluidAmount(stack) > 0) {
+            return 1 + Math.min(((IFluidContainerItem) item).getScaledFluidStored(stack, 8), 7);
+        }
+        return 0;
+    }
+    // endregion
 }

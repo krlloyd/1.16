@@ -66,9 +66,9 @@ public class ThermalTextures {
         CELL_CONFIG_OUTPUT = map.getSprite(CELL_CONFIG_OUTPUT_LOC);
 
         for (int i = 0; i < 9; ++i) {
-            CELL_LEVELS[i] = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_" + i));
+            ENERGY_CELL_LEVELS[i] = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_" + i));
         }
-        CELL_LEVEL_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_c"));
+        ENERGY_CELL_LEVEL_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_c"));
     }
 
     // region CONFIG
@@ -94,7 +94,7 @@ public class ThermalTextures {
     public static TextureAtlasSprite CELL_CONFIG_INPUT;
     public static TextureAtlasSprite CELL_CONFIG_OUTPUT;
 
-    public static TextureAtlasSprite[] CELL_LEVELS = new TextureAtlasSprite[9];
-    public static TextureAtlasSprite CELL_LEVEL_C;
+    public static TextureAtlasSprite[] ENERGY_CELL_LEVELS = new TextureAtlasSprite[9];
+    public static TextureAtlasSprite ENERGY_CELL_LEVEL_C;
     // endregion
 }

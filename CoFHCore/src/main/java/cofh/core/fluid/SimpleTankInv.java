@@ -70,7 +70,7 @@ public class SimpleTankInv extends SimpleFluidHandler {
             CompoundNBT tag = list.getCompound(i);
             int tank = tag.getByte(TAG_TANK);
             if (tank >= 0 && tank < tanks.size()) {
-                tanks.get(tank).readFromNBT(tag);
+                tanks.get(tank).read(tag);
             }
         }
         return this;
@@ -86,7 +86,7 @@ public class SimpleTankInv extends SimpleFluidHandler {
             if (!tanks.get(i).isEmpty()) {
                 CompoundNBT tag = new CompoundNBT();
                 tag.putByte(TAG_TANK, (byte) i);
-                tanks.get(i).writeToNBT(tag);
+                tanks.get(i).write(tag);
                 list.add(tag);
             }
         }

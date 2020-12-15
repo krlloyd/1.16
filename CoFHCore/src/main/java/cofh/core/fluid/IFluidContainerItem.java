@@ -7,6 +7,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
+import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
+import static cofh.core.util.constants.NBTTags.TAG_AMOUNT;
 import static cofh.core.util.constants.NBTTags.TAG_FLUID;
 
 /**
@@ -18,6 +20,11 @@ import static cofh.core.util.constants.NBTTags.TAG_FLUID;
  * @author King Lemming
  */
 public interface IFluidContainerItem extends IContainerItem {
+
+    default CompoundNBT getOrCreateTankTag(ItemStack container) {
+
+        return container.getOrCreateTag();
+    }
 
     default int getSpace(ItemStack container) {
 
@@ -40,7 +47,7 @@ public interface IFluidContainerItem extends IContainerItem {
      */
     default FluidStack getFluid(ItemStack container) {
 
-        CompoundNBT tag = container.getOrCreateTag();
+        CompoundNBT tag = getOrCreateTankTag(container);
         if (!tag.contains(TAG_FLUID)) {
             return FluidStack.EMPTY;
         }
@@ -52,7 +59,10 @@ public interface IFluidContainerItem extends IContainerItem {
      * @param resource  FluidStack being queried.
      * @return TRUE if the fluid is valid in this particular container.
      */
-    boolean isFluidValid(ItemStack container, FluidStack resource);
+    default boolean isFluidValid(ItemStack container, FluidStack resource) {
+
+        return true;
+    }
 
     /**
      * @param container ItemStack which is the fluid container.
@@ -66,7 +76,61 @@ public interface IFluidContainerItem extends IContainerItem {
      * @param action    If SIMULATE, the fill will only be simulated.
      * @return Amount of fluid that was (or would have been, if simulated) filled into the container.
      */
-    int fill(ItemStack container, FluidStack resource, FluidAction action);
+    default int fill(ItemStack container, FluidStack resource, FluidAction action) {
+
+        CompoundNBT containerTag = getOrCreateTankTag(container);
+        if (resource.isEmpty() || !isFluidValid(container, resource)) {
+            return 0;
+        }
+        int capacity = getCapacity(container);
+
+        if (isCreative(container)) {
+            if (action.execute()) {
+                CompoundNBT fluidTag = resource.writeToNBT(new CompoundNBT());
+                fluidTag.putInt(TAG_AMOUNT, capacity - BUCKET_VOLUME);
+                containerTag.put(TAG_FLUID, fluidTag);
+            }
+            return resource.getAmount();
+        }
+        if (action.simulate()) {
+            if (!containerTag.contains(TAG_FLUID)) {
+                return Math.min(capacity, resource.getAmount());
+            }
+            FluidStack stack = FluidStack.loadFluidStackFromNBT(containerTag.getCompound(TAG_FLUID));
+            if (stack.isEmpty()) {
+                return Math.min(capacity, resource.getAmount());
+            }
+            if (!stack.isFluidEqual(resource)) {
+                return 0;
+            }
+            return Math.min(capacity - stack.getAmount(), resource.getAmount());
+        }
+        if (!containerTag.contains(TAG_FLUID)) {
+            CompoundNBT fluidTag = resource.writeToNBT(new CompoundNBT());
+            if (capacity < resource.getAmount()) {
+                fluidTag.putInt(TAG_AMOUNT, capacity);
+                containerTag.put(TAG_FLUID, fluidTag);
+                return capacity;
+            }
+            fluidTag.putInt(TAG_AMOUNT, resource.getAmount());
+            containerTag.put(TAG_FLUID, fluidTag);
+            return resource.getAmount();
+        }
+        CompoundNBT fluidTag = containerTag.getCompound(TAG_FLUID);
+        FluidStack stack = FluidStack.loadFluidStackFromNBT(fluidTag);
+        if (stack.isEmpty() || !stack.isFluidEqual(resource)) {
+            return 0;
+        }
+        int filled = capacity - stack.getAmount();
+        if (resource.getAmount() < filled) {
+            stack.grow(resource.getAmount());
+            filled = resource.getAmount();
+        } else {
+            stack.setAmount(capacity);
+        }
+        containerTag.put(TAG_FLUID, stack.writeToNBT(fluidTag));
+        return filled;
+    }
 
     /**
      * @param container ItemStack which is the fluid container.
@@ -75,6 +139,28 @@ public interface IFluidContainerItem extends IContainerItem {
      * @return Fluidstack holding the amount of fluid that was (or would have been, if simulated) drained from the
      * container.
      */
-    FluidStack drain(ItemStack container, int maxDrain, FluidAction action);
+    default FluidStack drain(ItemStack container, int maxDrain, FluidAction action) {
+
+        CompoundNBT containerTag = getOrCreateTankTag(container);
+        if (maxDrain <= 0 || !containerTag.contains(TAG_FLUID)) {
+            return FluidStack.EMPTY;
+        }
+        FluidStack stack = FluidStack.loadFluidStackFromNBT(containerTag.getCompound(TAG_FLUID));
+        if (stack.isEmpty()) {
+            return FluidStack.EMPTY;
+        }
+        int drained = isCreative(container) ? maxDrain : Math.min(stack.getAmount(), maxDrain);
+        if (action.execute() && !isCreative(container)) {
+            if (maxDrain >= stack.getAmount()) {
+                containerTag.remove(TAG_FLUID);
+                return stack;
+            }
+            CompoundNBT fluidTag = containerTag.getCompound(TAG_FLUID);
+            fluidTag.putInt(TAG_AMOUNT, fluidTag.getInt(TAG_AMOUNT) - drained);
+            containerTag.put(TAG_FLUID, fluidTag);
+        }
+        stack.setAmount(drained);
+        return stack;
+    }
 
 }

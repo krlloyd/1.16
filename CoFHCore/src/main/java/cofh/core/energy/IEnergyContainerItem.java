@@ -16,15 +16,9 @@ import static cofh.core.util.constants.NBTTags.TAG_ENERGY;
  */
 public interface IEnergyContainerItem extends IContainerItem {
 
-    default ItemStack setDefaultTag(ItemStack stack, int energy) {
+    default CompoundNBT getOrCreateEnergyTag(ItemStack container) {
 
-        stack.getOrCreateTag().putInt(TAG_ENERGY, energy);
-        return stack;
-    }
-
-    default CompoundNBT getEnergyTag(ItemStack container) {
-
-        return container.getTag();
+        return container.getOrCreateTag();
     }
 
     default int getSpace(ItemStack container) {
@@ -42,10 +36,7 @@ public interface IEnergyContainerItem extends IContainerItem {
      */
     default int getEnergyStored(ItemStack container) {
 
-        CompoundNBT tag = getEnergyTag(container);
-        if (tag == null) {
-            return 0;
-        }
+        CompoundNBT tag = getOrCreateEnergyTag(container);
         return Math.min(tag.getInt(TAG_ENERGY), getMaxEnergyStored(container));
     }
 
@@ -60,11 +51,7 @@ public interface IEnergyContainerItem extends IContainerItem {
 
     default void setEnergyStored(ItemStack container, int energy) {
 
-        CompoundNBT tag = getEnergyTag(container);
-        if (tag == null) {
-            setDefaultTag(container, 0);
-            tag = getEnergyTag(container);
-        }
+        CompoundNBT tag = getOrCreateEnergyTag(container);
         tag.putInt(TAG_ENERGY, MathHelper.clamp(energy, 0, getMaxEnergyStored(container)));
     }
 
@@ -79,11 +66,7 @@ public interface IEnergyContainerItem extends IContainerItem {
      */
     default int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
 
-        CompoundNBT tag = getEnergyTag(container);
-        if (tag == null) {
-            setDefaultTag(container, 0);
-            tag = getEnergyTag(container);
-        }
+        CompoundNBT tag = getOrCreateEnergyTag(container);
         if (isCreative(container)) {
             return 0;
         }
@@ -108,11 +91,7 @@ public interface IEnergyContainerItem extends IContainerItem {
      */
     default int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 
-        CompoundNBT tag = getEnergyTag(container);
-        if (tag == null) {
-            setDefaultTag(container, 0);
-            tag = getEnergyTag(container);
-        }
+        CompoundNBT tag = getOrCreateEnergyTag(container);
         if (isCreative(container)) {
             return maxExtract;
         }

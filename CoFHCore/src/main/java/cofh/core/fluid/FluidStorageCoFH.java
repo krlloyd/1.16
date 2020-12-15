@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 
 import static cofh.core.util.constants.Constants.MAX_CAPACITY;
 import static cofh.core.util.constants.Constants.TRUE;
+import static cofh.core.util.constants.NBTTags.TAG_CAPACITY;
 
 /**
  * Implementation of a Fluid Storage object. Does NOT implement {@link IFluidTank}.
@@ -83,16 +84,17 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
     }
 
     // region NBT
-    public FluidStorageCoFH readFromNBT(CompoundNBT nbt) {
+    public FluidStorageCoFH read(CompoundNBT nbt) {
 
         FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
         setFluidStack(fluid);
         return this;
     }
 
-    public CompoundNBT writeToNBT(CompoundNBT nbt) {
+    public CompoundNBT write(CompoundNBT nbt) {
 
         fluid.writeToNBT(nbt);
+        nbt.putInt(TAG_CAPACITY, baseCapacity);
         return nbt;
     }
     // endregion

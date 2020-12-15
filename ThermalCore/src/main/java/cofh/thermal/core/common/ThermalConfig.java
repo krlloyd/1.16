@@ -48,13 +48,13 @@ public class ThermalConfig {
         SERVER_CONFIG.push("Global Options");
 
         keepEnergy = SERVER_CONFIG
-                .comment("If TRUE, Thermal Blocks will retain Energy when dropped.")
+                .comment("If TRUE, most Thermal Blocks will retain Energy when dropped. This setting does not control ALL blocks.")
                 .define("Blocks Retain Energy", true);
         keepItems = SERVER_CONFIG
-                .comment("If TRUE, Thermal Blocks will retain Inventory Contents when dropped.")
+                .comment("If TRUE, most Thermal Blocks will retain Inventory Contents when dropped. This setting does not control ALL blocks.")
                 .define("Blocks Retain Inventory", false);
         keepFluids = SERVER_CONFIG
-                .comment("If TRUE, Thermal Blocks will retain Tank Contents when dropped.")
+                .comment("If TRUE, most Thermal Blocks will retain Tank Contents when dropped. This setting does not control ALL blocks.")
                 .define("Blocks Retain Tank Contents", false);
         keepAugments = SERVER_CONFIG
                 .comment("If TRUE, Thermal Blocks will retain Augments when dropped.")

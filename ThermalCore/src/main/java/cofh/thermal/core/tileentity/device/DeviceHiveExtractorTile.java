@@ -60,8 +60,7 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
             return;
         }
         BlockState hive = world.getBlockState(above);
-        Block hiveBlock = hive.getBlock();
-        if (hiveBlock instanceof BeehiveBlock && BeehiveTileEntity.getHoneyLevel(hive) >= 5) {
+        if (hive.hasProperty(BeehiveBlock.HONEY_LEVEL) && BeehiveTileEntity.getHoneyLevel(hive) >= 5) {
             world.setBlockState(above, hive.with(BeehiveBlock.HONEY_LEVEL, 0), 3);
             if (outputSlot.isEmpty()) {
                 outputSlot.setItemStack(cloneStack(Items.HONEYCOMB, COMB_AMOUNT));
@@ -79,7 +78,7 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
     protected void updateActiveState() {
 
         boolean curActive = isActive;
-        isActive = redstoneControl().getState() && world.getBlockState(pos.up()).getBlock() instanceof BeehiveBlock;
+        isActive = redstoneControl().getState() && world.getBlockState(pos.up()).hasProperty(BeehiveBlock.HONEY_LEVEL);
         updateActiveState(curActive);
     }
 
@@ -115,8 +114,7 @@ public class DeviceHiveExtractorTile extends ThermalTileBase {
     }
 
     @Override
-    public void onPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack
-            stack) {
+    public void onPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 
         super.onPlacedBy(worldIn, pos, state, placer, stack);
         if (redstoneControl.getState()) {

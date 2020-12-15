@@ -19,6 +19,7 @@ public class NBTTags {
     public static final String TAG_BLOCK_ENTITY = "BlockEntityTag";
     public static final String TAG_BLOCK_STATE = "BlockStateTag";
     public static final String TAG_CART_DATA = "CartData";
+    public static final String TAG_CAPACITY = "Capacity";
     public static final String TAG_COLORS = "Colors";
     public static final String TAG_COOLANT = "Coolant";
     public static final String TAG_COOLANT_MAX = "CoolantMax";
@@ -36,6 +37,7 @@ public class NBTTags {
     public static final String TAG_FUSE = "Fuse";
     public static final String TAG_FILTER = "Filter";
     public static final String TAG_FLUID = "Fluid";
+    public static final String TAG_FLUID_NAME = "FluidName";
     public static final String TAG_INDEX = "Index";
     public static final String TAG_ITEM_INV = "ItemInv";
     public static final String TAG_MODE = "Mode";

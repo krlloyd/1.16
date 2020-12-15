@@ -1,6 +1,5 @@
 package cofh.core.fluid;
 
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 
@@ -10,6 +9,7 @@ import java.util.function.Predicate;
 
 /**
  * Implementation of a Fluid Storage object. Does NOT implement {@link IFluidTank}.
+ * Additional options (fill/drain limits) are provided.
  *
  * @author King Lemming
  */
@@ -34,21 +34,6 @@ public class FluidStorageAdjustable extends FluidStorageCoFH {
         this.maxDrain = maxDrain;
         return this;
     }
-
-    // region NBT
-    public FluidStorageAdjustable readFromNBT(CompoundNBT nbt) {
-
-        FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
-        setFluidStack(fluid);
-        return this;
-    }
-
-    public CompoundNBT writeToNBT(CompoundNBT nbt) {
-
-        fluid.writeToNBT(nbt);
-        return nbt;
-    }
-    // endregion
 
     // region IFluidHandler
     @Override

@@ -2,7 +2,6 @@ package cofh.core.item;
 
 import cofh.core.fluid.FluidContainerItemWrapper;
 import cofh.core.fluid.IFluidContainerItem;
-import cofh.core.util.helpers.FluidHelper;
 import cofh.core.util.helpers.MathHelper;
 import cofh.core.util.helpers.StringHelper;
 import net.minecraft.client.util.ITooltipFlag;
@@ -13,16 +12,14 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static cofh.core.util.constants.Constants.BUCKET_VOLUME;
-import static cofh.core.util.constants.NBTTags.TAG_AMOUNT;
 import static cofh.core.util.constants.NBTTags.TAG_FLUID;
 import static cofh.core.util.helpers.FluidHelper.addPotionTooltip;
+import static cofh.core.util.helpers.FluidHelper.hasPotionTag;
 import static cofh.core.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
 import static cofh.core.util.helpers.StringHelper.*;
 
@@ -56,7 +53,7 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
                 ? getTextComponent("info.cofh.infinite_source")
                 : getTextComponent(localize("info.cofh.amount") + ": " + format(fluid.getAmount()) + " / " + format(getCapacity(stack)) + " mB"));
 
-        if (FluidHelper.hasPotionTag(fluid)) {
+        if (hasPotionTag(fluid)) {
             tooltip.add(getEmptyLine());
             tooltip.add(getTextComponent(localize("info.cofh.effects") + ":"));
             addPotionTooltip(fluid, tooltip);
@@ -78,7 +75,7 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
                 ? getTextComponent("info.cofh.infinite_source")
                 : getTextComponent(localize("info.cofh.amount") + ": " + format(fluid.getAmount()) + " / " + format(getCapacity(stack)) + " mB"));
 
-        if (FluidHelper.hasPotionTag(fluid)) {
+        if (hasPotionTag(fluid)) {
             tooltip.add(getEmptyLine());
             tooltip.add(getTextComponent(localize("info.cofh.effects") + ":"));
             addPotionTooltip(effects, tooltip, durationFactor);
@@ -126,88 +123,6 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
     public int getCapacity(ItemStack container) {
 
         return getMaxStored(container, fluidCapacity);
-    }
-
-    @Override
-    public int fill(ItemStack container, FluidStack resource, IFluidHandler.FluidAction action) {
-
-        CompoundNBT containerTag = container.getOrCreateTag();
-        if (resource.isEmpty() || !isFluidValid(container, resource)) {
-            return 0;
-        }
-        int capacity = getCapacity(container);
-
-        if (isCreative(container)) {
-            if (action.execute()) {
-                CompoundNBT fluidTag = resource.writeToNBT(new CompoundNBT());
-                fluidTag.putInt(TAG_AMOUNT, capacity - BUCKET_VOLUME);
-                containerTag.put(TAG_FLUID, fluidTag);
-            }
-            return resource.getAmount();
-        }
-        if (action.simulate()) {
-            if (!containerTag.contains(TAG_FLUID)) {
-                return Math.min(capacity, resource.getAmount());
-            }
-            FluidStack stack = FluidStack.loadFluidStackFromNBT(containerTag.getCompound(TAG_FLUID));
-            if (stack.isEmpty()) {
-                return Math.min(capacity, resource.getAmount());
-            }
-            if (!stack.isFluidEqual(resource)) {
-                return 0;
-            }
-            return Math.min(capacity - stack.getAmount(), resource.getAmount());
-        }
-        if (!containerTag.contains(TAG_FLUID)) {
-            CompoundNBT fluidTag = resource.writeToNBT(new CompoundNBT());
-            if (capacity < resource.getAmount()) {
-                fluidTag.putInt(TAG_AMOUNT, capacity);
-                containerTag.put(TAG_FLUID, fluidTag);
-                return capacity;
-            }
-            fluidTag.putInt(TAG_AMOUNT, resource.getAmount());
-            containerTag.put(TAG_FLUID, fluidTag);
-            return resource.getAmount();
-        }
-        CompoundNBT fluidTag = containerTag.getCompound(TAG_FLUID);
-        FluidStack stack = FluidStack.loadFluidStackFromNBT(fluidTag);
-        if (stack.isEmpty() || !stack.isFluidEqual(resource)) {
-            return 0;
-        }
-        int filled = capacity - stack.getAmount();
-        if (resource.getAmount() < filled) {
-            stack.grow(resource.getAmount());
-            filled = resource.getAmount();
-        } else {
-            stack.setAmount(capacity);
-        }
-        containerTag.put(TAG_FLUID, stack.writeToNBT(fluidTag));
-        return filled;
-    }
-
-    @Override
-    public FluidStack drain(ItemStack container, int maxDrain, IFluidHandler.FluidAction action) {
-
-        CompoundNBT containerTag = container.getOrCreateTag();
-        if (!containerTag.contains(TAG_FLUID) || maxDrain == 0) {
-            return FluidStack.EMPTY;
-        }
-        FluidStack stack = FluidStack.loadFluidStackFromNBT(containerTag.getCompound(TAG_FLUID));
-        if (stack.isEmpty()) {
-            return FluidStack.EMPTY;
-        }
-        int drained = isCreative(container) ? maxDrain : Math.min(stack.getAmount(), maxDrain);
-        if (action.execute() && !isCreative(container)) {
-            if (maxDrain >= stack.getAmount()) {
-                containerTag.remove(TAG_FLUID);
-                return stack;
-            }
-            CompoundNBT fluidTag = containerTag.getCompound(TAG_FLUID);
-            fluidTag.putInt(TAG_AMOUNT, fluidTag.getInt(TAG_AMOUNT) - drained);
-            containerTag.put(TAG_FLUID, fluidTag);
-        }
-        stack.setAmount(drained);
-        return stack;
     }
     // endregion
 

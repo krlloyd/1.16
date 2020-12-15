@@ -25,11 +25,15 @@ import static cofh.thermal.core.init.TCoreReferences.ENERGY_CELL_TILE;
 
 public class EnergyCellTile extends CellTileBase implements ITickableTileEntity {
 
+    public static final int BASE_CAPACITY = 1000000;
+    public static final int BASE_RECV = 1000;
+    public static final int BASE_SEND = 1000;
+
     public EnergyCellTile() {
 
         super(ENERGY_CELL_TILE);
 
-        energyStorage = new EnergyStorageAdjustable(1000000, 1000, 1000)
+        energyStorage = new EnergyStorageAdjustable(BASE_CAPACITY, BASE_RECV, BASE_SEND)
                 .setTransferLimits(() -> amountInput, () -> amountOutput);
 
         amountInput = energyStorage.getMaxReceive();
@@ -86,6 +90,12 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
             adjTile.getCapability(CapabilityEnergy.ENERGY, opposite)
                     .ifPresent(e -> energyStorage.modify(-e.receiveEnergy(maxTransfer, false)));
         }
+    }
+
+    @Override
+    protected boolean keepEnergy() {
+
+        return true;
     }
 
     @Override

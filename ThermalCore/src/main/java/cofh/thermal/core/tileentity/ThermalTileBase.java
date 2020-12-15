@@ -221,7 +221,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState) {
 
-        if (!ThermalConfig.keepItems.get()) {
+        if (!keepItems()) {
             for (int i = 0; i < invSize() - augSize(); ++i) {
                 InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), inventory.getStackInSlot(i));
             }
@@ -237,10 +237,10 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     public ItemStack createItemStackTag(ItemStack stack) {
 
         CompoundNBT nbt = stack.getOrCreateChildTag(TAG_BLOCK_ENTITY);
-        if (ThermalConfig.keepEnergy.get()) {
+        if (keepEnergy()) {
             getEnergyStorage().write(nbt);
         }
-        if (ThermalConfig.keepItems.get()) {
+        if (keepItems()) {
             getItemInv().writeSlotsToNBT(nbt, 0, invSize() - augSize());
         }
         if (ThermalConfig.keepAugments.get() && augSize() > 0) {
@@ -250,7 +250,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
                 ((IAugmentableItem) stack.getItem()).updateAugmentState(stack, items);
             }
         }
-        if (ThermalConfig.keepFluids.get()) {
+        if (keepFluids()) {
             getTankInv().write(nbt);
         }
         if (ThermalConfig.keepRSControl.get()) {
@@ -272,6 +272,21 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
             stack.getOrCreateTag().put(TAG_ENCHANTMENTS, enchantments);
         }
         return super.createItemStackTag(stack);
+    }
+
+    protected boolean keepEnergy() {
+
+        return ThermalConfig.keepEnergy.get();
+    }
+
+    protected boolean keepFluids() {
+
+        return ThermalConfig.keepFluids.get();
+    }
+
+    protected boolean keepItems() {
+
+        return ThermalConfig.keepItems.get();
     }
     // endregion
 
