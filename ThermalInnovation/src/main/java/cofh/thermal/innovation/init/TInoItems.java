@@ -34,6 +34,9 @@ public class TInoItems {
         // registerItem("flux_pump", () -> new RFPumpItem(new Item.Properties().maxStackSize(1).group(group), energy, xfer));
         registerItem("flux_capacitor", () -> new RFCapacitorItem(new Item.Properties().maxStackSize(1).group(group), energy * 10, xfer));
         registerItem("flux_magnet", () -> new RFMagnetItem(new Item.Properties().maxStackSize(1).group(group), energy, xfer));
+
+        // registerItem("fluid_reservoir", () -> new FluidReservoirItem(new Item.Properties().maxStackSize(1).group(group), fluid * 4));
+
         registerItem("potion_infuser", () -> new PotionInfuserItem(new Item.Properties().maxStackSize(1).group(group), fluid));
         registerItem("potion_quiver", () -> new PotionQuiverItem(new Item.Properties().maxStackSize(1).group(group), fluid, arrows));
     }

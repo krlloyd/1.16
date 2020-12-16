@@ -206,9 +206,9 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
 
         // Creative returned as -1;
         if (level < 0) {
-            return ENERGY_CELL_LEVEL_C;
+            return FLUID_CELL_LEVEL_C;
         }
-        return ENERGY_CELL_LEVELS[MathHelper.clamp(level, 0, 8)];
+        return FLUID_CELL_LEVELS[MathHelper.clamp(level, 0, 8)];
     }
 
     private FluidStack getFluid(CompoundNBT tag) {

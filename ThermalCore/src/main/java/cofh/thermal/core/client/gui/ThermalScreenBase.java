@@ -1,10 +1,7 @@
 package cofh.thermal.core.client.gui;
 
 import cofh.core.client.gui.ContainerScreenCoFH;
-import cofh.core.client.gui.element.panel.PanelAugmentation;
-import cofh.core.client.gui.element.panel.PanelInfo;
-import cofh.core.client.gui.element.panel.PanelRedstoneControl;
-import cofh.core.client.gui.element.panel.PanelSecurity;
+import cofh.core.client.gui.element.panel.*;
 import cofh.core.inventory.container.ContainerCoFH;
 import cofh.core.util.helpers.SecurityHelper;
 import cofh.thermal.core.tileentity.ThermalTileBase;
@@ -29,6 +26,8 @@ public class ThermalScreenBase<T extends ContainerCoFH> extends ContainerScreenC
         if (info != null && !info.isEmpty()) {
             addPanel(new PanelInfo(this, info));
         }
+        // TODO: Enchantment Panel
+        // addPanel(new PanelEnchantment(this, "This block can be enchanted."));
         addPanel(new PanelSecurity(this, tile, SecurityHelper.getID(player)));
 
         if (container.getAugmentSlots().size() > 0) {

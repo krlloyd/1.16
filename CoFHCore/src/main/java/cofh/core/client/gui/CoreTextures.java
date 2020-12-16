@@ -39,6 +39,7 @@ public class CoreTextures {
         event.addSprite(new ResourceLocation(ICONS_ + "icon_cancel"));
         event.addSprite(new ResourceLocation(ICONS_ + "icon_cancel_inactive"));
         event.addSprite(new ResourceLocation(ICONS_ + "icon_config"));
+        event.addSprite(new ResourceLocation(ICONS_ + "icon_enchantment"));
         event.addSprite(new ResourceLocation(ICONS_ + "icon_energy"));
         event.addSprite(new ResourceLocation(ICONS_ + "icon_nope"));
         event.addSprite(new ResourceLocation(ICONS_ + "icon_information"));
@@ -83,6 +84,7 @@ public class CoreTextures {
         ICON_CANCEL = map.getSprite(new ResourceLocation(ICONS_ + "icon_cancel"));
         ICON_CANCEL_INACTIVE = map.getSprite(new ResourceLocation(ICONS_ + "icon_cancel_inactive"));
         ICON_CONFIG = map.getSprite(new ResourceLocation(ICONS_ + "icon_config"));
+        ICON_ENCHANTMENT = map.getSprite(new ResourceLocation(ICONS_ + "icon_enchantment"));
         ICON_ENERGY = map.getSprite(new ResourceLocation(ICONS_ + "icon_energy"));
         ICON_NOPE = map.getSprite(new ResourceLocation(ICONS_ + "icon_nope"));
         ICON_INFORMATION = map.getSprite(new ResourceLocation(ICONS_ + "icon_information"));
@@ -122,6 +124,7 @@ public class CoreTextures {
     public static TextureAtlasSprite ICON_CANCEL;
     public static TextureAtlasSprite ICON_CANCEL_INACTIVE;
     public static TextureAtlasSprite ICON_CONFIG;
+    public static TextureAtlasSprite ICON_ENCHANTMENT;
     public static TextureAtlasSprite ICON_ENERGY;
     public static TextureAtlasSprite ICON_NOPE;
     public static TextureAtlasSprite ICON_INFORMATION;

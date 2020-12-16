@@ -49,17 +49,17 @@ public class DeviceTreeExtractorTile extends ThermalTileBase implements ITickabl
     protected ItemStorageCoFH inputSlot = new ItemStorageCoFH(TreeExtractorManager.instance()::validBoost);
     protected FluidStorageCoFH outputTank = new FluidStorageCoFH(TANK_MEDIUM);
 
-    private boolean cached;
-    private boolean valid;
+    protected boolean cached;
+    protected boolean valid;
 
-    private BlockPos trunkPos;
-    private final BlockPos[] leafPos = new BlockPos[NUM_LEAVES];
+    protected BlockPos trunkPos;
+    protected final BlockPos[] leafPos = new BlockPos[NUM_LEAVES];
 
-    private int timeConstant = TIME_CONSTANT;
-    private final int timeOffset;
+    protected int timeConstant = TIME_CONSTANT;
+    protected final int timeOffset;
 
-    private float boostMult;
-    private int boostCycles;
+    protected float boostMult;
+    protected int boostCycles;
 
     public DeviceTreeExtractorTile() {
 

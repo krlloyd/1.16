@@ -68,25 +68,6 @@ public class BlockItemFluidCell extends BlockItemAugmentable implements IFluidCo
         getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
     }
 
-    // region IAugmentableItem
-    @Override
-    public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
-
-        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
-        for (ItemStack augment : augments) {
-            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
-            if (augmentData == null) {
-                continue;
-            }
-            setAttributesFromAugment(container, augmentData);
-        }
-        int fluidExcess = getFluidAmount(container) - getCapacity(container);
-        if (fluidExcess > 0) {
-            drain(container, fluidExcess, EXECUTE);
-        }
-    }
-    // endregion
-
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
 
@@ -135,7 +116,7 @@ public class BlockItemFluidCell extends BlockItemAugmentable implements IFluidCo
         if (resource.isEmpty() || !isFluidValid(container, resource)) {
             return 0;
         }
-        FluidStorageCoFH tank = new FluidStorageCoFH(FluidCellTile.BASE_CAPACITY).read(containerTag);
+        FluidStorageCoFH tank = new FluidStorageCoFH(FluidCellTile.BASE_CAPACITY).setCapacity(getCapacity(container)).read(containerTag);
         // TODO: Add creative logic to tank object.
         if (isCreative(container)) {
             tank.setFluidStack(new FluidStack(resource, tank.getCapacity() - BUCKET_VOLUME));
@@ -150,13 +131,32 @@ public class BlockItemFluidCell extends BlockItemAugmentable implements IFluidCo
     public FluidStack drain(ItemStack container, int maxDrain, FluidAction action) {
 
         CompoundNBT containerTag = getOrCreateTankTag(container);
-        FluidStorageCoFH tank = new FluidStorageCoFH(FluidCellTile.BASE_CAPACITY).read(containerTag);
+        FluidStorageCoFH tank = new FluidStorageCoFH(FluidCellTile.BASE_CAPACITY).setCapacity(getCapacity(container)).read(containerTag);
         if (isCreative(container)) {
             return new FluidStack(tank.getFluidStack(), maxDrain);
         }
         FluidStack ret = tank.drain(maxDrain, action);
         tank.write(containerTag);
         return ret;
+    }
+    // endregion
+
+    // region IAugmentableItem
+    @Override
+    public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
+
+        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
+        for (ItemStack augment : augments) {
+            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
+            if (augmentData == null) {
+                continue;
+            }
+            setAttributesFromAugment(container, augmentData);
+        }
+        int fluidExcess = getFluidAmount(container) - getCapacity(container);
+        if (fluidExcess > 0) {
+            drain(container, fluidExcess, EXECUTE);
+        }
     }
     // endregion
 }

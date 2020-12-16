@@ -10,9 +10,9 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import javax.annotation.Nonnull;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
-import static cofh.core.util.constants.Constants.MAX_CAPACITY;
-import static cofh.core.util.constants.Constants.TRUE;
+import static cofh.core.util.constants.Constants.*;
 import static cofh.core.util.constants.NBTTags.TAG_CAPACITY;
 
 /**
@@ -24,6 +24,7 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
 
     protected final int baseCapacity;
     protected BooleanSupplier enabled = TRUE;
+    protected Supplier<FluidStack> emptyFluid = EMPTY_FLUID;
     protected Predicate<FluidStack> validator;
 
     @Nonnull
@@ -57,6 +58,17 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
         return this;
     }
 
+    public FluidStorageCoFH setEmptyFluid(Supplier<FluidStack> emptyFluidSupplier) {
+
+        if (emptyFluidSupplier != null && emptyFluidSupplier.get() != null) {
+            this.emptyFluid = emptyFluidSupplier;
+        }
+        if (fluid.isEmpty()) {
+            setFluidStack(this.emptyFluid.get());
+        }
+        return this;
+    }
+
     public FluidStorageCoFH setEnabled(BooleanSupplier enabled) {
 
         if (enabled != null) {
@@ -80,7 +92,7 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
 
     public void setFluidStack(FluidStack stack) {
 
-        this.fluid = stack;
+        this.fluid = stack.isEmpty() ? emptyFluid.get() : stack;
     }
 
     // region NBT
@@ -191,7 +203,7 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
         if (action.execute()) {
             fluid.shrink(drained);
             if (fluid.isEmpty()) {
-                setFluidStack(FluidStack.EMPTY);
+                setFluidStack(emptyFluid.get());
             }
         }
         return stack;
@@ -214,9 +226,9 @@ public class FluidStorageCoFH implements IFluidHandler, IFluidStackAccess, IReso
     @Override
     public void modify(int amount) {
 
-        this.fluid.grow(amount);
+        fluid.setAmount(Math.min(fluid.getAmount() + amount, capacity));
         if (this.fluid.isEmpty()) {
-            this.fluid = FluidStack.EMPTY;
+            this.fluid = emptyFluid.get();
         }
     }
 

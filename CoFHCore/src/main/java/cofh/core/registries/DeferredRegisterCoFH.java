@@ -1,6 +1,7 @@
 package cofh.core.registries;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedConstants;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,6 +49,7 @@ public class DeferredRegisterCoFH<T extends IForgeRegistryEntry<T>> {
     private IForgeRegistry<T> type;
     private Supplier<RegistryBuilder<T>> registryFactory;
     private boolean seenRegisterEvent = false;
+    private boolean preventDataFixers;
 
     private DeferredRegisterCoFH(Class<T> base, String modid) {
 
@@ -59,6 +61,12 @@ public class DeferredRegisterCoFH<T extends IForgeRegistryEntry<T>> {
 
         this(reg.getRegistrySuperType(), modid);
         this.type = reg;
+    }
+
+    public DeferredRegisterCoFH<T> preventDataFixers(boolean preventDataFixers) {
+
+        this.preventDataFixers = preventDataFixers;
+        return this;
     }
 
     // region REGISTRATION
@@ -208,7 +216,14 @@ public class DeferredRegisterCoFH<T extends IForgeRegistryEntry<T>> {
         @SubscribeEvent
         public void handleEvent(RegistryEvent.Register<?> event) {
 
+            if (register.preventDataFixers) {
+                SharedConstants.useDatafixers = false;
+            }
             register.addEntries(event);
+
+            if (register.preventDataFixers) {
+                SharedConstants.useDatafixers = true;
+            }
         }
 
     }

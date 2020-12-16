@@ -148,6 +148,15 @@ public class EnergyStorageCoFH implements IEnergyStorage, IResourceStorage, INBT
             return nbt;
         }
         nbt.putInt(TAG_ENERGY, energy);
+        return nbt;
+    }
+
+    public CompoundNBT writeWithParams(CompoundNBT nbt) {
+
+        if (this.capacity <= 0) {
+            return nbt;
+        }
+        nbt.putInt(TAG_ENERGY, energy);
         nbt.putInt(TAG_ENERGY_MAX, baseCapacity);
         nbt.putInt(TAG_ENERGY_RECV, this.maxReceive);
         nbt.putInt(TAG_ENERGY_SEND, this.maxExtract);

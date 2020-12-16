@@ -12,8 +12,7 @@ import static cofh.core.util.constants.NBTTags.TAG_AMOUNT;
 import static cofh.core.util.constants.NBTTags.TAG_FLUID;
 
 /**
- * Implement this interface on Item classes that support external manipulation of their internal
- * fluid storage.
+ * Implement this interface on Item classes that support external manipulation of their internal fluid storage.
  * <p>
  * NOTE: Use of NBT data on the containing ItemStack is encouraged.
  *

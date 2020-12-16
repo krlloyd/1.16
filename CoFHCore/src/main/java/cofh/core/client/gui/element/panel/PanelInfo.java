@@ -11,7 +11,7 @@ public class PanelInfo extends PanelScrolledText {
     public static int defaultSide = LEFT;
     public static int defaultHeaderColor = 0xe1c92f;
     public static int defaultSubHeaderColor = 0xaaafb8;
-    public static int defaultTextColor = 0xffffff;
+    public static int defaultTextColor = 0xf0f0f0;
     public static int defaultBackgroundColor = 0x555555;
 
     public PanelInfo(IGuiAccess gui, String info) {

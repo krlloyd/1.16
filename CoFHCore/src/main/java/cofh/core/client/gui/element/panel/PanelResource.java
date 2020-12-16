@@ -17,7 +17,7 @@ public class PanelResource extends PanelBase {
     public static int defaultSide = LEFT;
     public static int defaultHeaderColor = 0xe1c92f;
     public static int defaultSubHeaderColor = 0xaaafb8;
-    public static int defaultTextColor = 0x000000;
+    public static int defaultTextColor = 0x101010;
     public static int defaultBackgroundColorOut = 0xd0650b;
     public static int defaultBackgroundColorIn = 0x0a76d0;
 

@@ -54,25 +54,6 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
         getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
     }
 
-    // region IAugmentableItem
-    @Override
-    public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
-
-        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
-        for (ItemStack augment : augments) {
-            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
-            if (augmentData == null) {
-                continue;
-            }
-            setAttributesFromAugment(container, augmentData);
-        }
-        int energyExcess = getEnergyStored(container) - getMaxEnergyStored(container);
-        if (energyExcess > 0) {
-            setEnergyStored(container, getMaxEnergyStored(container));
-        }
-    }
-    // endregion
-
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
 
@@ -85,7 +66,7 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
 
         CompoundNBT blockTag = container.getOrCreateChildTag(TAG_BLOCK_ENTITY);
         if (!blockTag.contains(TAG_ENERGY_MAX)) {
-            new EnergyStorageCoFH(BASE_CAPACITY, BASE_RECV, BASE_SEND).write(container.getOrCreateChildTag(TAG_BLOCK_ENTITY));
+            new EnergyStorageCoFH(BASE_CAPACITY, BASE_RECV, BASE_SEND).writeWithParams(container.getOrCreateChildTag(TAG_BLOCK_ENTITY));
         }
         return container.getOrCreateChildTag(TAG_BLOCK_ENTITY);
     }
@@ -115,6 +96,25 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
         float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
         float mod = getPropertyWithDefault(container, TAG_AUGMENT_ENERGY_STORAGE, 1.0F);
         return getMaxStored(container, Math.round(tag.getInt(TAG_ENERGY_MAX) * mod * base));
+    }
+    // endregion
+
+    // region IAugmentableItem
+    @Override
+    public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
+
+        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
+        for (ItemStack augment : augments) {
+            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
+            if (augmentData == null) {
+                continue;
+            }
+            setAttributesFromAugment(container, augmentData);
+        }
+        int energyExcess = getEnergyStored(container) - getMaxEnergyStored(container);
+        if (energyExcess > 0) {
+            setEnergyStored(container, getMaxEnergyStored(container));
+        }
     }
     // endregion
 }

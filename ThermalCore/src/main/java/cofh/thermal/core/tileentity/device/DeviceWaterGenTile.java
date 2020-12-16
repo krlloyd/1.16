@@ -1,10 +1,8 @@
 package cofh.thermal.core.tileentity.device;
 
 import cofh.core.fluid.FluidStorageCoFH;
-import cofh.core.fluid.FluidStorageInfinite;
 import cofh.core.inventory.ItemStorageCoFH;
 import cofh.core.network.packet.client.TileControlPacket;
-import cofh.core.util.StorageGroup;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
@@ -18,18 +16,16 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
 import static cofh.core.util.StorageGroup.INTERNAL;
@@ -42,13 +38,14 @@ import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXE
 
 public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTileEntity {
 
+    protected static final int GENERATION_RATE = 250;
+    protected static final Supplier<FluidStack> WATER = () -> new FluidStack(Fluids.WATER, 0);
     protected ItemStorageCoFH fillSlot = new ItemStorageCoFH(1, FluidHelper::hasFluidHandlerCap);
 
     protected byte adjWaterSource;
-
     protected boolean valid;
 
-    protected FluidStorageCoFH tank = new FluidStorageInfinite(TANK_SMALL, e -> false);
+    protected FluidStorageCoFH tank = new FluidStorageCoFH(TANK_SMALL, e -> false).setEmptyFluid(WATER).setEnabled(() -> isActive);
 
     public DeviceWaterGenTile() {
 
@@ -85,11 +82,9 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
             }
         }
         if (adjWaterSource > 1) {
-            tank.setFluidStack(new FluidStack(Fluids.WATER, tank.getCapacity()));
             valid = true;
         } else {
             tank.clear();
-            fluidCap.invalidate();
         }
     }
 
@@ -97,8 +92,8 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
 
         boolean curActive = isActive;
         isActive = redstoneControl().getState() && valid;
-        if (curActive != isActive) {
-            fluidCap.invalidate();
+        if (!isActive) {
+            tank.clear();
         }
         updateActiveState(curActive);
     }
@@ -109,7 +104,7 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
             fillSlot.getItemStack()
                     .getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                     .ifPresent(c -> {
-                        c.fill(new FluidStack(tank.getFluidStack(), tank.getStored()), EXECUTE);
+                        tank.drain(c.fill(new FluidStack(tank.getFluidStack(), (int) (BUCKET_VOLUME * baseMod)), EXECUTE), EXECUTE);
                         fillSlot.setItemStack(c.getContainer());
                     });
         }
@@ -119,6 +114,7 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
     public void tick() {
 
         if (isActive) {
+            tank.modify((int) (GENERATION_RATE * baseMod));
             fillFluid();
         }
     }
@@ -188,17 +184,6 @@ public class DeviceWaterGenTile extends ThermalTileBase implements ITickableTile
 
         updateActiveState();
         TileControlPacket.sendToClient(this);
-    }
-    // endregion
-
-    // region CAPABILITIES
-    @Override
-    protected <T> LazyOptional<T> getFluidHandlerCapability(@Nullable Direction side) {
-
-        if (!fluidCap.isPresent()) {
-            fluidCap = LazyOptional.of(() -> isActive ? tankInv.getHandler(StorageGroup.ACCESSIBLE) : EmptyFluidHandler.INSTANCE);
-        }
-        return fluidCap.cast();
     }
     // endregion
 }

@@ -11,10 +11,12 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Plane;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.UUID;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import static net.minecraft.inventory.EquipmentSlotType.*;
 
@@ -152,6 +154,8 @@ public class Constants {
     // region CONSTANTS
     public static final BooleanSupplier TRUE = () -> true;
     public static final BooleanSupplier FALSE = () -> false;
+
+    public static final Supplier<FluidStack> EMPTY_FLUID = () -> FluidStack.EMPTY;
 
     public static final String DAMAGE_ARROW = "arrow";
     public static final String DAMAGE_PLAYER = "player";

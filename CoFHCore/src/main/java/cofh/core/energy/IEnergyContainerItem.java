@@ -8,7 +8,7 @@ import net.minecraft.nbt.CompoundNBT;
 import static cofh.core.util.constants.NBTTags.TAG_ENERGY;
 
 /**
- * Implement this interface on Item classes that support external manipulation of their internal energy storages.
+ * Implement this interface on Item classes that support external manipulation of their internal energy storage.
  * <p>
  * NOTE: Use of NBT data on the containing ItemStack is encouraged.
  *

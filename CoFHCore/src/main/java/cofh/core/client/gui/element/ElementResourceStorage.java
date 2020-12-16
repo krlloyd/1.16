@@ -109,7 +109,7 @@ public abstract class ElementResourceStorage extends ElementBase {
         } else {
             tooltipList.add(new StringTextComponent(format(storage.getStored()) + " / " + format(storage.getCapacity()) + " " + storage.getUnit()));
         }
-        if (hasAltDown() || hasShiftDown()) {
+        if (clearStorage != FALSE && (hasAltDown() || hasShiftDown())) {
             tooltipList.add(new TranslationTextComponent("info.cofh.clear_storage").mergeStyle(TextFormatting.GRAY));
         }
     }

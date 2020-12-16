@@ -26,7 +26,7 @@ public class PanelConfiguration extends PanelBase {
     public static int defaultSide = RIGHT;
     public static int defaultHeaderColor = 0xe1c92f;
     public static int defaultSubHeaderColor = 0xaaafb8;
-    public static int defaultTextColor = 0x000000;
+    public static int defaultTextColor = 0x101010;
     public static int defaultBackgroundColor = 0x226688;
 
     private final IReconfigurable myReconfig;

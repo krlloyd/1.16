@@ -238,7 +238,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         CompoundNBT nbt = stack.getOrCreateChildTag(TAG_BLOCK_ENTITY);
         if (keepEnergy()) {
-            getEnergyStorage().write(nbt);
+            getEnergyStorage().writeWithParams(nbt);
         }
         if (keepItems()) {
             getItemInv().writeSlotsToNBT(nbt, 0, invSize() - augSize());
@@ -523,7 +523,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         inventory.write(nbt);
         tankInv.write(nbt);
-        energyStorage.write(nbt);
+        getEnergyStorage().write(nbt);
 
         securityControl.write(nbt);
         redstoneControl.write(nbt);

@@ -23,8 +23,8 @@ public class PanelSecurity extends PanelBase {
     public static int defaultSide = LEFT;
     public static int defaultHeaderColor = 0xe1c92f;
     public static int defaultSubHeaderColor = 0xaaafb8;
-    public static int defaultTextColor = 0x000000;
-    public static int defaultBackgroundColor = 0x4950BA;
+    public static int defaultTextColor = 0xf0f0f0;
+    public static int defaultBackgroundColor = 0x50b050;
 
     private final ISecurable mySecurable;
     private final UUID myPlayer;
@@ -54,6 +54,20 @@ public class PanelSecurity extends PanelBase {
     @Override
     protected void drawBackground(MatrixStack matrixStack) {
 
+        switch (mySecurable.getAccess()) {
+            case PUBLIC:
+                backgroundColor = 0x40a040;
+                break;
+            case PRIVATE:
+                backgroundColor = 0xa04040;
+                break;
+            case FRIENDS:
+                backgroundColor = 0xa0a040;
+                break;
+            case TEAM:
+                backgroundColor = 0x90b040;
+                break;
+        }
         super.drawBackground(matrixStack);
 
         if (!fullyOpen) {
