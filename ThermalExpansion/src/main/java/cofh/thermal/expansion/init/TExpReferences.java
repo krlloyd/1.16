@@ -147,6 +147,13 @@ public class TExpReferences {
     @ObjectHolder(ID_MACHINE_REFINERY)
     public static final ContainerType<MachineRefineryContainer> MACHINE_REFINERY_CONTAINER = null;
 
+    @ObjectHolder(ID_MACHINE_PYROLYZER)
+    public static final Block MACHINE_PYROLYZER_BLOCK = null;
+    @ObjectHolder(ID_MACHINE_PYROLYZER)
+    public static final TileEntityType<MachinePyrolyzerTile> MACHINE_PYROLYZER_TILE = null;
+    @ObjectHolder(ID_MACHINE_PYROLYZER)
+    public static final ContainerType<MachinePyrolyzerContainer> MACHINE_PYROLYZER_CONTAINER = null;
+
     @ObjectHolder(ID_MACHINE_BREWER)
     public static final Block MACHINE_BREWER_BLOCK = null;
     @ObjectHolder(ID_MACHINE_BREWER)

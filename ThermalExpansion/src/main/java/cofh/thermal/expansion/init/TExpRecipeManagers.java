@@ -23,6 +23,7 @@ public class TExpRecipeManagers {
         registerManager(CrucibleRecipeManager.instance());
         registerManager(ChillerRecipeManager.instance());
         registerManager(RefineryRecipeManager.instance());
+        registerManager(PyrolyzerRecipeManager.instance());
         registerManager(BrewerRecipeManager.instance());
         registerManager(BottlerRecipeManager.instance());
         registerManager(CrafterRecipeManager.instance());

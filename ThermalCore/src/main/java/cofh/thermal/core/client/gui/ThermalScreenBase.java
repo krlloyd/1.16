@@ -1,7 +1,10 @@
 package cofh.thermal.core.client.gui;
 
 import cofh.core.client.gui.ContainerScreenCoFH;
-import cofh.core.client.gui.element.panel.*;
+import cofh.core.client.gui.element.panel.PanelAugmentation;
+import cofh.core.client.gui.element.panel.PanelInfo;
+import cofh.core.client.gui.element.panel.PanelRedstoneControl;
+import cofh.core.client.gui.element.panel.PanelSecurity;
 import cofh.core.inventory.container.ContainerCoFH;
 import cofh.core.util.helpers.SecurityHelper;
 import cofh.thermal.core.tileentity.ThermalTileBase;

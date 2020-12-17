@@ -29,7 +29,7 @@ public class DeferredRegisterCoFH<T extends IForgeRegistryEntry<T>> {
      */
     public static <B extends IForgeRegistryEntry<B>> DeferredRegisterCoFH<B> create(IForgeRegistry<B> reg, String modid) {
 
-        return new DeferredRegisterCoFH<B>(reg, modid);
+        return new DeferredRegisterCoFH<>(reg, modid);
     }
 
     /**
@@ -37,7 +37,7 @@ public class DeferredRegisterCoFH<T extends IForgeRegistryEntry<T>> {
      */
     public static <B extends IForgeRegistryEntry<B>> DeferredRegisterCoFH<B> create(Class<B> base, String modid) {
 
-        return new DeferredRegisterCoFH<B>(base, modid);
+        return new DeferredRegisterCoFH<>(base, modid);
     }
 
     private final Class<T> superType;
@@ -48,7 +48,7 @@ public class DeferredRegisterCoFH<T extends IForgeRegistryEntry<T>> {
 
     private IForgeRegistry<T> type;
     private Supplier<RegistryBuilder<T>> registryFactory;
-    private boolean seenRegisterEvent = false;
+    // private boolean seenRegisterEvent = false;
     private boolean preventDataFixers;
 
     private DeferredRegisterCoFH(Class<T> base, String modid) {
@@ -246,7 +246,7 @@ public class DeferredRegisterCoFH<T extends IForgeRegistryEntry<T>> {
             captureRegistry();
         }
         if (this.type != null && event.getGenericType() == this.type.getRegistrySuperType()) {
-            this.seenRegisterEvent = true;
+            // this.seenRegisterEvent = true;
             @SuppressWarnings("unchecked")
             IForgeRegistry<T> reg = (IForgeRegistry<T>) event.getRegistry();
             for (Map.Entry<RegistryObject<T>, Supplier<? extends T>> e : entries.entrySet()) {

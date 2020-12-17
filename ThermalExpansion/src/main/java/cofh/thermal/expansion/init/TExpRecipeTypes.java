@@ -54,6 +54,7 @@ public class TExpRecipeTypes {
     public static final ResourceLocation ID_RECIPE_CRUCIBLE = new ResourceLocation(ID_THERMAL, "crucible");
     public static final ResourceLocation ID_RECIPE_CHILLER = new ResourceLocation(ID_THERMAL, "chiller");
     public static final ResourceLocation ID_RECIPE_REFINERY = new ResourceLocation(ID_THERMAL, "refinery");
+    public static final ResourceLocation ID_RECIPE_PYROLYZER = new ResourceLocation(ID_THERMAL, "pyrolyzer");
     public static final ResourceLocation ID_RECIPE_BOTTLER = new ResourceLocation(ID_THERMAL, "bottler");
     public static final ResourceLocation ID_RECIPE_BREWER = new ResourceLocation(ID_THERMAL, "brewer");
     // public static final ResourceLocation ID_RECIPE_ENCHANTER = new ResourceLocation(ID_THERMAL, "enchanter");
@@ -73,6 +74,7 @@ public class TExpRecipeTypes {
     public static final SerializableRecipeType<CrucibleRecipe> RECIPE_CRUCIBLE = new SerializableRecipeType<>(ID_RECIPE_CRUCIBLE);
     public static final SerializableRecipeType<ChillerRecipe> RECIPE_CHILLER = new SerializableRecipeType<>(ID_RECIPE_CHILLER);
     public static final SerializableRecipeType<RefineryRecipe> RECIPE_REFINERY = new SerializableRecipeType<>(ID_RECIPE_REFINERY);
+    public static final SerializableRecipeType<PyrolyzerRecipe> RECIPE_PYROLYZER = new SerializableRecipeType<>(ID_RECIPE_PYROLYZER);
     public static final SerializableRecipeType<BottlerRecipe> RECIPE_BOTTLER = new SerializableRecipeType<>(ID_RECIPE_BOTTLER);
     public static final SerializableRecipeType<BrewerRecipe> RECIPE_BREWER = new SerializableRecipeType<>(ID_RECIPE_BREWER);
     // public static final SerializableRecipeType<EnchanterRecipe> RECIPE_ENCHANTER = new SerializableRecipeType<>(ID_RECIPE_ENCHANTER);

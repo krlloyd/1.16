@@ -1,0 +1,11 @@
+{
+  "type": "thermal:pyrolyzer",
+  "ingredient": {
+    "item": "minecraft:hay_block"
+  },
+  "result": {
+    "item": "minecraft:charcoal"
+  },
+  "min_ticks": 200,
+  "experience": 0.15
+}

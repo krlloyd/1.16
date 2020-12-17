@@ -86,6 +86,7 @@ public class ThermalExpansion {
         ScreenManager.registerFactory(MACHINE_CRUCIBLE_CONTAINER, MachineCrucibleScreen::new);
         ScreenManager.registerFactory(MACHINE_CHILLER_CONTAINER, MachineChillerScreen::new);
         ScreenManager.registerFactory(MACHINE_REFINERY_CONTAINER, MachineRefineryScreen::new);
+        ScreenManager.registerFactory(MACHINE_PYROLYZER_CONTAINER, MachinePyrolyzerScreen::new);
         ScreenManager.registerFactory(MACHINE_BREWER_CONTAINER, MachineBrewerScreen::new);
         ScreenManager.registerFactory(MACHINE_BOTTLER_CONTAINER, MachineBottlerScreen::new);
         ScreenManager.registerFactory(MACHINE_CRAFTER_CONTAINER, MachineCrafterScreen::new);
@@ -114,6 +115,7 @@ public class ThermalExpansion {
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_CRUCIBLE), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_CHILLER), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_REFINERY), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_PYROLYZER), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_BREWER), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_BOTTLER), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_CRAFTER), cutout);

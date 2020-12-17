@@ -38,6 +38,7 @@ public class TExpJeiPlugin implements IModPlugin {
         }
         registration.addRecipes(recipeManager.getRecipes(RECIPE_FURNACE).values(), ID_RECIPE_FURNACE);
         registration.addRecipes(FurnaceRecipeManager.instance().getConvertedRecipes(), ID_RECIPE_FURNACE);
+
         registration.addRecipes(recipeManager.getRecipes(RECIPE_SAWMILL).values(), ID_RECIPE_SAWMILL);
 
         registration.addRecipes(recipeManager.getRecipes(RECIPE_PULVERIZER).values(), ID_RECIPE_PULVERIZER);
@@ -54,8 +55,11 @@ public class TExpJeiPlugin implements IModPlugin {
         registration.addRecipes(recipeManager.getRecipes(RECIPE_CRUCIBLE).values(), ID_RECIPE_CRUCIBLE);
         registration.addRecipes(recipeManager.getRecipes(RECIPE_CHILLER).values(), ID_RECIPE_CHILLER);
         registration.addRecipes(recipeManager.getRecipes(RECIPE_REFINERY).values(), ID_RECIPE_REFINERY);
+        registration.addRecipes(recipeManager.getRecipes(RECIPE_PYROLYZER).values(), ID_RECIPE_PYROLYZER);
+
         registration.addRecipes(recipeManager.getRecipes(RECIPE_BREWER).values(), ID_RECIPE_BREWER);
         registration.addRecipes(BrewerRecipeManager.instance().getConvertedRecipes(), ID_RECIPE_BREWER);
+
         registration.addRecipes(recipeManager.getRecipes(RECIPE_BOTTLER).values(), ID_RECIPE_BOTTLER);
         registration.addRecipes(BottlerRecipeManager.instance().getConvertedRecipes(), ID_RECIPE_BOTTLER);
 
@@ -87,6 +91,7 @@ public class TExpJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new CrucibleRecipeCategory(registration.getJeiHelpers().getGuiHelper(), new ItemStack(MACHINE_CRUCIBLE_BLOCK), ID_RECIPE_CRUCIBLE));
         registration.addRecipeCategories(new ChillerRecipeCategory(registration.getJeiHelpers().getGuiHelper(), new ItemStack(MACHINE_CHILLER_BLOCK), ID_RECIPE_CHILLER));
         registration.addRecipeCategories(new RefineryRecipeCategory(registration.getJeiHelpers().getGuiHelper(), new ItemStack(MACHINE_REFINERY_BLOCK), ID_RECIPE_REFINERY));
+        registration.addRecipeCategories(new PyrolyzerRecipeCategory(registration.getJeiHelpers().getGuiHelper(), new ItemStack(MACHINE_PYROLYZER_BLOCK), ID_RECIPE_PYROLYZER));
         registration.addRecipeCategories(new BrewerRecipeCategory(registration.getJeiHelpers().getGuiHelper(), new ItemStack(MACHINE_BREWER_BLOCK), ID_RECIPE_BREWER));
         registration.addRecipeCategories(new BottlerRecipeCategory(registration.getJeiHelpers().getGuiHelper(), new ItemStack(MACHINE_BOTTLER_BLOCK), ID_RECIPE_BOTTLER));
 
@@ -121,6 +126,7 @@ public class TExpJeiPlugin implements IModPlugin {
         registration.addRecipeClickArea(MachineCrucibleScreen.class, 84, progressY, progressW, progressH, ID_RECIPE_CRUCIBLE);
         registration.addRecipeClickArea(MachineChillerScreen.class, 88, progressY, progressW, progressH, ID_RECIPE_CHILLER);
         registration.addRecipeClickArea(MachineRefineryScreen.class, 65, progressY, progressW, progressH, ID_RECIPE_REFINERY);
+        registration.addRecipeClickArea(MachinePyrolyzerScreen.class, 72, progressY, progressW, progressH, ID_RECIPE_PYROLYZER);
         registration.addRecipeClickArea(MachineBrewerScreen.class, 88, progressY, progressW, progressH, ID_RECIPE_BREWER);
         registration.addRecipeClickArea(MachineBottlerScreen.class, 88, progressY, progressW, progressH, ID_RECIPE_BOTTLER);
 
@@ -151,6 +157,7 @@ public class TExpJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(MACHINE_CRUCIBLE_BLOCK), ID_RECIPE_CRUCIBLE);
         registration.addRecipeCatalyst(new ItemStack(MACHINE_CHILLER_BLOCK), ID_RECIPE_CHILLER);
         registration.addRecipeCatalyst(new ItemStack(MACHINE_REFINERY_BLOCK), ID_RECIPE_REFINERY);
+        registration.addRecipeCatalyst(new ItemStack(MACHINE_PYROLYZER_BLOCK), ID_RECIPE_PYROLYZER);
         registration.addRecipeCatalyst(new ItemStack(MACHINE_BREWER_BLOCK), ID_RECIPE_BREWER);
         registration.addRecipeCatalyst(new ItemStack(MACHINE_BOTTLER_BLOCK), ID_RECIPE_BOTTLER);
 

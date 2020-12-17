@@ -23,24 +23,33 @@ public class TCoreCommonSetupEvents {
 
     }
 
+    //    // TODO: Remove in 1.2.0
     //    @SubscribeEvent
-    //    public static void serverAboutToStart(FMLServerAboutToStartEvent event) {
+    //    public static void remapBlocks(final RegistryEvent.MissingMappings<Block> event) {
     //
+    //        ResourceLocation COAL_COKE_OLD = new ResourceLocation("thermal:coal_coke_block");
+    //
+    //        for (RegistryEvent.MissingMappings.Mapping<Block> mapping : event.getAllMappings()) {
+    //            if (mapping.key.equals(COAL_COKE_OLD)) {
+    //                mapping.remap(BLOCKS.get("coke_block"));
+    //            }
+    //        }
     //    }
     //
+    //    // TODO: Remove in 1.2.0
     //    @SubscribeEvent
-    //    public static void serverStarted(final FMLServerStartedEvent event) {
+    //    public static void remapItems(final RegistryEvent.MissingMappings<Item> event) {
     //
-    //    }
+    //        ResourceLocation COAL_COKE_BLOCK_OLD = new ResourceLocation("thermal:coal_coke_block");
+    //        ResourceLocation COAL_COKE_ITEM_OLD = new ResourceLocation("thermal:coal_coke");
     //
-    //    @SubscribeEvent
-    //    public static void serverStopping(final FMLServerStoppingEvent event) {
-    //
-    //    }
-    //
-    //    @SubscribeEvent
-    //    public static void serverStopped(final FMLServerStoppedEvent event) {
-    //
+    //        for (RegistryEvent.MissingMappings.Mapping<Item> mapping : event.getAllMappings()) {
+    //            if (mapping.key.equals(COAL_COKE_BLOCK_OLD)) {
+    //                mapping.remap(ITEMS.get("coke_block"));
+    //            } else if (mapping.key.equals(COAL_COKE_ITEM_OLD)) {
+    //                mapping.remap(ITEMS.get("coke"));
+    //            }
+    //        }
     //    }
 
     @SubscribeEvent
