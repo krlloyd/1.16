@@ -110,22 +110,22 @@ public class TCulRecipeProvider extends RecipeProviderCoFH {
                 .addCriterion("has_sadiroot", hasItem(reg.get(ID_SADIROOT)))
                 .build(consumer);
 
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_BARLEY)), reg.get(ID_BARLEY));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_BELL_PEPPER)), reg.get(ID_BELL_PEPPER));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_COFFEE)), reg.get(ID_COFFEE));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_CORN)), reg.get(ID_CORN));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_EGGPLANT)), reg.get(ID_EGGPLANT));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_GREEN_BEAN)), reg.get(ID_GREEN_BEAN));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_HOPS)), reg.get(ID_HOPS));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_ONION)), reg.get(ID_ONION));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_PEANUT)), reg.get(ID_PEANUT));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_RADISH)), reg.get(ID_RADISH));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_RICE)), reg.get(ID_RICE));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_SADIROOT)), reg.get(ID_SADIROOT));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_SPINACH)), reg.get(ID_SPINACH));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_STRAWBERRY)), reg.get(ID_STRAWBERRY));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_TEA)), reg.get(ID_TEA));
-        generateStorageRecipes(reg, consumer, reg.get(block(ID_TOMATO)), reg.get(ID_TOMATO));
+        generateStorageRecipes(consumer, reg.get(block(ID_BARLEY)), reg.get(ID_BARLEY), forgeTag("crops/barley"));
+        generateStorageRecipes(consumer, reg.get(block(ID_BELL_PEPPER)), reg.get(ID_BELL_PEPPER), forgeTag("crops/bell_pepper"));
+        generateStorageRecipes(consumer, reg.get(block(ID_COFFEE)), reg.get(ID_COFFEE), forgeTag("crops/coffee"));
+        generateStorageRecipes(consumer, reg.get(block(ID_CORN)), reg.get(ID_CORN), forgeTag("crops/corn"));
+        generateStorageRecipes(consumer, reg.get(block(ID_EGGPLANT)), reg.get(ID_EGGPLANT), forgeTag("crops/eggplant"));
+        generateStorageRecipes(consumer, reg.get(block(ID_GREEN_BEAN)), reg.get(ID_GREEN_BEAN), forgeTag("crops/green_bean"));
+        generateStorageRecipes(consumer, reg.get(block(ID_HOPS)), reg.get(ID_HOPS), forgeTag("crops/hops"));
+        generateStorageRecipes(consumer, reg.get(block(ID_ONION)), reg.get(ID_ONION), forgeTag("crops/onion"));
+        generateStorageRecipes(consumer, reg.get(block(ID_PEANUT)), reg.get(ID_PEANUT), forgeTag("crops/peanut"));
+        generateStorageRecipes(consumer, reg.get(block(ID_RADISH)), reg.get(ID_RADISH), forgeTag("crops/radish"));
+        generateStorageRecipes(consumer, reg.get(block(ID_RICE)), reg.get(ID_RICE), forgeTag("crops/rice"));
+        generateStorageRecipes(consumer, reg.get(block(ID_SADIROOT)), reg.get(ID_SADIROOT), forgeTag("crops/sadiroot"));
+        generateStorageRecipes(consumer, reg.get(block(ID_SPINACH)), reg.get(ID_SPINACH), forgeTag("crops/spinach"));
+        generateStorageRecipes(consumer, reg.get(block(ID_STRAWBERRY)), reg.get(ID_STRAWBERRY), forgeTag("crops/strawberry"));
+        generateStorageRecipes(consumer, reg.get(block(ID_TEA)), reg.get(ID_TEA), forgeTag("crops/tea"));
+        generateStorageRecipes(consumer, reg.get(block(ID_TOMATO)), reg.get(ID_TOMATO), forgeTag("crops/tomato"));
     }
 
 }

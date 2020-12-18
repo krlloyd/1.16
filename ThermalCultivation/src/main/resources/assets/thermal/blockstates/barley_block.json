@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "thermal:block/barley_block",
+      "model": "thermal:block/barley_block_horizontal",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "thermal:block/barley_block"
     },
     "axis=z": {
-      "model": "thermal:block/barley_block",
+      "model": "thermal:block/barley_block_horizontal",
       "x": 90
     }
   }

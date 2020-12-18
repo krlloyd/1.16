@@ -101,7 +101,7 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
     }
 
     // region HELPERS
-    protected void generateStorageRecipes(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, Item storage, Item individual) {
+    protected void generatePackingRecipe(Consumer<IFinishedRecipe> consumer, Item storage, Item individual, String suffix) {
 
         String storageName = storage.getRegistryName().getPath();
         String individualName = individual.getRegistryName().getPath();
@@ -112,46 +112,81 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
                 .patternLine("###")
                 .patternLine("###")
                 .addCriterion("has_at_least_9_" + individualName, hasItem(MinMaxBounds.IntBound.atLeast(9), individual))
-                .build(consumer, this.modid + ":storage/" + storageName);
+                .build(consumer, this.modid + ":storage/" + storageName + suffix);
+    }
+
+    protected void generatePackingRecipe(Consumer<IFinishedRecipe> consumer, Item storage, Item individual, ITag.INamedTag<Item> tag, String suffix) {
+
+        String storageName = storage.getRegistryName().getPath();
+        String individualName = individual.getRegistryName().getPath();
+
+        ShapedRecipeBuilder.shapedRecipe(storage)
+                .key('I', individual)
+                .key('#', tag)
+                .patternLine("###")
+                .patternLine("#I#")
+                .patternLine("###")
+                .addCriterion("has_at_least_9_" + individualName, hasItem(MinMaxBounds.IntBound.atLeast(9), individual))
+                .build(consumer, this.modid + ":storage/" + storageName + suffix);
+    }
+
+    protected void generateUnpackingRecipe(Consumer<IFinishedRecipe> consumer, Item storage, Item individual, String suffix) {
+
+        String storageName = storage.getRegistryName().getPath();
+        String individualName = individual.getRegistryName().getPath();
 
         ShapelessRecipeBuilder.shapelessRecipe(individual, 9)
                 .addIngredient(storage)
                 .addCriterion("has_at_least_9_" + individualName, hasItem(MinMaxBounds.IntBound.atLeast(9), individual))
                 .addCriterion("has_" + storageName, hasItem(storage))
-                .build(consumer, this.modid + ":storage/" + individualName + "_from_block");
+                .build(consumer, this.modid + ":storage/" + individualName + suffix);
     }
 
-    protected void generateStorageRecipes(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, String type) {
+    protected void generateStorageRecipes(Consumer<IFinishedRecipe> consumer, Item storage, Item individual, String packingSuffix, String unpackingSuffix) {
 
-        Item block = reg.get(type + "_block");
+        generatePackingRecipe(consumer, storage, individual, packingSuffix);
+        generateUnpackingRecipe(consumer, storage, individual, unpackingSuffix);
+    }
+
+    protected void generateStorageRecipes(Consumer<IFinishedRecipe> consumer, Item storage, Item individual, ITag.INamedTag<Item> tag, String packingSuffix, String unpackingSuffix) {
+
+        generatePackingRecipe(consumer, storage, individual, tag, packingSuffix);
+        generateUnpackingRecipe(consumer, storage, individual, unpackingSuffix);
+    }
+
+    protected void generateStorageRecipes(Consumer<IFinishedRecipe> consumer, Item storage, Item individual, ITag.INamedTag<Item> tag) {
+
+        generateStorageRecipes(consumer, storage, individual, tag, "", "_from_block");
+    }
+
+    protected void generateStorageRecipes(Consumer<IFinishedRecipe> consumer, Item storage, Item individual) {
+
+        generateStorageRecipes(consumer, storage, individual, "", "_from_block");
+    }
+
+    protected void generateTypeRecipes(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, String type) {
+
         Item ingot = reg.get(type + "_ingot");
         Item gem = reg.get(type);
+        Item block = reg.get(type + "_block");
         Item nugget = reg.get(type + "_nugget");
+
+        ITag.INamedTag<Item> ingotTag = forgeTag("ingots/" + type);
+        ITag.INamedTag<Item> gemTag = forgeTag("gems/" + type);
+        ITag.INamedTag<Item> nuggetTag = forgeTag("nuggets/" + type);
 
         if (block != null) {
             if (ingot != null) {
-                generateStorageRecipes(reg, consumer, block, ingot);
+                generateStorageRecipes(consumer, block, ingot, ingotTag, "", "_from_block");
             } else if (gem != null) {
-                generateStorageRecipes(reg, consumer, block, gem);
+                generateStorageRecipes(consumer, block, gem, gemTag, "", "_from_block");
             }
         }
         if (nugget != null) {
-            String nuggetName = nugget.getRegistryName().getPath();
             if (ingot != null) {
-                String ingotName = ingot.getRegistryName().getPath();
-                ShapedRecipeBuilder.shapedRecipe(ingot)
-                        .key('#', nugget)
-                        .patternLine("###")
-                        .patternLine("###")
-                        .patternLine("###")
-                        .addCriterion("has_at_least_9_" + nuggetName, hasItem(MinMaxBounds.IntBound.atLeast(9), nugget))
-                        .build(consumer, this.modid + ":storage/" + ingotName + "_from_nuggets");
-
-                ShapelessRecipeBuilder.shapelessRecipe(nugget, 9)
-                        .addIngredient(ingot)
-                        .addCriterion("has_at_least_9_" + nuggetName, hasItem(MinMaxBounds.IntBound.atLeast(9), nugget))
-                        .addCriterion("has_" + ingotName, hasItem(ingot))
-                        .build(consumer, this.modid + ":storage/" + nuggetName + "_from_ingot");
+                generateStorageRecipes(consumer, ingot, nugget, nuggetTag, "_from_nuggets", "_from_ingot");
+            } else if (gem != null) {
+                generateStorageRecipes(consumer, gem, nugget, nuggetTag, "_from_nuggets", "_from_gem");
             }
         }
         generateGearRecipe(reg, consumer, type);
@@ -216,7 +251,6 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
         Item ore = reg.get(material + "_ore");
         Item ingot = reg.get(material + "_ingot");
         Item gem = reg.get(material);
-        Item nugget = reg.get(material + "_nugget");
         Item dust = reg.get(material + "_dust");
 
         if (ingot != null) {
@@ -243,15 +277,15 @@ public class RecipeProviderCoFH extends RecipeProvider implements IConditionBuil
         generateSmeltingAndBlastingRecipes(reg, consumer, input, output, xp, folder, "");
     }
 
-    protected void generateSmeltingAndBlastingRecipes(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, Item input, Item output, float xp, String folder, String type) {
+    protected void generateSmeltingAndBlastingRecipes(DeferredRegisterCoFH<Item> reg, Consumer<IFinishedRecipe> consumer, Item input, Item output, float xp, String folder, String suffix) {
 
         CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(input), output, xp, 200)
                 .addCriterion("has_" + input.getRegistryName().getPath(), hasItem(input))
-                .build(consumer, this.modid + ":" + folder + "/" + output.getRegistryName().getPath() + "_from" + type + "_smelting");
+                .build(consumer, this.modid + ":" + folder + "/" + output.getRegistryName().getPath() + "_from" + suffix + "_smelting");
 
         CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(input), output, xp, 100)
                 .addCriterion("has_" + input.getRegistryName().getPath(), hasItem(input))
-                .build(consumer, this.modid + ":" + folder + "/" + output.getRegistryName().getPath() + "_from" + type + "_blasting");
+                .build(consumer, this.modid + ":" + folder + "/" + output.getRegistryName().getPath() + "_from" + suffix + "_blasting");
     }
 
     // TODO: Change if Mojang implements some better defaults...

@@ -64,7 +64,7 @@
   "block.thermal.red_rockwool": "Red Rockwool",
   "block.thermal.black_rockwool": "Black Rockwool",
 
-  "block.thermal.coal_coke_block": "Block of Coal Coke",
+  "block.thermal.coal_coke_block": "Block of Coke",
   "block.thermal.sawdust_block": "Block of Sawdust",
   "block.thermal.rosin_block": "Block of Rosin",
   "block.thermal.rubber_block": "Block of Rubber",
@@ -157,7 +157,7 @@
   "item.thermal.sulfur": "Sulfur",
   "item.thermal.sulfur_dust": "Sulfur Dust",
 
-  "item.thermal.coal_coke": "Coal Coke",
+  "item.thermal.coal_coke": "Coke",
   "item.thermal.cured_rubber": "Cured Rubber",
   "item.thermal.rich_slag": "Rich Slag",
   "item.thermal.rosin": "Rosin",
@@ -634,6 +634,7 @@
   "block.thermal.machine_insolator": "Phytogenic Insolator",
   "block.thermal.machine_press": "Multiservo Press",
   "block.thermal.machine_pulverizer": "Pulverizer",
+  "block.thermal.machine_pyrolyzer": "Pyrolyzer",
   "block.thermal.machine_refinery": "Fractionating Still",
   "block.thermal.machine_sawmill": "Sawmill",
   "block.thermal.machine_smelter": "Induction Smelter",
@@ -703,6 +704,10 @@
   "info.thermal.machine_pulverizer.0": "Smashes things into more broken things.",
   "info.thermal.machine_pulverizer.1": "Useful for processing ores or converting items.",
   "info.thermal.machine_pulverizer.2": "This is typically not reversible.",
+
+  "info.thermal.machine_pyrolyzer.0": "Decomposes solids via high temperatures.",
+  "info.thermal.machine_pyrolyzer.1": "Very useful in fuel purification.",
+  "info.thermal.machine_pyrolyzer.2": "No touchy.",
 
   "info.thermal.machine_refinery.0": "Refines various fluids into other products.",
   "info.thermal.machine_refinery.1": "Some fluids will leave behind a solid component.",

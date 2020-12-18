@@ -38,31 +38,31 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
 
         DeferredRegisterCoFH<Item> reg = ITEMS;
 
-        generateStorageRecipes(reg, consumer, reg.get(ID_CHARCOAL_BLOCK), Items.CHARCOAL);
-        generateStorageRecipes(reg, consumer, reg.get(ID_BAMBOO_BLOCK), Items.BAMBOO);
-        generateStorageRecipes(reg, consumer, reg.get(ID_SUGAR_CANE_BLOCK), Items.SUGAR_CANE);
-        generateStorageRecipes(reg, consumer, reg.get(ID_GUNPOWDER_BLOCK), Items.GUNPOWDER);
+        generateStorageRecipes(consumer, reg.get(ID_CHARCOAL_BLOCK), Items.CHARCOAL);
+        generateStorageRecipes(consumer, reg.get(ID_BAMBOO_BLOCK), Items.BAMBOO);
+        generateStorageRecipes(consumer, reg.get(ID_SUGAR_CANE_BLOCK), Items.SUGAR_CANE);
+        generateStorageRecipes(consumer, reg.get(ID_GUNPOWDER_BLOCK), Items.GUNPOWDER);
 
-        generateStorageRecipes(reg, consumer, reg.get(ID_APPLE_BLOCK), Items.APPLE);
-        generateStorageRecipes(reg, consumer, reg.get(ID_BEETROOT_BLOCK), Items.BEETROOT);
-        generateStorageRecipes(reg, consumer, reg.get(ID_CARROT_BLOCK), Items.CARROT);
-        generateStorageRecipes(reg, consumer, reg.get(ID_POTATO_BLOCK), Items.POTATO);
+        generateStorageRecipes(consumer, reg.get(ID_APPLE_BLOCK), Items.APPLE);
+        generateStorageRecipes(consumer, reg.get(ID_BEETROOT_BLOCK), Items.BEETROOT);
+        generateStorageRecipes(consumer, reg.get(ID_CARROT_BLOCK), Items.CARROT);
+        generateStorageRecipes(consumer, reg.get(ID_POTATO_BLOCK), Items.POTATO);
 
-        generateStorageRecipes(reg, consumer, reg.get(ID_APATITE_BLOCK), reg.get("apatite"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_CINNABAR_BLOCK), reg.get("cinnabar"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_NITER_BLOCK), reg.get("niter"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_SULFUR_BLOCK), reg.get("sulfur"));
+        generateStorageRecipes(consumer, reg.get(ID_APATITE_BLOCK), reg.get("apatite"));
+        generateStorageRecipes(consumer, reg.get(ID_CINNABAR_BLOCK), reg.get("cinnabar"));
+        generateStorageRecipes(consumer, reg.get(ID_NITER_BLOCK), reg.get("niter"));
+        generateStorageRecipes(consumer, reg.get(ID_SULFUR_BLOCK), reg.get("sulfur"));
 
-        generateStorageRecipes(reg, consumer, "copper");
-        generateStorageRecipes(reg, consumer, "tin");
-        generateStorageRecipes(reg, consumer, "lead");
-        generateStorageRecipes(reg, consumer, "silver");
-        generateStorageRecipes(reg, consumer, "nickel");
+        generateTypeRecipes(reg, consumer, "copper");
+        generateTypeRecipes(reg, consumer, "tin");
+        generateTypeRecipes(reg, consumer, "lead");
+        generateTypeRecipes(reg, consumer, "silver");
+        generateTypeRecipes(reg, consumer, "nickel");
 
-        generateStorageRecipes(reg, consumer, "bronze");
-        generateStorageRecipes(reg, consumer, "electrum");
-        generateStorageRecipes(reg, consumer, "invar");
-        generateStorageRecipes(reg, consumer, "constantan");
+        generateTypeRecipes(reg, consumer, "bronze");
+        generateTypeRecipes(reg, consumer, "electrum");
+        generateTypeRecipes(reg, consumer, "invar");
+        generateTypeRecipes(reg, consumer, "constantan");
 
         generateSmeltingAndBlastingRecipes(reg, consumer, "copper", 0.6F);
         generateSmeltingAndBlastingRecipes(reg, consumer, "tin", 0.6F);
@@ -83,17 +83,17 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
         generateGearRecipe(consumer, reg.get("quartz_gear"), Items.IRON_INGOT, forgeTag("gems/quartz"));
         generateGearRecipe(consumer, reg.get("lapis_gear"), Items.IRON_INGOT, forgeTag("gems/lapis"));
 
-        generateStorageRecipes(reg, consumer, reg.get(ID_COAL_COKE_BLOCK), reg.get("coal_coke"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_SAWDUST_BLOCK), reg.get("sawdust"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_ROSIN_BLOCK), reg.get("rosin"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_RUBBER_BLOCK), reg.get("rubber"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_CURED_RUBBER_BLOCK), reg.get("cured_rubber"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_SLAG_BLOCK), reg.get("slag"));
-        generateStorageRecipes(reg, consumer, reg.get(ID_RICH_SLAG_BLOCK), reg.get("rich_slag"));
+        generateStorageRecipes(consumer, reg.get(ID_COAL_COKE_BLOCK), reg.get("coal_coke"));
+        generateStorageRecipes(consumer, reg.get(ID_SAWDUST_BLOCK), reg.get("sawdust"));
+        generateStorageRecipes(consumer, reg.get(ID_ROSIN_BLOCK), reg.get("rosin"));
+        generateStorageRecipes(consumer, reg.get(ID_RUBBER_BLOCK), reg.get("rubber"));
+        generateStorageRecipes(consumer, reg.get(ID_CURED_RUBBER_BLOCK), reg.get("cured_rubber"));
+        generateStorageRecipes(consumer, reg.get(ID_SLAG_BLOCK), reg.get("slag"));
+        generateStorageRecipes(consumer, reg.get(ID_RICH_SLAG_BLOCK), reg.get("rich_slag"));
 
-        generateStorageRecipes(reg, consumer, "signalum");
-        generateStorageRecipes(reg, consumer, "lumium");
-        generateStorageRecipes(reg, consumer, "enderium");
+        generateTypeRecipes(reg, consumer, "signalum");
+        generateTypeRecipes(reg, consumer, "lumium");
+        generateTypeRecipes(reg, consumer, "enderium");
 
         generateSmeltingAndBlastingRecipes(reg, consumer, "signalum", 0);
         generateSmeltingAndBlastingRecipes(reg, consumer, "lumium", 0);
