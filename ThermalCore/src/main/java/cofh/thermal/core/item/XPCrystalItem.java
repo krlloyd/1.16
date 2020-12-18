@@ -3,11 +3,13 @@ package cofh.thermal.core.item;
 import cofh.core.item.IMultiModeItem;
 import cofh.core.item.XPContainerItem;
 import cofh.core.util.ChatHelper;
+import cofh.core.util.ProxyUtils;
 import cofh.core.util.Utils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
@@ -26,6 +28,8 @@ public class XPCrystalItem extends XPContainerItem implements IMultiModeItem {
     public XPCrystalItem(Properties builder, int fluidCapacity) {
 
         super(builder, fluidCapacity);
+
+        ProxyUtils.registerItemModelProperty(this, new ResourceLocation("stored"), (stack, world, living) -> ((float) getStoredXP(stack)) / getCapacityXP(stack));
     }
 
     @Override

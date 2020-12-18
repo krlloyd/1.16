@@ -120,7 +120,7 @@
 
   "info.thermal.xp_crystal.mode.0": "Auto-Collect Disabled",
   "info.thermal.xp_crystal.mode.1": "Auto-Collect Enabled",
-  "info.thermal.xp_crystal.use": "Use to store experience in the crystal.",
+  "info.thermal.xp_crystal.use": "Use to transfer experience to the crystal.",
   "info.thermal.xp_crystal.use.sneak": "Use while sneaking to retrieve stored experience.",
 
   "item.thermal.redstone_servo": "Redstone Servo",

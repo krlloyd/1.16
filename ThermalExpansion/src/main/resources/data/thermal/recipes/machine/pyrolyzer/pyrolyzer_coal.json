@@ -1,0 +1,17 @@
+{
+  "type": "thermal:pyrolyzer",
+  "ingredient": {
+    "item": "minecraft:coal"
+  },
+  "result": [
+    {
+      "item": "thermal:coal_coke"
+    },
+    {
+      "fluid": "thermal:creosote",
+      "amount": 250
+    }
+  ],
+  "min_ticks": 200,
+  "experience": 0.15
+}
