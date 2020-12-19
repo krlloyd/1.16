@@ -27,7 +27,6 @@ public class CRTRecipe {
 
     private int energy = 0;
     private float experience = 0;
-    private int minTicks = -1;
 
     public CRTRecipe(ResourceLocation name) {
 
@@ -103,20 +102,14 @@ public class CRTRecipe {
         return this;
     }
 
-    public CRTRecipe minTicks(int minTicks) {
-
-        this.minTicks = minTicks;
-        return this;
-    }
-
     public <T extends ThermalRecipe> T recipe(IRecipeBuilder<T> builder) {
 
-        return builder.apply(name, energy, experience, minTicks, inputItems, inputFluids, outputItems, outputItemChances, outputFluids);
+        return builder.apply(name, energy, experience, inputItems, inputFluids, outputItems, outputItemChances, outputFluids);
     }
 
     public interface IRecipeBuilder<T extends ThermalRecipe> {
 
-        T apply(ResourceLocation recipeId, int energy, float experience, int minTicks, List<Ingredient> inputItems, List<FluidStack> inputFluids, List<ItemStack> outputItems, List<Float> outputItemChances, List<FluidStack> outputFluids);
+        T apply(ResourceLocation recipeId, int energy, float experience, List<Ingredient> inputItems, List<FluidStack> inputFluids, List<ItemStack> outputItems, List<Float> outputItemChances, List<FluidStack> outputFluids);
 
     }
 

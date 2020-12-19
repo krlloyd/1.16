@@ -261,7 +261,6 @@ public abstract class RecipeJsonUtils {
     public static final String ITEM = "item";
     public static final String LOCKED = "locked";
     public static final String MIN_CHANCE = "min_chance";
-    public static final String MIN_TICKS = "min_ticks";
     public static final String MOD_LOADED = "mod";
     public static final String NBT = "nbt";
     public static final String OUTPUT = "output";

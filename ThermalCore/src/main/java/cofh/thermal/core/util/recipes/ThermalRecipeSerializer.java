@@ -31,7 +31,6 @@ public class ThermalRecipeSerializer<T extends ThermalRecipe> extends ForgeRegis
 
         int energy = defaultEnergy;
         float experience = 0.0F;
-        int minTicks = -1;
 
         ArrayList<Ingredient> inputItems = new ArrayList<>();
         ArrayList<FluidStack> inputFluids = new ArrayList<>();
@@ -72,11 +71,7 @@ public class ThermalRecipeSerializer<T extends ThermalRecipe> extends ForgeRegis
         if (json.has(EXPERIENCE)) {
             experience = json.get(EXPERIENCE).getAsFloat();
         }
-        /* MIN TICKS */
-        if (json.has(MIN_TICKS)) {
-            minTicks = json.get(MIN_TICKS).getAsInt();
-        }
-        return factory.create(recipeId, energy, experience, minTicks, inputItems, inputFluids, outputItems, outputItemChances, outputFluids);
+        return factory.create(recipeId, energy, experience, inputItems, inputFluids, outputItems, outputItemChances, outputFluids);
     }
 
     @Nullable
@@ -112,7 +107,7 @@ public class ThermalRecipeSerializer<T extends ThermalRecipe> extends ForgeRegis
         for (int i = 0; i < numOutputFluids; ++i) {
             outputFluids.add(buffer.readFluidStack());
         }
-        return factory.create(recipeId, energy, experience, minTicks, inputItems, inputFluids, outputItems, outputItemChances, outputFluids);
+        return factory.create(recipeId, energy, experience, inputItems, inputFluids, outputItems, outputItemChances, outputFluids);
     }
 
     @Override
@@ -120,7 +115,6 @@ public class ThermalRecipeSerializer<T extends ThermalRecipe> extends ForgeRegis
 
         buffer.writeVarInt(recipe.energy);
         buffer.writeFloat(recipe.experience);
-        buffer.writeVarInt(recipe.minTicks);
 
         int numInputItems = recipe.inputItems.size();
         buffer.writeVarInt(numInputItems);
@@ -147,7 +141,7 @@ public class ThermalRecipeSerializer<T extends ThermalRecipe> extends ForgeRegis
 
     public interface IFactory<T extends ThermalRecipe> {
 
-        T create(ResourceLocation recipeId, int energy, float experience, int minTicks, List<Ingredient> inputItems, List<FluidStack> inputFluids, List<ItemStack> outputItems, List<Float> chance, List<FluidStack> outputFluids);
+        T create(ResourceLocation recipeId, int energy, float experience, List<Ingredient> inputItems, List<FluidStack> inputFluids, List<ItemStack> outputItems, List<Float> chance, List<FluidStack> outputFluids);
 
     }
 

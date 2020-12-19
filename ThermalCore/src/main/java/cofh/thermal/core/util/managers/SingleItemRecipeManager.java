@@ -40,7 +40,7 @@ public abstract class SingleItemRecipeManager extends AbstractManager implements
     public void addRecipe(ThermalRecipe recipe) {
 
         for (ItemStack recipeInput : recipe.getInputItems().get(0).getMatchingStacks()) {
-            addRecipe(recipe.getEnergy(), recipe.getExperience(), recipe.getMinTicks(), Collections.singletonList(recipeInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
+            addRecipe(recipe.getEnergy(), recipe.getExperience(), Collections.singletonList(recipeInput), recipe.getInputFluids(), recipe.getOutputItems(), recipe.getOutputItemChances(), recipe.getOutputFluids());
         }
     }
 
@@ -67,7 +67,7 @@ public abstract class SingleItemRecipeManager extends AbstractManager implements
         return recipeMap.get(convert(inputSlots.get(0).getItemStack()));
     }
 
-    protected IMachineRecipe addRecipe(int energy, float experience, int minTicks, List<ItemStack> inputItems, List<FluidStack> inputFluids, List<ItemStack> outputItems, List<Float> chance, List<FluidStack> outputFluids) {
+    protected IMachineRecipe addRecipe(int energy, float experience, List<ItemStack> inputItems, List<FluidStack> inputFluids, List<ItemStack> outputItems, List<Float> chance, List<FluidStack> outputFluids) {
 
         if (inputItems.isEmpty() || outputItems.isEmpty() && outputFluids.isEmpty() || outputItems.size() > maxOutputItems || outputFluids.size() > maxOutputFluids || energy <= 0) {
             return null;
@@ -88,7 +88,7 @@ public abstract class SingleItemRecipeManager extends AbstractManager implements
         }
         energy = (int) (energy * getDefaultScale());
 
-        SimpleMachineRecipe recipe = new SimpleMachineRecipe(energy, experience, minTicks, inputItems, inputFluids, outputItems, chance, outputFluids);
+        SimpleMachineRecipe recipe = new SimpleMachineRecipe(energy, experience, inputItems, inputFluids, outputItems, chance, outputFluids);
         recipeMap.put(convert(input), recipe);
         return recipe;
     }

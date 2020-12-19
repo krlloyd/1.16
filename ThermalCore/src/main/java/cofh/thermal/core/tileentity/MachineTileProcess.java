@@ -100,15 +100,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         processTick = baseProcessTick;
         int energy = curRecipe.getEnergy(this);
-
-        int minTicks = curRecipe.getMinTicks();
-        if (minTicks > 0) {
-            processTick = Math.min(processTick, Math.max(getMinProcessTick(), energy / minTicks));
-            energy = Math.max(energy, getMinProcessTick() * minTicks);
-            energyStorage.modify(-process);     // Refund extra energy to ensure minTick
-        } else {
-            energy += process;                  // Apply extra energy to next process
-        }
+        energy += process;                  // Apply extra energy to next process
         process = processMax = energy;
         if (cacheRenderFluid()) {
             TileStatePacket.sendToClient(this);
@@ -469,13 +461,6 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         catalystMod = MathHelper.clamp(catalystMod, scaleMin, scaleMax);
 
         processTick = baseProcessTick;
-        if (curRecipe != null) {
-            int minTicks = curRecipe.getMinTicks();
-            if (minTicks > 0) {
-                int energy = curRecipe.getEnergy(this);
-                processTick = Math.min(processTick, Math.max(getMinProcessTick(), energy / minTicks));
-            }
-        }
     }
     // endregion
 
