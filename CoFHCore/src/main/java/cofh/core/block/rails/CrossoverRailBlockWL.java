@@ -39,7 +39,7 @@ public class CrossoverRailBlockWL extends CrossoverRailBlock implements IWaterLo
     @Override
     public float getRailMaxSpeed(BlockState state, World world, BlockPos pos, AbstractMinecartEntity cart) {
 
-        return state.get(WATERLOGGED) ? maxSpeed / 2 : maxSpeed;
+        return state.get(WATERLOGGED) ? maxSpeed * 1.5F : maxSpeed;
     }
 
     @Override

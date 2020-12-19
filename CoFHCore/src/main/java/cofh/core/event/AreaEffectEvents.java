@@ -88,7 +88,7 @@ public class AreaEffectEvents {
         float maxHardness = getMaxHardness(player.world, areaBlocks, curHardness);
 
         if (maxHardness > curHardness) {
-            event.setNewSpeed(event.getOriginalSpeed() * curHardness / maxHardness);
+            event.setNewSpeed(event.getNewSpeed() * curHardness / maxHardness);
         }
     }
 

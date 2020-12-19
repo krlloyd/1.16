@@ -27,16 +27,16 @@ public class TCoreCommonEvents {
         if (player.areEyesInFluid(FluidTags.WATER)) {
             boolean diveChest = player.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() instanceof DivingArmorItem;
             if (!EnchantmentHelper.hasAquaAffinity(player) && diveChest) {
-                event.setNewSpeed(Math.max(event.getOriginalSpeed(), event.getNewSpeed() * 5.0F));
+                event.setNewSpeed(Math.max(event.getNewSpeed(), event.getOriginalSpeed() * 5.0F));
             }
             boolean diveLegs = player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof DivingArmorItem;
             if (!player.isOnGround() && diveLegs && (AIR_AFFINITY == null || getMaxEnchantmentLevel(AIR_AFFINITY, player) <= 0)) {
-                event.setNewSpeed(Math.max(event.getOriginalSpeed(), event.getNewSpeed() * 5.0F));
+                event.setNewSpeed(Math.max(event.getNewSpeed(), event.getOriginalSpeed() * 5.0F));
             }
         } else if (player.isInWater()) {
             boolean diveLegs = player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof DivingArmorItem;
             if (!player.isOnGround() && diveLegs && (AIR_AFFINITY == null || getMaxEnchantmentLevel(AIR_AFFINITY, player) <= 0)) {
-                event.setNewSpeed(Math.max(event.getOriginalSpeed(), event.getNewSpeed() * 5.0F));
+                event.setNewSpeed(Math.max(event.getNewSpeed(), event.getOriginalSpeed() * 5.0F));
             }
         }
     }
