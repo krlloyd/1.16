@@ -182,7 +182,8 @@ public class TCoreBlocks {
         registerBlockAndItem(ID_SAWDUST_BLOCK, () -> new FallingBlock(create(Material.WOOD).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.SAND).harvestTool(ToolType.SHOVEL)) {
 
             @OnlyIn(Dist.CLIENT)
-            public int getDustColor(BlockState state) {
+            @Override
+            public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
 
                 return 11507581;
             }

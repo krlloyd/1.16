@@ -16,6 +16,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.Explosion;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -32,7 +33,8 @@ public class GunpowderBlock extends FallingBlock {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getDustColor(BlockState state) {
+    @Override
+    public int getDustColor(BlockState state, IBlockReader reader, BlockPos pos) {
 
         return -8356741;
     }

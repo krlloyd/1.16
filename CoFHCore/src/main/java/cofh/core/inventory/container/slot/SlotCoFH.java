@@ -53,6 +53,7 @@ public class SlotCoFH extends Slot {
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Override
     public boolean isEnabled() {
 
         return enabled.getAsBoolean();

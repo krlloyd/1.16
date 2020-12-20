@@ -1,6 +1,5 @@
 package cofh.thermal.core.item;
 
-import cofh.core.energy.EnergyContainerItemWrapper;
 import cofh.core.energy.EnergyStorageCoFH;
 import cofh.core.energy.IEnergyContainerItem;
 import cofh.core.item.BlockItemAugmentable;
@@ -11,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,11 +52,11 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
         getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_ENERGY_XFER);
     }
 
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
-
-        return new EnergyContainerItemWrapper(stack, this);
-    }
+    //    @Override
+    //    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+    //
+    //        return new EnergyContainerItemWrapper(stack, this);
+    //    }
 
     // region IEnergyContainerItem
     @Override

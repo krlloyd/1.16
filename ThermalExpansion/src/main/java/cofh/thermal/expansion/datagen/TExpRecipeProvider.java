@@ -167,6 +167,18 @@ public class TExpRecipeProvider extends RecipeProviderCoFH {
                 .addCriterion("has_machine_frame", hasItem(machineFrame))
                 .build(consumer);
 
+        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_PYROLYZER))
+                .key('C', machineFrame)
+                .key('I', ItemTagsCoFH.GEARS_CONSTANTAN)
+                .key('P', rfCoil)
+                .key('X', Items.BLAZE_ROD)
+                .key('Y', Items.NETHER_BRICKS)
+                .patternLine(" X ")
+                .patternLine("YCY")
+                .patternLine("IPI")
+                .addCriterion("has_machine_frame", hasItem(machineFrame))
+                .build(consumer);
+
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_MACHINE_BREWER))
                 .key('C', machineFrame)
                 .key('I', ItemTagsCoFH.GEARS_CONSTANTAN)

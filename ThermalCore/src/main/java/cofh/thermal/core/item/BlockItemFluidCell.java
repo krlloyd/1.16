@@ -1,6 +1,5 @@
 package cofh.thermal.core.item;
 
-import cofh.core.fluid.FluidContainerItemWrapper;
 import cofh.core.fluid.FluidStorageCoFH;
 import cofh.core.fluid.IFluidContainerItem;
 import cofh.core.item.BlockItemAugmentable;
@@ -15,7 +14,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
@@ -68,11 +66,11 @@ public class BlockItemFluidCell extends BlockItemAugmentable implements IFluidCo
         getAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
     }
 
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
-
-        return new FluidContainerItemWrapper(stack, this);
-    }
+    //    @Override
+    //    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+    //
+    //        return new FluidContainerItemWrapper(stack, this);
+    //    }
 
     // region IFluidContainerItem
     @Override

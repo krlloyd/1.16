@@ -124,6 +124,8 @@ public class ThermalCore {
         registerGuiFactories();
         registerRenderLayers();
         registerEntityRenderingHandlers();
+
+        // ThermalItemGroups.setup();
     }
     // endregion
 
