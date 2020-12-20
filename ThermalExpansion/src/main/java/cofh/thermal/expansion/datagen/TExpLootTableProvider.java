@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
+import static cofh.thermal.core.init.TCoreIDs.ID_DEVICE_HIVE_EXTRACTOR;
 import static cofh.thermal.expansion.init.TExpIDs.*;
 
 public class TExpLootTableProvider extends LootTableProviderCoFH {
@@ -29,25 +30,26 @@ public class TExpLootTableProvider extends LootTableProviderCoFH {
         DeferredRegisterCoFH<Block> regBlocks = BLOCKS;
         DeferredRegisterCoFH<Item> regItems = ITEMS;
 
-        lootTables.put(regBlocks.get(ID_MACHINE_FURNACE), createSyncDropTable(regBlocks.get(ID_MACHINE_FURNACE)));
-        lootTables.put(regBlocks.get(ID_MACHINE_SAWMILL), createSyncDropTable(regBlocks.get(ID_MACHINE_SAWMILL)));
-        lootTables.put(regBlocks.get(ID_MACHINE_PULVERIZER), createSyncDropTable(regBlocks.get(ID_MACHINE_PULVERIZER)));
-        lootTables.put(regBlocks.get(ID_MACHINE_SMELTER), createSyncDropTable(regBlocks.get(ID_MACHINE_SMELTER)));
-        lootTables.put(regBlocks.get(ID_MACHINE_INSOLATOR), createSyncDropTable(regBlocks.get(ID_MACHINE_INSOLATOR)));
-        lootTables.put(regBlocks.get(ID_MACHINE_CENTRIFUGE), createSyncDropTable(regBlocks.get(ID_MACHINE_CENTRIFUGE)));
-        lootTables.put(regBlocks.get(ID_MACHINE_PRESS), createSyncDropTable(regBlocks.get(ID_MACHINE_PRESS)));
-        lootTables.put(regBlocks.get(ID_MACHINE_CRUCIBLE), createSyncDropTable(regBlocks.get(ID_MACHINE_CRUCIBLE)));
-        lootTables.put(regBlocks.get(ID_MACHINE_CHILLER), createSyncDropTable(regBlocks.get(ID_MACHINE_CHILLER)));
-        lootTables.put(regBlocks.get(ID_MACHINE_REFINERY), createSyncDropTable(regBlocks.get(ID_MACHINE_REFINERY)));
-        lootTables.put(regBlocks.get(ID_MACHINE_BREWER), createSyncDropTable(regBlocks.get(ID_MACHINE_BREWER)));
-        lootTables.put(regBlocks.get(ID_MACHINE_BOTTLER), createSyncDropTable(regBlocks.get(ID_MACHINE_BOTTLER)));
-        lootTables.put(regBlocks.get(ID_MACHINE_CRAFTER), createSyncDropTable(regBlocks.get(ID_MACHINE_CRAFTER)));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_FURNACE));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_SAWMILL));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_PULVERIZER));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_SMELTER));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_INSOLATOR));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_CENTRIFUGE));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_PRESS));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_CRUCIBLE));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_CHILLER));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_REFINERY));
+        createSyncDropTable(regBlocks.get(ID_DEVICE_HIVE_EXTRACTOR));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_PYROLYZER));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_BOTTLER));
+        createSyncDropTable(regBlocks.get(ID_MACHINE_CRAFTER));
 
-        lootTables.put(regBlocks.get(ID_DYNAMO_STIRLING), createSyncDropTable(regBlocks.get(ID_DYNAMO_STIRLING)));
-        lootTables.put(regBlocks.get(ID_DYNAMO_COMPRESSION), createSyncDropTable(regBlocks.get(ID_DYNAMO_COMPRESSION)));
-        lootTables.put(regBlocks.get(ID_DYNAMO_MAGMATIC), createSyncDropTable(regBlocks.get(ID_DYNAMO_MAGMATIC)));
-        lootTables.put(regBlocks.get(ID_DYNAMO_NUMISMATIC), createSyncDropTable(regBlocks.get(ID_DYNAMO_NUMISMATIC)));
-        lootTables.put(regBlocks.get(ID_DYNAMO_LAPIDARY), createSyncDropTable(regBlocks.get(ID_DYNAMO_LAPIDARY)));
+        createSyncDropTable(regBlocks.get(ID_DYNAMO_STIRLING));
+        createSyncDropTable(regBlocks.get(ID_DYNAMO_COMPRESSION));
+        createSyncDropTable(regBlocks.get(ID_DYNAMO_MAGMATIC));
+        createSyncDropTable(regBlocks.get(ID_DYNAMO_NUMISMATIC));
+        createSyncDropTable(regBlocks.get(ID_DYNAMO_LAPIDARY));
     }
 
 }

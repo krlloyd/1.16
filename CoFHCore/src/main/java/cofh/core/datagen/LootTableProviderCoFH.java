@@ -46,7 +46,18 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
 
     protected abstract void addTables();
 
-    protected LootTable.Builder createSilkTouchTable(String name, Block block, Item lootItem, float min, float max, int bonus) {
+    protected void createSimpleDropTable(Block block) {
+
+        lootTables.put(block, getSimpleDropTable(block));
+    }
+
+    protected void createSyncDropTable(Block block) {
+
+        lootTables.put(block, getSyncDropTable(block));
+    }
+
+    // region TABLE HELPERS
+    protected LootTable.Builder getSilkTouchTable(String name, Block block, Item lootItem, float min, float max, int bonus) {
 
         LootPool.Builder builder = LootPool.builder()
                 .name(name)
@@ -60,7 +71,7 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
         return LootTable.builder().addLootPool(builder);
     }
 
-    protected LootTable.Builder createSilkTouchOreTable(Block block, Item lootItem) {
+    protected LootTable.Builder getSilkTouchOreTable(Block block, Item lootItem) {
 
         LootPool.Builder builder = LootPool.builder()
                 .rolls(ConstantRange.of(1))
@@ -72,7 +83,7 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
         return LootTable.builder().addLootPool(builder);
     }
 
-    protected LootTable.Builder createCropTable(Block block, Item crop, Item seed, IntegerProperty ageProp, int age) {
+    protected LootTable.Builder getCropTable(Block block, Item crop, Item seed, IntegerProperty ageProp, int age) {
 
         ILootCondition.IBuilder harvestAge = BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withIntProp(ageProp, age));
         return LootTable.builder()
@@ -88,7 +99,7 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
                 .acceptFunction(ExplosionDecay.builder());
     }
 
-    protected LootTable.Builder createTuberTable(Block block, Item crop, IntegerProperty ageProp, int age) {
+    protected LootTable.Builder getTuberTable(Block block, Item crop, IntegerProperty ageProp, int age) {
 
         ILootCondition.IBuilder harvestAge = BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withIntProp(ageProp, age));
         return LootTable.builder()
@@ -101,7 +112,7 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
                         .acceptFunction(ExplosionDecay.builder()));
     }
 
-    protected LootTable.Builder createSimpleDropTable(Block block) {
+    protected LootTable.Builder getSimpleDropTable(Block block) {
 
         LootPool.Builder builder = LootPool.builder()
                 .rolls(ConstantRange.of(1))
@@ -110,12 +121,12 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
         return LootTable.builder().addLootPool(builder);
     }
 
-    protected LootTable.Builder createEmptyTable() {
+    protected LootTable.Builder getEmptyTable() {
 
         return LootTable.builder();
     }
 
-    protected LootTable.Builder createStandardTileTable(String name, Block block) {
+    protected LootTable.Builder getStandardTileTable(String name, Block block) {
 
         LootPool.Builder builder = LootPool.builder()
                 .name(name)
@@ -131,7 +142,7 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
         return LootTable.builder().addLootPool(builder);
     }
 
-    protected LootTable.Builder createSyncDropTable(Block block) {
+    protected LootTable.Builder getSyncDropTable(Block block) {
 
         LootPool.Builder builder = LootPool.builder()
                 .rolls(ConstantRange.of(1))
@@ -140,6 +151,7 @@ public abstract class LootTableProviderCoFH extends LootTableProvider {
                 .acceptCondition(SurvivesExplosion.builder());
         return LootTable.builder().addLootPool(builder);
     }
+    // endregion
 
     @Override
     public void act(DirectoryCache cache) {

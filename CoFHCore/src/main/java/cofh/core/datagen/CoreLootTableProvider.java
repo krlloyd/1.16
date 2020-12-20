@@ -20,7 +20,7 @@ public class CoreLootTableProvider extends LootTableProviderCoFH {
     @Override
     protected void addTables() {
 
-        lootTables.put(GLOSSED_MAGMA, createEmptyTable());
+        lootTables.put(GLOSSED_MAGMA, getEmptyTable());
     }
 
 }
