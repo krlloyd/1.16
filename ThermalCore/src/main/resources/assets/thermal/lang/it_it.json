@@ -693,11 +693,11 @@
   "info.thermal.machine_crucible.1": "Molto utile per creare blocchi avanzati.",
   "info.thermal.machine_crucible.2": "Tenere fuori portata da bambini piccoli e animali domestici.",
 
-  "info.thermal.machine_furnace.0": "Fonde le cose utilizzando il Flusso Pietrarossico.",
+  "info.thermal.machine_furnace.0": "Fonde le cose utilizzando il flusso di redstone.",
   "info.thermal.machine_furnace.1": "Usa molto poca energia per cuocere cibi.",
   "info.thermal.machine_furnace.2": "Om nom nom.",
 
-  "info.thermal.machine_insolator.0": "Infonde nutrienti e luce nelle piante utilizzando il Flusso Pietrarossico.",
+  "info.thermal.machine_insolator.0": "Infonde nutrienti e luce nelle piante utilizzando il flusso di redstone.",
   "info.thermal.machine_insolator.1": "Non esattamente agricoltura "biologica".",
   "info.thermal.machine_insolator.2": "Gloriosamente incandescente!",
 
@@ -749,7 +749,7 @@
   "info.thermal.infuser.mode.0": "Auto-infondi disabilitato",
   "info.thermal.infuser.mode.1": "Auto-infondi abilitato",
   "info.thermal.infuser.use": "Usa su un mob per infonderlo.",
-  "info.thermal.infuser.use.sneak": Usa mentre accovacciato per infondere te stesso.",
+  "info.thermal.infuser.use.sneak": "Usa mentre accovacciato per infondere te stesso.",
 
   "info.thermal.quiver.mode.0": "Imbutitura disabilitata",
   "info.thermal.quiver.mode.1": "Imbutitura abilitata",
