@@ -1,4 +1,4 @@
-package cofh.thermal.expansion.plugins.crt.actions;
+package cofh.thermal.core.plugins.crt.actions;
 
 import cofh.thermal.core.util.recipes.ThermalCatalyst;
 import com.blamejared.crafttweaker.api.item.IIngredient;

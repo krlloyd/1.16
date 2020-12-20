@@ -1,8 +1,8 @@
 package cofh.thermal.expansion.plugins.crt.machine;
 
+import cofh.thermal.core.plugins.crt.actions.ActionRemoveThermalRecipeByOutput;
+import cofh.thermal.core.plugins.crt.base.CRTRecipe;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
-import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalRecipeByOutput;
-import cofh.thermal.expansion.plugins.crt.base.CRTRecipe;
 import cofh.thermal.expansion.util.recipes.machine.BrewerRecipe;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;

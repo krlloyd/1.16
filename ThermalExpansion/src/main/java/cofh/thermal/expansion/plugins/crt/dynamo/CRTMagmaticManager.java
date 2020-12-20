@@ -1,8 +1,8 @@
 package cofh.thermal.expansion.plugins.crt.dynamo;
 
+import cofh.thermal.core.plugins.crt.actions.ActionRemoveThermalFuelByOutput;
+import cofh.thermal.core.plugins.crt.base.CRTFuel;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
-import cofh.thermal.expansion.plugins.crt.actions.ActionRemoveThermalFuelByOutput;
-import cofh.thermal.expansion.plugins.crt.base.CRTFuel;
 import cofh.thermal.expansion.util.recipes.dynamo.MagmaticFuel;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
