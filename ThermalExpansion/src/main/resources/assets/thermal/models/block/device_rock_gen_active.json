@@ -1,5 +1,5 @@
 {
-  "parent": "block/cube",
+  "parent": "minecraft:block/cube",
   "textures": {
     "particle": "thermal:block/devices/device_rock_gen_side_active",
     "down": "thermal:block/devices/device_rock_gen_bottom",

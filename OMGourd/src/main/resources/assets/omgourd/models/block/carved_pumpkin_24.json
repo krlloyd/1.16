@@ -1,5 +1,5 @@
 {
-  "parent": "block/carved_pumpkin",
+  "parent": "minecraft:block/carved_pumpkin",
   "textures": {
     "front": "omgourd:block/carved_pumpkin_24"
   }

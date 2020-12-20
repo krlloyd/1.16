@@ -64,13 +64,15 @@
   "block.thermal.red_rockwool": "Red Rockwool",
   "block.thermal.black_rockwool": "Black Rockwool",
 
+  "block.thermal.bitumen_block": "Block of Bitumen",
   "block.thermal.coal_coke_block": "Block of Coke",
-  "block.thermal.sawdust_block": "Block of Sawdust",
+  "block.thermal.cured_rubber_block": "Block of Cured Rubber",
+  "block.thermal.rich_slag_block": "Block of Rich Slag",
   "block.thermal.rosin_block": "Block of Rosin",
   "block.thermal.rubber_block": "Block of Rubber",
-  "block.thermal.cured_rubber_block": "Block of Cured Rubber",
+  "block.thermal.sawdust_block": "Block of Sawdust",
   "block.thermal.slag_block": "Block of Slag",
-  "block.thermal.rich_slag_block": "Block of Rich Slag",
+  "block.thermal.tar_block": "Block of Tar",
 
   "death.attack.basalz": "%1$s had their world rocked!",
   "death.attack.blitz": "%1$s was tragically enlightened!",
@@ -157,6 +159,7 @@
   "item.thermal.sulfur": "Sulfur",
   "item.thermal.sulfur_dust": "Sulfur Dust",
 
+  "item.thermal.bitumen": "Bitumen",
   "item.thermal.coal_coke": "Coke",
   "item.thermal.cured_rubber": "Cured Rubber",
   "item.thermal.rich_slag": "Rich Slag",
@@ -164,6 +167,7 @@
   "item.thermal.rubber": "Rubber",
   "item.thermal.slag": "Slag",
   "item.thermal.sawdust": "Sawdust",
+  "item.thermal.tar": "Tar",
 
   "item.thermal.basalz_powder": "Basalz Powder",
   "item.thermal.basalz_rod": "Basalz Shard",

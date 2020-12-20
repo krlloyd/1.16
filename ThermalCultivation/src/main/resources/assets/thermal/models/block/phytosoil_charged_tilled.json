@@ -1,5 +1,5 @@
 {
-  "parent": "block/template_farmland",
+  "parent": "minecraft:block/template_farmland",
   "textures": {
     "particle": "thermal:block/soils/phytosoil_charged",
     "dirt": "thermal:block/soils/phytosoil_charged",

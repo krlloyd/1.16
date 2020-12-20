@@ -1,6 +1,6 @@
 {
   "loader": "thermal:reconfigurable",
-  "parent": "block/block",
+  "parent": "minecraft:block/block",
   "elements": [
     {
       "from": [0, 0, 0],

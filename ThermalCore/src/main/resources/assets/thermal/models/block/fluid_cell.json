@@ -1,6 +1,6 @@
 {
   "loader": "thermal:fluid_cell",
-  "parent": "block/block",
+  "parent": "minecraft:block/block",
   "elements": [
     {
       "from": [0, 0, 0],

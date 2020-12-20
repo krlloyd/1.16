@@ -1,5 +1,5 @@
 {
-  "parent": "block/cube",
+  "parent": "minecraft:block/cube",
   "textures": {
     "particle": "thermal:block/storage/rice_block_top",
     "down": "thermal:block/storage/rice_block_bottom",

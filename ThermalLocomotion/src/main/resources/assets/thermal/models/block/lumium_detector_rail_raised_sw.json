@@ -1,5 +1,5 @@
 {
-  "parent": "block/template_rail_raised_sw",
+  "parent": "minecraft:block/template_rail_raised_sw",
   "textures": {
     "rail": "thermal:block/rails/lumium_detector_rail"
   }

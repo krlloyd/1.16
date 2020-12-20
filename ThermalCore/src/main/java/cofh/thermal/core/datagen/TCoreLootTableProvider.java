@@ -74,8 +74,10 @@ public class TCoreLootTableProvider extends LootTableProviderCoFH {
         lootTables.put(regBlocks.get(ID_RUBY_BLOCK), createSimpleDropTable(regBlocks.get(ID_RUBY_BLOCK)));
         lootTables.put(regBlocks.get(ID_SAPPHIRE_BLOCK), createSimpleDropTable(regBlocks.get(ID_SAPPHIRE_BLOCK)));
 
-        lootTables.put(regBlocks.get(ID_COAL_COKE_BLOCK), createSimpleDropTable(regBlocks.get(ID_COAL_COKE_BLOCK)));
         lootTables.put(regBlocks.get(ID_SAWDUST_BLOCK), createSimpleDropTable(regBlocks.get(ID_SAWDUST_BLOCK)));
+        lootTables.put(regBlocks.get(ID_COAL_COKE_BLOCK), createSimpleDropTable(regBlocks.get(ID_COAL_COKE_BLOCK)));
+        lootTables.put(regBlocks.get(ID_BITUMEN_BLOCK), createSimpleDropTable(regBlocks.get(ID_BITUMEN_BLOCK)));
+        lootTables.put(regBlocks.get(ID_TAR_BLOCK), createSimpleDropTable(regBlocks.get(ID_TAR_BLOCK)));
         lootTables.put(regBlocks.get(ID_ROSIN_BLOCK), createSimpleDropTable(regBlocks.get(ID_ROSIN_BLOCK)));
         lootTables.put(regBlocks.get(ID_RUBBER_BLOCK), createSimpleDropTable(regBlocks.get(ID_RUBBER_BLOCK)));
         lootTables.put(regBlocks.get(ID_CURED_RUBBER_BLOCK), createSimpleDropTable(regBlocks.get(ID_CURED_RUBBER_BLOCK)));

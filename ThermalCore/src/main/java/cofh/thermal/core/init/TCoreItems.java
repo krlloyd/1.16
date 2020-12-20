@@ -79,8 +79,10 @@ public class TCoreItems {
 
         ItemGroup group = ThermalItemGroups.THERMAL_ITEMS;
 
-        registerItem("coal_coke", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(3200));
         registerItem("sawdust", group);
+        registerItem("coal_coke", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(3200));
+        registerItem("bitumen", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(1600));
+        registerItem("tar", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(800));
         registerItem("rosin", () -> new ItemCoFH(new Item.Properties().group(group)).setBurnTime(800));
         registerItem("rubber", group);
         registerItem("cured_rubber", group);

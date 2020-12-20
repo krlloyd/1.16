@@ -35,8 +35,10 @@ public class TCoreIDs {
     // endregion
 
     // region STORAGE
-    public static final String ID_COAL_COKE_BLOCK = "coal_coke_block";
     public static final String ID_SAWDUST_BLOCK = "sawdust_block";
+    public static final String ID_COAL_COKE_BLOCK = "coal_coke_block";
+    public static final String ID_BITUMEN_BLOCK = "bitumen_block";
+    public static final String ID_TAR_BLOCK = "tar_block";
     public static final String ID_ROSIN_BLOCK = "rosin_block";
     public static final String ID_RUBBER_BLOCK = "rubber_block";
     public static final String ID_CURED_RUBBER_BLOCK = "cured_rubber_block";
