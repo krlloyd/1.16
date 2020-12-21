@@ -51,6 +51,7 @@ import static cofh.thermal.core.init.TCoreIDs.*;
 import static cofh.thermal.core.init.TCoreReferences.*;
 import static cofh.thermal.core.util.RegistrationHelper.*;
 import static net.minecraft.block.AbstractBlock.Properties.create;
+import static net.minecraft.block.AbstractBlock.Properties.from;
 
 public class TCoreBlocks {
 
@@ -132,6 +133,9 @@ public class TCoreBlocks {
 
         registerBlock(ID_RUBY_ORE, () -> new OreBlockCoFH(2).xp(3, 7), getFlag(FLAG_RESOURCE_RUBY));
         registerBlock(ID_SAPPHIRE_ORE, () -> new OreBlockCoFH(2).xp(3, 7), getFlag(FLAG_RESOURCE_SAPPHIRE));
+
+        registerBlock(ID_OIL_SAND, () -> new OreBlockCoFH(from(Blocks.SAND)), getFlag(FLAG_RESOURCE_OIL));
+        registerBlock(ID_OIL_RED_SAND, () -> new OreBlockCoFH(from(Blocks.RED_SAND)), getFlag(FLAG_RESOURCE_OIL));
     }
 
     private static void registerStorage() {

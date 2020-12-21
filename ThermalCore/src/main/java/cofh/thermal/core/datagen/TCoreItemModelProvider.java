@@ -212,6 +212,9 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
 
         blockItem(reg.getSup(ID_RUBY_ORE));
         blockItem(reg.getSup(ID_SAPPHIRE_ORE));
+
+        blockItem(reg.getSup(ID_OIL_SAND));
+        blockItem(reg.getSup(ID_OIL_RED_SAND));
     }
 
     private void registerStorageBlocks(DeferredRegisterCoFH<Block> reg) {

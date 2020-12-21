@@ -69,6 +69,8 @@ public class ThermalFlags {
     public static String FLAG_RESOURCE_RUBY = "ruby";
     public static String FLAG_RESOURCE_SAPPHIRE = "sapphire";
 
+    public static String FLAG_RESOURCE_OIL = "oil";
+
     public static String FLAG_RESOURCE_BRONZE = "bronze";
     public static String FLAG_RESOURCE_ELECTRUM = "electrum";
     public static String FLAG_RESOURCE_INVAR = "invar";

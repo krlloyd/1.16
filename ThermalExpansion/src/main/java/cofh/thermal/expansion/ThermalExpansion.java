@@ -42,6 +42,7 @@ public class ThermalExpansion {
     private void setFeatureFlags() {
 
         setFlag(FLAG_RESOURCE_CINNABAR, true);
+        setFlag(FLAG_RESOURCE_OIL, true);
 
         setFlag(FLAG_DYNAMO_AUGMENTS, true);
         setFlag(FLAG_MACHINE_AUGMENTS, true);

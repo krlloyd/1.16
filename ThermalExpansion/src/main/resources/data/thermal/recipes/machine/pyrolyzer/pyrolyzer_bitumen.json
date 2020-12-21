@@ -1,7 +1,7 @@
 {
   "type": "thermal:pyrolyzer",
   "ingredient": {
-    "item": "minecraft:coal"
+    "item": "thermal:bitumen"
   },
   "result": [
     {
@@ -9,12 +9,13 @@
     },
     {
       "item": "thermal:tar",
-      "chance": 0.25
+      "chance": 0.50
     },
     {
-      "fluid": "thermal:creosote",
-      "amount": 250
+      "fluid": "thermal:heavy_oil",
+      "amount": 50
     }
   ],
+  "energy": 4000,
   "experience": 0.15
 }

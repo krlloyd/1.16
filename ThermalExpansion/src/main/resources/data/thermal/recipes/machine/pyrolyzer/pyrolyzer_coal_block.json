@@ -8,10 +8,14 @@
       "item": "thermal:coal_coke_block"
     },
     {
+      "item": "thermal:tar",
+      "chance": 2.5
+    },
+    {
       "fluid": "thermal:creosote",
       "amount": 2500
     }
   ],
   "energy": 18000,
-  "experience": 0.15
+  "experience": 1.5
 }
