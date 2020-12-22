@@ -143,14 +143,14 @@ public class TCoreBlocks {
         registerBlock(ID_APATITE_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.LIGHT_BLUE_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()));
         registerBlock(ID_CINNABAR_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.RED_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()));
         registerBlock(ID_NITER_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()));
-        registerBlock(ID_SULFUR_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.YELLOW_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()) {
+        registerBlockAndItem(ID_SULFUR_BLOCK, () -> new Block(create(Material.ROCK, MaterialColor.YELLOW_TERRACOTTA).hardnessAndResistance(3.0F, 3.0F).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).setRequiresTool()) {
 
             @Override
             public boolean isFireSource(BlockState state, IWorldReader world, BlockPos pos, Direction side) {
 
                 return side == Direction.UP;
             }
-        });
+        }, () -> new BlockItemCoFH(BLOCKS.get(ID_SULFUR_BLOCK), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(12000));
 
         registerBlock(ID_COPPER_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_COPPER));
         registerBlock(ID_TIN_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_TIN));
