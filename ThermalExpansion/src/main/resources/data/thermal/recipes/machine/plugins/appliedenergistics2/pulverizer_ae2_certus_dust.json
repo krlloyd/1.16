@@ -1,7 +1,7 @@
 {
   "type": "thermal:pulverizer",
   "ingredient": {
-    "tag": "forge:gems/certuz_quartz"
+    "item": "appliedenergistics2:certus_quartz_crystal"
   },
   "result": [
     {
