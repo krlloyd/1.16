@@ -19,7 +19,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
-import static cofh.core.util.constants.Constants.*;
+import static cofh.core.util.constants.Constants.FALSE;
+import static cofh.core.util.constants.Constants.TRUE;
 import static cofh.core.util.constants.NBTTags.*;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
