@@ -14,7 +14,8 @@
       "A.text": "The seed cones of a flowering hop vine. Used to flavor beer.",
 
       "B.title": "Corn",
-      "B.item": "thermal:corn",
+      "B.item1": "thermal:corn",
+      "B.item2": "thermal:corn_seeds",
       "B.text": "A staple grain prized for its versatility."
     },
     {

@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "The Tinker's Workbench is a block that can charge, fill, and apply augments to tools and blocks."
+      "text": "The Tinker's Workbench is a block that can charge, fill, and apply augments to tools and blocks. Steps for augmenting are on the next page."
     },
     {
       "type": "crafting",
@@ -18,6 +18,11 @@
       "type": "text",
       "title": "Augment Compatibility",
       "text": "$(li)$(l:thermal:technology/augments/rf_coil)Expanded RF Coil$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)Stabilized RF Coil$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)High-Flux RF Coil$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)Expanded Tank Construction$(/l)"
+    },
+    {
+      "type": "text",
+      "title": "How to Augment",
+      "text": "$(li)Put augmentable item or block in the workbench$(li)Set workbench to augment mode$(li)Put augments in the item slot$(li)Set workbench to recharge/refill mode$(li)Remove item from workbench$(li)Profit"
     }
   ]
 }

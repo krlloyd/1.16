@@ -10,5 +10,6 @@
   "link_hover_color": "000090",
   "show_toasts": "false",
   "model": "thermal:guidebook",
-  "book_texture": "thermal:textures/gui/guidebook.png"
+  "book_texture": "thermal:textures/gui/guidebook/book_texture.png",
+  "filler_texture": "thermal:textures/gui/guidebook/filler_texture.png"
 }

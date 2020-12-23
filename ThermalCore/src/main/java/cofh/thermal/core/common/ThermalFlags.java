@@ -95,6 +95,8 @@ public class ThermalFlags {
 
     public static String FLAG_GEN_RUBY = "gen_ruby";
     public static String FLAG_GEN_SAPPHIRE = "gen_sapphire";
+
+    public static String FLAG_GEN_OIL = "gen_oil";
     // endregion
 
     static {

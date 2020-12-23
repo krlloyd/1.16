@@ -1,7 +1,6 @@
 package cofh.thermal.core.init;
 
 import cofh.core.block.*;
-import cofh.core.block.storage.MetalStorageBlock;
 import cofh.core.item.BlockItemCoFH;
 import cofh.core.util.ProxyUtils;
 import cofh.thermal.core.common.ThermalConfig;
@@ -134,8 +133,11 @@ public class TCoreBlocks {
         registerBlock(ID_RUBY_ORE, () -> new OreBlockCoFH(2).xp(3, 7), getFlag(FLAG_RESOURCE_RUBY));
         registerBlock(ID_SAPPHIRE_ORE, () -> new OreBlockCoFH(2).xp(3, 7), getFlag(FLAG_RESOURCE_SAPPHIRE));
 
-        registerBlock(ID_OIL_SAND, () -> new OreBlockCoFH(from(Blocks.SAND)), getFlag(FLAG_RESOURCE_OIL));
-        registerBlock(ID_OIL_RED_SAND, () -> new OreBlockCoFH(from(Blocks.RED_SAND)), getFlag(FLAG_RESOURCE_OIL));
+        registerBlockAndItem(ID_OIL_SAND, () -> new OreBlockCoFH(from(Blocks.SAND)),
+                () -> new BlockItemCoFH(BLOCKS.get(ID_OIL_SAND), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(2400).setShowInGroups(getFlag(FLAG_RESOURCE_OIL)));
+
+        registerBlockAndItem(ID_OIL_RED_SAND, () -> new OreBlockCoFH(from(Blocks.RED_SAND)),
+                () -> new BlockItemCoFH(BLOCKS.get(ID_OIL_RED_SAND), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(2400).setShowInGroups(getFlag(FLAG_RESOURCE_OIL)));
     }
 
     private static void registerStorage() {
@@ -152,18 +154,18 @@ public class TCoreBlocks {
             }
         }, () -> new BlockItemCoFH(BLOCKS.get(ID_SULFUR_BLOCK), new Item.Properties().group(THERMAL_BLOCKS)).setBurnTime(12000));
 
-        registerBlock(ID_COPPER_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_COPPER));
-        registerBlock(ID_TIN_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_TIN));
-        registerBlock(ID_LEAD_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_LEAD));
-        registerBlock(ID_SILVER_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_SILVER));
-        registerBlock(ID_NICKEL_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_NICKEL));
+        registerBlock(ID_COPPER_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_COPPER));
+        registerBlock(ID_TIN_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_TIN));
+        registerBlock(ID_LEAD_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_LEAD));
+        registerBlock(ID_SILVER_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_SILVER));
+        registerBlock(ID_NICKEL_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_NICKEL));
 
-        registerBlock(ID_BRONZE_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_BRONZE));
-        registerBlock(ID_ELECTRUM_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_ELECTRUM));
-        registerBlock(ID_INVAR_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_INVAR));
-        registerBlock(ID_CONSTANTAN_BLOCK, () -> new MetalStorageBlock(1), getFlag(FLAG_RESOURCE_CONSTANTAN));
+        registerBlock(ID_BRONZE_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_BRONZE));
+        registerBlock(ID_ELECTRUM_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_ELECTRUM));
+        registerBlock(ID_INVAR_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_INVAR));
+        registerBlock(ID_CONSTANTAN_BLOCK, () -> storageBlock(1), getFlag(FLAG_RESOURCE_CONSTANTAN));
 
-        registerBlock(ID_SIGNALUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.RED).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(7)).notSolid()) {
+        registerBlock(ID_SIGNALUM_BLOCK, () -> new Block(create(Material.IRON, MaterialColor.RED).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(7)).notSolid()) {
 
             @Override
             public boolean canProvidePower(BlockState state) {
@@ -177,11 +179,11 @@ public class TCoreBlocks {
                 return 15;
             }
         }, Rarity.UNCOMMON);
-        registerBlock(ID_LUMIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.YELLOW).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(15)).notSolid()), Rarity.UNCOMMON);
-        registerBlock(ID_ENDERIUM_BLOCK, () -> new MetalStorageBlock(create(Material.IRON, MaterialColor.CYAN).hardnessAndResistance(25.0F, 30.0F).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(3)).notSolid()), Rarity.UNCOMMON);
+        registerBlock(ID_LUMIUM_BLOCK, () -> new Block(create(Material.IRON, MaterialColor.YELLOW).hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(15)).notSolid()), Rarity.UNCOMMON);
+        registerBlock(ID_ENDERIUM_BLOCK, () -> new Block(create(Material.IRON, MaterialColor.CYAN).hardnessAndResistance(25.0F, 30.0F).sound(SoundType.METAL).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(lightValue(3)).notSolid()), Rarity.UNCOMMON);
 
-        registerBlock(ID_RUBY_BLOCK, () -> new MetalStorageBlock(MaterialColor.RED, 1), getFlag(FLAG_RESOURCE_RUBY));
-        registerBlock(ID_SAPPHIRE_BLOCK, () -> new MetalStorageBlock(MaterialColor.BLUE, 1), getFlag(FLAG_RESOURCE_SAPPHIRE));
+        registerBlock(ID_RUBY_BLOCK, () -> storageBlock(MaterialColor.RED, 1), getFlag(FLAG_RESOURCE_RUBY));
+        registerBlock(ID_SAPPHIRE_BLOCK, () -> storageBlock(MaterialColor.BLUE, 1), getFlag(FLAG_RESOURCE_SAPPHIRE));
 
         registerBlockAndItem(ID_SAWDUST_BLOCK, () -> new FallingBlock(create(Material.WOOD).hardnessAndResistance(1.0F, 1.0F).sound(SoundType.SAND).harvestTool(ToolType.SHOVEL)) {
 
@@ -322,6 +324,26 @@ public class TCoreBlocks {
 
         TILE_ENTITIES.register(ID_ENERGY_CELL, () -> TileEntityType.Builder.create(EnergyCellTile::new, ENERGY_CELL_BLOCK).build(null));
         TILE_ENTITIES.register(ID_FLUID_CELL, () -> TileEntityType.Builder.create(FluidCellTile::new, FLUID_CELL_BLOCK).build(null));
+    }
+
+    private static Block storageBlock(int harvestLevel) {
+
+        return new Block(AbstractBlock.Properties.create(Material.IRON, MaterialColor.IRON)
+                .hardnessAndResistance(5.0F, 6.0F)
+                .sound(SoundType.METAL)
+                .harvestLevel(harvestLevel)
+                .harvestTool(ToolType.PICKAXE)
+                .setRequiresTool());
+    }
+
+    private static Block storageBlock(MaterialColor color, int harvestLevel) {
+
+        return new Block(AbstractBlock.Properties.create(Material.IRON, color)
+                .hardnessAndResistance(5.0F, 6.0F)
+                .sound(SoundType.METAL)
+                .harvestLevel(harvestLevel)
+                .harvestTool(ToolType.PICKAXE)
+                .setRequiresTool());
     }
     // endregion
 }

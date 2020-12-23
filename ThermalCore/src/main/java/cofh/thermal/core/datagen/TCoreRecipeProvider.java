@@ -990,10 +990,11 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .key('C', energyCellFrame)
                 .key('I', Tags.Items.INGOTS_IRON)
                 .key('P', rfCoil)
-                .key('R', Items.REDSTONE_BLOCK)
-                .patternLine(" R ")
+                .key('R', reg.get("cured_rubber"))
+                .key('X', Items.REDSTONE_BLOCK)
+                .patternLine("RXR")
                 .patternLine("ICI")
-                .patternLine(" P ")
+                .patternLine("RPR")
                 .addCriterion("has_energy_cell_frame", hasItem(energyCellFrame))
                 .build(consumer);
 

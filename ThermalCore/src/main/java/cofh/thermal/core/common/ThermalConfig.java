@@ -139,6 +139,10 @@ public class ThermalConfig {
                 .comment("Set to FALSE to prevent 'Thermal Series' Nickel from generating.")
                 .define("Nickel", true);
 
+        flagGenOil = SERVER_CONFIG
+                .comment("Set to FALSE to prevent 'Thermal Series' Oil Sands from generating.")
+                .define("Oil", true);
+
         SERVER_CONFIG.pop();
     }
 
@@ -170,6 +174,8 @@ public class ThermalConfig {
         setFlag(FLAG_GEN_LEAD, () -> getFlag(FLAG_RESOURCE_LEAD).getAsBoolean() && flagGenLead.get());
         setFlag(FLAG_GEN_SILVER, () -> getFlag(FLAG_RESOURCE_SILVER).getAsBoolean() && flagGenSilver.get());
         setFlag(FLAG_GEN_NICKEL, () -> getFlag(FLAG_RESOURCE_NICKEL).getAsBoolean() && flagGenNickel.get());
+
+        setFlag(FLAG_GEN_OIL, () -> getFlag(FLAG_RESOURCE_OIL).getAsBoolean() && flagGenOil.get());
     }
 
     private static void refreshClientConfig() {
@@ -218,6 +224,8 @@ public class ThermalConfig {
     private static BooleanValue flagGenLead;
     private static BooleanValue flagGenSilver;
     private static BooleanValue flagGenNickel;
+
+    private static BooleanValue flagGenOil;
 
     private static BooleanValue freezePermanentLava;
     private static BooleanValue freezePermanentWater;
