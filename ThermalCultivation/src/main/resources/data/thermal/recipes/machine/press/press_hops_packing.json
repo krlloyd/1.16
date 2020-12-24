@@ -2,7 +2,7 @@
   "type": "thermal:press",
   "input": [
     {
-      "item": "minecraft:prismarine_shard",
+      "item": "thermal:hops",
       "count": 9
     },
     {
@@ -11,7 +11,7 @@
   ],
   "result": [
     {
-      "item": "minecraft:prismarine_bricks"
+      "item": "thermal:hops_block"
     }
   ],
   "energy": 400
