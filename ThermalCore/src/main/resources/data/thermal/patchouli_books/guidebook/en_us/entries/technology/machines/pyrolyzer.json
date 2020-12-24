@@ -12,9 +12,8 @@
     },
     {
       "type": "crafting",
-      "title": "Pyrolyzer",
-      "recipe": "thermal:machine_pyrolyzer"
-
+      "recipe": "thermal:machine_pyrolyzer",
+      "title": "Pyrolyzer"
     },
     {
       "type": "text",

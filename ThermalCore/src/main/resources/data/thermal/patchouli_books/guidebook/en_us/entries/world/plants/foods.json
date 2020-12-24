@@ -1,9 +1,9 @@
 {
   "name": "Foods",
   "icon": "thermal:chocolate_cake",
+  "category": "thermal:plants",
   "read_by_default": true,
   "flag": "mod:thermal_cultivation",
-  "category": "thermal:plants",
 
   "pages": [
     {

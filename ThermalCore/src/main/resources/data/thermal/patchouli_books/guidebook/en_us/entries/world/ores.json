@@ -3,6 +3,7 @@
   "icon": "thermal:copper_ore",
   "read_by_default": true,
   "category": "thermal:world",
+
   "pages": [
     {
       "type": "text",

@@ -1,9 +1,9 @@
 {
   "name": "Catalysts",
   "icon": "thermal:rich_slag",
+  "category": "thermal:materials",
   "read_by_default": true,
   "flag": "mod:thermal_expansion",
-  "category": "thermal:materials",
 
   "pages": [
     {

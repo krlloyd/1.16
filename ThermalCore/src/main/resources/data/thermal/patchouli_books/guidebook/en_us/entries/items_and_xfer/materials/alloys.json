@@ -1,8 +1,8 @@
 {
   "name": "Alloys",
   "icon": "thermal:bronze_ingot",
-  "read_by_default": true,
   "category": "thermal:materials",
+  "read_by_default": true,
 
   "pages": [
     {

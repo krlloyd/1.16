@@ -3,6 +3,7 @@
   "icon": "thermal:basalz_rod",
   "category": "thermal:mobs",
   "read_by_default": true,
+
   "pages": [
     {
       "type": "3_item_page",

@@ -13,8 +13,7 @@
     {
       "type": "crafting",
       "recipe": "thermal:machine_press",
-      "recipe2": "thermal:press_unpacking_die",
-      "title": "Multiservo Press"
+      "recipe2": "thermal:press_unpacking_die"
     },
     {
       "type": "crafting",

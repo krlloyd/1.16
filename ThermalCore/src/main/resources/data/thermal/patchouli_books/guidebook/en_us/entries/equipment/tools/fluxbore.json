@@ -2,9 +2,9 @@
   "name": "Fluxbore",
   "icon": "thermal:flux_drill",
   "category": "thermal:tools",
-
   "read_by_default": true,
   "flag": "mod:thermal_innovation",
+
   "pages": [
     {
       "type": "text",

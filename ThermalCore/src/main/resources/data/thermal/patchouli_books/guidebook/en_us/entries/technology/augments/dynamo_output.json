@@ -2,9 +2,9 @@
   "name": "Auxiliary Reaction Chamber",
   "icon": "thermal:dynamo_output_augment",
   "category": "thermal:augments",
-
   "read_by_default": true,
   "flag": "mod:thermal_expansion",
+
   "pages": [
     {
       "type": "crafting",
