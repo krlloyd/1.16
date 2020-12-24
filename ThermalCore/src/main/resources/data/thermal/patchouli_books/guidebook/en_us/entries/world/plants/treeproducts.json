@@ -11,14 +11,14 @@
       "recipe2": "thermal:rubber_from_vine"
     },
     {
-      "type": "smeltingtemplate",
+      "type": "smelting_page",
       "in": "thermal:rubber",
       "out": "thermal:cured_rubber",
       "text": "A stretchy, waterproof material derived from the coagulation of latex. It can be made by simply letting a latex bucket sit in a crafting bench, or it can be crafted from vines and dandelions. To improve its resiliance and elasticity, rubber can be vulcanized in a furnace or, if Thermal Expansion is installed, with sulfur in an induction smelter."
     },
     {
       "flag": "|mod:thermal_expansion,mod:thermal_cultivation",
-      "type": "singleitempage",
+      "type": "1-1_item_page",
 
       "A.title": "Latex",
       "A.item": "thermal:latex_bucket",
@@ -30,7 +30,7 @@
     },
     {
       "flag": "|mod:thermal_expansion,mod:thermal_cultivation",
-      "type": "singleitemtemplate",
+      "type": "1_item_page",
 
       "title": "Sap",
       "item": "thermal:sap_bucket",
@@ -38,7 +38,7 @@
     },
     {
       "flag": "mod:thermal_expansion",
-      "type": "2-1itempage",
+      "type": "2-1_item_page",
 
       "A.title": "Sawdust",
       "A.item1": "thermal:sawdust",
@@ -51,7 +51,7 @@
     },
     {
       "flag": "mod:thermal_expansion",
-      "type": "2-1itempage",
+      "type": "2-1_item_page",
 
       "A.title": "Rosin",
       "A.item1": "thermal:rosin",

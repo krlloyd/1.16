@@ -2,15 +2,12 @@
   "name": "Aqueous Accumulator",
   "icon": "thermal:device_water_gen",
   "category": "thermal:devices",
-
   "read_by_default": true,
-  "flag": "|mod:thermal_expansion",
-
-
+  "flag": "mod:thermal_expansion",
   "pages": [
     {
       "type": "text",
-      "text": "The Aqueous Accumulator is a device that will generate infinite water for your needs. In order for it to produce water you must have two source blocks touching the sides of the device. Note, source blocks above or below the device will not count."
+      "text": "The Aqueous Accumulator is a device that will generate infinite water for your needs. In order for it to produce water there must be at least two source blocks adjacent to the sides of the device. Source blocks above or below the device will not count."
     },
     {
       "type": "crafting",
@@ -23,4 +20,4 @@
       "text": "$(li)$(l:thermal:technology/augments/fluid_tank)Expanded Tank Construction$(/l)"
     }
   ]
-}
+} 

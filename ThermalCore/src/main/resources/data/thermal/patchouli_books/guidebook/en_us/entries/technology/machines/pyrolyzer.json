@@ -8,7 +8,7 @@
   "pages": [
     {
       "type": "text",
-      "text": "The Pyrolyzer is a machine that converts solids into other products using heat."
+      "text": "The Pyrolyzer is a machine that decomposes substances in a low-oxygen environment using heat. Typically used to convert organic matter and coal into cleaner, longer-lasting fuels."
     },
     {
       "type": "crafting",

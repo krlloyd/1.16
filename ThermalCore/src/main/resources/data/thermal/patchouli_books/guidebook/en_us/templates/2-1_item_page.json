@@ -1,11 +1,11 @@
 {
   "include": [
     {
-      "template": "singleitemtemplate",
+      "template": "2_item_page",
       "as": "A"
     },
     {
-      "template": "singleitemtemplate",
+      "template": "1_item_page",
       "as": "B",
       "y": 80
     }

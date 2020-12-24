@@ -9,17 +9,17 @@
     {
       "type": "crafting",
       "recipe": "thermal:chocolate_cake",
-      "text": "A delightful, delectable dessert deserving delirious devotion."
+      "text": "A delightful, delectable dessert deserving decorous devotion. As satisfying as normal cake."
     },
     {
       "type": "crafting",
       "recipe": "thermal:spice_cake",
-      "text": "A satiating, scrumptious sweet synthesized from Sadiroot. Cures negative status effects."
+      "text": "A satiating, scrumptious sweet synthesized from sadiroot spice. Cleanses negative status effects."
     },
     {
       "type": "crafting",
       "recipe": "thermal:xp_stew",
-      "text": "Eggplant to egghead! Provides Clarity, boosting XP gain."
+      "text": "An exhilarant eggplant elixir effervescing with exhorbitant experience enhancement. Boosts XP gain when consumed."
     }
   ]
 }

@@ -1,11 +1,11 @@
 {
   "include": [
     {
-      "template": "alloy3template",
+      "template": "3_alloy_page",
       "as": "A"
     },
     {
-      "template": "alloy3template",
+      "template": "3_alloy_page",
       "as": "B",
       "y": 80
     }
