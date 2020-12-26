@@ -18,6 +18,7 @@ import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -173,7 +174,7 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
             sidedFluidCaps[i].invalidate();
             sidedFluidCaps[i] = reconfigControl.getSideConfig(i).isInput()
                     ? LazyOptional.of(() -> fluidStorage)
-                    : LazyOptional.empty();
+                    : LazyOptional.of(() -> EmptyFluidHandler.INSTANCE);
         }
     }
 

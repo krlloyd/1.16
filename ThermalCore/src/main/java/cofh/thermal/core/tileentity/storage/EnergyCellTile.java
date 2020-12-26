@@ -1,5 +1,6 @@
 package cofh.thermal.core.tileentity.storage;
 
+import cofh.core.energy.EmptyHandler;
 import cofh.core.energy.EnergyStorageAdjustable;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.helpers.BlockHelper;
@@ -164,7 +165,7 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
             sidedEnergyCaps[i].invalidate();
             sidedEnergyCaps[i] = reconfigControl.getSideConfig(i).isInput()
                     ? LazyOptional.of(() -> energyStorage)
-                    : LazyOptional.empty();
+                    : LazyOptional.of(() -> EmptyHandler.INSTANCE);
         }
     }
 

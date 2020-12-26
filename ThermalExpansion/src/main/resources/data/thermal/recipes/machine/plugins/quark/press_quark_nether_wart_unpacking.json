@@ -12,17 +12,14 @@
   "result": [
     {
       "item": "minecraft:nether_wart",
-      "count": 9
+      "count": 4
     }
   ],
   "energy": 400,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "quark:flag",
-        "flag": "nether_wart_sack"
-      }
+      "type": "quark:flag",
+      "flag": "nether_wart_sack"
     }
   ]
 }

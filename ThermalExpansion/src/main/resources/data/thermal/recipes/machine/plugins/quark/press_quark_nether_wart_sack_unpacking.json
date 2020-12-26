@@ -2,7 +2,7 @@
   "type": "thermal:press",
   "input": [
     {
-      "item": "minecraft:nether_wart_block",
+      "item": "quark:nether_wart_sack",
       "count": 1
     },
     {
@@ -18,11 +18,8 @@
   "energy": 400,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "quark:flag",
-        "flag": "nether_wart_sack"
-      }
+      "type": "quark:flag",
+      "flag": "nether_wart_sack"
     }
   ]
 }
