@@ -69,7 +69,7 @@ public class ManagedTankInv extends SimpleTankInv {
 
         inputHandler = new ManagedFluidHandler(tile, inputTanks, Collections.emptyList());
         outputHandler = new ManagedFluidHandler(tile, Collections.emptyList(), outputTanks);
-        accessibleHandler = new ManagedFluidHandler(tile, inputTanks, outputTanks);
+        accessibleHandler = new ManagedFluidHandler(tile, inputTanks, outputTanks).restrict();
         internalHandler = new SimpleFluidHandler(tile, internalTanks);
         allHandler = new SimpleFluidHandler(tile, tanks);
     }

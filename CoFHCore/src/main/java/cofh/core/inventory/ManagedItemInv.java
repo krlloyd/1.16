@@ -100,7 +100,7 @@ public class ManagedItemInv extends SimpleItemInv {
 
         inputHandler = new ManagedItemHandler(tile, inputSlots, Collections.emptyList());
         outputHandler = new ManagedItemHandler(tile, Collections.emptyList(), outputSlots);
-        accessibleHandler = new ManagedItemHandler(tile, inputSlots, outputSlots);
+        accessibleHandler = new ManagedItemHandler(tile, inputSlots, outputSlots).restrict();
         internalHandler = new SimpleItemHandler(tile, internalSlots);
         allHandler = new SimpleItemHandler(tile, slots);
     }
