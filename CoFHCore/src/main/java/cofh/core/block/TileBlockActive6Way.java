@@ -18,9 +18,9 @@ import java.util.function.Supplier;
 
 import static cofh.core.util.constants.Constants.FACING_ALL;
 
-public class TileBlock6Way extends TileBlockCoFH implements IWrenchable {
+public class TileBlockActive6Way extends TileBlockActive implements IWrenchable {
 
-    public TileBlock6Way(Properties builder, Supplier<? extends TileCoFH> supplier) {
+    public TileBlockActive6Way(Properties builder, Supplier<? extends TileCoFH> supplier) {
 
         super(builder, supplier);
     }
