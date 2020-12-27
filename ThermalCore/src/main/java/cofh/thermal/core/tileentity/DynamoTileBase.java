@@ -1,5 +1,6 @@
 package cofh.thermal.core.tileentity;
 
+import cofh.core.energy.EmptyEnergyHandler;
 import cofh.core.energy.EnergyStorageCoFH;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.helpers.BlockHelper;
@@ -336,11 +337,13 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
 
     // region CAPABILITIES
     // TODO: Return empty if non-RF coil installed.
-    //    @Override
-    //    protected <T> LazyOptional<T> getEnergyCapability(@Nullable Direction side) {
-    //
-    //        return LazyOptional.empty();
-    //    }
+    protected <T> LazyOptional<T> getEnergyCapability(@Nullable Direction side) {
+
+        if (!energyCap.isPresent() && energyStorage.getCapacity() > 0) {
+            energyCap = LazyOptional.of(() -> EmptyEnergyHandler.INSTANCE);
+        }
+        return energyCap.cast();
+    }
 
     @Override
     protected <T> LazyOptional<T> getItemHandlerCapability(@Nullable Direction side) {

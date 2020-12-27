@@ -1,6 +1,6 @@
 package cofh.thermal.core.tileentity.storage;
 
-import cofh.core.energy.EmptyHandler;
+import cofh.core.energy.EmptyEnergyHandler;
 import cofh.core.energy.EnergyStorageAdjustable;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.helpers.BlockHelper;
@@ -61,6 +61,12 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
         if (timeCheck()) {
             updateTrackers(true);
         }
+    }
+
+    @Override
+    public int getLightValue() {
+
+        return levelTracker;
     }
 
     protected void transferRF() {
@@ -132,6 +138,8 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
     @Override
     protected void updateTrackers(boolean send) {
 
+        prevLight = getLightValue();
+
         int curScale = energyStorage.getEnergyStored() > 0 ? 1 + (int) (energyStorage.getRatio() * 14) : 0;
         if (curScale != compareTracker) {
             compareTracker = curScale;
@@ -165,7 +173,7 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
             sidedEnergyCaps[i].invalidate();
             sidedEnergyCaps[i] = reconfigControl.getSideConfig(i).isInput()
                     ? LazyOptional.of(() -> energyStorage)
-                    : LazyOptional.of(() -> EmptyHandler.INSTANCE);
+                    : LazyOptional.of(() -> EmptyEnergyHandler.INSTANCE);
         }
     }
 

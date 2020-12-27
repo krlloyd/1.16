@@ -30,6 +30,8 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     public int amountInput;
     public int amountOutput;
 
+    protected int prevLight;
+
     protected ReconfigControlModule reconfigControl = new CellReconfigControlModule(this);
 
     public CellTileBase(TileEntityType<?> tileEntityTypeIn) {
@@ -44,6 +46,12 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
         updateSidedHandlers();
 
         return this;
+    }
+
+    @Override
+    public int getComparatorInputOverride() {
+
+        return compareTracker;
     }
 
     @Override
@@ -115,6 +123,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         super.onDataPacket(net, pkt);
 
+        world.getChunkProvider().getLightManager().checkBlock(pos);
         ModelDataManager.requestModelDataRefresh(this);
     }
 
@@ -160,6 +169,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         buffer.writeInt(compareTracker);
         buffer.writeInt(levelTracker);
+        buffer.writeInt(prevLight);
 
         return buffer;
     }
@@ -202,7 +212,11 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
 
         compareTracker = buffer.readInt();
         levelTracker = buffer.readInt();
+        prevLight = buffer.readInt();
 
+        if (prevLight != getLightValue()) {
+            world.getChunkProvider().getLightManager().checkBlock(pos);
+        }
         ModelDataManager.requestModelDataRefresh(this);
     }
     // endregion

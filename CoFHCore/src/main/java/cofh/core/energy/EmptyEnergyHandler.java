@@ -2,9 +2,9 @@ package cofh.core.energy;
 
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class EmptyHandler implements IEnergyStorage {
+public class EmptyEnergyHandler implements IEnergyStorage {
 
-    public static final IEnergyStorage INSTANCE = new EmptyHandler();
+    public static final IEnergyStorage INSTANCE = new EmptyEnergyHandler();
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
