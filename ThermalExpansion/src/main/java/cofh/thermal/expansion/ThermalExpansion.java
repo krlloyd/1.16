@@ -49,6 +49,9 @@ public class ThermalExpansion {
 
         setFlag(FLAG_TOOL_COMPONENTS, true);
 
+        setFlag(FLAG_COINS, true);
+        setFlag(FLAG_PLATES, true);
+
         setFlag(ID_MACHINE_FRAME, true);
 
         setFlag(ID_DEVICE_TREE_EXTRACTOR, true);

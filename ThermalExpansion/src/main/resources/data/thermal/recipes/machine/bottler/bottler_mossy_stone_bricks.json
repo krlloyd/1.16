@@ -6,13 +6,13 @@
     },
     {
       "fluid": "minecraft:water",
-      "amount": 250
+      "amount": 500
     }
   ],
   "result": [
     {
       "item": "minecraft:mossy_stone_bricks"
-
     }
-  ]
+  ],
+  "energy": 2000
 }
