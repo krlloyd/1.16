@@ -19,7 +19,6 @@ import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -166,33 +165,21 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
     }
 
     // region CAPABILITIES
-    protected final LazyOptional<?>[] sidedFluidCaps = new LazyOptional<?>[]{
-            LazyOptional.empty(),
-            LazyOptional.empty(),
-            LazyOptional.empty(),
-            LazyOptional.empty(),
-            LazyOptional.empty(),
-            LazyOptional.empty()
-    };
-
     @Override
-    protected void updateSidedHandlers() {
-        // FLUID
-        for (int i = 0; i < 6; ++i) {
-            sidedFluidCaps[i].invalidate();
-            sidedFluidCaps[i] = reconfigControl.getSideConfig(i).isInput()
-                    ? LazyOptional.of(() -> fluidStorage)
-                    : LazyOptional.of(() -> EmptyFluidHandler.INSTANCE);
-        }
+    protected void updateHandlers() {
+
+        LazyOptional<?> oldCap = fluidCap;
+        fluidCap = LazyOptional.of(() -> fluidStorage);
+        oldCap.invalidate();
     }
 
     @Override
     protected <T> LazyOptional<T> getFluidHandlerCapability(@Nullable Direction side) {
 
-        if (side == null) {
+        if (side == null || reconfigControl.getSideConfig(side.ordinal()) != SideConfig.SIDE_NONE) {
             return super.getFluidHandlerCapability(side);
         }
-        return sidedFluidCaps[side.ordinal()].cast();
+        return LazyOptional.empty();
     }
     // endregion
 }

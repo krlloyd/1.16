@@ -34,16 +34,6 @@ public class ManagedItemInv extends SimpleItemInv {
         super(tile, tag);
     }
 
-    public void addSlot(StorageGroup group) {
-
-        addSlots(group, 1);
-    }
-
-    public void addSlot(StorageGroup group, Predicate<ItemStack> validator) {
-
-        addSlots(group, 1, validator);
-    }
-
     public void addSlots(StorageGroup group, int amount) {
 
         for (int i = 0; i < amount; ++i) {
@@ -105,9 +95,19 @@ public class ManagedItemInv extends SimpleItemInv {
         allHandler = new SimpleItemHandler(tile, slots);
     }
 
-    public void addSlot(Predicate<ItemStack> validator, StorageGroup group) {
+    public boolean hasInputSlots() {
 
-        addSlot(new ItemStorageCoFH(validator), group);
+        return inputSlots.size() > 0;
+    }
+
+    public boolean hasOutputSlots() {
+
+        return outputSlots.size() > 0;
+    }
+
+    public boolean hasAccessibleSlots() {
+
+        return hasInputSlots() || hasOutputSlots();
     }
 
     public List<ItemStorageCoFH> getInputSlots() {

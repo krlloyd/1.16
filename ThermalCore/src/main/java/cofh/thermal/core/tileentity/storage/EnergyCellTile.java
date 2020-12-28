@@ -1,6 +1,5 @@
 package cofh.thermal.core.tileentity.storage;
 
-import cofh.core.energy.EmptyEnergyHandler;
 import cofh.core.energy.EnergyStorageAdjustable;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.helpers.BlockHelper;
@@ -157,33 +156,21 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
     }
 
     // region CAPABILITIES
-    protected final LazyOptional<?>[] sidedEnergyCaps = new LazyOptional<?>[]{
-            LazyOptional.empty(),
-            LazyOptional.empty(),
-            LazyOptional.empty(),
-            LazyOptional.empty(),
-            LazyOptional.empty(),
-            LazyOptional.empty()
-    };
-
     @Override
-    protected void updateSidedHandlers() {
-        // ENERGY
-        for (int i = 0; i < 6; ++i) {
-            sidedEnergyCaps[i].invalidate();
-            sidedEnergyCaps[i] = reconfigControl.getSideConfig(i).isInput()
-                    ? LazyOptional.of(() -> energyStorage)
-                    : LazyOptional.of(() -> EmptyEnergyHandler.INSTANCE);
-        }
+    protected void updateHandlers() {
+
+        LazyOptional<?> oldCap = energyCap;
+        energyCap = LazyOptional.of(() -> energyStorage);
+        oldCap.invalidate();
     }
 
     @Override
     protected <T> LazyOptional<T> getEnergyCapability(@Nullable Direction side) {
 
-        if (side == null) {
+        if (side == null || reconfigControl.getSideConfig(side.ordinal()) != SideConfig.SIDE_NONE) {
             return super.getEnergyCapability(side);
         }
-        return sidedEnergyCaps[side.ordinal()].cast();
+        return LazyOptional.empty();
     }
     // endregion
 }

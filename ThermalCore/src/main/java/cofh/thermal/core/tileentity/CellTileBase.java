@@ -43,7 +43,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     public TileCoFH worldContext(BlockState state, IBlockReader world) {
 
         reconfigControl.setFacing(state.get(FACING_HORIZONTAL));
-        updateSidedHandlers();
+        updateHandlers();
 
         return this;
     }
@@ -104,12 +104,10 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
             }
             reconfigControl.setSideConfig(sides);
         }
-        updateSidedHandlers();
+        updateHandlers();
     }
 
-    protected void updateTrackers(boolean send) {
-
-    }
+    protected abstract void updateTrackers(boolean send);
 
     public int getLevelTracker() {
 
@@ -234,7 +232,7 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
         amountOutput = nbt.getInt(TAG_AMOUNT_OUT);
 
         updateTrackers(false);
-        updateSidedHandlers();
+        updateHandlers();
     }
 
     @Override
@@ -275,15 +273,8 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     @Override
     public void onControlUpdate() {
 
-        updateSidedHandlers();
         updateTrackers(false);
         super.onControlUpdate();
-    }
-    // endregion
-
-    // region CAPABILITIES
-    protected void updateSidedHandlers() {
-
     }
     // endregion
 

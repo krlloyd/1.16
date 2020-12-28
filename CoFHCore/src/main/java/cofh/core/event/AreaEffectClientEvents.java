@@ -92,7 +92,7 @@ public class AreaEffectClientEvents {
         double d2 = renderInfo.getProjectedView().z;
 
         int progress = (int) (controller.curBlockDamageMP * 10.0F) - 1;
-        if (progress < 0) {
+        if (progress < 0 || progress > 10) {
             return;
         }
         progress = Math.min(progress + 1, 9); // Ensure that for whatever reason the progress level doesn't go OOB.

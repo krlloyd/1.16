@@ -74,6 +74,21 @@ public class ManagedTankInv extends SimpleTankInv {
         allHandler = new SimpleFluidHandler(tile, tanks);
     }
 
+    public boolean hasInputTanks() {
+
+        return inputTanks.size() > 0;
+    }
+
+    public boolean hasOutputTanks() {
+
+        return outputTanks.size() > 0;
+    }
+
+    public boolean hasAccessibleTanks() {
+
+        return hasInputTanks() || hasOutputTanks();
+    }
+
     public List<FluidStorageCoFH> getInputTanks() {
 
         return inputTanks;
