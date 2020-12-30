@@ -17,6 +17,9 @@
   "block.thermal.ruby_ore": "ルビー鉱石",
   "block.thermal.sapphire_ore": "サファイア鉱石",
 
+  "block.thermal.oil_sand": "瀝青質の砂",
+  "block.thermal.oil_red_sand": "瀝青質の赤い砂",
+
   "block.thermal.apatite_block": "燐灰石ブロック",
   "block.thermal.cinnabar_block": "辰砂ブロック",
   "block.thermal.niter_block": "硝石ブロック",
@@ -64,12 +67,15 @@
   "block.thermal.red_rockwool": "赤色の岩綿",
   "block.thermal.black_rockwool": "黒色の岩綿",
 
+  "block.thermal.bitumen_block": "瀝青ブロック",
+  "block.thermal.coal_coke_block": "コークスブロック",
   "block.thermal.sawdust_block": "おがくずブロック",
   "block.thermal.rosin_block": "樹脂ブロック",
   "block.thermal.rubber_block": "ゴムブロック",
   "block.thermal.cured_rubber_block": "硬化ゴムブロック",
   "block.thermal.slag_block": "鉱滓ブロック",
   "block.thermal.rich_slag_block": "上質な鉱滓ブロック",
+  "block.thermal.tar_block": "タールブロック",
 
   "death.attack.basalz": "%1$sは己の世界を揺さぶられた!",
   "death.attack.blitz": "%1$sは敢え無く成仏してしまった!",
@@ -79,11 +85,29 @@
   "entity.thermal.blitz": "ブリッツ",
   "entity.thermal.blizz": "ブリーズ",
 
+  "entity.thermal.basalz_projectile": "地動の欠片",
+  "entity.thermal.blitz_projectile": "球電",
+  "entity.thermal.blizz_projectile": "凍りついた太矢",
+
+  "fluid.thermal.biocrude": "バイオクルード",
+  "fluid.thermal.biofuel": "グラソリン",
+  "fluid.thermal.creosote": "クレオソート",
+  "fluid.thermal.crude_oil": "原油",
+  "fluid.thermal.heavy_oil": "重油",
   "fluid.thermal.latex": "ラテックス",
+  "fluid.thermal.light_oil": "軽油",
+  "fluid.thermal.refined_fuel": "精製燃料",
   "fluid.thermal.resin": "樹脂",
   "fluid.thermal.sap": "樹液",
+  "fluid.thermal.seed_oil": "種油",
   "fluid.thermal.syrup": "シロップ",
   "fluid.thermal.tree_oil": "ツリーオイル",
+
+  "info.thermal.catalysts": "触媒",
+  "info.thermal.energy_mod": "エネルギーモディファイアー",
+  "info.thermal.primary_mod": "主生産物モディファイアー",
+  "info.thermal.secondary_mod": "副生産物モディファイアー",
+  "info.thermal.use_chance": "確率使用",
 
   "info.thermal.detonator.mode.0": "モード: 登録",
   "info.thermal.detonator.mode.1": "モード: 起爆",
@@ -97,15 +121,35 @@
   "info.thermal.redprint.data.RSControl": "レッドストーン制御",
   "info.thermal.redprint.data.Sides": "側面設定",
   "info.thermal.redprint.data.Xfer": "輸送設定",
+  "info.thermal.redprint.use": "ブロックに使用すると、その設定をコピーします。",
+  "info.thermal.redprint.use.contents": "ブロックに使用すると、保存した設定を適用します。",
+  "info.thermal.redprint.use.sneak": "スニーク中に使用すると、保存した設定を消去します。",
+
+  "info.thermal.xp_crystal.mode.0": "自動収集 無効",
+  "info.thermal.xp_crystal.mode.1": "自動収集 有効",
+  "info.thermal.xp_crystal.use": "使用すると、経験値をクリスタルに移します。",
+  "info.thermal.xp_crystal.use.sneak": "スニーク中に使用すると、溜め込んだ経験値を取得できます。",
 
   "item.thermal.redstone_servo": "レッドストーン自律機構",
   "item.thermal.rf_coil": "レッドストーンフラックスコイル",
 
+  "item.thermal.biocrude_bucket": "バイオクルード入りバケツ",
+  "item.thermal.biofuel_bucket": "グラソリン入りバケツ",
+  "item.thermal.creosote_bucket": "クレオソート入りバケツ",
+  "item.thermal.crude_oil_bucket": "原油入りバケツ",
+  "item.thermal.heavy_oil_bucket": "重油入りバケツ",
   "item.thermal.latex_bucket": "ラテックス入りバケツ",
+  "item.thermal.light_oil_bucket": "軽油入りバケツ",
+  "item.thermal.refined_fuel_bucket": "精製燃料入りバケツ",
   "item.thermal.resin_bucket": "樹脂入りバケツ",
   "item.thermal.sap_bucket": "樹液入りバケツ",
+  "item.thermal.seed_oil_bucket": "種油入りバケツ",
   "item.thermal.syrup_bucket": "シロップ入りバケツ",
   "item.thermal.tree_oil_bucket": "ツリーオイル入りバケツ",
+
+  "item.thermal.redstone_bucket": "励起レッドストーン入りバケツ",
+  "item.thermal.glowstone_bucket": "活性化グロウストーン入りバケツ",
+  "item.thermal.ender_bucket": "共振エンダーパール入りバケツ",
 
   "itemGroup.thermal.blocks": "Thermal Series: ブロック",
   "itemGroup.thermal.foods": "Thermal Series: 作物と食料",
@@ -114,16 +158,23 @@
   "itemGroup.thermal.tools": "Thermal Series: 道具",
 
   "item.thermal.apatite": "燐灰石",
+  "item.thermal.apatite_dust": "燐灰石の粉",
   "item.thermal.cinnabar": "辰砂",
+  "item.thermal.cinnabar_dust": "辰砂の粉",
   "item.thermal.niter": "硝石",
+  "item.thermal.niter_dust": "硝石の粉",
   "item.thermal.sulfur": "硫黄",
+  "item.thermal.sulfur_dust": "硫黄の粉",
 
+  "item.thermal.bitumen": "瀝青",
+  "item.thermal.coal_coke": "コークス",
   "item.thermal.cured_rubber": "硬化ゴム",
   "item.thermal.rich_slag": "上質な鉱滓",
   "item.thermal.rosin": "樹脂",
   "item.thermal.rubber": "ゴム",
   "item.thermal.slag": "鉱滓",
   "item.thermal.sawdust": "おがくず",
+  "item.thermal.tar": "タール",
 
   "item.thermal.basalz_powder": "バザルツパウダー",
   "item.thermal.basalz_rod": "バザルツシャード",
@@ -147,6 +198,8 @@
   "item.thermal.redprint.desc": "ブロックの設定をコピーアンドペースト出来ます。",
   "item.thermal.wrench": "クレセントハンマー",
   "item.thermal.wrench.desc": "多くのブロックを回転できます。また、レンチとして使用できます。",
+  "item.thermal.xp_crystal": "洞察に満ちるクリスタル",
+  "item.thermal.xp_crystal.desc": "経験値を溜め込みます。",
 
   "item.thermal.copper_coin": "銅のコイン",
   "item.thermal.copper_dust": "銅の粉",
@@ -244,10 +297,6 @@
   "item.thermal.signalum_nugget": "シグナルム塊",
   "item.thermal.signalum_plate": "シグナルムのプレート",
 
-  "item.thermal.redstone_fluid_bucket": "励起レッドストーン入りバケツ",
-  "item.thermal.glowstone_fluid_bucket": "活性化グロウストーン入りバケツ",
-  "item.thermal.ender_fluid_bucket": "共振エンダーパール入りバケツ",
-
   "_comment": "========================================================================================================",
   "_comment": "Thermal Core - Augments",
   "_comment": "========================================================================================================",
@@ -268,7 +317,7 @@
   "info.thermal.augment.attr.MchPri": "主生産物",
   "info.thermal.augment.attr.MchPwr": "最大効率",
   "info.thermal.augment.attr.MchSec": "副次生産物",
-  "info.thermal.augment.attr.MchXp": "XP Modifier",
+  "info.thermal.augment.attr.MchXp": "経験値モディファイアー",
 
   "info.thermal.augment.attr.PotAmp": "効果レベル",
   "info.thermal.augment.attr.PotDur": "効果時間",
@@ -284,7 +333,7 @@
   "info.thermal.augment.type.RFAug": "レッドストーンフラックス",
   "info.thermal.augment.type.UpgAug": "アップグレード",
 
-  "info.thermal.augment.maximized": "Does not stack; highest value used.",
+  "info.thermal.augment.maximized": "スタック不可・最高値が使用されます。",
 
   "item.thermal.area_depth_augment": "同軸拡張",
   "item.thermal.area_radius_augment": "範囲拡張",
@@ -327,13 +376,25 @@
   "_comment": "========================================================================================================",
 
   "block.thermal.device_hive_extractor": "巣箱ホッパー",
+  "block.thermal.device_rock_gen": "火成岩生成機",
   "block.thermal.device_tree_extractor": "木精抽出機",
+  "block.thermal.device_water_gen": "水生成器",
+
+  "block.thermal.energy_cell": "レッドストーンフラックスセル",
+  "block.thermal.energy_cell_frame": "レッドストーンフラックスセルフレーム",
+
+  "block.thermal.fluid_cell": "流体セル",
+  "block.thermal.fluid_cell_frame": "流体セルフレーム",
 
   "block.thermal.tinker_bench": "鍛冶職人の作業台",
 
   "info.thermal.device_hive_extractor.0": "生産物を養蜂箱から慎重に抽出します。",
   "info.thermal.device_hive_extractor.1": "ミツバチにも、養蜂家にも助けとなります。",
   "info.thermal.device_hive_extractor.2": "ブンブンブン",
+
+  "info.thermal.device_rock_gen.0": "様々な石を生成します。",
+  "info.thermal.device_rock_gen.1": "溶岩原を隣接させ、冷却する必要があります。",
+  "info.thermal.device_rock_gen.2": "ロックの準備はいい？",
 
   "info.thermal.device_tree_extractor.0": "隣接する樹木から流体を抽出します。",
   "info.thermal.device_tree_extractor.1": "肥料を使うと生産効率を増加することが出来ます。",
@@ -342,6 +403,16 @@
   "info.thermal.tinker_bench.0": "拡充・補充・充電に使える多目的なテーブルです。",
   "info.thermal.tinker_bench.1": "それぞれのスロットからストレージに充填出来ます。",
   "info.thermal.tinker_bench.2": "さあいじくり倒そう",
+
+  "info.thermal.device_water_gen.0": "大量の水を供給します。",
+  "info.thermal.device_water_gen.1": "稼働には水源を隣接させる必要があります。",
+  "info.thermal.device_water_gen.2": "溺れないでね",
+
+  "info.thermal.energy_cell.0": "レッドストーンフラックスを溜め、移送します。",
+  "info.thermal.energy_cell.1": "§e§oShift§rと§e§oCtrl§rでより精密に量を調節出来ます。",
+
+  "info.thermal.fluid_cell.0": "流体を溜め、移送します。",
+  "info.thermal.fluid_cell.1": "§e§oShift§rと§e§oCtrl§rでより精密に量を調節出来ます。",
 
   "info.thermal.tinker_bench_mode_augment": "モード: オーグメント",
   "info.thermal.tinker_bench_mode_charge": "モード: 充填・充電",
@@ -369,6 +440,7 @@
   "item.thermal.saw_blade": "鋸歯",
 
   "item.thermal.rf_potato": "バッテリイモ",
+  "item.thermal.rf_potato.desc": "レッドストーンフラックスを溜めます。",
 
   "item.thermal.phyto_grenade": "フィト・グレネード",
   "item.thermal.phyto_grenade.desc": "広範囲に使用できる投げられるフィト・グローです。",
@@ -527,6 +599,7 @@
   "item.thermal.tea_seeds": "茶の種",
   "item.thermal.tomato": "トマト",
   "item.thermal.tomato_seeds": "トマトの種",
+  "item.thermal.xp_stew": "慧眼のシチュー",
 
   "item.thermal.watering_can": "ジョウロ",
   "item.thermal.watering_can.desc": "水をやって植物の成長を促進します。",
@@ -556,8 +629,6 @@
 
   "block.thermal.device_fluid_buffer": "流体分配器",
   "block.thermal.device_item_buffer": "アイテム分配器",
-  "block.thermal.device_rock_gen": "火成岩生成機",
-  "block.thermal.device_water_gen": "水生成器",
 
   "block.thermal.dynamo_compression": "圧縮ダイナモ",
   "block.thermal.dynamo_lapidary": "宝石ダイナモ",
@@ -575,6 +646,7 @@
   "block.thermal.machine_insolator": "植物日照機",
   "block.thermal.machine_press": "マルチサーボプレス機",
   "block.thermal.machine_pulverizer": "粉砕機",
+  "block.thermal.machine_pyrolyzer": "熱分解機",
   "block.thermal.machine_refinery": "分画蒸留機",
   "block.thermal.machine_sawmill": "製材機",
   "block.thermal.machine_smelter": "誘導加熱炉",
@@ -645,6 +717,10 @@
   "info.thermal.machine_pulverizer.1": "アイテムの加工や鉱石処理に有用です。",
   "info.thermal.machine_pulverizer.2": "典型的な不可逆処理です。",
 
+  "info.thermal.machine_pyrolyzer.0": "高温で固体を分解します。",
+  "info.thermal.machine_pyrolyzer.1": "燃料精製に非常に有用です。",
+  "info.thermal.machine_pyrolyzer.2": "お触り禁止",
+
   "info.thermal.machine_refinery.0": "様々な流体を精製します。",
   "info.thermal.machine_refinery.1": "幾つかの流体を精製すると、副産物として固体の素材ができます。",
   "info.thermal.machine_refinery.2": "生成物は飲めるかもしれないし飲めないかもしれない。",
@@ -657,6 +733,9 @@
 
   "item.thermal.press_coin_die": "貨幣の打ち抜き型",
   "item.thermal.press_gear_die": "歯車の打ち抜き型",
+  "item.thermal.press_packing_2x2_die": "パッキング型 (2x2)",
+  "item.thermal.press_packing_3x3_die": "パッキング型 (3x3)",
+  "item.thermal.press_unpacking_die": "アンパッキング型",
 
   "_comment": "========================================================================================================",
   "_comment": "Thermal Horizon",
@@ -694,11 +773,14 @@
   "item.thermal.flux_magnet": "フラックスマグネット",
   "item.thermal.flux_magnet.desc": "RFでアイテムを引き寄せます。",
 
+  "item.thermal.flux_pump": "フルイヴァック",
+  "item.thermal.flux_pump.desc": "RFで流体を移し替えます。",
+
   "item.thermal.flux_saw": "フラックスソー",
   "item.thermal.flux_saw.desc": "RFでブロックを伐採します。",
 
   "item.thermal.potion_infuser": "ポーション注射器",
-  "item.thermal.potion_infuser.desc": "ポーションを溜め、駐車します。",
+  "item.thermal.potion_infuser.desc": "ポーションを溜め、注射します。",
 
   "item.thermal.potion_quiver": "錬金矢筒",
   "item.thermal.potion_quiver.desc": "ポーションを矢に浸潤します。",
