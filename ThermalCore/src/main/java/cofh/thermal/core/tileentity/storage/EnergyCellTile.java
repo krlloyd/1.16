@@ -1,5 +1,6 @@
 package cofh.thermal.core.tileentity.storage;
 
+import cofh.core.energy.EmptyEnergyHandler;
 import cofh.core.energy.EnergyStorageAdjustable;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.util.helpers.BlockHelper;
@@ -167,8 +168,11 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
     @Override
     protected <T> LazyOptional<T> getEnergyCapability(@Nullable Direction side) {
 
-        if (side == null || reconfigControl.getSideConfig(side.ordinal()) != SideConfig.SIDE_NONE) {
+        if (side == null || reconfigControl.getSideConfig(side.ordinal()).isInput()) {
             return super.getEnergyCapability(side);
+        }
+        if (reconfigControl.getSideConfig(side.ordinal()).isOutput()) {
+            return LazyOptional.of(() -> EmptyEnergyHandler.INSTANCE).cast();
         }
         return LazyOptional.empty();
     }
