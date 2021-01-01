@@ -132,7 +132,7 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
                 tankStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).ifPresent(c -> {
                     int toFill = tank.fill(new FluidStack(c.getFluidInTank(0), BUCKET_VOLUME), SIMULATE);
                     if (toFill > 0) {
-                        tank.modify(c.drain(toFill, EXECUTE).getAmount());
+                        tank.fill(c.drain(toFill, EXECUTE), EXECUTE);
                         tankSlot.setItemStack(c.getContainer());
                     }
                 });
