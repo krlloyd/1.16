@@ -17,6 +17,9 @@
   "block.thermal.ruby_ore": "Rubinerz",
   "block.thermal.sapphire_ore": "Saphiererz",
 
+  "block.thermal.oil_sand": "Bituminöser Sand",
+  "block.thermal.oil_red_sand": "Bituminöser Roter Sand",
+
   "block.thermal.apatite_block": "Apatitblock",
   "block.thermal.cinnabar_block": "Zinoberblock",
   "block.thermal.niter_block": "Salpeterblock",
@@ -64,12 +67,15 @@
   "block.thermal.red_rockwool": "Rote Steinwolle",
   "block.thermal.black_rockwool": "Schwarze Steinwolle",
 
+  "block.thermal.bitumen_block": "Bituminblock",
+  "block.thermal.coal_coke_block": "Kokskohleblock",
   "block.thermal.sawdust_block": "Sägemehlblock",
   "block.thermal.rosin_block": "Kolophoniumblock",
   "block.thermal.rubber_block": "Gummiblock",
   "block.thermal.cured_rubber_block": "Ausgehärteter Gummiblock",
   "block.thermal.slag_block": "Schlackeblock",
   "block.thermal.rich_slag_block": "Angereicherter Schlackeblock",
+  "block.thermal.tar_block": "Teerblock",
 
   "death.attack.basalz": "%1$s Welt geriet ins schaukeln!",
   "death.attack.blitz": "%1$s wurde tragisch erleuchtet!",
@@ -79,9 +85,21 @@
   "entity.thermal.blitz": "Blitz",
   "entity.thermal.blizz": "Blizz",
 
+  "entity.thermal.basalz_projectile": "Tektonische Scherbe",
+  "entity.thermal.blitz_projectile": "Blitzball",
+  "entity.thermal.blizz_projectile": "Glazialer Bolzen",
+
+  "fluid.thermal.biocrude": "Bio-Rohöl",
+  "fluid.thermal.biofuel": "Bio-Treibstoff",
+  "fluid.thermal.creosote": "Kreosotöl",
+  "fluid.thermal.crude_oil": "Rohöl",
+  "fluid.thermal.heavy_oil": "Schweröl",
+  "fluid.thermal.refined_fuel": "Aufbereiteter Treibstoff",
+  "fluid.thermal.light_oil": "Leichtöl",
   "fluid.thermal.latex": "Latex",
   "fluid.thermal.resin": "Harz",
   "fluid.thermal.sap": "Baumsaft",
+  "fluid.thermal.seed_oil": "Saatöl",
   "fluid.thermal.syrup": "Sirup",
   "fluid.thermal.tree_oil": "Baumöl",
 
@@ -103,15 +121,35 @@
   "info.thermal.redprint.data.RSControl": "Redstone-Steuerung",
   "info.thermal.redprint.data.Sides": "Seitenkonfiguration",
   "info.thermal.redprint.data.Xfer": "Transfersteuerung",
+  "info.thermal.redprint.use": "Auf einen Block anwenden, um dessen Einstellungen zu kopieren.",
+  "info.thermal.redprint.use.contents": "Auf einen Block anwenden, um gespeicherte Einstellungen anzuwenden.",
+  "info.thermal.redprint.use.sneak": "Beim Schleichen verwenden, um gespeicherte Einstellungen zu löschen.",
+
+  "info.thermal.xp_crystal.mode.0": "Automatisches Einsammeln deaktiviert",
+  "info.thermal.xp_crystal.mode.1": "Automatisches Einsammeln aktiviert",
+  "info.thermal.xp_crystal.use": "Verwenden, um Xp im Kristall zu speichern.",
+  "info.thermal.xp_crystal.use.sneak": "Beim Schleichen verwenden, um gespeicherte Xp abzurufen.",
 
   "item.thermal.redstone_servo": "Redstone Servo",
   "item.thermal.rf_coil": "Redstone-Flux Spule",
 
+  "item.thermal.biocrude_bucket": "Bio-Rohöleimer",
+  "item.thermal.biofuel_bucket": "Bio-Treibstoffeimer",
+  "item.thermal.creosote_bucket": "Kreosotöleimer",
+  "item.thermal.crude_oil_bucket": "Rohöleimer",
   "item.thermal.latex_bucket": "Latexeimer",
+  "item.thermal.heavy_oil_bucket": "Schweröleimer",
+  "item.thermal.light_oil_bucket": "Leichtöleimer",
+  "item.thermal.refined_fuel_bucket": "Aufbereiteter Treibstoffeimer",
   "item.thermal.resin_bucket": "Harzeimer",
   "item.thermal.sap_bucket": "Baumsafteimer",
+  "item.thermal.seed_oil_bucket": "Saatöleimer",
   "item.thermal.syrup_bucket": "Sirupeimer",
   "item.thermal.tree_oil_bucket": "Baumöleimer",
+
+  "item.thermal.redstone_fluid_bucket": "Destabilisiertes-Redstone-Eimer",
+  "item.thermal.glowstone_fluid_bucket": "Aktivierter-Glowstone-Eimer",
+  "item.thermal.ender_fluid_bucket": "Resonant-Ender-Eimer",
 
   "itemGroup.thermal.blocks": "Thermal-Serie: Blöcke",
   "itemGroup.thermal.foods": "Thermal-Serie: Pflanzen und Nahrungsmittel",
@@ -120,16 +158,23 @@
   "itemGroup.thermal.tools": "Thermal-Serie: Werkzeuge",
 
   "item.thermal.apatite": "Apatit",
+  "item.thermal.apatite_dust": "Apatitstaub",
   "item.thermal.cinnabar": "Zinober",
+  "item.thermal.cinnabar_dust": "Zinoberstaub",
   "item.thermal.niter": "Salpeter",
+  "item.thermal.niter_dust": "Salpeterstaub",
   "item.thermal.sulfur": "Sulfur",
+  "item.thermal.sulfur_dust": "Sulfurstaub",
 
+  "item.thermal.bitumen": "Bitumen",
+  "item.thermal.coal_coke": "Kokskohle",
   "item.thermal.cured_rubber": "Ausgehärtetes Gummi",
   "item.thermal.rich_slag": "Angereicherte Schlacke",
   "item.thermal.rosin": "Kolophonium",
   "item.thermal.rubber": "Gummi",
   "item.thermal.slag": "Schlacke",
   "item.thermal.sawdust": "Sägemehl",
+  "item.thermal.tar": "Teer",
 
   "item.thermal.basalz_powder": "Basalzstaub",
   "item.thermal.basalz_rod": "Basalzscherbe",
@@ -153,6 +198,8 @@
   "item.thermal.redprint.desc": "Kopiert und Transferiert Einstellungen zwischen Blöcken",
   "item.thermal.wrench": "Halbmondhammer",
   "item.thermal.wrench.desc": "Drecht viele Blöcke. Auch als Schraubenschlüssel bekannt.",
+  "item.thermal.xp_crystal": "Einsichtsvoller Kristall",
+  "item.thermal.xp_crystal.desc": "Speichert Xp.",
 
   "item.thermal.copper_coin": "Kupfermünze",
   "item.thermal.copper_dust": "Kupferstaub",
@@ -250,10 +297,6 @@
   "item.thermal.signalum_nugget": "Signalumklumpen",
   "item.thermal.signalum_plate": "Signalumplatte",
 
-  "item.thermal.redstone_fluid_bucket": "Destabilisiertes-Redstone-Eimer",
-  "item.thermal.glowstone_fluid_bucket": "Aktivierter-Glowstone-Eimer",
-  "item.thermal.ender_fluid_bucket": "Resonant-Ender-Eimer",
-
   "_comment": "========================================================================================================",
   "_comment": "Thermal Core - Augments",
   "_comment": "========================================================================================================",
@@ -334,6 +377,14 @@
 
   "block.thermal.device_hive_extractor": "Bienenstocktrichter",
   "block.thermal.device_tree_extractor": "Baumextraktor",
+  "block.thermal.device_rock_gen": "Magmatischer Extruder",
+  "block.thermal.device_water_gen": "Aquatischer Akkumulator",
+
+  "block.thermal.energy_cell": "Redstone-Flux-Speicher",
+  "block.thermal.energy_cell_frame": "Redstone-Flux-Speicherrahmen",
+
+  "block.thermal.fluid_cell": "Flüssigkeitsspeicher",
+  "block.thermal.fluid_cell_frame": "Flüssigkeitsspeicherrahmen",
 
   "block.thermal.tinker_bench": "Basteltisch",
 
@@ -341,9 +392,23 @@
   "info.thermal.device_hive_extractor.1": "Good for bees and keepers alike!",
   "info.thermal.device_hive_extractor.2": "Bzz bzz.",
 
+  "info.thermal.device_rock_gen.0": "Generierst Verschiedene Arten von Stein.",
+  "info.thermal.device_rock_gen.1": "Benötigt anliegende Lava und Kühlung.",
+  "info.thermal.device_rock_gen.2": "Are you ready to rock?",
+
   "info.thermal.device_tree_extractor.0": "Extrahiert Flüssigkeiten aus anliegenden Bäumen",
   "info.thermal.device_tree_extractor.1": "Dünger kann verwendet werden, um die Produktion zu erhöhen",
   "info.thermal.device_tree_extractor.2": "Tu die Axt weg!",
+
+  "info.thermal.device_water_gen.0": "Stellt reichlich Wasser bereit.",
+  "info.thermal.device_water_gen.1": "Benötigt anliegendes Wasser um zu funktionieren.",
+  "info.thermal.device_water_gen.2": "Versuche nicht zu ertrinken.",
+
+  "info.thermal.energy_cell.0": "Speichert und leitet Restone-Flux.",
+  "info.thermal.energy_cell.1": "Halte §e§oShift§r oder §e§oStrg§r um genaue Mengen zu bestimmen.",
+
+  "info.thermal.fluid_cell.0": "Speichert und leitet Flüssigkeiten.",
+  "info.thermal.fluid_cell.1": "Halte §e§oShift§r oder §e§oStrg§r um genaue Mengen zu bestimmen.",
 
   "info.thermal.tinker_bench.0": "Mehrzwecktisch zum Erweitern, Aufladen und Auffüllen.",
   "info.thermal.tinker_bench.1": "Speicher können durch Verwendung ihrer respektiven Plätze aufgefüllt werden.",
@@ -372,9 +437,10 @@
 
   "item.thermal.drill_head": "Bohrkopf",
   "item.thermal.laser_diode": "Laserdiode",
-  "item.thermal.saw_blade": "Sägeeblatt",
+  "item.thermal.saw_blade": "Sägeblatt",
 
   "item.thermal.rf_potato": "Kapazitor-Kartoffel",
+  "item.thermal.rf_potato.desc": "Speichert Redstone-Flux.",
 
   "item.thermal.phyto_grenade": "Phyto-Gro-Granate",
   "item.thermal.phyto_grenade.desc": "Werfbares Phyto-Gro mit erhöhter Reichweite.",
@@ -477,7 +543,7 @@
   "block.thermal.spice_cake": "Gewürzkuchen",
 
   "block.thermal.barley_block": "Gersteballen",
-  "block.thermal.bell_pepper_block": "Kiste voll Paprikas",
+  "block.thermal.bell_pepper_block": "Kiste voll Paprika",
   "block.thermal.coffee_block": "Paket Kaffe",
   "block.thermal.corn_block": "Kiste voll Mais",
   "block.thermal.eggplant_block": "Kiste voll Auberginen",
@@ -533,6 +599,7 @@
   "item.thermal.tea_seeds": "Teeblattsaat",
   "item.thermal.tomato": "Tomate",
   "item.thermal.tomato_seeds": "Tomatensaat",
+  "item.thermal.xp_stew": "Scharfsinniger Eintopf",
 
   "item.thermal.watering_can": "Gießkanne",
   "item.thermal.watering_can.desc": "Verbessert das Pflanzenwachstum mithilfe von Wasser.",
@@ -545,7 +612,7 @@
   "_comment": "Thermal Essentials",
   "_comment": "========================================================================================================",
 
-  "block.thermal.basic_pulverizer": "Hammermühle",
+  "block.thermal.basic_pulverizer": "Schlagmühle",
   "block.thermal.basic_sawmill": "Einfache Sägemühle",
 
   "info.thermal.basic_pulverizer.0": "Zerschlägt Gegenstände in kleinere Gegenstände.",
@@ -562,8 +629,6 @@
 
   "block.thermal.device_fluid_buffer": "Flüssigkeits-Allokator",
   "block.thermal.device_item_buffer": "Gegenstand-Allokator",
-  "block.thermal.device_rock_gen": "Magmatischer Extruder",
-  "block.thermal.device_water_gen": "Aquatischer Akkumulator",
 
   "block.thermal.dynamo_compression": "Kompressionsdynamo",
   "block.thermal.dynamo_lapidary": "Lapidarium-Dynamo",
@@ -574,14 +639,15 @@
   "block.thermal.machine_bottler": "Flüssigkeiten-Einkapseler",
   "block.thermal.machine_brewer": "Alchemistische Braustation",
   "block.thermal.machine_centrifuge": "Zentrifugaler Seperator",
-  "block.thermal.machine_chiller": "Sprengkühler",
+  "block.thermal.machine_chiller": "Hochgeschwindigkeitskühler",
   "block.thermal.machine_crafter": "Sequenzieller Fabrikator",
   "block.thermal.machine_crucible": "Magma-Tiegel",
   "block.thermal.machine_furnace": "Redstone-Ofen",
   "block.thermal.machine_insolator": "Phytogenischer Insolator",
   "block.thermal.machine_press": "Mehrfach-Servopresse",
   "block.thermal.machine_pulverizer": "Pulverisierer",
-  "block.thermal.machine_refinery": "Fraktionierender Destilierapparat",
+  "block.thermal.machine_pyrolyzer": "Pyrolisierer",
+  "block.thermal.machine_refinery": "Raffinerie",
   "block.thermal.machine_sawmill": "Sägemühle",
   "block.thermal.machine_smelter": "Induktionsschmelze",
 
@@ -651,6 +717,10 @@
   "info.thermal.machine_pulverizer.1": "Nützlich um Erze zu verarbeiten oder Gegenstände zu konvertieren.",
   "info.thermal.machine_pulverizer.2": "Normalerweise ist dies nicht wieder Rückgängig.",
 
+  "info.thermal.machine_pyrolyzer.0": "Dekomposiert Feststoffe durch hohe Temperaturen.",
+  "info.thermal.machine_pyrolyzer.1": "Sehr nützlich bei Treibstoffverarbeitung.",
+  "info.thermal.machine_pyrolyzer.2": "Nicht anfassen.",
+
   "info.thermal.machine_refinery.0": "Raffiniert verschiedenste Flüssigkeiten in andere Produkte.",
   "info.thermal.machine_refinery.1": "Einige Flüssigkeiten hinterlassen feste Rückstände",
   "info.thermal.machine_refinery.2": "Produkte können oder können nicht trinkbar sein.",
@@ -663,6 +733,9 @@
 
   "item.thermal.press_coin_die": "Numismatischer Stempel",
   "item.thermal.press_gear_die": "Zahnradstempel",
+  "item.thermal.press_packing_2x2_die": "Packstempel (2x2)",
+  "item.thermal.press_packing_3x3_die": "Packstempel (3x3)",
+  "item.thermal.press_unpacking_die": "Auspackstempel",
 
   "_comment": "========================================================================================================",
   "_comment": "Thermal Horizon",
@@ -699,6 +772,9 @@
 
   "item.thermal.flux_magnet": "FluxoMagnet",
   "item.thermal.flux_magnet.desc": "Zieht Gegenstände mithilfe von Redstone Flux an.",
+
+  "item.thermal.flux_pump": "FluiVac",
+  "item.thermal.flux_pump.desc": "Transferiert Flüssigkeiten mithilfe von Redstone-Flux.",
 
   "item.thermal.flux_saw": "Flux-Säge",
   "item.thermal.flux_saw.desc": "Sägt Blöcke mithilfe von Redstone Flux.",
