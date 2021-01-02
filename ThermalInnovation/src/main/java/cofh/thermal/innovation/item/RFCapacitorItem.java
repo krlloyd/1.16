@@ -112,13 +112,13 @@ public class RFCapacitorItem extends EnergyContainerItem implements IAugmentable
             default:
                 equipment = Iterables.concat(Arrays.asList(player.inventory.mainInventory, player.inventory.armorInventory, player.inventory.offHandInventory));
         }
+        int extract = this.getExtract(stack);
         for (ItemStack equip : equipment) {
-            if (equip.equals(stack)) {
+            if (stack.isEmpty() || equip.equals(stack)) {
                 continue;
             }
-            int transfer = Math.min(this.getExtract(stack), this.getEnergyStored(stack));
             equip.getCapability(CapabilityEnergy.ENERGY, null)
-                    .ifPresent(c -> this.extractEnergy(stack, c.receiveEnergy(transfer, false), player.abilities.isCreativeMode));
+                    .ifPresent(c -> this.extractEnergy(stack, c.receiveEnergy(Math.min(extract, this.getEnergyStored(stack)), false), player.abilities.isCreativeMode));
         }
     }
 
