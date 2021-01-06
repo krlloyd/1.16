@@ -1,15 +1,15 @@
 {
   "type": "thermal:insolator",
   "ingredient": {
-    "item": "mysticalagriculture:blitz_seeds"
+    "item": "mysticalagriculture:magma_cube_seeds"
   },
   "result": [
     {
-      "item": "mysticalagriculture:blitz_essence",
+      "item": "mysticalagriculture:magma_cube_essence",
       "count": 1
     },
     {
-      "item": "mysticalagriculture:blitz_seeds",
+      "item": "mysticalagriculture:magma_cube_seeds",
       "count": 1
     }
   ],

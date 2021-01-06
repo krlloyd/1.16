@@ -1,15 +1,15 @@
 {
   "type": "thermal:insolator",
   "ingredient": {
-    "item": "mysticalagriculture:blitz_seeds"
+    "item": "mysticalagriculture:dolphin_seeds"
   },
   "result": [
     {
-      "item": "mysticalagriculture:blitz_essence",
+      "item": "mysticalagriculture:dolphin_essence",
       "count": 1
     },
     {
-      "item": "mysticalagriculture:blitz_seeds",
+      "item": "mysticalagriculture:dolphin_seeds",
       "count": 1
     }
   ],
