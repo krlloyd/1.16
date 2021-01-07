@@ -1,11 +1,11 @@
 {
   "type": "thermal:insolator",
   "ingredient": {
-    "item": "biomesoplenty:wilted_lilly"
+    "item": "biomesoplenty:wilted_lily"
   },
   "result": [
     {
-      "item": "biomesoplenty:wilted_lilly",
+      "item": "biomesoplenty:wilted_lily",
       "chance": 2.0
     }
   ],
