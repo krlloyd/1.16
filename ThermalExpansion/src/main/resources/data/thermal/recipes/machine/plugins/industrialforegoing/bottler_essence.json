@@ -13,5 +13,11 @@
     {
       "item": "minecraft:experience_bottle"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "industrialforegoing"
+    }
   ]
 }
