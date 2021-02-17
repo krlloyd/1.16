@@ -1,7 +1,7 @@
 {
   "type": "thermal:sawmill",
   "ingredient": {
-    "tag": "integrateddynamics:menril_log"
+    "item": "integrateddynamics:menril_log"
   },
   "result": [
     {

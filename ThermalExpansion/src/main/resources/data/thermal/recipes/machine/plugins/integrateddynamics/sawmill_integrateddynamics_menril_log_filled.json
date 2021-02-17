@@ -1,12 +1,16 @@
 {
   "type": "thermal:sawmill",
   "ingredient": {
-    "tag": "integrateddynamics:menril_log_filled"
+    "item": "integrateddynamics:menril_log_filled"
   },
   "result": [
     {
       "item": "integrateddynamics:menril_planks",
       "count": 6
+    },
+	{
+      "item": "integrateddynamics:crystalized_menril_chunk",
+      "chance": 1.0
     },
     {
       "item": "thermal:sawdust",
