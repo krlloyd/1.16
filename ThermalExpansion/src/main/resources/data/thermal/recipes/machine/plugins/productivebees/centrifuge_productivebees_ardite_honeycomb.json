@@ -1,16 +1,16 @@
 {
   "type": "thermal:centrifuge",
   "ingredient": {
-    "item": "productivebees:honeycomb_unobtanium"
+    "item": "productivebees:honeycomb_ardite"
   },
   "result": [
     {
-      "item": "allthemodium:unobtainium_nugget",
-      "chance": 0.1
+      "item": "tconstruct:ardite_nugget",
+      "count": 4
     },
     {
       "fluid": "cofh_core:honey",
-      "amount": 250
+      "amount": 100
     }
   ],
   "conditions": [
