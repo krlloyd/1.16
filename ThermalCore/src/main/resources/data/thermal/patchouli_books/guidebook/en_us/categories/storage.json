@@ -1,0 +1,1 @@
+{  "name": "Storage",  "description": "Can technically be spammed as makeshift pipes.",  "icon": "thermal:energy_cell",  "parent": "thermal:storage_and_xfer",  "sortnum": 1}
