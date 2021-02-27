@@ -297,6 +297,23 @@
   "item.thermal.signalum_nugget": "Signalum Nugget",
   "item.thermal.signalum_plate": "Signalum Plate",
 
+  "subtitle.thermal.entity.basalz.ambient": "Basalz breathes",
+  "subtitle.thermal.entity.basalz.death": "Basalz dies",
+  "subtitle.thermal.entity.basalz.hurt": "Basalz hurts",
+  "subtitle.thermal.entity.basalz.shoot": "Basalz shoots",
+
+  "subtitle.thermal.entity.blitz.ambient": "Blitz breathes",
+  "subtitle.thermal.entity.blitz.death": "Blitz dies",
+  "subtitle.thermal.entity.blitz.hurt": "Blitz hurts",
+  "subtitle.thermal.entity.blitz.shoot": "Blitz shoots",
+
+  "subtitle.thermal.entity.blizz.ambient": "Blizz breathes",
+  "subtitle.thermal.entity.blizz.death": "Blizz dies",
+  "subtitle.thermal.entity.blizz.hurt": "Blizz hurts",
+  "subtitle.thermal.entity.blizz.shoot": "Blizz shoots",
+
+  "subtitle.thermal.item.magnet": "Magnet yoinks",
+  
   "_comment": "========================================================================================================",
   "_comment": "Thermal Core - Augments",
   "_comment": "========================================================================================================",
