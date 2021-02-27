@@ -2,17 +2,23 @@ package cofh.thermal.innovation.item;
 
 import cofh.core.item.EnergyContainerItem;
 import cofh.core.util.ProxyUtils;
+import cofh.core.util.filter.EmptyFilter;
+import cofh.core.util.filter.FilterRegistry;
 import cofh.core.util.helpers.ChatHelper;
 import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
+import cofh.lib.util.filter.IFilter;
+import cofh.lib.util.filter.IFilterableItem;
 import cofh.lib.util.helpers.AugmentDataHelper;
+import cofh.lib.util.helpers.FilterHelper;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
@@ -26,9 +32,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.WeakHashMap;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
@@ -37,7 +45,10 @@ import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 import static cofh.thermal.core.init.TCoreSounds.SOUND_MAGNET;
 
-public class RFMagnetItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
+public class RFMagnetItem extends EnergyContainerItem implements IAugmentableItem, IFilterableItem, IMultiModeItem {
+
+    protected static final int MAP_CAPACITY = 128;
+    protected static final WeakHashMap<ItemStack, IFilter> FILTERS = new WeakHashMap<>(MAP_CAPACITY);
 
     protected static final int RADIUS = 4;
     protected static final int REACH = 64;
@@ -75,8 +86,9 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
         tooltip.add(getTextComponent("info.thermal.magnet.use").mergeStyle(TextFormatting.GRAY));
-        //        tooltip.add(getTextComponent("info.thermal.magnet.use.sneak").mergeStyle(TextFormatting.DARK_GRAY));
-
+        if (FilterHelper.hasFilter(stack)) {
+            tooltip.add(getTextComponent("info.thermal.magnet.use.sneak").mergeStyle(TextFormatting.DARK_GRAY));
+        }
         tooltip.add(getTextComponent("info.thermal.magnet.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
         addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
 
@@ -133,9 +145,10 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
                 }
             }
         } else {
+            Predicate<ItemStack> filterRules = getFilter(stack).getItemRules();
             int itemCount = 0;
             for (ItemEntity item : items) {
-                if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) {
+                if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT) || !filterRules.test(item.getItem())) {
                     continue;
                 }
                 if (item.getThrowerId() == null || !item.getThrowerId().equals(player.getUniqueID()) || item.age >= PICKUP_DELAY) {
@@ -159,13 +172,18 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     }
 
     // region HELPERS
-
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
 
         if (Utils.isFakePlayer(player)) {
             return false;
         }
-        if (getEnergyStored(stack) >= ENERGY_PER_USE || player.abilities.isCreativeMode) {
+        if (player.isSecondaryUseActive()) {
+            if (player instanceof ServerPlayerEntity && FilterHelper.hasFilter(stack)) {
+                NetworkHooks.openGui((ServerPlayerEntity) player, getFilter(stack));
+                return true;
+            }
+            return false;
+        } else if (getEnergyStored(stack) >= ENERGY_PER_USE || player.abilities.isCreativeMode) {
             BlockRayTraceResult traceResult = RayTracer.retrace(player, REACH);
             if (traceResult.getType() != RayTraceResult.Type.BLOCK) {
                 return false;
@@ -186,9 +204,10 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
                     }
                 }
             } else {
+                Predicate<ItemStack> filterRules = getFilter(stack).getItemRules();
                 int itemCount = 0;
                 for (ItemEntity item : items) {
-                    if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT)) {
+                    if (item.cannotPickup() || item.getPersistentData().getBoolean(TAG_CONVEYOR_COMPAT) || !filterRules.test(item.getItem())) {
                         continue;
                     }
                     if (item.getPositionVec().squareDistanceTo(traceResult.getHitVec()) <= radSq) {
@@ -227,6 +246,8 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_STORAGE);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_XFER);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_CREATIVE);
+
+        setAttributeFromAugmentString(subTag, augmentData, TAG_FILTER_TYPE);
     }
     // endregion
 
@@ -285,6 +306,37 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         if (energyExcess > 0) {
             setEnergyStored(container, getMaxEnergyStored(container));
         }
+        // Filter Reset
+        if (!FilterHelper.hasFilter(container)) {
+            container.getOrCreateTag().remove(TAG_FILTER);
+        }
+        FILTERS.remove(container);
+    }
+    // endregion
+
+    // region IFilterable
+    @Override
+    public IFilter getFilter(ItemStack stack) {
+
+        String filterType = FilterHelper.getFilterType(stack);
+        if (filterType.isEmpty()) {
+            return EmptyFilter.INSTANCE;
+        }
+        IFilter ret = FILTERS.get(stack);
+        if (ret != null) {
+            return ret;
+        }
+        if (FILTERS.size() > MAP_CAPACITY) {
+            FILTERS.clear();
+        }
+        FILTERS.put(stack, FilterRegistry.getHeldFilter(filterType, stack.getTag()));
+        return FILTERS.get(stack);
+    }
+
+    @Override
+    public void onFilterChanged(ItemStack stack) {
+
+        FILTERS.remove(stack);
     }
     // endregion
 

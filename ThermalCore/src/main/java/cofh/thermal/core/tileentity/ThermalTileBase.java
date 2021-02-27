@@ -6,6 +6,7 @@ import cofh.core.network.packet.client.TileStatePacket;
 import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.control.*;
 import cofh.core.util.filter.EmptyFilter;
+import cofh.core.util.filter.FilterRegistry;
 import cofh.lib.energy.EmptyEnergyStorage;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.fluid.FluidStorageCoFH;
@@ -632,6 +633,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         setAttributeFromAugmentMax(augmentNBT, augmentData, TAG_AUGMENT_RF_XFER);
         setAttributeFromAugmentMax(augmentNBT, augmentData, TAG_AUGMENT_FLUID_STORAGE);
 
+        setAttributeFromAugmentString(augmentNBT, augmentData, TAG_FILTER_TYPE);
+
         creativeEnergy |= getAttributeMod(augmentData, TAG_AUGMENT_RF_CREATIVE) > 0;
         creativeTanks |= getAttributeMod(augmentData, TAG_AUGMENT_FLUID_CREATIVE) > 0;
     }
@@ -662,6 +665,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         if (storedXp > 0 && xpStorage.getStored() < storedXp) {
             spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
         }
+        // TODO: Filter
+        // filter = FilterRegistry.getTileFilter();
     }
 
     protected boolean defaultReconfigState() {
