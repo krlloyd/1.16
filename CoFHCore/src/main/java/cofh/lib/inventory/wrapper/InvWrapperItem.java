@@ -1,4 +1,4 @@
-package cofh.lib.inventory;
+package cofh.lib.inventory.wrapper;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -9,20 +9,20 @@ import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
-public class ItemInvWrapper implements IInventory {
+public class InvWrapperItem implements IInventory {
 
     private NonNullList<ItemStack> stackList;
     private ItemStack invContainer = ItemStack.EMPTY;
 
     private final Container eventHandler;
 
-    public ItemInvWrapper(Container eventHandler, int size) {
+    public InvWrapperItem(Container eventHandler, int size) {
 
         this.stackList = NonNullList.withSize(size, ItemStack.EMPTY);
         this.eventHandler = eventHandler;
     }
 
-    public ItemInvWrapper setInvContainer(ItemStack invContainer, List<ItemStack> contents, int size) {
+    public InvWrapperItem setInvContainer(ItemStack invContainer, List<ItemStack> contents, int size) {
 
         this.invContainer = invContainer;
         this.stackList = NonNullList.withSize(size, ItemStack.EMPTY);

@@ -1,7 +1,7 @@
 package cofh.thermal.cultivation.inventory.container.device;
 
 import cofh.core.inventory.container.TileContainer;
-import cofh.lib.inventory.InvWrapperCoFH;
+import cofh.lib.inventory.wrapper.InvWrapperCoFH;
 import cofh.lib.inventory.container.slot.SlotCoFH;
 import cofh.thermal.cultivation.tileentity.DeviceSoilInfuserTile;
 import net.minecraft.entity.player.PlayerEntity;

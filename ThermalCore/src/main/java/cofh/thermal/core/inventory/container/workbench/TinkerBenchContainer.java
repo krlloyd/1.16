@@ -2,8 +2,8 @@ package cofh.thermal.core.inventory.container.workbench;
 
 import cofh.core.inventory.container.TileContainer;
 import cofh.core.network.packet.server.ContainerPacket;
-import cofh.lib.inventory.InvWrapperCoFH;
-import cofh.lib.inventory.ItemInvWrapper;
+import cofh.lib.inventory.wrapper.InvWrapperCoFH;
+import cofh.lib.inventory.wrapper.InvWrapperItem;
 import cofh.lib.inventory.container.slot.SlotCoFH;
 import cofh.lib.util.helpers.AugmentableHelper;
 import cofh.thermal.core.tileentity.workbench.TinkerBenchTile;
@@ -28,7 +28,7 @@ public class TinkerBenchContainer extends TileContainer {
 
     protected SlotCoFH tinkerSlot;
     protected List<SlotCoFH> tinkerAugmentSlots = new ArrayList<>(MAX_AUGMENTS);
-    protected ItemInvWrapper itemInventory = new ItemInvWrapper(this, MAX_AUGMENTS) {
+    protected InvWrapperItem itemInventory = new InvWrapperItem(this, MAX_AUGMENTS) {
 
         @Override
         public boolean isItemValidForSlot(int index, ItemStack stack) {

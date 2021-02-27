@@ -135,6 +135,7 @@ public class NBTTags {
     public static final String TAG_AUGMENT_DYNAMO_COIL = "DynamoCoil";
     public static final String TAG_AUGMENT_DYNAMO_ENERGY = "DynamoEnergy";
     public static final String TAG_AUGMENT_DYNAMO_POWER = "DynamoPower";
+    public static final String TAG_AUGMENT_DYNAMO_THROTTLE = "DynamoThrottle";
 
     // Machine-Specific
     public static final String TAG_AUGMENT_MACHINE_MIN_OUTPUT = "MachineMin";

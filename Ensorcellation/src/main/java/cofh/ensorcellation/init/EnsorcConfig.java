@@ -267,6 +267,15 @@ public class EnsorcConfig {
                 .defineInRange("Max Level", 2, 1, MAX_ENCHANT_LEVEL);
         SERVER_CONFIG.pop();
 
+        SERVER_CONFIG.push("Instigating");
+        enableInstigating = SERVER_CONFIG
+                .comment("If TRUE, the Instigating Enchantment is available for various Weapons.")
+                .define("Enable", true);
+        treasureInstigating = SERVER_CONFIG
+                .comment(treasure)
+                .define("Treasure", false);
+        SERVER_CONFIG.pop();
+
         SERVER_CONFIG.push("Leech");
         enableLeech = SERVER_CONFIG
                 .comment("If TRUE, the Leech Enchantment is available for various Weapons.")
@@ -718,6 +727,10 @@ public class EnsorcConfig {
             ((EnchantmentCoFH) FROST_ASPECT).setTreasure(treasureFrostAspect.get());
             ((EnchantmentCoFH) FROST_ASPECT).setMaxLevel(levelFrostAspect.get());
         }
+        if (INSTIGATING instanceof EnchantmentCoFH) {
+            ((EnchantmentCoFH) INSTIGATING).setEnable(enableInstigating.get());
+            ((EnchantmentCoFH) INSTIGATING).setTreasure(treasureInstigating.get());
+        }
         if (LEECH instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) LEECH).setEnable(enableLeech.get());
             ((EnchantmentCoFH) LEECH).setTreasure(treasureLeech.get());
@@ -946,6 +959,9 @@ public class EnsorcConfig {
     private static BooleanValue enableFrostAspect;
     private static BooleanValue treasureFrostAspect;
     private static IntValue levelFrostAspect;
+
+    private static BooleanValue enableInstigating;
+    private static BooleanValue treasureInstigating;
 
     private static BooleanValue enableLeech;
     private static BooleanValue treasureLeech;
