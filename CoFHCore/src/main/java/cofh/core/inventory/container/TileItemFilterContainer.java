@@ -1,13 +1,15 @@
 package cofh.core.inventory.container;
 
+import cofh.core.network.packet.server.ContainerPacket;
 import cofh.core.util.filter.AbstractItemFilter;
 import cofh.lib.inventory.container.slot.SlotFalseCopy;
 import cofh.lib.inventory.wrapper.InvWrapperGeneric;
 import cofh.lib.util.filter.IFilterOptions;
-import cofh.lib.util.filter.IFilterable;
+import cofh.lib.util.filter.IFilterableTile;
 import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -15,7 +17,7 @@ import static cofh.lib.util.references.CoreReferences.TILE_ITEM_FILTER_CONTAINER
 
 public class TileItemFilterContainer extends TileContainer implements IFilterOptions {
 
-    protected final IFilterable filterable;
+    protected final IFilterableTile filterable;
     protected AbstractItemFilter filter;
     protected InvWrapperGeneric filterInventory;
 
@@ -25,7 +27,7 @@ public class TileItemFilterContainer extends TileContainer implements IFilterOpt
 
         allowSwap = false;
 
-        filterable = (IFilterable) world.getTileEntity(pos);
+        filterable = (IFilterableTile) world.getTileEntity(pos);
         filter = (AbstractItemFilter) filterable.getFilter();
 
         int slots = filter.size();
@@ -62,6 +64,24 @@ public class TileItemFilterContainer extends TileContainer implements IFilterOpt
         super.onContainerClosed(playerIn);
     }
 
+    // region NETWORK
+    @Override
+    public PacketBuffer getContainerPacket(PacketBuffer buffer) {
+
+        buffer.writeBoolean(getAllowList());
+        buffer.writeBoolean(getCheckNBT());
+
+        return buffer;
+    }
+
+    @Override
+    public void handleContainerPacket(PacketBuffer buffer) {
+
+        filter.setAllowList(buffer.readBoolean());
+        filter.setCheckNBT(buffer.readBoolean());
+    }
+    // endregion
+
     // region IFilterOptions
     @Override
     public boolean getAllowList() {
@@ -72,7 +92,9 @@ public class TileItemFilterContainer extends TileContainer implements IFilterOpt
     @Override
     public boolean setAllowList(boolean allowList) {
 
-        return filter.setAllowList(allowList);
+        boolean ret = filter.setAllowList(allowList);
+        ContainerPacket.sendToServer(this);
+        return ret;
     }
 
     @Override
@@ -84,7 +106,9 @@ public class TileItemFilterContainer extends TileContainer implements IFilterOpt
     @Override
     public boolean setCheckNBT(boolean checkNBT) {
 
-        return filter.setCheckNBT(checkNBT);
+        boolean ret = filter.setCheckNBT(checkNBT);
+        ContainerPacket.sendToServer(this);
+        return ret;
     }
     // endregion
 }

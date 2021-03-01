@@ -18,6 +18,7 @@ import cofh.lib.util.EmptyTimeTracker;
 import cofh.lib.util.TimeTracker;
 import cofh.lib.util.Utils;
 import cofh.lib.util.filter.IFilter;
+import cofh.lib.util.filter.IFilterableTile;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.xp.EmptyXpStorage;
 import cofh.lib.xp.XpStorage;
@@ -30,6 +31,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
@@ -38,7 +40,9 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -49,6 +53,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
@@ -70,7 +75,7 @@ import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static cofh.lib.util.references.CoreReferences.HOLDING;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
-public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile, IRedstoneControllableTile, INamedContainerProvider, IThermalInventory {
+public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile, IRedstoneControllableTile, INamedContainerProvider, IFilterableTile, IThermalInventory {
 
     protected static final int BASE_ENERGY = 50000;
     protected static final int BASE_PROCESS_TICK = 20;
@@ -288,6 +293,16 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
             stack.getOrCreateTag().put(TAG_ENCHANTMENTS, enchantments);
         }
         return super.createItemStackTag(stack);
+    }
+
+    @Override
+    public boolean onActivatedDelegate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+
+        if (player.isSecondaryUseActive() && filter != EmptyFilter.INSTANCE) {
+            NetworkHooks.openGui((ServerPlayerEntity) player, getFilter(), pos);
+            return true;
+        }
+        return super.onActivatedDelegate(world, pos, state, player, hand, result);
     }
 
     protected boolean keepEnergy() {
@@ -665,8 +680,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         if (storedXp > 0 && xpStorage.getStored() < storedXp) {
             spawnXpOrbs(storedXp - xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
         }
-        // TODO: Filter
-        // filter = FilterRegistry.getTileFilter();
+
+        CompoundNBT filterNBT = filter.write(new CompoundNBT());
+        filter = FilterRegistry.getTileFilter(getAttributeModString(augmentNBT, TAG_FILTER_TYPE), this, filterNBT);
     }
 
     protected boolean defaultReconfigState() {
@@ -767,6 +783,19 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
             fluidCap = LazyOptional.of(() -> handler);
         }
         return fluidCap.cast();
+    }
+    // endregion
+
+    // region IFilterableTile
+    @Override
+    public IFilter getFilter() {
+
+        return filter;
+    }
+
+    @Override
+    public void onFilterChanged() {
+
     }
     // endregion
 

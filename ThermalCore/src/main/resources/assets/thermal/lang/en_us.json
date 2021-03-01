@@ -371,10 +371,12 @@
   "item.thermal.fluid_tank_creative_augment": "Creative Tank Construction",
   "item.thermal.fluid_tank_creative_augment.desc": "Functionally unlimited fluid.",
 
+  "item.thermal.dual_filter_augment": "Dual Filter",
+  "item.thermal.dual_filter_augment.desc": "Allows for item and fluid restriction.",
   "item.thermal.fluid_filter_augment": "Fluid Filter",
-  "item.thermal.fluid_filter_augment.desc": "NYI",
+  "item.thermal.fluid_filter_augment.desc": "Allows for fluid restriction.",
   "item.thermal.item_filter_augment": "Item Filter",
-  "item.thermal.item_filter_augment.desc": "NYI",
+  "item.thermal.item_filter_augment.desc": "Allows for item restriction.",
 
   "item.thermal.machine_catalyst_augment": "Catalytic Reclamation Chamber",
   "item.thermal.machine_catalyst_creative_augment": "Creative Reclamation Chamber",

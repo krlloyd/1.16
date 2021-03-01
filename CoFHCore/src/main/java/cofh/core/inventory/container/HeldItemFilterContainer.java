@@ -1,5 +1,6 @@
 package cofh.core.inventory.container;
 
+import cofh.core.network.packet.server.ContainerPacket;
 import cofh.core.util.filter.AbstractItemFilter;
 import cofh.lib.inventory.container.ContainerCoFH;
 import cofh.lib.inventory.container.slot.SlotFalseCopy;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
 
 import static cofh.lib.util.references.CoreReferences.HELD_ITEM_FILTER_CONTAINER;
 
@@ -93,6 +95,24 @@ public class HeldItemFilterContainer extends ContainerCoFH implements IFilterOpt
         super.onContainerClosed(playerIn);
     }
 
+    // region NETWORK
+    @Override
+    public PacketBuffer getContainerPacket(PacketBuffer buffer) {
+
+        buffer.writeBoolean(getAllowList());
+        buffer.writeBoolean(getCheckNBT());
+
+        return buffer;
+    }
+
+    @Override
+    public void handleContainerPacket(PacketBuffer buffer) {
+
+        filter.setAllowList(buffer.readBoolean());
+        filter.setCheckNBT(buffer.readBoolean());
+    }
+    // endregion
+
     // region IFilterOptions
     @Override
     public boolean getAllowList() {
@@ -103,7 +123,9 @@ public class HeldItemFilterContainer extends ContainerCoFH implements IFilterOpt
     @Override
     public boolean setAllowList(boolean allowList) {
 
-        return filter.setAllowList(allowList);
+        boolean ret = filter.setAllowList(allowList);
+        ContainerPacket.sendToServer(this);
+        return ret;
     }
 
     @Override
@@ -115,7 +137,9 @@ public class HeldItemFilterContainer extends ContainerCoFH implements IFilterOpt
     @Override
     public boolean setCheckNBT(boolean checkNBT) {
 
-        return filter.setCheckNBT(checkNBT);
+        boolean ret = filter.setCheckNBT(checkNBT);
+        ContainerPacket.sendToServer(this);
+        return ret;
     }
     // endregion
 }

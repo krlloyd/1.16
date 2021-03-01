@@ -179,6 +179,7 @@ public class TCoreItemModelProvider extends ItemModelProviderCoFH {
 
         generated(reg.getSup("area_radius_augment"), AUGMENTS);
 
+        generated(reg.getSup("dual_filter_augment"), AUGMENTS);
         generated(reg.getSup("fluid_filter_augment"), AUGMENTS);
         generated(reg.getSup("item_filter_augment"), AUGMENTS);
 
