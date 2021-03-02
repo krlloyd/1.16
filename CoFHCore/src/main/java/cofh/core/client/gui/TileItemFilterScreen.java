@@ -10,7 +10,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import static cofh.core.util.helpers.GuiHelper.createSlot;
+import static cofh.core.util.helpers.GuiHelper.generatePanelInfo;
 import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.helpers.SoundHelper.playClickSound;
 
 public class TileItemFilterScreen extends ContainerScreenCoFH<TileItemFilterContainer> {
 
@@ -27,6 +29,7 @@ public class TileItemFilterScreen extends ContainerScreenCoFH<TileItemFilterCont
         super(container, inv, titleIn);
 
         texture = TEXTURE;
+        info = generatePanelInfo("info.cofh_core.item_filter");
     }
 
     @Override
@@ -39,59 +42,63 @@ public class TileItemFilterScreen extends ContainerScreenCoFH<TileItemFilterCont
             addElement(createSlot(this, slot.xPos, slot.yPos));
         }
 
-        addElement(new ElementButton(this, 124, 25) {
+        addElement(new ElementButton(this, 132, 22) {
 
             @Override
             public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 
                 container.setAllowList(true);
+                playClickSound(0.7F);
                 return true;
             }
         }
-                .setSize(18, 18)
-                .setTexture(TEX_DENY_LIST, 36, 18)
+                .setSize(20, 20)
+                .setTexture(TEX_DENY_LIST, 40, 20)
                 .setTooltipFactory(new SimpleTooltip(new TranslationTextComponent("info.cofh.filter.allowlist.0")))
                 .setVisible(() -> !container.getAllowList()));
 
-        addElement(new ElementButton(this, 124, 25) {
+        addElement(new ElementButton(this, 132, 22) {
 
             @Override
             public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 
                 container.setAllowList(false);
+                playClickSound(0.4F);
                 return true;
             }
         }
-                .setSize(18, 18)
-                .setTexture(TEX_ALLOW_LIST, 36, 18)
+                .setSize(20, 20)
+                .setTexture(TEX_ALLOW_LIST, 40, 20)
                 .setTooltipFactory(new SimpleTooltip(new TranslationTextComponent("info.cofh.filter.allowlist.1")))
                 .setVisible(() -> container.getAllowList()));
 
-        addElement(new ElementButton(this, 124, 45) {
+        addElement(new ElementButton(this, 132, 44) {
 
             @Override
             public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 
                 container.setCheckNBT(true);
+                playClickSound(0.7F);
                 return true;
             }
         }
-                .setSize(18, 18)
-                .setTexture(TEX_IGNORE_NBT, 36, 18)
+                .setSize(20, 20)
+                .setTexture(TEX_IGNORE_NBT, 40, 20)
                 .setTooltipFactory(new SimpleTooltip(new TranslationTextComponent("info.cofh.filter.checkNBT.0")))
                 .setVisible(() -> !container.getCheckNBT()));
 
-        addElement(new ElementButton(this, 124, 45) {
+        addElement(new ElementButton(this, 132, 44) {
 
             @Override
             public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 
                 container.setCheckNBT(false);
+                playClickSound(0.4F);
                 return true;
             }
         }
-                .setSize(18, 18)
-                .setTexture(TEX_USE_NBT, 36, 18)
+                .setSize(20, 20)
+                .setTexture(TEX_USE_NBT, 40, 20)
                 .setTooltipFactory(new SimpleTooltip(new TranslationTextComponent("info.cofh.filter.checkNBT.1")))
                 .setVisible(() -> container.getCheckNBT()));
     }
