@@ -28,9 +28,9 @@ public class ThermalAugmentRules {
     static {
         // Additive
         ATTR_ADD.addAll(Arrays.asList(
-                TAG_AUGMENT_AREA_DEPTH,
-                TAG_AUGMENT_AREA_RADIUS,
-                TAG_AUGMENT_AREA_REACH,
+                TAG_AUGMENT_DEPTH,
+                TAG_AUGMENT_RADIUS,
+                TAG_AUGMENT_REACH,
 
                 TAG_AUGMENT_DYNAMO_POWER,
 
@@ -75,9 +75,9 @@ public class ThermalAugmentRules {
         ));
         // Integer - Mod is NOT a % (Not exclusive with other sets)
         ATTR_INT.addAll(Arrays.asList(
-                TAG_AUGMENT_AREA_DEPTH,
-                TAG_AUGMENT_AREA_RADIUS,
-                TAG_AUGMENT_AREA_REACH,
+                TAG_AUGMENT_DEPTH,
+                TAG_AUGMENT_RADIUS,
+                TAG_AUGMENT_REACH,
 
                 TAG_AUGMENT_POTION_AMPLIFIER
         ));

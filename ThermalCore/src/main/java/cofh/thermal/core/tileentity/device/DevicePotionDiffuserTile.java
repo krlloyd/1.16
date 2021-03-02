@@ -369,7 +369,7 @@ public class DevicePotionDiffuserTile extends DeviceTileBase implements ITickabl
 
         super.setAttributesFromAugment(augmentData);
 
-        radius += getAttributeMod(augmentData, TAG_AUGMENT_AREA_RADIUS);
+        radius += getAttributeMod(augmentData, TAG_AUGMENT_RADIUS);
 
         potionAmpMod += getAttributeMod(augmentData, TAG_AUGMENT_POTION_AMPLIFIER);
         potionDurMod += getAttributeMod(augmentData, TAG_AUGMENT_POTION_DURATION);

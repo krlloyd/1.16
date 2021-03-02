@@ -494,7 +494,7 @@ public class EnsorcConfig {
         // CURSES
         SERVER_CONFIG.push("Curse of Foolishness");
         enableCurseFool = SERVER_CONFIG
-                .comment("If TRUE, the Curse of Foolishness Enchantment is available for various Tools and Weapons.")
+                .comment("If TRUE, the Curse of Foolishness Enchantment is available for Helmets.")
                 .define("Enable", true);
         SERVER_CONFIG.pop();
 

@@ -325,13 +325,13 @@
   "info.thermal.augment.attr.RFMax": "Capacità RF",
   "info.thermal.augment.attr.RFXfer": "Transferimento RF",
 
-  "info.thermal.augment.type.AreaAug": "Effetto area",
-  "info.thermal.augment.type.DynamoAug": "Dinamo",
-  "info.thermal.augment.type.FluidAug": "Fluido",
-  "info.thermal.augment.type.MachineAug": "Macchinario",
-  "info.thermal.augment.type.PotionAug": "Pozione",
+  "info.thermal.augment.type.AEAug": "Effetto area",
+  "info.thermal.augment.type.DynAug": "Dinamo",
+  "info.thermal.augment.type.FlAug": "Fluido",
+  "info.thermal.augment.type.MchAug": "Macchinario",
+  "info.thermal.augment.type.PotAug": "Pozione",
   "info.thermal.augment.type.RFAug": "Flusso di redstone",
-  "info.thermal.augment.type.UpgradeAug": "Potenziamento",
+  "info.thermal.augment.type.UpgAug": "Potenziamento",
 
   "info.thermal.augment.maximized": "Non impila; valore più alto utilizzato.",
 

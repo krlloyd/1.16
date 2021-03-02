@@ -1,5 +1,6 @@
 package cofh.thermal.core.util.recipes;
 
+import cofh.lib.util.helpers.MathHelper;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -67,6 +68,8 @@ public class ThermalRecipeSerializer<T extends ThermalRecipe> extends ForgeRegis
         if (json.has(ENERGY_MOD)) {
             energy *= json.get(ENERGY_MOD).getAsFloat();
         }
+        energy = MathHelper.clamp(energy, 0, Integer.MAX_VALUE);
+
         /* XP */
         if (json.has(EXPERIENCE)) {
             experience = json.get(EXPERIENCE).getAsFloat();

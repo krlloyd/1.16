@@ -174,7 +174,7 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
 
         super.setAttributesFromAugment(augmentData);
 
-        radius += getAttributeMod(augmentData, TAG_AUGMENT_AREA_RADIUS);
+        radius += getAttributeMod(augmentData, TAG_AUGMENT_RADIUS);
     }
     // endregion
 }

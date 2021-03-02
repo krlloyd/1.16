@@ -1,5 +1,6 @@
 package cofh.thermal.core.util.recipes;
 
+import cofh.lib.util.helpers.MathHelper;
 import com.google.gson.JsonObject;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -17,12 +18,16 @@ import static cofh.lib.util.recipes.RecipeJsonUtils.*;
 public class ThermalFuelSerializer<T extends ThermalFuel> extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
 
     protected final int defaultEnergy;
+    protected final int minEnergy;
+    protected final int maxEnergy;
     protected final IFactory<T> factory;
 
-    public ThermalFuelSerializer(IFactory<T> factory, int defaultEnergy) {
+    public ThermalFuelSerializer(IFactory<T> factory, int defaultEnergy, int minEnergy, int maxEnergy) {
 
         this.factory = factory;
         this.defaultEnergy = defaultEnergy;
+        this.minEnergy = minEnergy;
+        this.maxEnergy = maxEnergy;
     }
 
     @Override
@@ -51,6 +56,8 @@ public class ThermalFuelSerializer<T extends ThermalFuel> extends ForgeRegistryE
         if (json.has(ENERGY_MOD)) {
             energy *= json.get(ENERGY_MOD).getAsFloat();
         }
+        energy = MathHelper.clamp(energy, minEnergy, maxEnergy);
+
         return factory.create(recipeId, energy, inputItems, inputFluids);
     }
 

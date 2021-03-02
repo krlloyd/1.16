@@ -91,6 +91,13 @@ public abstract class AbstractItemFilter implements IFilter, IFilterOptions {
     public IFilter read(CompoundNBT nbt) {
 
         CompoundNBT subTag = nbt.getCompound(TAG_FILTER);
+        //        int size = subTag.getInt(TAG_SLOTS);
+        //        if (size > 0) {
+        //            items = new ArrayList<>(size);
+        //            for (int i = 0; i < size; ++i) {
+        //                items.add(ItemStack.EMPTY);
+        //            }
+        //        }
         ListNBT list = subTag.getList(TAG_ITEM_INV, TAG_COMPOUND);
         for (int i = 0; i < list.size(); ++i) {
             CompoundNBT slotTag = list.getCompound(i);
@@ -109,6 +116,9 @@ public abstract class AbstractItemFilter implements IFilter, IFilterOptions {
 
         CompoundNBT subTag = new CompoundNBT();
         ListNBT list = new ListNBT();
+        //        if (items.size() != SIZE) {
+        //            subTag.putInt(TAG_SLOTS, items.size());
+        //        }
         for (int i = 0; i < items.size(); ++i) {
             if (!items.get(i).isEmpty()) {
                 CompoundNBT slotTag = new CompoundNBT();

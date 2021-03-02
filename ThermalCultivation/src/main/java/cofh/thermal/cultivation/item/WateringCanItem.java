@@ -229,7 +229,7 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
 
-        setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_AREA_RADIUS);
+        setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_RADIUS);
     }
 
     protected boolean hasActiveTag(ItemStack stack) {
@@ -249,7 +249,7 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
 
     protected int getRadius(ItemStack stack) {
 
-        return (int) getPropertyWithDefault(stack, TAG_AUGMENT_AREA_RADIUS, 0.0F) + 1;
+        return (int) getPropertyWithDefault(stack, TAG_AUGMENT_RADIUS, 0.0F) + 1;
     }
 
     protected int getWaterPerUse(ItemStack stack) {

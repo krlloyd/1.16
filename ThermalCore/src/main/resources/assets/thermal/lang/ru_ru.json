@@ -325,13 +325,13 @@
   "info.thermal.augment.attr.RFMax": "Хранит RF",
   "info.thermal.augment.attr.RFXfer": "Передаёт RF",
 
-  "info.thermal.augment.type.AreaAug": "Эффект области",
-  "info.thermal.augment.type.DynamoAug": "Генератор",
-  "info.thermal.augment.type.FluidAug": "Жидкость",
-  "info.thermal.augment.type.MachineAug": "Механизм",
-  "info.thermal.augment.type.PotionAug": "Зелье",
+  "info.thermal.augment.type.AEAug": "Эффект области",
+  "info.thermal.augment.type.DynAug": "Генератор",
+  "info.thermal.augment.type.FlAug": "Жидкость",
+  "info.thermal.augment.type.MchAug": "Механизм",
+  "info.thermal.augment.type.PotAug": "Зелье",
   "info.thermal.augment.type.RFAug": "Redstone Flux",
-  "info.thermal.augment.type.UpgradeAug": "Обновление",
+  "info.thermal.augment.type.UpgAug": "Обновление",
 
   "info.thermal.augment.maximized": "Можно установить только одно.",
 

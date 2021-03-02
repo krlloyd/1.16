@@ -325,13 +325,13 @@
   "info.thermal.augment.attr.RFMax": "RF容量",
   "info.thermal.augment.attr.RFXfer": "RF入出力量",
 
-  "info.thermal.augment.type.AreaAug": "効果範囲",
-  "info.thermal.augment.type.DynamoAug": "ダイナモ",
-  "info.thermal.augment.type.FluidAug": "流体",
-  "info.thermal.augment.type.MachineAug": "マシン",
-  "info.thermal.augment.type.PotionAug": "ポーション",
+  "info.thermal.augment.type.AEAug": "効果範囲",
+  "info.thermal.augment.type.DynAug": "ダイナモ",
+  "info.thermal.augment.type.FlAug": "流体",
+  "info.thermal.augment.type.MchAug": "マシン",
+  "info.thermal.augment.type.PotAug": "ポーション",
   "info.thermal.augment.type.RFAug": "レッドストーンフラックス",
-  "info.thermal.augment.type.UpgradeAug": "アップグレード",
+  "info.thermal.augment.type.UpgAug": "アップグレード",
 
   "info.thermal.augment.maximized": "スタック不可・最高値が使用されます。",
 

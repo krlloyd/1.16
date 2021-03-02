@@ -37,11 +37,11 @@ public class TExpRecipeSerializers {
         RECIPE_SERIALIZERS.register(ID_CATALYST_SMELTER, () -> new ThermalCatalystSerializer<>(SmelterCatalyst::new));
         RECIPE_SERIALIZERS.register(ID_CATALYST_INSOLATOR, () -> new ThermalCatalystSerializer<>(InsolatorCatalyst::new));
 
-        RECIPE_SERIALIZERS.register(ID_FUEL_STIRLING, () -> new ThermalFuelSerializer<>(StirlingFuel::new, StirlingFuelManager.instance().getDefaultEnergy()));
-        RECIPE_SERIALIZERS.register(ID_FUEL_COMPRESSION, () -> new ThermalFuelSerializer<>(CompressionFuel::new, CompressionFuelManager.instance().getDefaultEnergy()));
-        RECIPE_SERIALIZERS.register(ID_FUEL_MAGMATIC, () -> new ThermalFuelSerializer<>(MagmaticFuel::new, MagmaticFuelManager.instance().getDefaultEnergy()));
-        RECIPE_SERIALIZERS.register(ID_FUEL_NUMISMATIC, () -> new ThermalFuelSerializer<>(NumismaticFuel::new, NumismaticFuelManager.instance().getDefaultEnergy()));
-        RECIPE_SERIALIZERS.register(ID_FUEL_LAPIDARY, () -> new ThermalFuelSerializer<>(LapidaryFuel::new, LapidaryFuelManager.instance().getDefaultEnergy()));
+        RECIPE_SERIALIZERS.register(ID_FUEL_STIRLING, () -> new ThermalFuelSerializer<>(StirlingFuel::new, StirlingFuelManager.instance().getDefaultEnergy(), StirlingFuelManager.MIN_ENERGY, StirlingFuelManager.MAX_ENERGY));
+        RECIPE_SERIALIZERS.register(ID_FUEL_COMPRESSION, () -> new ThermalFuelSerializer<>(CompressionFuel::new, CompressionFuelManager.instance().getDefaultEnergy(), CompressionFuelManager.MIN_ENERGY, CompressionFuelManager.MAX_ENERGY));
+        RECIPE_SERIALIZERS.register(ID_FUEL_MAGMATIC, () -> new ThermalFuelSerializer<>(MagmaticFuel::new, MagmaticFuelManager.instance().getDefaultEnergy(), MagmaticFuelManager.MIN_ENERGY, MagmaticFuelManager.MAX_ENERGY));
+        RECIPE_SERIALIZERS.register(ID_FUEL_NUMISMATIC, () -> new ThermalFuelSerializer<>(NumismaticFuel::new, NumismaticFuelManager.instance().getDefaultEnergy(), NumismaticFuelManager.MIN_ENERGY, NumismaticFuelManager.MAX_ENERGY));
+        RECIPE_SERIALIZERS.register(ID_FUEL_LAPIDARY, () -> new ThermalFuelSerializer<>(LapidaryFuel::new, LapidaryFuelManager.instance().getDefaultEnergy(), LapidaryFuelManager.MIN_ENERGY, LapidaryFuelManager.MAX_ENERGY));
     }
 
 }
