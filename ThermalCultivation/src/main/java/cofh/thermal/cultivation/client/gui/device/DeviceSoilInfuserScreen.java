@@ -3,7 +3,7 @@ package cofh.thermal.cultivation.client.gui.device;
 import cofh.core.client.gui.element.ElementScaled;
 import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.ThermalGuiHelper;
-import cofh.thermal.core.client.gui.ThermalScreenBase;
+import cofh.thermal.core.client.gui.ThermalTileScreenBase;
 import cofh.thermal.cultivation.inventory.container.device.DeviceSoilInfuserContainer;
 import cofh.thermal.cultivation.tileentity.DeviceSoilInfuserTile;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -16,7 +16,7 @@ import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.lib.util.helpers.StringHelper.format;
 import static cofh.lib.util.helpers.StringHelper.localize;
 
-public class DeviceSoilInfuserScreen extends ThermalScreenBase<DeviceSoilInfuserContainer> {
+public class DeviceSoilInfuserScreen extends ThermalTileScreenBase<DeviceSoilInfuserContainer> {
 
     public static final String TEX_PATH = ID_THERMAL + ":textures/gui/devices/soil_infuser.png";
     public static final ResourceLocation TEXTURE = new ResourceLocation(TEX_PATH);

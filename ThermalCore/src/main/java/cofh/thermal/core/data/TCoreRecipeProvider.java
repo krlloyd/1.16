@@ -500,6 +500,37 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .addCriterion("has_hardened_glass", hasItem(ItemTagsCoFH.HARDENED_GLASS))
                 .build(withConditions(consumer).flag(FLAG_DYNAMO_AUGMENTS), this.modid + ":" + folder + "/" + name(result));
 
+        //        result = reg.get("dual_filter_augment");
+        //        ShapedRecipeBuilder.shapedRecipe(result)
+        //                .key('c', ItemTagsCoFH.NUGGETS_COPPER)
+        //                .key('t', ItemTagsCoFH.NUGGETS_TIN)
+        //                .key('S', ItemTagsCoFH.INGOTS_SIGNALUM)
+        //                .patternLine(" c ")
+        //                .patternLine("tSt")
+        //                .patternLine(" c ")
+        //                .addCriterion("has_signalum_ingot", hasItem(ItemTagsCoFH.INGOTS_SIGNALUM))
+        //                .build(withConditions(consumer).flag(FLAG_FILTER_AUGMENTS), this.modid + ":" + folder + "/" + name(result));
+        //
+        //        result = reg.get("fluid_filter_augment");
+        //        ShapedRecipeBuilder.shapedRecipe(result)
+        //                .key('c', ItemTagsCoFH.NUGGETS_COPPER)
+        //                .key('S', ItemTagsCoFH.INGOTS_SIGNALUM)
+        //                .patternLine(" c ")
+        //                .patternLine("cSc")
+        //                .patternLine(" c ")
+        //                .addCriterion("has_signalum_ingot", hasItem(ItemTagsCoFH.INGOTS_SIGNALUM))
+        //                .build(withConditions(consumer).flag(FLAG_FILTER_AUGMENTS), this.modid + ":" + folder + "/" + name(result));
+
+        result = reg.get("item_filter_augment");
+        ShapedRecipeBuilder.shapedRecipe(result)
+                .key('t', ItemTagsCoFH.NUGGETS_TIN)
+                .key('S', ItemTagsCoFH.INGOTS_SIGNALUM)
+                .patternLine(" t ")
+                .patternLine("tSt")
+                .patternLine(" t ")
+                .addCriterion("has_signalum_ingot", hasItem(ItemTagsCoFH.INGOTS_SIGNALUM))
+                .build(withConditions(consumer).flag(FLAG_FILTER_AUGMENTS), this.modid + ":" + folder + "/" + name(result));
+
         result = reg.get("machine_speed_augment");
         ShapedRecipeBuilder.shapedRecipe(result)
                 .key('E', ItemTagsCoFH.PLATES_ELECTRUM)

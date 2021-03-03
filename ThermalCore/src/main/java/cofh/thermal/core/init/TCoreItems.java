@@ -435,7 +435,7 @@ public class TCoreItems {
                         .mod(TAG_AUGMENT_MACHINE_ENERGY, 0.9F)
                         .build()).setShowInGroups(getFlag(FLAG_MACHINE_AUGMENTS)));
 
-        registerItem("machine_efficiency_creative_augment", () -> new AugmentItem(new Item.Properties().group(group),
+        registerItem("machine_efficiency_creative_augment", () -> new AugmentItem(new Item.Properties().group(group).rarity(Rarity.EPIC),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_MACHINE)
                         .mod(TAG_AUGMENT_MACHINE_ENERGY, 0.0F)
@@ -455,7 +455,7 @@ public class TCoreItems {
                         .mod(TAG_AUGMENT_MACHINE_ENERGY, 1.25F)
                         .build()).setShowInGroups(getFlag(FLAG_MACHINE_AUGMENTS)));
 
-        registerItem("machine_catalyst_creative_augment", () -> new AugmentItem(new Item.Properties().group(group),
+        registerItem("machine_catalyst_creative_augment", () -> new AugmentItem(new Item.Properties().group(group).rarity(Rarity.EPIC),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_MACHINE)
                         .mod(TAG_AUGMENT_MACHINE_CATALYST, 0.0F)

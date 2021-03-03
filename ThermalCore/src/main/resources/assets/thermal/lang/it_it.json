@@ -301,9 +301,9 @@
   "_comment": "Thermal Core - Augments",
   "_comment": "========================================================================================================",
 
-  "info.thermal.augment.attr.AreaDepth": "Profondità massima",
-  "info.thermal.augment.attr.AreaRadius": "Raggio massimo",
-  "info.thermal.augment.attr.AreaReach": "Raggiunta massima",
+  "info.thermal.augment.attr.Depth": "Profondità massima",
+  "info.thermal.augment.attr.Radius": "Raggio massimo",
+  "info.thermal.augment.attr.Reach": "Raggiunta massima",
 
   "info.thermal.augment.attr.BaseMod": "Fattore di scala",
 
@@ -325,13 +325,13 @@
   "info.thermal.augment.attr.RFMax": "Capacità RF",
   "info.thermal.augment.attr.RFXfer": "Transferimento RF",
 
-  "info.thermal.augment.type.AEAug": "Effetto area",
-  "info.thermal.augment.type.DynAug": "Dinamo",
-  "info.thermal.augment.type.FlAug": "Fluido",
-  "info.thermal.augment.type.MchAug": "Macchinario",
-  "info.thermal.augment.type.PotAug": "Pozione",
-  "info.thermal.augment.type.RFAug": "Flusso di redstone",
-  "info.thermal.augment.type.UpgAug": "Potenziamento",
+  "info.thermal.augment.type.Area": "Effetto area",
+  "info.thermal.augment.type.Dynamo": "Dinamo",
+  "info.thermal.augment.type.Fluid": "Fluido",
+  "info.thermal.augment.type.Machine": "Macchinario",
+  "info.thermal.augment.type.Potion": "Pozione",
+  "info.thermal.augment.type.RF": "Flusso di redstone",
+  "info.thermal.augment.type.Upgrade": "Potenziamento",
 
   "info.thermal.augment.maximized": "Non impila; valore più alto utilizzato.",
 

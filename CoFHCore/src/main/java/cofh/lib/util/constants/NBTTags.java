@@ -100,14 +100,14 @@ public class NBTTags {
     public static final String TAG_PROPERTIES = "Properties";
 
     // Types
-    public static final String TAG_AUGMENT_TYPE_UPGRADE = "UpgAug";
-    public static final String TAG_AUGMENT_TYPE_RF = "RFAug";
-    public static final String TAG_AUGMENT_TYPE_FLUID = "FlAug";
-    public static final String TAG_AUGMENT_TYPE_MACHINE = "MchAug";
-    public static final String TAG_AUGMENT_TYPE_DYNAMO = "DynAug";
-    public static final String TAG_AUGMENT_TYPE_AREA_EFFECT = "AEAug";
-    public static final String TAG_AUGMENT_TYPE_FILTER = "FilAug";
-    public static final String TAG_AUGMENT_TYPE_POTION = "PotAug";
+    public static final String TAG_AUGMENT_TYPE_UPGRADE = "Upgrade";
+    public static final String TAG_AUGMENT_TYPE_RF = "RF";
+    public static final String TAG_AUGMENT_TYPE_FLUID = "Fluid";
+    public static final String TAG_AUGMENT_TYPE_MACHINE = "Machine";
+    public static final String TAG_AUGMENT_TYPE_DYNAMO = "Dynamo";
+    public static final String TAG_AUGMENT_TYPE_AREA_EFFECT = "Area";
+    public static final String TAG_AUGMENT_TYPE_FILTER = "Filter";
+    public static final String TAG_AUGMENT_TYPE_POTION = "Potion";
 
     // General
     public static final String TAG_AUGMENT_BASE_MOD = "BaseMod";
@@ -116,11 +116,11 @@ public class NBTTags {
     public static final String TAG_AUGMENT_RF_STORAGE = "RFMax";
     public static final String TAG_AUGMENT_RF_XFER = "RFXfer";
 
-    public static final String TAG_AUGMENT_FLUID_CREATIVE = "FlCre";
-    public static final String TAG_AUGMENT_FLUID_STORAGE = "FlMax";
+    public static final String TAG_AUGMENT_FLUID_CREATIVE = "FluidCre";
+    public static final String TAG_AUGMENT_FLUID_STORAGE = "FluidMax";
 
-    public static final String TAG_AUGMENT_ITEM_CREATIVE = "ItmCre";
-    public static final String TAG_AUGMENT_ITEM_STORAGE = "ItmMax";
+    public static final String TAG_AUGMENT_ITEM_CREATIVE = "ItemCre";
+    public static final String TAG_AUGMENT_ITEM_STORAGE = "ItemMax";
 
     public static final String TAG_AUGMENT_DEPTH = "Depth";
     public static final String TAG_AUGMENT_HARVEST_LEVEL = "Harvest";
@@ -132,24 +132,24 @@ public class NBTTags {
     public static final String TAG_AUGMENT_FEATURE_SIDE_CONFIG = "SideCfg";
     public static final String TAG_AUGMENT_FEATURE_XP_STORAGE = "XpStr";
 
-    public static final String TAG_AUGMENT_POTION_AMPLIFIER = "PotAmp";
-    public static final String TAG_AUGMENT_POTION_DURATION = "PotDur";
+    public static final String TAG_AUGMENT_POTION_AMPLIFIER = "PotionAmp";
+    public static final String TAG_AUGMENT_POTION_DURATION = "PotionDur";
 
     // Dynamo-Specific
-    public static final String TAG_AUGMENT_DYNAMO_COIL = "DynCoil";
-    public static final String TAG_AUGMENT_DYNAMO_ENERGY = "DynEn";
-    public static final String TAG_AUGMENT_DYNAMO_POWER = "DynPwr";
-    public static final String TAG_AUGMENT_DYNAMO_THROTTLE = "DynThr";
+    public static final String TAG_AUGMENT_DYNAMO_COIL = "DynamoCoil";
+    public static final String TAG_AUGMENT_DYNAMO_ENERGY = "DynamoEnergy";
+    public static final String TAG_AUGMENT_DYNAMO_POWER = "DynamoPower";
+    public static final String TAG_AUGMENT_DYNAMO_THROTTLE = "DynamoThrottle";
 
     // Machine-Specific
-    public static final String TAG_AUGMENT_MACHINE_MIN_OUTPUT = "MchMin";
-    public static final String TAG_AUGMENT_MACHINE_PRIMARY = "MchPri";
-    public static final String TAG_AUGMENT_MACHINE_SECONDARY = "MchSec";
+    public static final String TAG_AUGMENT_MACHINE_MIN_OUTPUT = "MachineMin";
+    public static final String TAG_AUGMENT_MACHINE_PRIMARY = "MachinePri";
+    public static final String TAG_AUGMENT_MACHINE_SECONDARY = "MachineSec";
 
-    public static final String TAG_AUGMENT_MACHINE_CATALYST = "MchCat";
-    public static final String TAG_AUGMENT_MACHINE_ENERGY = "MchEn";
-    public static final String TAG_AUGMENT_MACHINE_POWER = "MchPwr";
-    public static final String TAG_AUGMENT_MACHINE_SPEED = "MchSpd";
-    public static final String TAG_AUGMENT_MACHINE_XP = "MchXp";
+    public static final String TAG_AUGMENT_MACHINE_CATALYST = "MachineCat";
+    public static final String TAG_AUGMENT_MACHINE_ENERGY = "MachineEnergy";
+    public static final String TAG_AUGMENT_MACHINE_POWER = "MachinePower";
+    public static final String TAG_AUGMENT_MACHINE_SPEED = "MachineSpeed";
+    public static final String TAG_AUGMENT_MACHINE_XP = "MachineXp";
     // endregion
 }

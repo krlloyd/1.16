@@ -301,9 +301,9 @@
   "_comment": "Thermal Core - Расширения",
   "_comment": "========================================================================================================",
 
-  "info.thermal.augment.attr.AreaDepth": "Максимальная глубина",
-  "info.thermal.augment.attr.AreaRadius": "Максимальный радиус",
-  "info.thermal.augment.attr.AreaReach": "Максимальный охват",
+  "info.thermal.augment.attr.Depth": "Максимальная глубина",
+  "info.thermal.augment.attr.Radius": "Максимальный радиус",
+  "info.thermal.augment.attr.Reach": "Максимальный охват",
 
   "info.thermal.augment.attr.BaseMod": "Коэффициент масштаба",
 
@@ -325,13 +325,13 @@
   "info.thermal.augment.attr.RFMax": "Хранит RF",
   "info.thermal.augment.attr.RFXfer": "Передаёт RF",
 
-  "info.thermal.augment.type.AEAug": "Эффект области",
-  "info.thermal.augment.type.DynAug": "Генератор",
-  "info.thermal.augment.type.FlAug": "Жидкость",
-  "info.thermal.augment.type.MchAug": "Механизм",
-  "info.thermal.augment.type.PotAug": "Зелье",
-  "info.thermal.augment.type.RFAug": "Redstone Flux",
-  "info.thermal.augment.type.UpgAug": "Обновление",
+  "info.thermal.augment.type.Area": "Эффект области",
+  "info.thermal.augment.type.Dynamo": "Генератор",
+  "info.thermal.augment.type.Fluid": "Жидкость",
+  "info.thermal.augment.type.Machine": "Механизм",
+  "info.thermal.augment.type.Potion": "Зелье",
+  "info.thermal.augment.type.RF": "Redstone Flux",
+  "info.thermal.augment.type.Upgrade": "Обновление",
 
   "info.thermal.augment.maximized": "Можно установить только одно.",
 

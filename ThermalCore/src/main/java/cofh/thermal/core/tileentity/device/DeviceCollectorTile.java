@@ -47,8 +47,6 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
         return !data.getBoolean(TAG_CONVEYOR_COMPAT) || data.getBoolean(TAG_DEMAGNETIZE_COMPAT);
     };
 
-    protected XpStorage xpStorage;
-
     protected static final int RADIUS = 4;
     public int radius = RADIUS;
 

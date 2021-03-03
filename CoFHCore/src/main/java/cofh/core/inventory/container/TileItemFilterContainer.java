@@ -6,6 +6,7 @@ import cofh.lib.inventory.container.slot.SlotFalseCopy;
 import cofh.lib.inventory.wrapper.InvWrapperGeneric;
 import cofh.lib.util.filter.IFilterOptions;
 import cofh.lib.util.filter.IFilterableTile;
+import cofh.lib.util.helpers.FilterHelper;
 import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -54,6 +55,15 @@ public class TileItemFilterContainer extends TileContainer implements IFilterOpt
     protected int getSizeInventory() {
 
         return filterInventory.getSizeInventory();
+    }
+
+    @Override
+    public boolean canInteractWith(PlayerEntity player) {
+
+        if (!FilterHelper.hasFilter(filterable)) {
+            return false;
+        }
+        return super.canInteractWith(player);
     }
 
     @Override

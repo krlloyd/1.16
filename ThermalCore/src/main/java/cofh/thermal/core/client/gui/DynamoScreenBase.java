@@ -13,7 +13,7 @@ import java.util.List;
 import static cofh.lib.util.constants.Constants.PATH_ELEMENTS;
 import static cofh.lib.util.helpers.StringHelper.DF0;
 
-public class DynamoScreenBase<T extends ContainerCoFH> extends ThermalScreenBase<T> {
+public class DynamoScreenBase<T extends ContainerCoFH> extends ThermalTileScreenBase<T> {
 
     protected DynamoTileBase tile;
 

@@ -7,7 +7,7 @@ import cofh.core.client.gui.element.panel.PanelConfiguration;
 import cofh.core.network.packet.server.TileConfigPacket;
 import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.ThermalGuiHelper;
-import cofh.thermal.core.client.gui.ThermalScreenBase;
+import cofh.thermal.core.client.gui.ThermalTileScreenBase;
 import cofh.thermal.expansion.inventory.container.device.DeviceItemBufferContainer;
 import cofh.thermal.expansion.tileentity.device.DeviceItemBufferTile;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -25,7 +25,7 @@ import static cofh.lib.util.helpers.SoundHelper.playClickSound;
 import static cofh.lib.util.helpers.StringHelper.format;
 import static cofh.lib.util.helpers.StringHelper.localize;
 
-public class DeviceItemBufferScreen extends ThermalScreenBase<DeviceItemBufferContainer> {
+public class DeviceItemBufferScreen extends ThermalTileScreenBase<DeviceItemBufferContainer> {
 
     public static final String TEX_PATH = ID_THERMAL + ":textures/gui/devices/item_buffer.png";
     public static final ResourceLocation TEXTURE = new ResourceLocation(TEX_PATH);

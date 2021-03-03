@@ -4,7 +4,7 @@ import cofh.core.client.gui.element.ElementAugmentSlots;
 import cofh.core.client.gui.element.ElementButton;
 import cofh.core.client.gui.element.SimpleTooltip;
 import cofh.lib.util.helpers.StringHelper;
-import cofh.thermal.core.client.gui.ThermalScreenBase;
+import cofh.thermal.core.client.gui.ThermalTileScreenBase;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +15,7 @@ import static cofh.core.util.helpers.GuiHelper.*;
 import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.lib.util.constants.Constants.PATH_ELEMENTS;
 
-public class TinkerBenchScreen extends ThermalScreenBase<TinkerBenchContainer> {
+public class TinkerBenchScreen extends ThermalTileScreenBase<TinkerBenchContainer> {
 
     public static final String TEX_PATH = ID_THERMAL + ":textures/gui/workbenches/tinker_bench.png";
     public static final ResourceLocation TEXTURE = new ResourceLocation(TEX_PATH);

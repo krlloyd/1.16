@@ -301,9 +301,9 @@
   "_comment": "Thermal Core - Augments",
   "_comment": "========================================================================================================",
 
-  "info.thermal.augment.attr.AreaDepth": "最大深度",
-  "info.thermal.augment.attr.AreaRadius": "最大半径",
-  "info.thermal.augment.attr.AreaReach": "最大範囲",
+  "info.thermal.augment.attr.Depth": "最大深度",
+  "info.thermal.augment.attr.Radius": "最大半径",
+  "info.thermal.augment.attr.Reach": "最大範囲",
 
   "info.thermal.augment.attr.BaseMod": "拡縮係数",
 
@@ -325,13 +325,13 @@
   "info.thermal.augment.attr.RFMax": "RF容量",
   "info.thermal.augment.attr.RFXfer": "RF入出力量",
 
-  "info.thermal.augment.type.AEAug": "効果範囲",
-  "info.thermal.augment.type.DynAug": "ダイナモ",
-  "info.thermal.augment.type.FlAug": "流体",
-  "info.thermal.augment.type.MchAug": "マシン",
-  "info.thermal.augment.type.PotAug": "ポーション",
-  "info.thermal.augment.type.RFAug": "レッドストーンフラックス",
-  "info.thermal.augment.type.UpgAug": "アップグレード",
+  "info.thermal.augment.type.Area": "効果範囲",
+  "info.thermal.augment.type.Dynamo": "ダイナモ",
+  "info.thermal.augment.type.Fluid": "流体",
+  "info.thermal.augment.type.Machine": "マシン",
+  "info.thermal.augment.type.Potion": "ポーション",
+  "info.thermal.augment.type.RF": "レッドストーンフラックス",
+  "info.thermal.augment.type.Upgrade": "アップグレード",
 
   "info.thermal.augment.maximized": "スタック不可・最高値が使用されます。",
 

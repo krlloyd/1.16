@@ -2,6 +2,7 @@ package cofh.core.client.gui;
 
 import cofh.core.client.gui.element.ElementButton;
 import cofh.core.client.gui.element.SimpleTooltip;
+import cofh.core.client.gui.element.panel.PanelInfo;
 import cofh.core.inventory.container.HeldItemFilterContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;

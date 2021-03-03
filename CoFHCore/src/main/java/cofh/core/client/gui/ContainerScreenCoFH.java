@@ -2,6 +2,7 @@ package cofh.core.client.gui;
 
 import cofh.core.client.gui.element.ElementBase;
 import cofh.core.client.gui.element.panel.PanelBase;
+import cofh.core.client.gui.element.panel.PanelInfo;
 import cofh.core.client.gui.element.panel.PanelTracker;
 import cofh.core.util.helpers.RenderHelper;
 import cofh.lib.client.gui.IGuiAccess;
@@ -65,6 +66,10 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
         super.init();
         panels.clear();
         elements.clear();
+
+        if (info != null && !info.isEmpty()) {
+            addPanel(new PanelInfo(this, info));
+        }
     }
 
     @Override

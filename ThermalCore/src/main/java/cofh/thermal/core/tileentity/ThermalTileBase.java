@@ -20,6 +20,7 @@ import cofh.lib.util.Utils;
 import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.filter.IFilterableTile;
 import cofh.lib.util.helpers.AugmentDataHelper;
+import cofh.lib.util.helpers.FilterHelper;
 import cofh.lib.xp.EmptyXpStorage;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.common.ThermalConfig;
@@ -298,9 +299,8 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     @Override
     public boolean onActivatedDelegate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
 
-        if (player.isSecondaryUseActive() && filter != EmptyFilter.INSTANCE) {
-            NetworkHooks.openGui((ServerPlayerEntity) player, getFilter(), pos);
-            return true;
+        if (player.isSecondaryUseActive()) {
+            return openFilterGui((ServerPlayerEntity) player);
         }
         return super.onActivatedDelegate(world, pos, state, player, hand, result);
     }
@@ -796,6 +796,26 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     @Override
     public void onFilterChanged() {
 
+    }
+
+    @Override
+    public boolean openGui(ServerPlayerEntity player) {
+
+        if (canOpenGui()) {
+            NetworkHooks.openGui(player, this, pos);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean openFilterGui(ServerPlayerEntity player) {
+
+        if (FilterHelper.hasFilter(this)) {
+            NetworkHooks.openGui(player, getFilter(), pos);
+            return true;
+        }
+        return false;
     }
     // endregion
 

@@ -128,21 +128,21 @@ public class XpStorage implements IXpStorage, IResourceStorage, INBTSerializable
     @Override
     public int receiveXp(int maxReceive, boolean simulate) {
 
-        int energyReceived = Math.min(capacity - xp, maxReceive);
+        int xpReceived = Math.min(capacity - xp, maxReceive);
         if (!simulate) {
-            xp += energyReceived;
+            xp += xpReceived;
         }
-        return energyReceived;
+        return xpReceived;
     }
 
     @Override
     public int extractXp(int maxExtract, boolean simulate) {
 
-        int energyExtracted = Math.min(xp, maxExtract);
+        int xpExtracted = Math.min(xp, maxExtract);
         if (!simulate) {
-            xp -= energyExtracted;
+            xp -= xpExtracted;
         }
-        return energyExtracted;
+        return xpExtracted;
     }
 
     @Override
