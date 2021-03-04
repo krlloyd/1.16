@@ -375,23 +375,6 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int mouseButton, double unused_1, double unused_2) {
-
-        Slot slot = getSlotAtPosition(mX, mY);
-        ItemStack itemstack = getMinecraft().player.inventory.getItemStack();
-
-        if (this.dragSplitting && slot != null && !itemstack.isEmpty() && slot instanceof SlotFalseCopy) {
-            if (lastIndex != slot.slotNumber) {
-                lastIndex = slot.slotNumber;
-                this.handleMouseClick(slot, slot.slotNumber, 0, ClickType.PICKUP);
-            }
-            return true;
-        }
-        lastIndex = -1;
-        return super.mouseDragged(mouseX, mouseY, mouseButton, unused_1, unused_2);
-    }
-
-    @Override
     public boolean mouseReleased(double mouseX, double mouseY, int mouseButton) {
 
         mouseX -= guiLeft;
@@ -454,22 +437,6 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
     protected boolean mouseWheel(double mouseX, double mouseY, double movement) {
 
         return false;
-    }
-
-    protected Slot getSlotAtPosition(int xCoord, int yCoord) {
-
-        for (int k = 0; k < this.container.inventorySlots.size(); ++k) {
-            Slot slot = this.container.inventorySlots.get(k);
-            if (this.isMouseOverSlot(slot, xCoord, yCoord)) {
-                return slot;
-            }
-        }
-        return null;
-    }
-
-    protected boolean isMouseOverSlot(Slot theSlot, int xCoord, int yCoord) {
-
-        return this.isPointInRegion(theSlot.xPos, theSlot.yPos, 16, 16, xCoord, yCoord);
     }
 
     protected int getCenteredOffset(String string) {

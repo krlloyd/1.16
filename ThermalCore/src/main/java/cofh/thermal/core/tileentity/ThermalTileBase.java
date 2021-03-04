@@ -251,6 +251,9 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
                 Utils.dropItemStackIntoWorldWithRandomness(inventory.getStackInSlot(i), worldIn, pos);
             }
         }
+        if (xpStorage.getStored() > 0) {
+            spawnXpOrbs(xpStorage.getStored(), Vector3d.copyCenteredHorizontally(pos));
+        }
     }
 
     @Override

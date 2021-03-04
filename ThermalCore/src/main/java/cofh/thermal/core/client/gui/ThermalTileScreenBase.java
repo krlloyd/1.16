@@ -30,9 +30,6 @@ public class ThermalTileScreenBase<T extends ContainerCoFH> extends ContainerScr
 
         super.init();
 
-        if (FilterHelper.hasFilter(tile)) {
-            // TODO: Filter widget
-        }
         // TODO: Enchantment Panel
         // addPanel(new PanelEnchantment(this, "This block can be enchanted."));
         addPanel(new PanelSecurity(this, tile, SecurityHelper.getID(player)));
@@ -44,6 +41,9 @@ public class ThermalTileScreenBase<T extends ContainerCoFH> extends ContainerScr
 
         if (tile.getXpStorage() != null) {
             addElement(setClaimable((ElementXpStorage) createDefaultXpStorage(this, 152, 65, tile.getXpStorage()).setVisible(() -> tile.getXpStorage().getMaxXpStored() > 0), tile));
+        }
+        if (FilterHelper.hasFilter(tile)) {
+            // TODO: Filter widget
         }
     }
 

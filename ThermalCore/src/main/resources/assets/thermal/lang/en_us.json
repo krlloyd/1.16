@@ -790,6 +790,10 @@
   "info.thermal.machine_sawmill.1": "Very useful for making the most out of a tree.",
   "info.thermal.machine_sawmill.2": "Watch your hands.",
 
+  "info.thermal.machine_smelter.0": "Smelts metals and things that require high temperatures.",
+  "info.thermal.machine_smelter.1": "Useful for processing ores and creating advanced blocks.",
+  "info.thermal.machine_smelter.2": "Will absolutely not cook food.",
+
   "item.thermal.chiller_ball_cast": "Ball Cast",
 
   "item.thermal.press_coin_die": "Numismatic Die",

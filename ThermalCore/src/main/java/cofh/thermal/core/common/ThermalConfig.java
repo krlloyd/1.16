@@ -215,10 +215,10 @@ public class ThermalConfig {
     // endregion
 
     // region SERVER VARIABLES
-    public static int deviceAugments = 2;
+    public static int deviceAugments = 3;
     public static int dynamoAugments = 4;
     public static int machineAugments = 4;
-    public static int storageAugments = 2;
+    public static int storageAugments = 3;
 
     public static int toolAugments = 4;
 
