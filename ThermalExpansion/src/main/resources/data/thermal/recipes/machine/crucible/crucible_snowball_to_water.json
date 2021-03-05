@@ -1,13 +1,13 @@
 {
   "type": "thermal:crucible",
   "ingredient": {
-    "item": "minecraft:snow_block"
+    "item": "minecraft:snowball"
   },
   "result": [
     {
       "fluid": "minecraft:water",
-      "amount": 500
+      "amount": 125
     }
   ],
-  "energy": 800
+  "energy": 200
 }
