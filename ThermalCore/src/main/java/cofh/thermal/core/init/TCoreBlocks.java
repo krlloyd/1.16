@@ -3,15 +3,10 @@ package cofh.thermal.core.init;
 import cofh.core.block.TileBlockActive4Way;
 import cofh.core.block.TileBlockCoFH;
 import cofh.core.item.BlockItemCoFH;
-import cofh.core.util.ProxyUtils;
 import cofh.lib.block.impl.*;
 import cofh.thermal.core.block.TileBlockCell;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.entity.item.*;
-import cofh.thermal.core.inventory.container.device.*;
-import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
-import cofh.thermal.core.inventory.container.storage.FluidCellContainer;
-import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import cofh.thermal.core.item.BlockItemEnergyCell;
 import cofh.thermal.core.item.BlockItemFluidCell;
 import cofh.thermal.core.tileentity.device.*;
@@ -34,7 +29,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.extensions.IForgeContainerType;
 
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
@@ -66,7 +60,6 @@ public class TCoreBlocks {
         registerMisc();
 
         registerTileBlocks();
-        registerTileContainers();
         registerTileEntities();
     }
 
@@ -299,21 +292,6 @@ public class TCoreBlocks {
 
         BLOCKS.register(ID_FLUID_CELL, () -> new TileBlockCell(create(Material.IRON).sound(SoundType.LANTERN).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).notSolid(), FluidCellTile::new));
         ITEMS.register(ID_FLUID_CELL, (Supplier<Item>) () -> new BlockItemFluidCell(BLOCKS.get(ID_FLUID_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(storageValidator).setShowInGroups(getFlag(ID_FLUID_CELL)));
-    }
-
-    private static void registerTileContainers() {
-
-        CONTAINERS.register(ID_DEVICE_HIVE_EXTRACTOR, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceHiveExtractorContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
-        CONTAINERS.register(ID_DEVICE_TREE_EXTRACTOR, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceTreeExtractorContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
-        CONTAINERS.register(ID_DEVICE_WATER_GEN, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceWaterGenContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
-        CONTAINERS.register(ID_DEVICE_ROCK_GEN, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceRockGenContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
-        CONTAINERS.register(ID_DEVICE_COLLECTOR, () -> IForgeContainerType.create((windowId, inv, data) -> new DeviceCollectorContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
-        CONTAINERS.register(ID_DEVICE_POTION_DIFFUSER, () -> IForgeContainerType.create((windowId, inv, data) -> new DevicePotionDiffuserContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
-
-        CONTAINERS.register(ID_TINKER_BENCH, () -> IForgeContainerType.create((windowId, inv, data) -> new TinkerBenchContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
-
-        CONTAINERS.register(ID_ENERGY_CELL, () -> IForgeContainerType.create((windowId, inv, data) -> new EnergyCellContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
-        CONTAINERS.register(ID_FLUID_CELL, () -> IForgeContainerType.create((windowId, inv, data) -> new FluidCellContainer(windowId, ProxyUtils.getClientWorld(), data.readBlockPos(), inv, ProxyUtils.getClientPlayer())));
     }
 
     private static void registerTileEntities() {

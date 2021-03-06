@@ -48,8 +48,8 @@ public class ThermalCore {
     public static final ThermalProxy PROXY = DistExecutor.safeRunForDist(() -> ThermalProxyClient::new, () -> ThermalProxy::new);
 
     public static final DeferredRegisterCoFH<Block> BLOCKS = DeferredRegisterCoFH.create(ForgeRegistries.BLOCKS, ID_THERMAL);
-    public static final DeferredRegisterCoFH<Fluid> FLUIDS = DeferredRegisterCoFH.create(ForgeRegistries.FLUIDS, ID_THERMAL);
     public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_THERMAL);
+    public static final DeferredRegisterCoFH<Fluid> FLUIDS = DeferredRegisterCoFH.create(ForgeRegistries.FLUIDS, ID_THERMAL);
 
     public static final DeferredRegisterCoFH<ContainerType<?>> CONTAINERS = DeferredRegisterCoFH.create(ForgeRegistries.CONTAINERS, ID_THERMAL);
     public static final DeferredRegisterCoFH<EntityType<?>> ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.ENTITIES, ID_THERMAL).preventDataFixers(true);
@@ -62,6 +62,7 @@ public class ThermalCore {
         TCoreItems.register();
         TCoreFluids.register();
 
+        TCoreContainers.register();
         TCoreEntities.register();
         TCoreSounds.register();
 
@@ -80,10 +81,11 @@ public class ThermalCore {
         modEventBus.addListener(this::clientSetup);
 
         BLOCKS.register(modEventBus);
+        ITEMS.register(modEventBus);
+        FLUIDS.register(modEventBus);
+
         CONTAINERS.register(modEventBus);
         ENTITIES.register(modEventBus);
-        FLUIDS.register(modEventBus);
-        ITEMS.register(modEventBus);
         RECIPE_SERIALIZERS.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);

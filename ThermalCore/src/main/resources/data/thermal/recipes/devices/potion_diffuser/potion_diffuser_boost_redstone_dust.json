@@ -3,6 +3,5 @@
   "ingredient": {
     "tag": "forge:dusts/redstone"
   },
-  "amplifier": 1,
-  "duration_mod": -0.25
+  "duration_mod": 1.0
 }

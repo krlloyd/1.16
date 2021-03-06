@@ -32,8 +32,9 @@ public class ThermalLocomotion {
         modEventBus.addListener(this::clientSetup);
 
         TLocBlocks.register();
-        TLocEntities.register();
         TLocItems.register();
+
+        TLocEntities.register();
     }
 
     private void setFeatureFlags() {

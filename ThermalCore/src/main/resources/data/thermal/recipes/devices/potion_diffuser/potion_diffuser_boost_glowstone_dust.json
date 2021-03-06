@@ -3,5 +3,6 @@
   "ingredient": {
     "tag": "forge:dusts/glowstone"
   },
-  "duration_mod": 1.0
+  "amplifier": 1,
+  "duration_mod": -0.25
 }

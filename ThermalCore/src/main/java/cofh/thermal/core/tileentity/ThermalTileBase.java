@@ -172,7 +172,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected void updateActiveState(boolean curActive) {
 
         // TODO: Config time delay
-        if (timeTracker.notSet() || !wasActive && curActive != isActive || wasActive && (timeTracker.hasDelayPassed(world, 40))) {
+        if (!wasActive && curActive != isActive || wasActive && (timeTracker.hasDelayPassed(world, 40) || timeTracker.notSet())) {
             wasActive = false;
             if (getBlockState().hasProperty(ACTIVE)) {
                 world.setBlockState(pos, getBlockState().with(ACTIVE, isActive));
