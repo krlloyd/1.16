@@ -10,7 +10,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "thermal:xp_crystal",
+      "recipe": "thermal:tools/xp_crystal",
       "title": "Insightful Crystal"
     }
   ]

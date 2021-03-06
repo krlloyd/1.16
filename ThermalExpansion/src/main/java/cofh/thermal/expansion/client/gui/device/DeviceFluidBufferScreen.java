@@ -3,7 +3,7 @@ package cofh.thermal.expansion.client.gui.device;
 import cofh.core.client.gui.element.ElementBase;
 import cofh.core.client.gui.element.ElementButton;
 import cofh.core.client.gui.element.ElementTexture;
-import cofh.core.client.gui.element.panel.PanelConfiguration;
+import cofh.core.client.gui.element.panel.ConfigPanel;
 import cofh.core.network.packet.server.TileConfigPacket;
 import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.ThermalGuiHelper;
@@ -48,7 +48,7 @@ public class DeviceFluidBufferScreen extends ThermalTileScreenBase<DeviceFluidBu
 
         super.init();
 
-        addPanel(new PanelConfiguration(this, tile, tile, () -> tile.getFacing())
+        addPanel(new ConfigPanel(this, tile, tile, () -> tile.getFacing())
                 .addConditionals(ThermalGuiHelper.createDefaultMachineConfigs(this, name, tile)));
 
         addElement(new ElementTexture(this, 24, 16)

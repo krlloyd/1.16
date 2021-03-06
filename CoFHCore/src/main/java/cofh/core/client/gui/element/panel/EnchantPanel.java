@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class PanelEnchantment extends PanelScrolledText {
+public class EnchantPanel extends PanelScrolledText {
 
     public static int defaultSide = LEFT;
     public static int defaultHeaderColor = 0xe1c92f;
@@ -14,12 +14,12 @@ public class PanelEnchantment extends PanelScrolledText {
     public static int defaultTextColor = 0xf0f0f0;
     public static int defaultBackgroundColor = 0x6010bb;
 
-    public PanelEnchantment(IGuiAccess gui, String info) {
+    public EnchantPanel(IGuiAccess gui, String info) {
 
         this(gui, defaultSide, info);
     }
 
-    protected PanelEnchantment(IGuiAccess gui, int sideIn, String info) {
+    protected EnchantPanel(IGuiAccess gui, int sideIn, String info) {
 
         super(gui, sideIn, info);
 

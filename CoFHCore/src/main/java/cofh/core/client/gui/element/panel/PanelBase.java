@@ -8,8 +8,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static cofh.lib.util.constants.Constants.PATH_ELEMENTS;
 
@@ -145,6 +147,23 @@ public abstract class PanelBase extends ElementBase {
     }
 
     @Override
+    public void addTooltip(List<ITextComponent> tooltipList, int mouseX, int mouseY) {
+
+        tooltipList.addAll(tooltip.create(this, mouseX, mouseY));
+
+        mouseX -= this.posX();
+        mouseY -= this.posY();
+
+        for (int i = elements.size(); i-- > 0; ) {
+            ElementBase c = elements.get(i);
+            if (!c.visible() || !c.enabled() || !c.intersectsWith(mouseX, mouseY)) {
+                continue;
+            }
+            c.addTooltip(tooltipList, mouseX, mouseY);
+        }
+    }
+
+    @Override
     public void update(int mouseX, int mouseY) {
 
         super.update(mouseX, mouseY);
@@ -257,6 +276,7 @@ public abstract class PanelBase extends ElementBase {
     // endregion
 
     // region CALLBACKS
+    @Override
     public boolean keyTyped(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) {
 
         for (int i = elements.size(); i-- > 0; ) {
@@ -274,6 +294,7 @@ public abstract class PanelBase extends ElementBase {
     /**
      * @return Whether the panel should stay open or not.
      */
+    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 
         mouseX -= this.posX();
@@ -295,6 +316,7 @@ public abstract class PanelBase extends ElementBase {
         return shouldStayOpen;
     }
 
+    @Override
     public void mouseReleased(double mouseX, double mouseY) {
 
         mouseX -= this.posX();

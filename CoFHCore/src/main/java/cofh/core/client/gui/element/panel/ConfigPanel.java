@@ -21,7 +21,7 @@ import static cofh.core.client.gui.CoreTextures.*;
 import static cofh.lib.util.helpers.SoundHelper.playClickSound;
 import static cofh.lib.util.helpers.StringHelper.localize;
 
-public class PanelConfiguration extends PanelBase {
+public class ConfigPanel extends PanelBase {
 
     public static int defaultSide = RIGHT;
     public static int defaultHeaderColor = 0xe1c92f;
@@ -35,17 +35,17 @@ public class PanelConfiguration extends PanelBase {
 
     private boolean allowFacingConfig = false;
 
-    public PanelConfiguration(IGuiAccess gui, IReconfigurable reconfig, Supplier<Direction> facingSup) {
+    public ConfigPanel(IGuiAccess gui, IReconfigurable reconfig, Supplier<Direction> facingSup) {
 
         this(gui, defaultSide, null, reconfig, facingSup);
     }
 
-    public PanelConfiguration(IGuiAccess gui, ITransferControllable transfer, IReconfigurable reconfig, Supplier<Direction> facingSup) {
+    public ConfigPanel(IGuiAccess gui, ITransferControllable transfer, IReconfigurable reconfig, Supplier<Direction> facingSup) {
 
         this(gui, defaultSide, transfer, reconfig, facingSup);
     }
 
-    protected PanelConfiguration(IGuiAccess gui, int sideIn, ITransferControllable transfer, IReconfigurable reconfig, Supplier<Direction> facingSup) {
+    protected ConfigPanel(IGuiAccess gui, int sideIn, ITransferControllable transfer, IReconfigurable reconfig, Supplier<Direction> facingSup) {
 
         super(gui, sideIn);
 
@@ -63,13 +63,13 @@ public class PanelConfiguration extends PanelBase {
         this.setVisible(myReconfig::isReconfigurable);
     }
 
-    public PanelConfiguration allowFacingConfig(boolean allowFacingConfig) {
+    public ConfigPanel allowFacingConfig(boolean allowFacingConfig) {
 
         this.allowFacingConfig = allowFacingConfig;
         return this;
     }
 
-    public PanelConfiguration addConditionals(ElementConditionalLayered... c) {
+    public ConfigPanel addConditionals(ElementConditionalLayered... c) {
 
         if (c.length != 6) {
             return this;

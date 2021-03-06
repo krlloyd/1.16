@@ -16,7 +16,7 @@ import java.util.function.IntSupplier;
 
 import static cofh.lib.util.helpers.StringHelper.localize;
 
-public class PanelAugmentation extends PanelBase {
+public class AugmentPanel extends PanelBase {
 
     public static int defaultSide = RIGHT;
     public static int defaultHeaderColor = 0xe1c92f;
@@ -29,12 +29,12 @@ public class PanelAugmentation extends PanelBase {
     private final int slotsBorderY1 = 20;
     private final int slotsBorderY2 = slotsBorderY1 + 60;
 
-    public PanelAugmentation(IGuiAccess gui, @Nonnull IntSupplier numSlots, @Nonnull List<SlotCoFH> augmentSlots) {
+    public AugmentPanel(IGuiAccess gui, @Nonnull IntSupplier numSlots, @Nonnull List<SlotCoFH> augmentSlots) {
 
         this(gui, defaultSide, numSlots, augmentSlots);
     }
 
-    protected PanelAugmentation(IGuiAccess gui, int sideIn, @Nonnull IntSupplier numSlots, @Nonnull List<SlotCoFH> augmentSlots) {
+    protected AugmentPanel(IGuiAccess gui, int sideIn, @Nonnull IntSupplier numSlots, @Nonnull List<SlotCoFH> augmentSlots) {
 
         super(gui, sideIn);
 

@@ -2,9 +2,9 @@ package cofh.thermal.core.client.gui;
 
 import cofh.core.client.gui.ContainerScreenCoFH;
 import cofh.core.client.gui.element.ElementXpStorage;
-import cofh.core.client.gui.element.panel.PanelAugmentation;
-import cofh.core.client.gui.element.panel.PanelRedstoneControl;
-import cofh.core.client.gui.element.panel.PanelSecurity;
+import cofh.core.client.gui.element.panel.AugmentPanel;
+import cofh.core.client.gui.element.panel.RSControlPanel;
+import cofh.core.client.gui.element.panel.SecurityPanel;
 import cofh.lib.inventory.container.ContainerCoFH;
 import cofh.lib.util.helpers.FilterHelper;
 import cofh.lib.util.helpers.SecurityHelper;
@@ -32,12 +32,12 @@ public class ThermalTileScreenBase<T extends ContainerCoFH> extends ContainerScr
 
         // TODO: Enchantment Panel
         // addPanel(new PanelEnchantment(this, "This block can be enchanted."));
-        addPanel(new PanelSecurity(this, tile, SecurityHelper.getID(player)));
+        addPanel(new SecurityPanel(this, tile, SecurityHelper.getID(player)));
 
         if (container.getAugmentSlots().size() > 0) {
-            addPanel(new PanelAugmentation(this, container::getNumAugmentSlots, container.getAugmentSlots()));
+            addPanel(new AugmentPanel(this, container::getNumAugmentSlots, container.getAugmentSlots()));
         }
-        addPanel(new PanelRedstoneControl(this, tile));
+        addPanel(new RSControlPanel(this, tile));
 
         if (tile.getXpStorage() != null) {
             addElement(setClaimable((ElementXpStorage) createDefaultXpStorage(this, 152, 65, tile.getXpStorage()).setVisible(() -> tile.getXpStorage().getMaxXpStored() > 0), tile));

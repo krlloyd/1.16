@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class PanelInfo extends PanelScrolledText {
+public class InfoPanel extends PanelScrolledText {
 
     public static int defaultSide = LEFT;
     public static int defaultHeaderColor = 0xe1c92f;
@@ -14,12 +14,12 @@ public class PanelInfo extends PanelScrolledText {
     public static int defaultTextColor = 0xf0f0f0;
     public static int defaultBackgroundColor = 0x555555;
 
-    public PanelInfo(IGuiAccess gui, String info) {
+    public InfoPanel(IGuiAccess gui, String info) {
 
         this(gui, defaultSide, info);
     }
 
-    protected PanelInfo(IGuiAccess gui, int sideIn, String info) {
+    protected InfoPanel(IGuiAccess gui, int sideIn, String info) {
 
         super(gui, sideIn, info);
 

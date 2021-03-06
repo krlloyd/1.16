@@ -12,7 +12,7 @@ import java.util.function.IntSupplier;
 
 import static cofh.lib.util.helpers.StringHelper.*;
 
-public class PanelResource extends PanelBase {
+public class ResourcePanel extends PanelBase {
 
     public static int defaultSide = LEFT;
     public static int defaultHeaderColor = 0xe1c92f;
@@ -35,12 +35,12 @@ public class PanelResource extends PanelBase {
 
     private DoubleSupplier efficiency = () -> -1;
 
-    public PanelResource(IGuiAccess gui) {
+    public ResourcePanel(IGuiAccess gui) {
 
         this(gui, defaultSide);
     }
 
-    protected PanelResource(IGuiAccess gui, int sideIn) {
+    protected ResourcePanel(IGuiAccess gui, int sideIn) {
 
         super(gui, sideIn);
 
@@ -55,7 +55,7 @@ public class PanelResource extends PanelBase {
         setVisible(() -> !resource.isEmpty());
     }
 
-    public PanelResource setResource(TextureAtlasSprite icon, String resource, boolean producer) {
+    public ResourcePanel setResource(TextureAtlasSprite icon, String resource, boolean producer) {
 
         this.icon = icon;
         this.resource = resource;
@@ -63,7 +63,7 @@ public class PanelResource extends PanelBase {
         return this;
     }
 
-    public PanelResource setCurrent(IntSupplier curAmt, String curDesc, String curUnit) {
+    public ResourcePanel setCurrent(IntSupplier curAmt, String curDesc, String curUnit) {
 
         this.curAmt = curAmt;
         this.curDesc = curDesc;
@@ -71,7 +71,7 @@ public class PanelResource extends PanelBase {
         return this;
     }
 
-    public PanelResource setMax(IntSupplier maxAmt, String maxDesc, String maxUnit) {
+    public ResourcePanel setMax(IntSupplier maxAmt, String maxDesc, String maxUnit) {
 
         this.maxAmt = maxAmt;
         this.maxDesc = maxDesc;
@@ -79,7 +79,7 @@ public class PanelResource extends PanelBase {
         return this;
     }
 
-    public PanelResource setEfficiency(DoubleSupplier efficiency) {
+    public ResourcePanel setEfficiency(DoubleSupplier efficiency) {
 
         this.efficiency = efficiency;
         return this;

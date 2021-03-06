@@ -75,33 +75,20 @@ public class EnergyCellScreen extends CellScreenReconfigurable<EnergyCellContain
     @Override
     public boolean handleElementButtonClick(String buttonName, int mouseButton) {
 
-        int change;
-        float pitch;
+        int change = 1000;
+        float pitch = 0.7F;
 
         if (hasShiftDown()) {
-            change = 1000;
-            pitch = 0.9F;
-            if (mouseButton == 1) {
-                change = 100;
-                pitch = 0.8F;
-            }
-            if (hasControlDown()) {
-                change *= 10;
-            }
-        } else if (hasControlDown()) {
-            change = 5;
-            pitch = 0.5F;
-            if (mouseButton == 1) {
-                change = 1;
-                pitch = 0.4F;
-            }
-        } else {
-            change = 50;
-            pitch = 0.7F;
-            if (mouseButton == 1) {
-                change = 10;
-                pitch = 0.6F;
-            }
+            change *= 10;
+            pitch += 0.1F;
+        }
+        if (hasControlDown()) {
+            change /= 100;
+            pitch -= 0.2F;
+        }
+        if (mouseButton == 1) {
+            change /= 10;
+            pitch -= 0.1F;
         }
         int curInput = tile.amountInput;
         int curOutput = tile.amountOutput;
@@ -138,23 +125,18 @@ public class EnergyCellScreen extends CellScreenReconfigurable<EnergyCellContain
                 .setTooltipFactory((element, mouseX, mouseY) -> {
 
                     if (element.enabled()) {
-                        int change = 50;
-                        int change2 = 10;
+                        int change = 1000;
+
                         if (hasShiftDown()) {
-                            change = 1000;
-                            change2 = 100;
-                            if (hasControlDown()) {
-                                change *= 10;
-                                change2 *= 10;
-                            }
-                        } else if (hasControlDown()) {
-                            change = 5;
-                            change2 = 1;
+                            change *= 10;
+                        }
+                        if (hasControlDown()) {
+                            change /= 100;
                         }
                         return Collections.singletonList(new StringTextComponent(
                                 localize("info.cofh.decrease_by")
                                         + " " + format(change)
-                                        + "/" + format(change2)));
+                                        + "/" + format(change / 10)));
                     }
                     return Collections.emptyList();
                 })
@@ -167,23 +149,18 @@ public class EnergyCellScreen extends CellScreenReconfigurable<EnergyCellContain
                 .setTooltipFactory((element, mouseX, mouseY) -> {
 
                     if (element.enabled()) {
-                        int change = 50;
-                        int change2 = 10;
+                        int change = 1000;
+
                         if (hasShiftDown()) {
-                            change = 1000;
-                            change2 = 100;
-                            if (hasControlDown()) {
-                                change *= 10;
-                                change2 *= 10;
-                            }
-                        } else if (hasControlDown()) {
-                            change = 5;
-                            change2 = 1;
+                            change *= 10;
+                        }
+                        if (hasControlDown()) {
+                            change /= 100;
                         }
                         return Collections.singletonList(new StringTextComponent(
                                 localize("info.cofh.increase_by")
                                         + " " + format(change)
-                                        + "/" + format(change2)));
+                                        + "/" + format(change / 10)));
                     }
                     return Collections.emptyList();
                 })
@@ -196,23 +173,18 @@ public class EnergyCellScreen extends CellScreenReconfigurable<EnergyCellContain
                 .setTooltipFactory((element, mouseX, mouseY) -> {
 
                     if (element.enabled()) {
-                        int change = 50;
-                        int change2 = 10;
+                        int change = 1000;
+
                         if (hasShiftDown()) {
-                            change = 1000;
-                            change2 = 100;
-                            if (hasControlDown()) {
-                                change *= 10;
-                                change2 *= 10;
-                            }
-                        } else if (hasControlDown()) {
-                            change = 5;
-                            change2 = 1;
+                            change *= 10;
+                        }
+                        if (hasControlDown()) {
+                            change /= 100;
                         }
                         return Collections.singletonList(new StringTextComponent(
                                 localize("info.cofh.decrease_by")
                                         + " " + format(change)
-                                        + "/" + format(change2)));
+                                        + "/" + format(change / 10)));
                     }
                     return Collections.emptyList();
                 })
@@ -225,23 +197,18 @@ public class EnergyCellScreen extends CellScreenReconfigurable<EnergyCellContain
                 .setTooltipFactory((element, mouseX, mouseY) -> {
 
                     if (element.enabled()) {
-                        int change = 50;
-                        int change2 = 10;
+                        int change = 1000;
+
                         if (hasShiftDown()) {
-                            change = 1000;
-                            change2 = 100;
-                            if (hasControlDown()) {
-                                change *= 10;
-                                change2 *= 10;
-                            }
-                        } else if (hasControlDown()) {
-                            change = 5;
-                            change2 = 1;
+                            change *= 10;
+                        }
+                        if (hasControlDown()) {
+                            change /= 100;
                         }
                         return Collections.singletonList(new StringTextComponent(
                                 localize("info.cofh.increase_by")
                                         + " " + format(change)
-                                        + "/" + format(change2)));
+                                        + "/" + format(change / 10)));
                     }
                     return Collections.emptyList();
                 })

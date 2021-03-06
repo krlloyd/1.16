@@ -1,6 +1,6 @@
 package cofh.thermal.core.client.gui;
 
-import cofh.core.client.gui.element.panel.PanelConfiguration;
+import cofh.core.client.gui.element.panel.ConfigPanel;
 import cofh.lib.inventory.container.ContainerCoFH;
 import cofh.thermal.core.tileentity.ReconfigurableTile4Way;
 import net.minecraft.entity.player.PlayerInventory;
@@ -24,7 +24,7 @@ public class MachineScreenReconfigurable<T extends ContainerCoFH> extends Therma
 
         super.init();
 
-        addPanel(new PanelConfiguration(this, tile, tile, () -> tile.getFacing())
+        addPanel(new ConfigPanel(this, tile, tile, () -> tile.getFacing())
                 .addConditionals(ThermalGuiHelper.createDefaultMachineConfigs(this, name, tile)));
 
         if (tile.getEnergyStorage() != null && tile.getEnergyStorage().getMaxEnergyStored() > 0) {

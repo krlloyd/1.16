@@ -17,7 +17,7 @@ import static cofh.lib.util.control.IRedstoneControllable.ControlMode.*;
 import static cofh.lib.util.helpers.SoundHelper.playClickSound;
 import static cofh.lib.util.helpers.StringHelper.localize;
 
-public class PanelRedstoneControl extends PanelBase {
+public class RSControlPanel extends PanelBase {
 
     public static int defaultSide = RIGHT;
     public static int defaultHeaderColor = 0xe1c92f;
@@ -27,12 +27,12 @@ public class PanelRedstoneControl extends PanelBase {
 
     private final IRedstoneControllable myRSControllable;
 
-    public PanelRedstoneControl(IGuiAccess gui, IRedstoneControllable rsControllable) {
+    public RSControlPanel(IGuiAccess gui, IRedstoneControllable rsControllable) {
 
         this(gui, defaultSide, rsControllable);
     }
 
-    protected PanelRedstoneControl(IGuiAccess gui, int sideIn, IRedstoneControllable rsControllable) {
+    protected RSControlPanel(IGuiAccess gui, int sideIn, IRedstoneControllable rsControllable) {
 
         super(gui, sideIn);
 

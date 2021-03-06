@@ -1,1 +1,2 @@
-{  "name": "Storage and Transfer",  "description": "This section deals with how to store and move resources, including yourself.",  "icon": "thermal:fluid_cell",  "flag": "mod:thermal_expansion",  "sortnum": 2}
+{	"name": "Storage and Transfer",	"description": "This section deals with how to store and move resources, including yourself.",	"icon": "thermal:fluid_cell",	"flag": "|mod:thermal_expansion,mod:thermal_locomotion",	"sortnum": 2
+}

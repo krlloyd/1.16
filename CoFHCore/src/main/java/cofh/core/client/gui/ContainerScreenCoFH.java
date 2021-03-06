@@ -2,11 +2,10 @@ package cofh.core.client.gui;
 
 import cofh.core.client.gui.element.ElementBase;
 import cofh.core.client.gui.element.panel.PanelBase;
-import cofh.core.client.gui.element.panel.PanelInfo;
+import cofh.core.client.gui.element.panel.InfoPanel;
 import cofh.core.client.gui.element.panel.PanelTracker;
 import cofh.core.util.helpers.RenderHelper;
 import cofh.lib.client.gui.IGuiAccess;
-import cofh.lib.inventory.container.slot.SlotFalseCopy;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -19,10 +18,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -68,7 +64,7 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
         elements.clear();
 
         if (info != null && !info.isEmpty()) {
-            addPanel(new PanelInfo(this, info));
+            addPanel(new InfoPanel(this, info));
         }
     }
 
@@ -484,18 +480,6 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
         RenderHelper.setGLColorFromInt(color);
         blit(matrixStack, x, y, this.getBlitOffset(), 16, 16, icon);
         RenderHelper.resetColor();
-    }
-
-    @Override
-    public void drawIcon(MatrixStack matrixStack, ResourceLocation location, int x, int y) {
-
-        drawIcon(matrixStack, RenderHelper.getTexture(location), x, y);
-    }
-
-    @Override
-    public void drawIcon(MatrixStack matrixStack, ResourceLocation location, int color, int x, int y) {
-
-        drawIcon(matrixStack, RenderHelper.getTexture(location), color, x, y);
     }
 
     @Override
