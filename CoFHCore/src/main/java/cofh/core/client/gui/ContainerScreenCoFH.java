@@ -1,8 +1,8 @@
 package cofh.core.client.gui;
 
 import cofh.core.client.gui.element.ElementBase;
-import cofh.core.client.gui.element.panel.PanelBase;
 import cofh.core.client.gui.element.panel.InfoPanel;
+import cofh.core.client.gui.element.panel.PanelBase;
 import cofh.core.client.gui.element.panel.PanelTracker;
 import cofh.core.util.helpers.RenderHelper;
 import cofh.lib.client.gui.IGuiAccess;
@@ -35,7 +35,6 @@ public class ContainerScreenCoFH<T extends Container> extends ContainerScreen<T>
 
     protected int mX;
     protected int mY;
-    protected int lastIndex = -1;
 
     protected String name;
     protected String info;

@@ -260,6 +260,12 @@ public class GuiHelper {
     public static final String INFO_INPUT = PATH_ELEMENTS + "info_input.png";
     public static final String INFO_OUTPUT = PATH_ELEMENTS + "info_output.png";
 
+    public static final String NAV_BACK = PATH_ELEMENTS + "nav_back.png";
+    public static final String NAV_FILTER = PATH_ELEMENTS + "nav_filter.png";
+
+    public static final String TAB_BOTTOM = PATH_ELEMENTS + "tab_bottom.png";
+    public static final String TAB_TOP = PATH_ELEMENTS + "tab_top.png";
+
     public static final String PROG_ARROW_LEFT = PATH_ELEMENTS + "progress_arrow_left.png";
     public static final String PROG_ARROW_RIGHT = PATH_ELEMENTS + "progress_arrow_right.png";
     public static final String PROG_ARROW_FLUID_LEFT = PATH_ELEMENTS + "progress_arrow_fluid_left.png";

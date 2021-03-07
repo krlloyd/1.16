@@ -1,10 +1,12 @@
 package cofh.thermal.core.client.gui;
 
 import cofh.core.client.gui.ContainerScreenCoFH;
+import cofh.core.client.gui.element.ElementTexture;
 import cofh.core.client.gui.element.ElementXpStorage;
 import cofh.core.client.gui.element.panel.AugmentPanel;
 import cofh.core.client.gui.element.panel.RSControlPanel;
 import cofh.core.client.gui.element.panel.SecurityPanel;
+import cofh.core.network.packet.server.FilterGuiOpenPacket;
 import cofh.lib.inventory.container.ContainerCoFH;
 import cofh.lib.util.helpers.FilterHelper;
 import cofh.lib.util.helpers.SecurityHelper;
@@ -12,8 +14,9 @@ import cofh.thermal.core.tileentity.ThermalTileBase;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 
-import static cofh.core.util.helpers.GuiHelper.createDefaultXpStorage;
-import static cofh.core.util.helpers.GuiHelper.setClaimable;
+import java.util.Collections;
+
+import static cofh.core.util.helpers.GuiHelper.*;
 
 public class ThermalTileScreenBase<T extends ContainerCoFH> extends ContainerScreenCoFH<T> {
 
@@ -42,9 +45,40 @@ public class ThermalTileScreenBase<T extends ContainerCoFH> extends ContainerScr
         if (tile.getXpStorage() != null) {
             addElement(setClaimable((ElementXpStorage) createDefaultXpStorage(this, 152, 65, tile.getXpStorage()).setVisible(() -> tile.getXpStorage().getMaxXpStored() > 0), tile));
         }
-        if (FilterHelper.hasFilter(tile)) {
-            // TODO: Filter widget
+
+        // Filter Tab
+        addElement(new ElementTexture(this, 4, -21)
+                .setUV(24, 0)
+                .setSize(24, 21)
+                .setTexture(TAB_TOP, 48, 32)
+                .setVisible(() -> FilterHelper.hasFilter(tile)));
+        addElement(new ElementTexture(this, 8, -17) {
+
+            @Override
+            public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+
+                FilterGuiOpenPacket.openFilterGui(tile);
+                return true;
+            }
         }
+                .setSize(16, 16)
+                .setTexture(NAV_FILTER, 16, 16)
+                .setTooltipFactory((element, mouseX, mouseY) -> Collections.singletonList(tile.getFilter().getDisplayName()))
+                .setVisible(() -> FilterHelper.hasFilter(tile)));
+
+        // TODO: Revisit ItemStack-based
+        //        addElement(new ElementItemStack(this, 8, -17) {
+        //
+        //            @Override
+        //            public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+        //
+        //                FilterGuiOpenPacket.openFilterGui(tile);
+        //                return true;
+        //            }
+        //        }
+        //                .setItem(() -> new ItemStack(Items.WHEAT))
+        //                .setSize(16, 16)
+        //                .setVisible(() -> FilterHelper.hasFilter(tile)));
     }
 
 }

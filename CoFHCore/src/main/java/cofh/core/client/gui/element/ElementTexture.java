@@ -19,7 +19,7 @@ public class ElementTexture extends ElementBase {
         super(gui, posX, posY);
     }
 
-    public ElementTexture setTextureOffsets(int u, int v) {
+    public ElementTexture setUV(int u, int v) {
 
         texU = u;
         texV = v;

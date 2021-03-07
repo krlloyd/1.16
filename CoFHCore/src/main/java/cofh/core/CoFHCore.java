@@ -102,6 +102,8 @@ public class CoFHCore {
 
         PACKET_HANDLER.registerPacket(PACKET_CHAT, IndexedChatPacket::new);
 
+        PACKET_HANDLER.registerPacket(PACKET_GUI_OPEN, FilterGuiOpenPacket::new);
+
         PACKET_HANDLER.registerPacket(PACKET_CONTAINER, ContainerPacket::new);
         PACKET_HANDLER.registerPacket(PACKET_SECURITY, SecurityPacket::new);
 

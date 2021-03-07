@@ -46,6 +46,11 @@ public class TileItemFilterContainer extends TileContainer implements IFilterOpt
         bindPlayerInventory(inventory);
     }
 
+    public IFilterableTile getFilterableTile() {
+
+        return filterable;
+    }
+
     public int getFilterSize() {
 
         return filter.size();

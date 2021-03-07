@@ -1,16 +1,20 @@
 package cofh.core.client.gui;
 
 import cofh.core.client.gui.element.ElementButton;
+import cofh.core.client.gui.element.ElementTexture;
 import cofh.core.client.gui.element.SimpleTooltip;
 import cofh.core.inventory.container.TileItemFilterContainer;
+import cofh.core.network.packet.server.FilterGuiOpenPacket;
+import cofh.lib.util.helpers.FilterHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import static cofh.core.util.helpers.GuiHelper.createSlot;
-import static cofh.core.util.helpers.GuiHelper.generatePanelInfo;
+import java.util.Collections;
+
+import static cofh.core.util.helpers.GuiHelper.*;
 import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
 import static cofh.lib.util.helpers.SoundHelper.playClickSound;
 
@@ -41,6 +45,31 @@ public class TileItemFilterScreen extends ContainerScreenCoFH<TileItemFilterCont
             Slot slot = container.inventorySlots.get(i);
             addElement(createSlot(this, slot.xPos, slot.yPos));
         }
+        addButtons();
+
+        // Filter Tab
+        addElement(new ElementTexture(this, 4, -21)
+                .setUV(24, 0)
+                .setSize(24, 21)
+                .setTexture(TAB_TOP, 48, 32)
+                .setVisible(() -> FilterHelper.hasFilter(container.getFilterableTile())));
+        addElement(new ElementTexture(this, 8, -17) {
+
+            @Override
+            public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+
+                FilterGuiOpenPacket.openTileGui(container.getFilterableTile());
+                return true;
+            }
+        }
+                .setSize(16, 16)
+                .setTexture(NAV_BACK, 16, 16)
+                .setTooltipFactory((element, mouseX, mouseY) -> Collections.singletonList(container.getFilterableTile().getDisplayName()))
+                .setVisible(() -> FilterHelper.hasFilter(container.getFilterableTile())));
+    }
+
+    // region ELEMENTS
+    protected void addButtons() {
 
         addElement(new ElementButton(this, 132, 22) {
 
@@ -102,5 +131,5 @@ public class TileItemFilterScreen extends ContainerScreenCoFH<TileItemFilterCont
                 .setTooltipFactory(new SimpleTooltip(new TranslationTextComponent("info.cofh.filter.checkNBT.1")))
                 .setVisible(() -> container.getCheckNBT()));
     }
-
+    // endregion
 }

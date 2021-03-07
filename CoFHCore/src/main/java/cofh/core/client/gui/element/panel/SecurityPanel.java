@@ -7,7 +7,7 @@ import cofh.lib.client.gui.IGuiAccess;
 import cofh.lib.util.control.ISecurable;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -120,7 +120,7 @@ public class SecurityPanel extends PanelBase {
 
         tooltip = (element, mouseX, mouseY) -> {
 
-            ArrayList<IFormattableTextComponent> tooltipList = new ArrayList<>();
+            ArrayList<ITextComponent> tooltipList = new ArrayList<>();
 
             if (!fullyOpen) {
                 tooltipList.add(new TranslationTextComponent("info.cofh.owner").append(new StringTextComponent(": " + mySecurable.getOwnerName())));

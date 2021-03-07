@@ -195,11 +195,6 @@ public abstract class ElementBase {
     // endregion
 
     // region HELPERS
-    public void drawCenteredString(MatrixStack matrixStack, String text, int x, int y, int color) {
-
-        gui.getFontRenderer().drawStringWithShadow(matrixStack, text, x - (gui.getFontRenderer().getStringWidth(text) >> 1), y, color);
-    }
-
     public void drawSizedRect(int x, int y, int width, int height, int color) {
 
         gui.drawSizedRect(x, y, width, height, color);

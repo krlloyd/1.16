@@ -1,22 +1,21 @@
 package cofh.core.client.gui.element;
 
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.ITextComponent;
 
 import java.util.Collections;
 import java.util.List;
 
 public class SimpleTooltip implements ITooltipFactory {
 
-    protected final TranslationTextComponent tooltip;
+    protected final ITextComponent tooltip;
 
-    public SimpleTooltip(TranslationTextComponent tooltip) {
+    public SimpleTooltip(ITextComponent tooltip) {
 
         this.tooltip = tooltip;
     }
 
     @Override
-    public List<IFormattableTextComponent> create(ElementBase element, int mouseX, int mouseY) {
+    public List<ITextComponent> create(ElementBase element, int mouseX, int mouseY) {
 
         if (element.visible()) {
             return Collections.singletonList(tooltip);

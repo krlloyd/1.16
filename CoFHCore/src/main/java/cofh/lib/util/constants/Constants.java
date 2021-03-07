@@ -141,9 +141,10 @@ public class Constants {
 
     public static final int PACKET_CHAT = 16;
 
+    public static final int PACKET_GUI_OPEN = 20;
+
     public static final int PACKET_CONTAINER = 24;
     public static final int PACKET_SECURITY = 25;
-    public static final int PACKET_FILTER = 26;
 
     public static final int PACKET_CONFIG = 32;
     public static final int PACKET_SECURITY_CONTROL = 33;
