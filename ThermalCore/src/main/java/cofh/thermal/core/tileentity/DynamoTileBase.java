@@ -3,10 +3,12 @@ package cofh.thermal.core.tileentity;
 import cofh.core.tileentity.TileCoFH;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.util.TimeTracker;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.BlockHelper;
 import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.PacketBuffer;
@@ -22,10 +24,12 @@ import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import static cofh.lib.util.constants.Constants.*;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.*;
+import static cofh.thermal.core.common.ThermalAugmentRules.DYNAMO_VALIDATOR;
 
 public abstract class DynamoTileBase extends ThermalTileBase implements ITickableTileEntity {
 
@@ -293,6 +297,12 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
 
     // region AUGMENTS
     protected float energyMod = 1.0F;
+
+    @Override
+    protected Predicate<ItemStack> augValidator() {
+
+        return item -> AugmentDataHelper.hasAugmentData(item) && DYNAMO_VALIDATOR.test(item, getAugmentsAsList());
+    }
 
     @Override
     protected void resetAttributes() {

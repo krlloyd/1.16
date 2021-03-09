@@ -18,7 +18,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -31,12 +30,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 
 import java.util.function.IntSupplier;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static cofh.lib.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.*;
 import static cofh.thermal.core.common.ThermalAugmentRules.DEVICE_VALIDATOR;
+import static cofh.thermal.core.common.ThermalAugmentRules.STORAGE_VALIDATOR;
 import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_BLOCKS;
 import static cofh.thermal.core.init.TCoreIDs.*;
@@ -283,15 +282,14 @@ public class TCoreBlocks {
         registerAugBlock(ID_DEVICE_POTION_DIFFUSER, () -> new TileBlockActive4Way(create(Material.IRON).sound(SoundType.LANTERN).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE), DevicePotionDiffuserTile::new), deviceAugs, DEVICE_VALIDATOR, getFlag(ID_DEVICE_POTION_DIFFUSER));
 
         IntSupplier storageAugs = () -> ThermalConfig.storageAugments;
-        Predicate<ItemStack> storageValidator = (e) -> true;
 
-        registerAugBlock(ID_TINKER_BENCH, () -> new TileBlockCoFH(create(Material.WOOD).sound(SoundType.SCAFFOLDING).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), TinkerBenchTile::new), storageAugs, storageValidator, getFlag(ID_TINKER_BENCH));
+        registerAugBlock(ID_TINKER_BENCH, () -> new TileBlockCoFH(create(Material.WOOD).sound(SoundType.SCAFFOLDING).hardnessAndResistance(2.5F).harvestTool(ToolType.AXE), TinkerBenchTile::new), storageAugs, STORAGE_VALIDATOR, getFlag(ID_TINKER_BENCH));
 
         BLOCKS.register(ID_ENERGY_CELL, () -> new TileBlockCell(create(Material.IRON).sound(SoundType.LANTERN).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).notSolid(), EnergyCellTile::new));
-        ITEMS.register(ID_ENERGY_CELL, (Supplier<Item>) () -> new BlockItemEnergyCell(BLOCKS.get(ID_ENERGY_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(storageValidator).setShowInGroups(getFlag(ID_ENERGY_CELL)));
+        ITEMS.register(ID_ENERGY_CELL, (Supplier<Item>) () -> new BlockItemEnergyCell(BLOCKS.get(ID_ENERGY_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(STORAGE_VALIDATOR).setShowInGroups(getFlag(ID_ENERGY_CELL)));
 
         BLOCKS.register(ID_FLUID_CELL, () -> new TileBlockCell(create(Material.IRON).sound(SoundType.LANTERN).hardnessAndResistance(2.0F).harvestTool(ToolType.PICKAXE).notSolid(), FluidCellTile::new));
-        ITEMS.register(ID_FLUID_CELL, (Supplier<Item>) () -> new BlockItemFluidCell(BLOCKS.get(ID_FLUID_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(storageValidator).setShowInGroups(getFlag(ID_FLUID_CELL)));
+        ITEMS.register(ID_FLUID_CELL, (Supplier<Item>) () -> new BlockItemFluidCell(BLOCKS.get(ID_FLUID_CELL), new Item.Properties().group(THERMAL_BLOCKS).rarity(Rarity.COMMON)).setNumSlots(storageAugs).setAugValidator(STORAGE_VALIDATOR).setShowInGroups(getFlag(ID_FLUID_CELL)));
     }
 
     private static void registerTileEntities() {

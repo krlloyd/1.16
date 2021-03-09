@@ -1,16 +1,19 @@
 package cofh.core.item;
 
 import cofh.lib.item.IAugmentableItem;
+import cofh.lib.util.helpers.AugmentableHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
+import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
 public class BlockItemAugmentable extends BlockItemCoFH implements IAugmentableItem {
 
     protected IntSupplier numSlots = () -> 0;
-    protected Predicate<ItemStack> augValidator = (e) -> true;
+    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (e, f) -> true;
 
     public BlockItemAugmentable(Block blockIn, Properties builder) {
 
@@ -23,7 +26,7 @@ public class BlockItemAugmentable extends BlockItemCoFH implements IAugmentableI
         return this;
     }
 
-    public BlockItemAugmentable setAugValidator(Predicate<ItemStack> augValidator) {
+    public BlockItemAugmentable setAugValidator(BiPredicate<ItemStack, List<ItemStack>> augValidator) {
 
         this.augValidator = augValidator;
         return this;
@@ -37,9 +40,9 @@ public class BlockItemAugmentable extends BlockItemCoFH implements IAugmentableI
     }
 
     @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment) {
+    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
 
-        return augValidator.test(augment);
+        return augValidator.test(augment, augments);
     }
     // endregion
 }

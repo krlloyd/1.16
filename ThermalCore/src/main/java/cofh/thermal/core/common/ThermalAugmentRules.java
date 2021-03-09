@@ -1,11 +1,15 @@
 package cofh.thermal.core.common;
 
+import cofh.lib.util.helpers.AugmentDataHelper;
+import cofh.lib.util.helpers.ItemHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
+import java.util.function.BiPredicate;
 
 import static cofh.lib.util.constants.NBTTags.*;
 
@@ -21,6 +25,8 @@ public class ThermalAugmentRules {
     private static final Set<String> ATTR_MULT = new ObjectOpenHashSet<>();
     private static final Set<String> ATTR_INV = new ObjectOpenHashSet<>();
     private static final Set<String> ATTR_INT = new ObjectOpenHashSet<>();
+
+    private static final Set<Item> ITEM_UNIQUE = new ObjectOpenHashSet<>();
 
     private static final Set<String> TYPE_EXC = new ObjectOpenHashSet<>();
 
@@ -83,6 +89,7 @@ public class ThermalAugmentRules {
         ));
         // Type Exclusive
         TYPE_EXC.addAll(Arrays.asList(
+                TAG_AUGMENT_TYPE_FILTER,
                 TAG_AUGMENT_TYPE_FLUID,
                 TAG_AUGMENT_TYPE_RF,
                 TAG_AUGMENT_TYPE_UPGRADE
@@ -92,6 +99,11 @@ public class ThermalAugmentRules {
     public static boolean isTypeExclusive(String type) {
 
         return TYPE_EXC.contains(type);
+    }
+
+    public static boolean isUnique(ItemStack augment) {
+
+        return ITEM_UNIQUE.contains(augment.getItem());
     }
 
     public static boolean isAdditive(String mod) {
@@ -120,13 +132,125 @@ public class ThermalAugmentRules {
     }
     // endregion
 
+    public static void flagUniqueAugment(Item augment) {
+
+        ITEM_UNIQUE.add(augment);
+    }
+
     // region VALIDATORS
-    public static final Predicate<ItemStack> DEVICE_VALIDATOR = (e) -> true;
+    public static final BiPredicate<ItemStack, List<ItemStack>> DEVICE_VALIDATOR = (newAugment, augments) -> {
 
-    public static final Predicate<ItemStack> DYNAMO_VALIDATOR = (e) -> true;
+        String newType = AugmentDataHelper.getAugmentType(newAugment);
+        if (newType.equals(TAG_AUGMENT_TYPE_DYNAMO) || newType.equals(TAG_AUGMENT_TYPE_MACHINE)) {
+            return false;
+        }
+        if (isTypeExclusive(newType)) {
+            for (ItemStack augment : augments) {
+                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                    return false;
+                }
+            }
+        }
+        if (isUnique(newAugment)) {
+            for (ItemStack augment : augments) {
+                if (ItemHelper.itemsEqual(newAugment, augment)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
 
-    public static final Predicate<ItemStack> MACHINE_VALIDATOR = (e) -> true;
+    public static final BiPredicate<ItemStack, List<ItemStack>> DYNAMO_VALIDATOR = (newAugment, augments) -> {
 
-    public static final Predicate<ItemStack> STORAGE_VALIDATOR = (e) -> true;
+        String newType = AugmentDataHelper.getAugmentType(newAugment);
+        if (newType.equals(TAG_AUGMENT_TYPE_RF) || newType.equals(TAG_AUGMENT_TYPE_MACHINE) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT)) {
+            return false;
+        }
+        if (isTypeExclusive(newType)) {
+            for (ItemStack augment : augments) {
+                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                    return false;
+                }
+            }
+        }
+        if (isUnique(newAugment)) {
+            for (ItemStack augment : augments) {
+                if (ItemHelper.itemsEqual(newAugment, augment)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+
+    public static final BiPredicate<ItemStack, List<ItemStack>> MACHINE_VALIDATOR = (newAugment, augments) -> {
+
+        String newType = AugmentDataHelper.getAugmentType(newAugment);
+        if (newType.equals(TAG_AUGMENT_TYPE_DYNAMO) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT)) {
+            return false;
+        }
+        if (isTypeExclusive(newType)) {
+            for (ItemStack augment : augments) {
+                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                    return false;
+                }
+            }
+        }
+        if (isUnique(newAugment)) {
+            for (ItemStack augment : augments) {
+                if (ItemHelper.itemsEqual(newAugment, augment)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+
+    public static final BiPredicate<ItemStack, List<ItemStack>> STORAGE_VALIDATOR = (newAugment, augments) -> {
+
+        String newType = AugmentDataHelper.getAugmentType(newAugment);
+        if (newType.equals(TAG_AUGMENT_TYPE_DYNAMO) || newType.equals(TAG_AUGMENT_TYPE_MACHINE) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT) || newType.equals(TAG_AUGMENT_TYPE_FILTER) || newType.equals(TAG_AUGMENT_TYPE_POTION)) {
+            return false;
+        }
+        if (isTypeExclusive(newType)) {
+            for (ItemStack augment : augments) {
+                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                    return false;
+                }
+            }
+        }
+        if (isUnique(newAugment)) {
+            for (ItemStack augment : augments) {
+                if (ItemHelper.itemsEqual(newAugment, augment)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+
+    public static final BiPredicate<ItemStack, List<ItemStack>> TOOL_VALIDATOR = (newAugment, augments) -> {
+
+        String newType = AugmentDataHelper.getAugmentType(newAugment);
+        if (newType.equals(TAG_AUGMENT_TYPE_DYNAMO) || newType.equals(TAG_AUGMENT_TYPE_MACHINE)) {
+            return false;
+        }
+        if (isTypeExclusive(newType)) {
+            for (ItemStack augment : augments) {
+                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                    return false;
+                }
+            }
+        }
+        if (isUnique(newAugment)) {
+            for (ItemStack augment : augments) {
+                if (ItemHelper.itemsEqual(newAugment, augment)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
     // endregion
 }

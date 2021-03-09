@@ -26,7 +26,6 @@ import cofh.lib.xp.EmptyXpStorage;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.core.util.IThermalInventory;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -63,7 +62,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -93,7 +92,6 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected RedstoneControlModule redstoneControl = new RedstoneControlModule(this);
 
     protected List<ItemStorageCoFH> augments = new ArrayList<>();
-    protected Set<String> augmentTypes = new ObjectOpenHashSet<>();
 
     protected ListNBT enchantments = new ListNBT();
 
@@ -269,7 +267,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         if (ThermalConfig.keepAugments.get() && augSize() > 0) {
             getItemInv().writeSlotsToNBTUnordered(nbt, TAG_AUGMENTS, invSize() - augSize());
             if (stack.getItem() instanceof IAugmentableItem) {
-                List<ItemStack> items = augments.stream().map(ItemStorageCoFH::getItemStack).flatMap(Stream::of).collect(Collectors.toList());
+                List<ItemStack> items = getAugmentsAsList();
                 ((IAugmentableItem) stack.getItem()).updateAugmentState(stack, items);
             }
         }
@@ -606,7 +604,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     protected final void addAugmentSlots(int numAugments) {
 
         for (int i = 0; i < numAugments; ++i) {
-            ItemStorageCoFH slot = new ItemStorageCoFH(1, AugmentDataHelper::hasAugmentData);
+            ItemStorageCoFH slot = new ItemStorageCoFH(1, augValidator());
             augments.add(slot);
             inventory.addSlot(slot, INTERNAL);
         }
@@ -622,11 +620,20 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
             if (augmentData == null) {
                 continue;
             }
-            augmentTypes.add(AugmentDataHelper.getAugmentType(augment));
             setAttributesFromAugment(augmentData);
         }
         finalizeAttributes(EnchantmentHelper.deserializeEnchantments(enchantments));
         augmentNBT = null;
+    }
+
+    protected final List<ItemStack> getAugmentsAsList() {
+
+        return augments.stream().map(ItemStorageCoFH::getItemStack).flatMap(Stream::of).collect(Collectors.toList());
+    }
+
+    protected Predicate<ItemStack> augValidator() {
+
+        return AugmentDataHelper::hasAugmentData;
     }
 
     protected void resetAttributes() {

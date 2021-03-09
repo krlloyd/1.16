@@ -8,12 +8,17 @@ import cofh.thermal.expansion.util.managers.machine.SmelterRecipeManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 import static cofh.lib.util.StorageGroup.*;
+import static cofh.lib.util.constants.NBTTags.TAG_AUGMENT_FEATURE_CYCLE_PROCESS;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
 import static cofh.lib.util.helpers.ItemHelper.itemsEqual;
+import static cofh.lib.util.helpers.ItemHelper.itemsEqualWithTags;
 import static cofh.thermal.core.common.ThermalConfig.machineAugments;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_SMELTER_TILE;
 
@@ -59,6 +64,16 @@ public class MachineSmelterTile extends MachineTileProcess {
         for (int i = 0; i < 3; ++i) {
             inputSlots[i].modify(-itemInputCounts.get(i));
         }
+        if (cyclicProcessingFeature && !catalystSlot.isEmpty() && !catalystSlot.isFull()) {
+            ItemStack catalyst = catalystSlot.getItemStack();
+            for (ItemStorageCoFH slot : outputSlots()) {
+                if (itemsEqualWithTags(slot.getItemStack(), catalyst)) {
+                    slot.modify(-1);
+                    catalystSlot.modify(1);
+                    break;
+                }
+            }
+        }
         int decrement = itemInputCounts.size() > 3 ? itemInputCounts.get(3) : 0;
         if (decrement > 0) {
             if (catalystSlot.getItemStack().isDamageable()) {
@@ -93,6 +108,26 @@ public class MachineSmelterTile extends MachineTileProcess {
             }
         }
         return true;
+    }
+    // endregion
+
+    // region AUGMENTS
+    protected boolean cyclicProcessingFeature = false;
+
+    @Override
+    protected void resetAttributes() {
+
+        super.resetAttributes();
+
+        cyclicProcessingFeature = false;
+    }
+
+    @Override
+    protected void setAttributesFromAugment(CompoundNBT augmentData) {
+
+        super.setAttributesFromAugment(augmentData);
+
+        cyclicProcessingFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_CYCLE_PROCESS) > 0;
     }
     // endregion
 }

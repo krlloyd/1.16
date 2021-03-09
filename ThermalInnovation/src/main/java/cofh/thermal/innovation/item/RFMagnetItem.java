@@ -13,6 +13,8 @@ import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.filter.IFilterableItem;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.FilterHelper;
+import cofh.lib.util.helpers.ItemHelper;
+import cofh.thermal.core.common.ThermalAugmentRules;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -37,6 +39,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.WeakHashMap;
+import java.util.function.BiPredicate;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
@@ -60,7 +63,28 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     protected static final int ENERGY_PER_USE = 200;
 
     protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
-    protected Predicate<ItemStack> augValidator = (e) -> true;
+    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (newAugment, augments) -> {
+
+        String newType = AugmentDataHelper.getAugmentType(newAugment);
+        if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_RF) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT) || newType.equals(TAG_AUGMENT_TYPE_FILTER))) {
+            return false;
+        }
+        if (ThermalAugmentRules.isTypeExclusive(newType)) {
+            for (ItemStack augment : augments) {
+                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                    return false;
+                }
+            }
+        }
+        if (ThermalAugmentRules.isUnique(newAugment)) {
+            for (ItemStack augment : augments) {
+                if (ItemHelper.itemsEqual(newAugment, augment)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
 
     public RFMagnetItem(Properties builder, int maxEnergy, int maxTransfer) {
 
@@ -76,7 +100,7 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
         return this;
     }
 
-    public RFMagnetItem setAugValidator(Predicate<ItemStack> augValidator) {
+    public RFMagnetItem setAugValidator(BiPredicate<ItemStack, List<ItemStack>> augValidator) {
 
         this.augValidator = augValidator;
         return this;
@@ -285,9 +309,9 @@ public class RFMagnetItem extends EnergyContainerItem implements IAugmentableIte
     }
 
     @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment) {
+    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
 
-        return augValidator.test(augment);
+        return augValidator.test(augment, augments);
     }
 
     @Override

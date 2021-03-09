@@ -14,9 +14,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 
+import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static cofh.lib.util.constants.Constants.TRUE;
@@ -72,17 +73,17 @@ public class RegistrationHelper {
     // endregion
 
     // AUGMENTABLE BLOCKS
-    public static void registerAugBlock(String name, Supplier<Block> sup, IntSupplier numSlots, Predicate<ItemStack> validAugment) {
+    public static void registerAugBlock(String name, Supplier<Block> sup, IntSupplier numSlots, BiPredicate<ItemStack, List<ItemStack>> validAugment) {
 
         registerAugBlock(name, sup, numSlots, validAugment, THERMAL_BLOCKS, Rarity.COMMON, TRUE);
     }
 
-    public static void registerAugBlock(String name, Supplier<Block> sup, IntSupplier numSlots, Predicate<ItemStack> validAugment, BooleanSupplier showInGroups) {
+    public static void registerAugBlock(String name, Supplier<Block> sup, IntSupplier numSlots, BiPredicate<ItemStack, List<ItemStack>> validAugment, BooleanSupplier showInGroups) {
 
         registerAugBlock(name, sup, numSlots, validAugment, THERMAL_BLOCKS, Rarity.COMMON, showInGroups);
     }
 
-    public static void registerAugBlock(String name, Supplier<Block> sup, IntSupplier numSlots, Predicate<ItemStack> validAugment, ItemGroup group, Rarity rarity, BooleanSupplier showInGroups) {
+    public static void registerAugBlock(String name, Supplier<Block> sup, IntSupplier numSlots, BiPredicate<ItemStack, List<ItemStack>> validAugment, ItemGroup group, Rarity rarity, BooleanSupplier showInGroups) {
 
         BLOCKS.register(name, sup);
         ITEMS.register(name, (Supplier<Item>) () -> new BlockItemAugmentable(BLOCKS.get(name), new Item.Properties().group(group).rarity(rarity)).setNumSlots(numSlots).setAugValidator(validAugment).setShowInGroups(showInGroups));

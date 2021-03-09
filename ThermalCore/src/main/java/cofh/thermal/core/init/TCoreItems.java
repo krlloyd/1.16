@@ -25,6 +25,7 @@ import static cofh.lib.util.constants.Constants.TRUE;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
+import static cofh.thermal.core.common.ThermalAugmentRules.flagUniqueAugment;
 import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_ITEMS;
 import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_TOOLS;
@@ -67,6 +68,14 @@ public class TCoreItems {
         ((DivingArmorItem) ITEMS.get(ID_DIVING_CHESTPLATE)).setup();
         ((DivingArmorItem) ITEMS.get(ID_DIVING_LEGGINGS)).setup();
         ((DivingArmorItem) ITEMS.get(ID_DIVING_BOOTS)).setup();
+
+        flagUniqueAugment(ITEMS.get("rs_control_augment"));
+        flagUniqueAugment(ITEMS.get("side_config_augment"));
+        flagUniqueAugment(ITEMS.get("xp_storage_augment"));
+
+        flagUniqueAugment(ITEMS.get("machine_efficiency_creative_augment"));
+        flagUniqueAugment(ITEMS.get("machine_catalyst_creative_augment"));
+        flagUniqueAugment(ITEMS.get("machine_cycle_augment"));
     }
 
     // region HELPERS

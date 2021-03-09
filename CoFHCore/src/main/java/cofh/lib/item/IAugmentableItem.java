@@ -26,9 +26,10 @@ public interface IAugmentableItem {
      *
      * @param augmentable Stack representing the Augmentable item.
      * @param augment     Stack representing the Augment item to be added.
+     * @param augments    List of ItemStacks representing existing augments.
      * @return TRUE if the augment is compatible.
      */
-    boolean validAugment(ItemStack augmentable, ItemStack augment);
+    boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments);
 
     /**
      * Writes the augments TO the ItemStack's NBT and performs any extra logic which may be required.

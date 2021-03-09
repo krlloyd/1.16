@@ -6,6 +6,7 @@ import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.inventory.ItemStorageCoFH;
 import cofh.lib.util.TimeTracker;
 import cofh.lib.util.Utils;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.util.IMachineInventory;
@@ -24,6 +25,7 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import static cofh.core.util.helpers.FluidHelper.fluidsEqual;
 import static cofh.lib.util.constants.Constants.BASE_CHANCE;
@@ -31,6 +33,7 @@ import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static cofh.lib.util.helpers.ItemHelper.cloneStack;
 import static cofh.lib.util.helpers.ItemHelper.itemsEqualWithTags;
+import static cofh.thermal.core.common.ThermalAugmentRules.MACHINE_VALIDATOR;
 
 public abstract class MachineTileProcess extends ReconfigurableTile4Way implements ITickableTileEntity, IMachineInventory {
 
@@ -423,6 +426,12 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
     // region AUGMENTS
     protected MachineProperties machineProperties = new MachineProperties();
+
+    @Override
+    protected Predicate<ItemStack> augValidator() {
+
+        return item -> AugmentDataHelper.hasAugmentData(item) && MACHINE_VALIDATOR.test(item, getAugmentsAsList());
+    }
 
     @Override
     protected void resetAttributes() {

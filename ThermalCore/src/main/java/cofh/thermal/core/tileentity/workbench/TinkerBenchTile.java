@@ -6,6 +6,7 @@ import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.inventory.ItemStorageCoFH;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.AugmentableHelper;
 import cofh.thermal.core.inventory.container.workbench.TinkerBenchContainer;
 import cofh.thermal.core.tileentity.ThermalTileBase;
@@ -23,11 +24,13 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 import static cofh.lib.util.StorageGroup.INPUT;
 import static cofh.lib.util.StorageGroup.INTERNAL;
 import static cofh.lib.util.constants.Constants.*;
 import static cofh.lib.util.constants.NBTTags.TAG_MODE;
+import static cofh.thermal.core.common.ThermalAugmentRules.STORAGE_VALIDATOR;
 import static cofh.thermal.core.common.ThermalConfig.storageAugments;
 import static cofh.thermal.core.init.TCoreReferences.TINKER_BENCH_TILE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
@@ -191,6 +194,14 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
         nbt.putByte(TAG_MODE, mode);
 
         return nbt;
+    }
+    // endregion
+
+    // region AUGMENTS
+    @Override
+    protected Predicate<ItemStack> augValidator() {
+
+        return item -> AugmentDataHelper.hasAugmentData(item) && STORAGE_VALIDATOR.test(item, getAugmentsAsList());
     }
     // endregion
 

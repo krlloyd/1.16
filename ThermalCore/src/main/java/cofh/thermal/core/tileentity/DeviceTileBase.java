@@ -1,6 +1,7 @@
 package cofh.thermal.core.tileentity;
 
 import cofh.core.network.packet.client.TileStatePacket;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -12,10 +13,12 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import static cofh.lib.util.constants.Constants.ACTIVE;
 import static cofh.lib.util.constants.NBTTags.TAG_AUGMENT_BASE_MOD;
 import static cofh.lib.util.helpers.AugmentableHelper.getAttributeModWithDefault;
+import static cofh.thermal.core.common.ThermalAugmentRules.DEVICE_VALIDATOR;
 
 public abstract class DeviceTileBase extends ThermalTileBase {
 
@@ -69,6 +72,12 @@ public abstract class DeviceTileBase extends ThermalTileBase {
 
     // region AUGMENTS
     protected float baseMod = 1.0F;
+
+    @Override
+    protected Predicate<ItemStack> augValidator() {
+
+        return item -> AugmentDataHelper.hasAugmentData(item) && DEVICE_VALIDATOR.test(item, getAugmentsAsList());
+    }
 
     @Override
     protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {

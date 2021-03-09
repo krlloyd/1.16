@@ -8,6 +8,8 @@ import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.AugmentDataHelper;
+import cofh.lib.util.helpers.ItemHelper;
+import cofh.thermal.core.common.ThermalAugmentRules;
 import cofh.thermal.core.common.ThermalConfig;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.*;
@@ -37,8 +39,8 @@ import org.apache.commons.lang3.tuple.Triple;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiPredicate;
 import java.util.function.IntSupplier;
-import java.util.function.Predicate;
 
 import static cofh.core.util.helpers.FluidHelper.IS_WATER;
 import static cofh.core.util.helpers.FluidHelper.isWater;
@@ -55,7 +57,28 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
     protected static final int MB_PER_USE = 50;
 
     protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
-    protected Predicate<ItemStack> augValidator = (e) -> true;
+    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (newAugment, augments) -> {
+
+        String newType = AugmentDataHelper.getAugmentType(newAugment);
+        if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT))) {
+            return false;
+        }
+        if (ThermalAugmentRules.isTypeExclusive(newType)) {
+            for (ItemStack augment : augments) {
+                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                    return false;
+                }
+            }
+        }
+        if (ThermalAugmentRules.isUnique(newAugment)) {
+            for (ItemStack augment : augments) {
+                if (ItemHelper.itemsEqual(newAugment, augment)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
 
     protected static boolean allowFakePlayers = false;
     protected static boolean removeSourceBlocks = true;
@@ -81,7 +104,7 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
         return this;
     }
 
-    public WateringCanItem setAugValidator(Predicate<ItemStack> augValidator) {
+    public WateringCanItem setAugValidator(BiPredicate<ItemStack, List<ItemStack>> augValidator) {
 
         this.augValidator = augValidator;
         return this;
@@ -276,9 +299,9 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
     }
 
     @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment) {
+    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
 
-        return augValidator.test(augment);
+        return augValidator.test(augment, augments);
     }
 
     @Override

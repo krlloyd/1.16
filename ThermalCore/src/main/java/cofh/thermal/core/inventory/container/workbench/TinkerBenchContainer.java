@@ -33,7 +33,7 @@ public class TinkerBenchContainer extends TileContainer {
         @Override
         public boolean isItemValidForSlot(int index, ItemStack stack) {
 
-            return tile.allowAugmentation() && tinkerSlot.getHasStack() && index < AugmentableHelper.getAugmentSlots(tinkerSlot.getStack()) && AugmentableHelper.validAugment(tinkerSlot.getStack(), stack);
+            return tile.allowAugmentation() && tinkerSlot.getHasStack() && index < AugmentableHelper.getAugmentSlots(tinkerSlot.getStack()) && AugmentableHelper.validAugment(tinkerSlot.getStack(), stack, itemInventory.getStacks());
         }
     };
 

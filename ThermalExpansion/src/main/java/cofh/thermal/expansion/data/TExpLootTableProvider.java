@@ -40,7 +40,6 @@ public class TExpLootTableProvider extends LootTableProviderCoFH {
         createSyncDropTable(regBlocks.get(ID_MACHINE_CRUCIBLE));
         createSyncDropTable(regBlocks.get(ID_MACHINE_CHILLER));
         createSyncDropTable(regBlocks.get(ID_MACHINE_REFINERY));
-        createSyncDropTable(regBlocks.get(ID_DEVICE_HIVE_EXTRACTOR));
         createSyncDropTable(regBlocks.get(ID_MACHINE_PYROLYZER));
         createSyncDropTable(regBlocks.get(ID_MACHINE_BOTTLER));
         createSyncDropTable(regBlocks.get(ID_MACHINE_CRAFTER));

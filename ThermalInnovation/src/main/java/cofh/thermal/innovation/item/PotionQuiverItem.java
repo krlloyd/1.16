@@ -12,6 +12,8 @@ import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.AugmentDataHelper;
+import cofh.lib.util.helpers.ItemHelper;
+import cofh.thermal.core.common.ThermalAugmentRules;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -36,6 +38,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
@@ -54,7 +57,28 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
     protected static final int MB_PER_USE = 50;
 
     protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
-    protected Predicate<ItemStack> augValidator = (e) -> true;
+    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (newAugment, augments) -> {
+
+        String newType = AugmentDataHelper.getAugmentType(newAugment);
+        if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_POTION))) {
+            return false;
+        }
+        if (ThermalAugmentRules.isTypeExclusive(newType)) {
+            for (ItemStack augment : augments) {
+                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                    return false;
+                }
+            }
+        }
+        if (ThermalAugmentRules.isUnique(newAugment)) {
+            for (ItemStack augment : augments) {
+                if (ItemHelper.itemsEqual(newAugment, augment)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
 
     protected int arrowCapacity;
 
@@ -81,7 +105,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         return this;
     }
 
-    public PotionQuiverItem setAugValidator(Predicate<ItemStack> augValidator) {
+    public PotionQuiverItem setAugValidator(BiPredicate<ItemStack, List<ItemStack>> augValidator) {
 
         this.augValidator = augValidator;
         return this;
@@ -273,9 +297,9 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
     }
 
     @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment) {
+    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
 
-        return augValidator.test(augment);
+        return augValidator.test(augment, augments);
     }
 
     @Override

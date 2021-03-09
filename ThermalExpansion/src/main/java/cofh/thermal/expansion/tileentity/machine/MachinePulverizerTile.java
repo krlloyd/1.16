@@ -8,10 +8,15 @@ import cofh.thermal.expansion.util.managers.machine.PulverizerRecipeManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 
 import javax.annotation.Nullable;
 
 import static cofh.lib.util.StorageGroup.*;
+import static cofh.lib.util.constants.NBTTags.TAG_AUGMENT_FEATURE_CYCLE_PROCESS;
+import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
+import static cofh.lib.util.helpers.ItemHelper.itemsEqualWithTags;
 import static cofh.thermal.core.common.ThermalConfig.machineAugments;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_PULVERIZER_TILE;
 
@@ -50,6 +55,16 @@ public class MachinePulverizerTile extends MachineTileProcess {
         // Input Items
         inputSlot.modify(-itemInputCounts.get(0));
 
+        if (cyclicProcessingFeature && !catalystSlot.isEmpty() && !catalystSlot.isFull()) {
+            ItemStack catalyst = catalystSlot.getItemStack();
+            for (ItemStorageCoFH slot : outputSlots()) {
+                if (itemsEqualWithTags(slot.getItemStack(), catalyst)) {
+                    slot.modify(-1);
+                    catalystSlot.modify(1);
+                    break;
+                }
+            }
+        }
         int decrement = itemInputCounts.size() > 1 ? itemInputCounts.get(1) : 0;
         if (decrement > 0) {
             if (catalystSlot.getItemStack().isDamageable()) {
@@ -77,6 +92,26 @@ public class MachinePulverizerTile extends MachineTileProcess {
             return false;
         }
         return inputSlot.getCount() >= itemInputCounts.get(0);
+    }
+    // endregion
+
+    // region AUGMENTS
+    protected boolean cyclicProcessingFeature = false;
+
+    @Override
+    protected void resetAttributes() {
+
+        super.resetAttributes();
+
+        cyclicProcessingFeature = false;
+    }
+
+    @Override
+    protected void setAttributesFromAugment(CompoundNBT augmentData) {
+
+        super.setAttributesFromAugment(augmentData);
+
+        cyclicProcessingFeature |= getAttributeMod(augmentData, TAG_AUGMENT_FEATURE_CYCLE_PROCESS) > 0;
     }
     // endregion
 }

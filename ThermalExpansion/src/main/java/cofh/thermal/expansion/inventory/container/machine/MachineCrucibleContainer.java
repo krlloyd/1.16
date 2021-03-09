@@ -1,8 +1,8 @@
 package cofh.thermal.expansion.inventory.container.machine;
 
 import cofh.core.inventory.container.TileContainer;
-import cofh.lib.inventory.wrapper.InvWrapperCoFH;
 import cofh.lib.inventory.container.slot.SlotCoFH;
+import cofh.lib.inventory.wrapper.InvWrapperCoFH;
 import cofh.thermal.core.tileentity.ReconfigurableTile4Way;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
