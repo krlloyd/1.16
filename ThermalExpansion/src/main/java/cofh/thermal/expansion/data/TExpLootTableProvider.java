@@ -8,7 +8,6 @@ import net.minecraft.item.Item;
 
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
-import static cofh.thermal.core.init.TCoreIDs.ID_DEVICE_HIVE_EXTRACTOR;
 import static cofh.thermal.expansion.init.TExpIDs.*;
 
 public class TExpLootTableProvider extends LootTableProviderCoFH {

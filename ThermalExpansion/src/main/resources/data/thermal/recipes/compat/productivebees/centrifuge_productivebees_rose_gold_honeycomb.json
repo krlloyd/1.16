@@ -2,7 +2,7 @@
   "type": "thermal:centrifuge",
   "ingredient": {
     "item": "productivebees:honeycomb_rose_gold"
-},
+  },
   "result": [
     {
       "item": "tconstruct:rose_gold_nugget",

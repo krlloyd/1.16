@@ -1,14 +1,12 @@
 package cofh.core.item;
 
 import cofh.lib.item.IAugmentableItem;
-import cofh.lib.util.helpers.AugmentableHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.IntSupplier;
-import java.util.function.Predicate;
 
 public class BlockItemAugmentable extends BlockItemCoFH implements IAugmentableItem {
 

@@ -1,10 +1,10 @@
 {
   "type": "thermal:centrifuge",
- "ingredient": {
-        "type": "forge:nbt",
-        "item": "productivebees:configurable_honeycomb",
-        "nbt": "{EntityTag:{type:\"productivebees:aquamarine\"}}"
-    },
+  "ingredient": {
+    "type": "forge:nbt",
+    "item": "productivebees:configurable_honeycomb",
+    "nbt": "{EntityTag:{type:\"productivebees:aquamarine\"}}"
+  },
   "result": [
     {
       "item": "astralsorcery:aquamarine",

@@ -8,10 +8,10 @@
       "item": "astralsorcery:aquarmarine",
       "chance": 6.0
     },
-	{
-	  "item": "minecraft:sand",
-	  "chance": 0.2
-	}
+    {
+      "item": "minecraft:sand",
+      "chance": 0.2
+    }
   ],
   "experience": 0.2,
   "conditions": [

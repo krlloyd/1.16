@@ -8,10 +8,10 @@
       "item": "quark:biotite",
       "chance": 2.0
     },
-	{
-	  "item": "minecraft:end_stone",
-	  "chance": 0.2
-	}
+    {
+      "item": "minecraft:end_stone",
+      "chance": 0.2
+    }
   ],
   "experience": 0.2,
   "conditions": [
