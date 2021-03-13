@@ -10,9 +10,9 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static cofh.lib.util.Utils.getMaxEquippedEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.lib.util.references.EnsorcReferences.AIR_AFFINITY;
-import static net.minecraft.enchantment.EnchantmentHelper.getMaxEnchantmentLevel;
 
 @Mod.EventBusSubscriber(modid = ID_THERMAL)
 public class TCoreCommonEvents {
@@ -30,12 +30,12 @@ public class TCoreCommonEvents {
                 event.setNewSpeed(Math.max(event.getNewSpeed(), event.getOriginalSpeed() * 5.0F));
             }
             boolean diveLegs = player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof DivingArmorItem;
-            if (!player.isOnGround() && diveLegs && (AIR_AFFINITY == null || getMaxEnchantmentLevel(AIR_AFFINITY, player) <= 0)) {
+            if (!player.isOnGround() && diveLegs && (getMaxEquippedEnchantmentLevel(player, AIR_AFFINITY) <= 0)) {
                 event.setNewSpeed(Math.max(event.getNewSpeed(), event.getOriginalSpeed() * 5.0F));
             }
         } else if (player.isInWater()) {
             boolean diveLegs = player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof DivingArmorItem;
-            if (!player.isOnGround() && diveLegs && (AIR_AFFINITY == null || getMaxEnchantmentLevel(AIR_AFFINITY, player) <= 0)) {
+            if (!player.isOnGround() && diveLegs && (getMaxEquippedEnchantmentLevel(player, AIR_AFFINITY) <= 0)) {
                 event.setNewSpeed(Math.max(event.getNewSpeed(), event.getOriginalSpeed() * 5.0F));
             }
         }

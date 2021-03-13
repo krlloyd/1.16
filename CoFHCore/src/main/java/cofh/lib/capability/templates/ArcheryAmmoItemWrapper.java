@@ -2,7 +2,6 @@ package cofh.lib.capability.templates;
 
 import cofh.lib.capability.IArcheryAmmoItem;
 import cofh.lib.util.helpers.ArcheryHelper;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -18,6 +17,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static cofh.lib.capability.CapabilityArchery.AMMO_ITEM_CAPABILITY;
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 
 public class ArcheryAmmoItemWrapper implements IArcheryAmmoItem, ICapabilityProvider {
 
@@ -51,7 +51,7 @@ public class ArcheryAmmoItemWrapper implements IArcheryAmmoItem, ICapabilityProv
     @Override
     public boolean isInfinite(ItemStack bow, PlayerEntity shooter) {
 
-        return shooter != null && shooter.abilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, bow) > 0 && ammoItem.getItem().getClass() == ArrowItem.class;
+        return shooter != null && shooter.abilities.isCreativeMode || getItemEnchantmentLevel(Enchantments.INFINITY, bow) > 0 && ammoItem.getItem().getClass() == ArrowItem.class;
     }
 
     @Nonnull

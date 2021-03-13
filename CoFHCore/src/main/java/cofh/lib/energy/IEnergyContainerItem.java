@@ -5,6 +5,7 @@ import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
+import static cofh.lib.item.ContainerType.ENERGY;
 import static cofh.lib.util.constants.NBTTags.TAG_ENERGY;
 
 /**
@@ -67,7 +68,7 @@ public interface IEnergyContainerItem extends IContainerItem {
     default int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
 
         CompoundNBT tag = getOrCreateEnergyTag(container);
-        if (isCreative(container)) {
+        if (isCreative(container, ENERGY)) {
             return 0;
         }
         int stored = Math.min(tag.getInt(TAG_ENERGY), getMaxEnergyStored(container));
@@ -92,7 +93,7 @@ public interface IEnergyContainerItem extends IContainerItem {
     default int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 
         CompoundNBT tag = getOrCreateEnergyTag(container);
-        if (isCreative(container)) {
+        if (isCreative(container, ENERGY)) {
             return maxExtract;
         }
         int stored = Math.min(tag.getInt(TAG_ENERGY), getMaxEnergyStored(container));

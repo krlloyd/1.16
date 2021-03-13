@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static cofh.lib.item.ContainerType.XP;
 import static cofh.lib.util.constants.Constants.RGB_DURABILITY_XP;
 import static cofh.lib.util.constants.NBTTags.TAG_FLUID;
 import static cofh.lib.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
@@ -56,7 +57,7 @@ public class XpContainerItem extends ItemCoFH implements IXpContainerItem {
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
 
-        return !isCreative(stack) && getStoredXp(stack) > 0;
+        return !isCreative(stack, XP) && getStoredXp(stack) > 0;
     }
 
     @Override

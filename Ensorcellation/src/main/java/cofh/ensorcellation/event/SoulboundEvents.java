@@ -16,7 +16,6 @@ import java.util.Iterator;
 import static cofh.lib.util.Utils.*;
 import static cofh.lib.util.constants.Constants.ID_ENSORCELLATION;
 import static cofh.lib.util.references.EnsorcReferences.SOULBOUND;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.world.GameRules.KEEP_INVENTORY;
 
 @Mod.EventBusSubscriber(modid = ID_ENSORCELLATION)
@@ -37,7 +36,7 @@ public class SoulboundEvents {
             Iterator<ItemEntity> iter = event.getDrops().iterator();
             while (iter.hasNext()) {
                 ItemStack stack = iter.next().getItem();
-                if (getEnchantmentLevel(SOULBOUND, stack) > 0) {
+                if (getItemEnchantmentLevel(SOULBOUND, stack) > 0) {
                     if (addToPlayerInventory(player, stack)) {
                         iter.remove();
                     }
@@ -59,7 +58,7 @@ public class SoulboundEvents {
         }
         for (int i = 0; i < oldPlayer.inventory.armorInventory.size(); ++i) {
             ItemStack stack = oldPlayer.inventory.armorInventory.get(i);
-            int encSoulbound = getEnchantmentLevel(SOULBOUND, stack);
+            int encSoulbound = getItemEnchantmentLevel(SOULBOUND, stack);
             if (encSoulbound > 0) {
                 if (SoulboundEnchantment.permanent) {
                     if (encSoulbound > 1) {
@@ -79,7 +78,7 @@ public class SoulboundEvents {
         }
         for (int i = 0; i < oldPlayer.inventory.mainInventory.size(); ++i) {
             ItemStack stack = oldPlayer.inventory.mainInventory.get(i);
-            int encSoulbound = getEnchantmentLevel(SOULBOUND, stack);
+            int encSoulbound = getItemEnchantmentLevel(SOULBOUND, stack);
             if (encSoulbound > 0) {
                 if (SoulboundEnchantment.permanent) {
                     if (encSoulbound > 1) {

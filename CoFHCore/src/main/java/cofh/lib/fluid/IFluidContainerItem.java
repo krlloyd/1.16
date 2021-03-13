@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
+import static cofh.lib.item.ContainerType.FLUID;
 import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.lib.util.constants.NBTTags.TAG_AMOUNT;
 import static cofh.lib.util.constants.NBTTags.TAG_FLUID;
@@ -83,7 +84,7 @@ public interface IFluidContainerItem extends IContainerItem {
         }
         int capacity = getCapacity(container);
 
-        if (isCreative(container)) {
+        if (isCreative(container, FLUID)) {
             if (action.execute()) {
                 CompoundNBT fluidTag = resource.writeToNBT(new CompoundNBT());
                 fluidTag.putInt(TAG_AMOUNT, capacity - BUCKET_VOLUME);
@@ -148,8 +149,8 @@ public interface IFluidContainerItem extends IContainerItem {
         if (stack.isEmpty()) {
             return FluidStack.EMPTY;
         }
-        int drained = isCreative(container) ? maxDrain : Math.min(stack.getAmount(), maxDrain);
-        if (action.execute() && !isCreative(container)) {
+        int drained = isCreative(container, FLUID) ? maxDrain : Math.min(stack.getAmount(), maxDrain);
+        if (action.execute() && !isCreative(container, FLUID)) {
             if (maxDrain >= stack.getAmount()) {
                 containerTag.remove(TAG_FLUID);
                 return stack;

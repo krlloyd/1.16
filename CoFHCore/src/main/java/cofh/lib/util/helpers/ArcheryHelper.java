@@ -19,9 +19,9 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import static cofh.lib.capability.CapabilityArchery.AMMO_ITEM_CAPABILITY;
 import static cofh.lib.capability.CapabilityArchery.BOW_ITEM_CAPABILITY;
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.references.EnsorcReferences.TRUESHOT;
 import static cofh.lib.util.references.EnsorcReferences.VOLLEY;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.*;
 
 public final class ArcheryHelper {
@@ -56,7 +56,7 @@ public final class ArcheryHelper {
         boolean infinite = shooter.abilities.isCreativeMode
                 || ammoCap.isInfinite(bow, shooter)
                 || (isArrow(ammo) && ((ArrowItem) ammo.getItem()).isInfinite(ammo, bow, shooter))
-                || ammo.isEmpty() && getEnchantmentLevel(INFINITY, bow) > 0;
+                || ammo.isEmpty() && getItemEnchantmentLevel(INFINITY, bow) > 0;
 
         if (!ammo.isEmpty() || infinite) {
             if (ammo.isEmpty()) {
@@ -70,11 +70,11 @@ public final class ArcheryHelper {
 
             if (arrowVelocity >= 0.1F) {
                 if (Utils.isServerWorld(world)) {
-                    int encVolley = getEnchantmentLevel(VOLLEY, bow);
-                    int encTrueshot = getEnchantmentLevel(TRUESHOT, bow);
-                    int encPunch = getEnchantmentLevel(PUNCH, bow);
-                    int encPower = getEnchantmentLevel(POWER, bow);
-                    int encFlame = getEnchantmentLevel(FLAME, bow);
+                    int encVolley = getItemEnchantmentLevel(VOLLEY, bow);
+                    int encTrueshot = getItemEnchantmentLevel(TRUESHOT, bow);
+                    int encPunch = getItemEnchantmentLevel(PUNCH, bow);
+                    int encPower = getItemEnchantmentLevel(POWER, bow);
+                    int encFlame = getItemEnchantmentLevel(FLAME, bow);
 
                     if (encTrueshot > 0) {
                         accuracyMod *= (1.5F / (1 + encTrueshot));

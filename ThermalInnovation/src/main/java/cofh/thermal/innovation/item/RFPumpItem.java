@@ -1,13 +1,12 @@
 package cofh.thermal.innovation.item;
 
-import cofh.core.item.EnergyContainerItem;
+import cofh.core.item.EnergyContainerItemAugmentable;
 import cofh.core.util.ProxyUtils;
 import cofh.core.util.helpers.ChatHelper;
 import cofh.lib.capability.CapabilityAreaEffect;
 import cofh.lib.capability.IAreaEffect;
 import cofh.lib.energy.EnergyContainerItemWrapper;
 import cofh.lib.energy.IEnergyContainerItem;
-import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.helpers.AreaEffectHelper;
 import cofh.lib.util.helpers.AugmentDataHelper;
@@ -17,7 +16,6 @@ import cofh.thermal.core.common.ThermalConfig;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -34,39 +32,14 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.BiPredicate;
-import java.util.function.IntSupplier;
 
 import static cofh.lib.util.constants.NBTTags.*;
-import static cofh.lib.util.helpers.AugmentableHelper.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
+import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentAdd;
 
-public class RFPumpItem extends EnergyContainerItem implements IAugmentableItem, IMultiModeItem {
+public class RFPumpItem extends EnergyContainerItemAugmentable implements IMultiModeItem {
 
     public static final int ENERGY_PER_USE = 200;
-
-    protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
-    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (newAugment, augments) -> {
-
-        String newType = AugmentDataHelper.getAugmentType(newAugment);
-        if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_RF) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT))) {
-            return false;
-        }
-        if (ThermalAugmentRules.isTypeExclusive(newType)) {
-            for (ItemStack augment : augments) {
-                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                    return false;
-                }
-            }
-        }
-        if (ThermalAugmentRules.isUnique(newAugment)) {
-            for (ItemStack augment : augments) {
-                if (ItemHelper.itemsEqual(newAugment, augment)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    };
 
     public RFPumpItem(Properties builder, int maxEnergy, int maxTransfer) {
 
@@ -74,18 +47,30 @@ public class RFPumpItem extends EnergyContainerItem implements IAugmentableItem,
 
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("charged"), (stack, world, entity) -> getEnergyStored(stack) > 0 ? 1F : 0F);
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
-    }
 
-    public RFPumpItem setNumSlots(IntSupplier numSlots) {
+        numSlots = () -> ThermalConfig.toolAugments;
+        augValidator = (newAugment, augments) -> {
 
-        this.numSlots = numSlots;
-        return this;
-    }
-
-    public RFPumpItem setAugValidator(BiPredicate<ItemStack, List<ItemStack>> augValidator) {
-
-        this.augValidator = augValidator;
-        return this;
+            String newType = AugmentDataHelper.getAugmentType(newAugment);
+            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_RF) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT))) {
+                return false;
+            }
+            if (ThermalAugmentRules.isTypeExclusive(newType)) {
+                for (ItemStack augment : augments) {
+                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                        return false;
+                    }
+                }
+            }
+            if (ThermalAugmentRules.isUnique(newAugment)) {
+                for (ItemStack augment : augments) {
+                    if (ItemHelper.itemsEqual(newAugment, augment)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        };
     }
 
     @Override
@@ -101,13 +86,6 @@ public class RFPumpItem extends EnergyContainerItem implements IAugmentableItem,
             addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
         }
         super.tooltipDelegate(stack, worldIn, tooltip, flagIn);
-    }
-
-    @Override
-    public int getItemEnchantability(ItemStack stack) {
-
-        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
-        return Math.round(super.getItemEnchantability(stack) * base);
     }
 
     @Override
@@ -130,18 +108,8 @@ public class RFPumpItem extends EnergyContainerItem implements IAugmentableItem,
         }
     }
 
-    @Override
-    public boolean isCreative(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_RF_CREATIVE, 0.0F) > 0;
-    }
-
     // region HELPERS
-    protected void setActive(ItemStack stack, LivingEntity entity) {
-
-        stack.getOrCreateTag().putLong(TAG_ACTIVE, entity.world.getGameTime() + 20);
-    }
-
+    @Override
     protected void setAttributesFromAugment(ItemStack container, CompoundNBT augmentData) {
 
         CompoundNBT subTag = container.getChildTag(TAG_PROPERTIES);
@@ -150,20 +118,7 @@ public class RFPumpItem extends EnergyContainerItem implements IAugmentableItem,
         }
         setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_RADIUS);
 
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_STORAGE);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_XFER);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_CREATIVE);
-    }
-
-    protected boolean hasActiveTag(ItemStack stack) {
-
-        return stack.getOrCreateTag().contains(TAG_ACTIVE);
-    }
-
-    protected float getBaseMod(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
+        super.setAttributesFromAugment(container, augmentData);
     }
 
     protected int getEnergyPerUse(ItemStack stack) {
@@ -183,60 +138,12 @@ public class RFPumpItem extends EnergyContainerItem implements IAugmentableItem,
         return new RFPumpItemWrapper(stack, this);
     }
 
-    // region IEnergyContainerItem
-    @Override
-    public int getExtract(ItemStack container) {
-
-        float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_XFER, 1.0F);
-        return Math.round(extract * mod * base);
-    }
-
-    @Override
-    public int getReceive(ItemStack container) {
-
-        float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_XFER, 1.0F);
-        return Math.round(receive * mod * base);
-    }
-
-    @Override
-    public int getMaxEnergyStored(ItemStack container) {
-
-        float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_RF_STORAGE, 1.0F);
-        return getMaxStored(container, Math.round(maxEnergy * mod * base));
-    }
-    // endregion
-
     // region IAugmentableItem
-    @Override
-    public int getAugmentSlots(ItemStack augmentable) {
-
-        return numSlots.getAsInt();
-    }
-
-    @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
-
-        return augValidator.test(augment, augments);
-    }
-
     @Override
     public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
 
-        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
-        for (ItemStack augment : augments) {
-            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
-            if (augmentData == null) {
-                continue;
-            }
-            setAttributesFromAugment(container, augmentData);
-        }
-        int energyExcess = getEnergyStored(container) - getMaxEnergyStored(container);
-        if (energyExcess > 0) {
-            setEnergyStored(container, getMaxEnergyStored(container));
-        }
+        super.updateAugmentState(container, augments);
+
         if (getMode(container) >= getNumModes(container)) {
             setMode(container, getNumModes(container) - 1);
         }

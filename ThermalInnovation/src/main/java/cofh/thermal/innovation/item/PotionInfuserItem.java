@@ -1,10 +1,9 @@
 package cofh.thermal.innovation.item;
 
-import cofh.core.item.FluidContainerItem;
+import cofh.core.item.FluidContainerItemAugmentable;
 import cofh.core.util.ProxyUtils;
 import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.helpers.FluidHelper;
-import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.AugmentDataHelper;
@@ -41,7 +40,7 @@ import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
-public class PotionInfuserItem extends FluidContainerItem implements IAugmentableItem, IMultiModeItem {
+public class PotionInfuserItem extends FluidContainerItemAugmentable implements IMultiModeItem {
 
     protected static final int TIME_CONSTANT = 32;
 
@@ -115,13 +114,6 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
             effects.add(new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack), getEffectAmplifier(effect, stack), effect.isAmbient(), effect.doesShowParticles()));
         }
         potionTooltip(stack, worldIn, tooltip, flagIn, effects);
-    }
-
-    @Override
-    public int getItemEnchantability(ItemStack stack) {
-
-        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
-        return Math.round(super.getItemEnchantability(stack) * base);
     }
 
     @Override
@@ -209,13 +201,8 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
         }
     }
 
-    @Override
-    public boolean isCreative(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_FLUID_CREATIVE, 0.0F) > 0;
-    }
-
     // region HELPERS
+    @Override
     protected void setAttributesFromAugment(ItemStack container, CompoundNBT augmentData) {
 
         CompoundNBT subTag = container.getChildTag(TAG_PROPERTIES);
@@ -225,9 +212,7 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
         setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_POTION_AMPLIFIER);
         setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_POTION_DURATION);
 
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_CREATIVE);
+        super.setAttributesFromAugment(container, augmentData);
     }
 
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
@@ -254,67 +239,6 @@ public class PotionInfuserItem extends FluidContainerItem implements IAugmentabl
         player.swingArm(hand);
         stack.setAnimationsToGo(5);
         return true;
-    }
-
-    protected int getEffectAmplifier(EffectInstance effect, ItemStack stack) {
-
-        return Math.min(MAX_POTION_AMPLIFIER, Math.round(effect.getAmplifier() + getAmplifierMod(stack)));
-    }
-
-    protected int getEffectDuration(EffectInstance effect, ItemStack stack) {
-
-        return Math.min(MAX_POTION_DURATION, Math.round(effect.getDuration() * getDurationMod(stack)));
-    }
-
-    protected float getAmplifierMod(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_POTION_AMPLIFIER, 0.0F);
-    }
-
-    protected float getDurationMod(ItemStack stack) {
-
-        return 1.0F + getPropertyWithDefault(stack, TAG_AUGMENT_POTION_DURATION, 0.0F);
-    }
-    // endregion
-
-    // region IFluidContainerItem
-    @Override
-    public int getCapacity(ItemStack container) {
-
-        float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_FLUID_STORAGE, 1.0F);
-        return getMaxStored(container, Math.round(fluidCapacity * mod * base));
-    }
-    // endregion
-
-    // region IAugmentableItem
-    @Override
-    public int getAugmentSlots(ItemStack augmentable) {
-
-        return numSlots.getAsInt();
-    }
-
-    @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
-
-        return augValidator.test(augment, augments);
-    }
-
-    @Override
-    public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
-
-        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
-        for (ItemStack augment : augments) {
-            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
-            if (augmentData == null) {
-                continue;
-            }
-            setAttributesFromAugment(container, augmentData);
-        }
-        int fluidExcess = getFluidAmount(container) - getCapacity(container);
-        if (fluidExcess > 0) {
-            drain(container, fluidExcess, EXECUTE);
-        }
     }
     // endregion
 

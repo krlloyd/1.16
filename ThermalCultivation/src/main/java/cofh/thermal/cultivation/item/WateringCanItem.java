@@ -1,9 +1,8 @@
 package cofh.thermal.cultivation.item;
 
-import cofh.core.item.FluidContainerItem;
+import cofh.core.item.FluidContainerItemAugmentable;
 import cofh.core.util.ProxyUtils;
 import cofh.core.util.helpers.ChatHelper;
-import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
@@ -15,7 +14,6 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.*;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -39,46 +37,21 @@ import org.apache.commons.lang3.tuple.Triple;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiPredicate;
-import java.util.function.IntSupplier;
 
 import static cofh.core.util.helpers.FluidHelper.IS_WATER;
 import static cofh.core.util.helpers.FluidHelper.isWater;
 import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.lib.util.constants.Constants.RGB_DURABILITY_WATER;
 import static cofh.lib.util.constants.NBTTags.*;
-import static cofh.lib.util.helpers.AugmentableHelper.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
+import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentAdd;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
-public class WateringCanItem extends FluidContainerItem implements IAugmentableItem, IMultiModeItem {
+public class WateringCanItem extends FluidContainerItemAugmentable implements IMultiModeItem {
 
     private static final Set<Triple<BlockPos, BlockState, Block>> WATERED_BLOCKS = new ObjectOpenHashSet<>();
 
     protected static final int MB_PER_USE = 50;
-
-    protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
-    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (newAugment, augments) -> {
-
-        String newType = AugmentDataHelper.getAugmentType(newAugment);
-        if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT))) {
-            return false;
-        }
-        if (ThermalAugmentRules.isTypeExclusive(newType)) {
-            for (ItemStack augment : augments) {
-                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                    return false;
-                }
-            }
-        }
-        if (ThermalAugmentRules.isUnique(newAugment)) {
-            for (ItemStack augment : augments) {
-                if (ItemHelper.itemsEqual(newAugment, augment)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    };
 
     protected static boolean allowFakePlayers = false;
     protected static boolean removeSourceBlocks = true;
@@ -96,18 +69,30 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
 
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
-    }
 
-    public WateringCanItem setNumSlots(IntSupplier numSlots) {
+        numSlots = () -> ThermalConfig.toolAugments;
+        augValidator = (newAugment, augments) -> {
 
-        this.numSlots = numSlots;
-        return this;
-    }
-
-    public WateringCanItem setAugValidator(BiPredicate<ItemStack, List<ItemStack>> augValidator) {
-
-        this.augValidator = augValidator;
-        return this;
+            String newType = AugmentDataHelper.getAugmentType(newAugment);
+            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT))) {
+                return false;
+            }
+            if (ThermalAugmentRules.isTypeExclusive(newType)) {
+                for (ItemStack augment : augments) {
+                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                        return false;
+                    }
+                }
+            }
+            if (ThermalAugmentRules.isUnique(newAugment)) {
+                for (ItemStack augment : augments) {
+                    if (ItemHelper.itemsEqual(newAugment, augment)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        };
     }
 
     @Override
@@ -238,36 +223,21 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
     }
 
     // region HELPERS
-    protected void setActive(ItemStack stack, LivingEntity entity) {
-
-        stack.getOrCreateTag().putLong(TAG_ACTIVE, entity.world.getGameTime() + 20);
-    }
-
+    @Override
     protected void setAttributesFromAugment(ItemStack container, CompoundNBT augmentData) {
 
         CompoundNBT subTag = container.getChildTag(TAG_PROPERTIES);
         if (subTag == null) {
             return;
         }
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
-
         setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_RADIUS);
-    }
 
-    protected boolean hasActiveTag(ItemStack stack) {
-
-        return stack.getOrCreateTag().contains(TAG_ACTIVE);
+        super.setAttributesFromAugment(container, augmentData);
     }
 
     protected float getEffectiveness(ItemStack stack) {
 
         return 0.40F * getBaseMod(stack) - 0.05F * getMode(stack);
-    }
-
-    protected float getBaseMod(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
     }
 
     protected int getRadius(ItemStack stack) {
@@ -281,44 +251,12 @@ public class WateringCanItem extends FluidContainerItem implements IAugmentableI
     }
     // endregion
 
-    // region IFluidContainerItem
-    @Override
-    public int getCapacity(ItemStack container) {
-
-        float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_FLUID_STORAGE, 1.0F);
-        return getMaxStored(container, Math.round(fluidCapacity * mod * base));
-    }
-    // endregion
-
     // region IAugmentableItem
-    @Override
-    public int getAugmentSlots(ItemStack augmentable) {
-
-        return numSlots.getAsInt();
-    }
-
-    @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
-
-        return augValidator.test(augment, augments);
-    }
-
     @Override
     public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
 
-        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
-        for (ItemStack augment : augments) {
-            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
-            if (augmentData == null) {
-                continue;
-            }
-            setAttributesFromAugment(container, augmentData);
-        }
-        int fluidExcess = getFluidAmount(container) - getCapacity(container);
-        if (fluidExcess > 0) {
-            drain(container, fluidExcess, EXECUTE);
-        }
+        super.updateAugmentState(container, augments);
+
         if (getMode(container) >= getNumModes(container)) {
             setMode(container, getNumModes(container) - 1);
         }

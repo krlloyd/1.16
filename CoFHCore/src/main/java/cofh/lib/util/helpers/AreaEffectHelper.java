@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static cofh.lib.capability.CapabilityAreaEffect.AREA_EFFECT_ITEM_CAPABILITY;
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.references.EnsorcReferences.*;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.util.Direction.DOWN;
 
 public class AreaEffectHelper {
@@ -46,15 +46,15 @@ public class AreaEffectHelper {
      */
     public static ImmutableList<BlockPos> getAreaEffectBlocks(ItemStack stack, BlockPos pos, PlayerEntity player) {
 
-        int encExcavating = getEnchantmentLevel(EXCAVATING, stack);
+        int encExcavating = getItemEnchantmentLevel(EXCAVATING, stack);
         if (encExcavating > 0) {
             return getBreakableBlocksRadius(stack, pos, player, encExcavating);
         }
-        int encTilling = getEnchantmentLevel(TILLING, stack);
+        int encTilling = getItemEnchantmentLevel(TILLING, stack);
         if (encTilling > 0) {
             return getTillableBlocksRadius(stack, pos, player, encTilling);
         }
-        int encFurrowing = getEnchantmentLevel(FURROWING, stack);
+        int encFurrowing = getItemEnchantmentLevel(FURROWING, stack);
         if (encFurrowing > 0) {
             return getTillableBlocksLine(stack, pos, player, encFurrowing * 2);
         }
@@ -253,7 +253,7 @@ public class AreaEffectHelper {
 
         List<BlockPos> area;
         World world = player.getEntityWorld();
-        boolean weeding = getEnchantmentLevel(WEEDING, stack) > 0;
+        boolean weeding = getItemEnchantmentLevel(WEEDING, stack) > 0;
 
         BlockRayTraceResult traceResult = RayTracer.retrace(player, RayTraceContext.FluidMode.NONE);
         if (traceResult.getType() == RayTraceResult.Type.MISS || traceResult.getFace() == DOWN || player.isSecondaryUseActive() || !canHoeAffect(world, pos, weeding) || radius <= 0) {
@@ -271,7 +271,7 @@ public class AreaEffectHelper {
 
         List<BlockPos> area;
         World world = player.getEntityWorld();
-        boolean weeding = getEnchantmentLevel(WEEDING, stack) > 0;
+        boolean weeding = getItemEnchantmentLevel(WEEDING, stack) > 0;
 
         if (player.isSecondaryUseActive() || !canHoeAffect(world, pos, weeding) || length <= 0) {
             return ImmutableList.of();

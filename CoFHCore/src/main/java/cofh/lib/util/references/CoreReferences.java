@@ -40,7 +40,10 @@ public class CoreReferences {
 
     // region CONTAINERS
     //    @ObjectHolder(ID_CONTAINER_HELD_FLUID_FILTER)
-    //    public static final ContainerType<HeldFluidFilterContainer> FLUID_FILTER_CONTAINER = null;
+    //    public static final ContainerType<HeldFluidFilterContainer> HELD_FLUID_FILTER_CONTAINER = null;
+    //
+    //    @ObjectHolder(ID_CONTAINER_TILE_FLUID_FILTER)
+    //    public static final ContainerType<TileFluidFilterContainer> TILE_FLUID_FILTER_CONTAINER = null;
 
     @ObjectHolder(ID_CONTAINER_HELD_ITEM_FILTER)
     public static final ContainerType<HeldItemFilterContainer> HELD_ITEM_FILTER_CONTAINER = null;

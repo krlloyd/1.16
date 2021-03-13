@@ -1,9 +1,9 @@
 package cofh.lib.item;
 
 import cofh.lib.util.Utils;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.references.CoreReferences.HOLDING;
 
 /**
@@ -13,7 +13,7 @@ public interface IContainerItem extends ICoFHItem {
 
     default int getMaxStored(ItemStack container, int amount) {
 
-        int holding = EnchantmentHelper.getEnchantmentLevel(HOLDING, container);
+        int holding = getItemEnchantmentLevel(HOLDING, container);
         return Utils.getEnchantedCapacity(amount, holding);
     }
 

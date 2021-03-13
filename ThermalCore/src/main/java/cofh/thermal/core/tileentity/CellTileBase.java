@@ -4,6 +4,7 @@ import cofh.core.tileentity.TileCoFH;
 import cofh.core.util.control.IReconfigurableTile;
 import cofh.core.util.control.ReconfigControlModule;
 import cofh.core.util.control.ReconfigControlModuleLimited;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -19,10 +20,12 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.model.ModelDataManager;
 
 import java.util.Map;
+import java.util.function.Predicate;
 
 import static cofh.lib.util.constants.Constants.FACING_HORIZONTAL;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.BlockHelper.*;
+import static cofh.thermal.core.common.ThermalAugmentRules.STORAGE_VALIDATOR;
 
 public abstract class CellTileBase extends ThermalTileBase implements IReconfigurableTile {
 
@@ -258,6 +261,12 @@ public abstract class CellTileBase extends ThermalTileBase implements IReconfigu
     // endregion
 
     // region AUGMENTS
+    @Override
+    protected Predicate<ItemStack> augValidator() {
+
+        return item -> AugmentDataHelper.hasAugmentData(item) && STORAGE_VALIDATOR.test(item, getAugmentsAsList());
+    }
+
     @Override
     protected void finalizeAttributes(Map<Enchantment, Integer> enchantmentMap) {
 

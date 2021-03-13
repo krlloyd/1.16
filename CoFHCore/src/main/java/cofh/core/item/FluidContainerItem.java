@@ -20,6 +20,7 @@ import java.util.function.Predicate;
 
 import static cofh.core.util.helpers.FluidHelper.addPotionTooltip;
 import static cofh.core.util.helpers.FluidHelper.hasPotionTag;
+import static cofh.lib.item.ContainerType.FLUID;
 import static cofh.lib.util.constants.NBTTags.TAG_FLUID;
 import static cofh.lib.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
 import static cofh.lib.util.helpers.StringHelper.*;
@@ -50,7 +51,7 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
         if (!fluid.isEmpty()) {
             tooltip.add(StringHelper.getFluidName(fluid));
         }
-        boolean creative = isCreative(stack);
+        boolean creative = isCreative(stack, FLUID);
         tooltip.add(getTextComponent(localize("info.cofh.amount") + ": "
                 + (creative ?
                 localize("info.cofh.infinite") :
@@ -74,7 +75,7 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
         if (!fluid.isEmpty()) {
             tooltip.add(StringHelper.getFluidName(fluid));
         }
-        tooltip.add(isCreative(stack)
+        tooltip.add(isCreative(stack, FLUID)
                 ? getTextComponent("info.cofh.infinite_source")
                 : getTextComponent(localize("info.cofh.amount") + ": " + format(fluid.getAmount()) + " / " + format(getCapacity(stack)) + " mB"));
 
@@ -100,7 +101,7 @@ public class FluidContainerItem extends ItemCoFH implements IFluidContainerItem,
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
 
-        return !isCreative(stack) && getFluidAmount(stack) > 0;
+        return !isCreative(stack, FLUID) && getFluidAmount(stack) > 0;
     }
 
     @Override

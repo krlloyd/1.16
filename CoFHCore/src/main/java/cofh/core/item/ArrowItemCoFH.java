@@ -4,7 +4,6 @@ import cofh.lib.item.ICoFHItem;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.dispenser.ProjectileDispenseBehavior;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,6 +22,7 @@ import java.util.Collections;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.TRUE;
 
 public class ArrowItemCoFH extends ArrowItem implements ICoFHItem {
@@ -92,7 +92,7 @@ public class ArrowItemCoFH extends ArrowItem implements ICoFHItem {
     @Override
     public boolean isInfinite(ItemStack stack, ItemStack bow, PlayerEntity player) {
 
-        return infinitySupport && EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, bow) > 0;
+        return infinitySupport && getItemEnchantmentLevel(Enchantments.INFINITY, bow) > 0;
     }
 
     // region FACTORY

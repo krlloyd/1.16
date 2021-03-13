@@ -13,6 +13,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static cofh.lib.item.ContainerType.ENERGY;
 import static cofh.lib.util.constants.Constants.RGB_DURABILITY_FLUX;
 import static cofh.lib.util.helpers.StringHelper.*;
 
@@ -40,7 +41,7 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
     @Override
     protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-        boolean creative = isCreative(stack);
+        boolean creative = isCreative(stack, ENERGY);
         tooltip.add(getTextComponent(localize("info.cofh.energy") + ": "
                 + (creative ?
                 localize("info.cofh.infinite") :
@@ -64,7 +65,7 @@ public class EnergyContainerItem extends ItemCoFH implements IEnergyContainerIte
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
 
-        return !isCreative(stack) && getEnergyStored(stack) > 0;
+        return !isCreative(stack, ENERGY) && getEnergyStored(stack) > 0;
     }
 
     @Override

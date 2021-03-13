@@ -1,6 +1,7 @@
 package cofh.thermal.core.data;
 
 import cofh.lib.util.references.BlockTagsCoFH;
+import cofh.lib.util.references.FluidTagsCoFH;
 import cofh.lib.util.references.ItemTagsCoFH;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -10,8 +11,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static cofh.lib.util.constants.Constants.ID_THERMAL;
-import static cofh.thermal.core.ThermalCore.BLOCKS;
-import static cofh.thermal.core.ThermalCore.ITEMS;
+import static cofh.thermal.core.ThermalCore.*;
 import static cofh.thermal.core.init.TCoreIDs.*;
 import static net.minecraftforge.common.Tags.Items.*;
 
@@ -516,6 +516,9 @@ public class TCoreTagsProvider {
         @Override
         protected void registerTags() {
 
+            getOrCreateBuilder(FluidTagsCoFH.LATEX).add(FLUIDS.get(ID_FLUID_LATEX));
+
+            getOrCreateBuilder(FluidTagsCoFH.CREOSOTE).add(FLUIDS.get(ID_FLUID_CREOSOTE));
         }
 
     }

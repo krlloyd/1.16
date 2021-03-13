@@ -21,11 +21,11 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.*;
 import static cofh.lib.util.references.EnsorcIDs.ID_PHALANX;
 import static cofh.lib.util.references.EnsorcIDs.ID_REACH;
 import static cofh.lib.util.references.EnsorcReferences.*;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.THORNS;
 import static net.minecraft.entity.ai.attributes.AttributeModifier.Operation.ADDITION;
 import static net.minecraft.entity.ai.attributes.AttributeModifier.Operation.MULTIPLY_TOTAL;
@@ -50,27 +50,27 @@ public class ShieldEnchEvents {
 
         if (canBlockDamageSource(entity, source) && attacker != null) {
             // THORNS
-            int encThorns = getEnchantmentLevel(THORNS, stack);
+            int encThorns = getItemEnchantmentLevel(THORNS, stack);
             if (ThornsEnchantmentImp.shouldHit(encThorns, entity.getRNG())) {
                 attacker.attackEntityFrom(DamageSource.causeThornsDamage(entity), ThornsEnchantment.getDamage(encThorns, entity.getRNG()));
             }
             // DISPLACEMENT
-            int encDisplacement = getEnchantmentLevel(DISPLACEMENT, stack);
+            int encDisplacement = getItemEnchantmentLevel(DISPLACEMENT, stack);
             if (DisplacementEnchantment.shouldHit(encDisplacement, entity.getRNG())) {
                 DisplacementEnchantment.onHit(entity, attacker, encDisplacement);
             }
             // FIRE REBUKE
-            int encFireRebuke = getEnchantmentLevel(FIRE_REBUKE, stack);
+            int encFireRebuke = getItemEnchantmentLevel(FIRE_REBUKE, stack);
             if (FireRebukeEnchantment.shouldHit(encFireRebuke, entity.getRNG())) {
                 FireRebukeEnchantment.onHit(entity, attacker, encFireRebuke);
             }
             // FROST REBUKE
-            int encFrostRebuke = getEnchantmentLevel(FROST_REBUKE, stack);
+            int encFrostRebuke = getItemEnchantmentLevel(FROST_REBUKE, stack);
             if (FrostRebukeEnchantment.shouldHit(encFrostRebuke, entity.getRNG())) {
                 FrostRebukeEnchantment.onHit(entity, attacker, encFrostRebuke);
             }
             // BULWARK
-            int encBulwark = getEnchantmentLevel(BULWARK, stack);
+            int encBulwark = getItemEnchantmentLevel(BULWARK, stack);
             if (encBulwark > 0 && attacker instanceof PlayerEntity) {
                 PlayerEntity playerAttacker = (PlayerEntity) attacker;
                 if (playerAttacker.getRNG().nextFloat() < 0.5F) {
@@ -101,14 +101,14 @@ public class ShieldEnchEvents {
         }
         if (stack.getItem().isShield(stack, entity)) {
             // BULWARK
-            int encBulwark = getEnchantmentLevel(BULWARK, stack);
+            int encBulwark = getItemEnchantmentLevel(BULWARK, stack);
             if (knockbackResAttr != null) {
                 if (encBulwark > 0) {
                     knockbackResAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE, ID_REACH, 1.0D, ADDITION));
                 }
             }
             // PHALANX
-            int encPhalanx = getEnchantmentLevel(PHALANX, stack);
+            int encPhalanx = getItemEnchantmentLevel(PHALANX, stack);
             if (moveSpeedAttr != null) {
                 if (encPhalanx > 0) {
                     moveSpeedAttr.applyNonPersistentModifier(new AttributeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED, ID_PHALANX, PhalanxEnchantment.SPEED * encPhalanx, MULTIPLY_TOTAL));

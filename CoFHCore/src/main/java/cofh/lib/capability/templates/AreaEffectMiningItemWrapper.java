@@ -6,8 +6,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.references.EnsorcReferences.EXCAVATING;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 
 public class AreaEffectMiningItemWrapper extends AreaEffectItemWrapper {
 
@@ -39,7 +39,7 @@ public class AreaEffectMiningItemWrapper extends AreaEffectItemWrapper {
         if (type == Type.SICKLE) {
             return AreaEffectHelper.getBlocksCentered(areaEffectItem, pos, player, radius, depth);
         }
-        return AreaEffectHelper.getBreakableBlocksRadius(areaEffectItem, pos, player, radius + getEnchantmentLevel(EXCAVATING, areaEffectItem));
+        return AreaEffectHelper.getBreakableBlocksRadius(areaEffectItem, pos, player, radius + getItemEnchantmentLevel(EXCAVATING, areaEffectItem));
     }
 
 }

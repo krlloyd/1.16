@@ -31,6 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import static cofh.lib.item.ContainerType.FLUID;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.thermal.core.client.gui.ThermalTextures.*;
 import static cofh.thermal.core.common.ThermalConfig.DEFAULT_CELL_SIDES_RAW;
@@ -237,7 +238,7 @@ public class FluidCellBakedModel extends UnderlayBakedModel implements IDynamicB
     private int getLevel(ItemStack stack) {
 
         Item item = stack.getItem();
-        if (item instanceof ICoFHItem && ((ICoFHItem) item).isCreative(stack)) {
+        if (item instanceof ICoFHItem && ((ICoFHItem) item).isCreative(stack, FLUID)) {
             return -1;
         }
         if (item instanceof IFluidContainerItem && ((IFluidContainerItem) item).getFluidAmount(stack) > 0) {

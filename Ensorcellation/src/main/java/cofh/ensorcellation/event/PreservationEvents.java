@@ -3,7 +3,6 @@ package cofh.ensorcellation.event;
 import cofh.ensorcellation.enchantment.override.MendingEnchantmentAlt;
 import cofh.ensorcellation.init.EnsorcConfig;
 import cofh.lib.util.helpers.XpHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -14,8 +13,9 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.ID_ENSORCELLATION;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
+import static net.minecraft.enchantment.Enchantments.MENDING;
 
 @Mod.EventBusSubscriber(modid = ID_ENSORCELLATION)
 public class PreservationEvents {
@@ -36,7 +36,7 @@ public class PreservationEvents {
         ItemStack left = event.getItemInput();
         ItemStack output = event.getItemResult();
 
-        if (getEnchantmentLevel(Enchantments.MENDING, left) <= 0) {
+        if (getItemEnchantmentLevel(MENDING, left) <= 0) {
             return;
         }
         if (output.getDamage() < left.getDamage()) {
@@ -55,7 +55,7 @@ public class PreservationEvents {
         }
         ItemStack left = event.getLeft();
 
-        if (getEnchantmentLevel(Enchantments.MENDING, left) <= 0) {
+        if (getItemEnchantmentLevel(MENDING, left) <= 0) {
             return;
         }
         ItemStack right = event.getRight();

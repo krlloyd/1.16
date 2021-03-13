@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MagmaBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -21,6 +20,8 @@ import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 
 public class GlossedMagmaBlock extends MagmaBlock {
 
@@ -42,7 +43,7 @@ public class GlossedMagmaBlock extends MagmaBlock {
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) {
 
         super.harvestBlock(worldIn, player, pos, state, te, stack);
-        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
+        if (getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
             Material material = worldIn.getBlockState(pos.down()).getMaterial();
             if (material.blocksMovement() || material.isLiquid()) {
                 worldIn.setBlockState(pos, Blocks.LAVA.getDefaultState());

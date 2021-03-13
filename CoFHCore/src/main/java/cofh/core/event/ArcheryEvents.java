@@ -19,13 +19,13 @@ import net.minecraftforge.fml.common.Mod;
 
 import static cofh.lib.capability.CapabilityArchery.BOW_ITEM_CAPABILITY;
 import static cofh.lib.util.Utils.getHeldEnchantmentLevel;
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.DAMAGE_ARROW;
 import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
 import static cofh.lib.util.helpers.ArcheryHelper.findAmmo;
 import static cofh.lib.util.helpers.ArcheryHelper.validBow;
 import static cofh.lib.util.references.EnsorcReferences.QUICK_DRAW;
 import static cofh.lib.util.references.EnsorcReferences.VOLLEY;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.INFINITY;
 
 @Mod.EventBusSubscriber(modid = ID_COFH_CORE)
@@ -56,7 +56,7 @@ public class ArcheryEvents {
         PlayerEntity shooter = event.getPlayer();
         ItemStack ammo = findAmmo(shooter);
 
-        if (ammo.isEmpty() && getEnchantmentLevel(INFINITY, bow) > 0) {
+        if (ammo.isEmpty() && getItemEnchantmentLevel(INFINITY, bow) > 0) {
             ammo = new ItemStack(Items.ARROW);
         }
         if (!ammo.isEmpty()) {
@@ -70,7 +70,7 @@ public class ArcheryEvents {
     @SubscribeEvent
     public static void handleItemUseTickEvent(LivingEntityUseItemEvent.Tick event) {
 
-        int encQuickDraw = getEnchantmentLevel(QUICK_DRAW, event.getItem());
+        int encQuickDraw = getItemEnchantmentLevel(QUICK_DRAW, event.getItem());
         if (encQuickDraw > 0 && event.getDuration() > event.getItem().getUseDuration() - 20) {
             event.setDuration(event.getDuration() - encQuickDraw);
         }

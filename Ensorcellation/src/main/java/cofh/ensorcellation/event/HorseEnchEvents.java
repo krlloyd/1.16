@@ -18,9 +18,9 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.ID_ENSORCELLATION;
 import static cofh.lib.util.references.EnsorcReferences.*;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.*;
 
 @Mod.EventBusSubscriber(modid = ID_ENSORCELLATION)
@@ -48,7 +48,7 @@ public class HorseEnchEvents {
         ItemStack armor = ((AbstractHorseEntity) entity).horseChest.getStackInSlot(1);
         if (!armor.isEmpty()) {
             // FROST WALKER
-            int encFrostWalker = getEnchantmentLevel(FROST_WALKER, armor);
+            int encFrostWalker = getItemEnchantmentLevel(FROST_WALKER, armor);
             if (event.getSource().equals(DamageSource.HOT_FLOOR) && encFrostWalker > 0) {
                 event.setCanceled(true);
             }
@@ -72,27 +72,27 @@ public class HorseEnchEvents {
         if (!armor.isEmpty()) {
             int totalProtection = 0;
             // PROTECTION
-            int encProtection = getEnchantmentLevel(PROTECTION, armor);
+            int encProtection = getItemEnchantmentLevel(PROTECTION, armor);
             if (encProtection > 0) {
                 totalProtection += PROTECTION.calcModifierDamage(encProtection, source);
             }
             // FIRE PROTECTION
-            int encProtectionFire = getEnchantmentLevel(FIRE_PROTECTION, armor);
+            int encProtectionFire = getItemEnchantmentLevel(FIRE_PROTECTION, armor);
             if (encProtectionFire > 0) {
                 totalProtection += FIRE_PROTECTION.calcModifierDamage(encProtection, source);
             }
             // FEATHER FALLING
-            int encProtectionFall = getEnchantmentLevel(FEATHER_FALLING, armor);
+            int encProtectionFall = getItemEnchantmentLevel(FEATHER_FALLING, armor);
             if (encProtectionFall > 0) {
                 totalProtection += FEATHER_FALLING.calcModifierDamage(encProtection, source);
             }
             // BLAST PROTECTION
-            int encProtectionExplosion = getEnchantmentLevel(BLAST_PROTECTION, armor);
+            int encProtectionExplosion = getItemEnchantmentLevel(BLAST_PROTECTION, armor);
             if (encProtectionExplosion > 0) {
                 totalProtection += BLAST_PROTECTION.calcModifierDamage(encProtection, source);
             }
             // PROJECTILE PROTECTION
-            int encProtectionProjectile = getEnchantmentLevel(PROJECTILE_PROTECTION, armor);
+            int encProtectionProjectile = getItemEnchantmentLevel(PROJECTILE_PROTECTION, armor);
             if (encProtectionProjectile > 0) {
                 totalProtection += PROJECTILE_PROTECTION.calcModifierDamage(encProtection, source);
             }
@@ -101,22 +101,22 @@ public class HorseEnchEvents {
 
             if (attacker != null) {
                 // THORNS
-                int encThorns = getEnchantmentLevel(THORNS, armor);
+                int encThorns = getItemEnchantmentLevel(THORNS, armor);
                 if (ThornsEnchantment.shouldHit(encThorns, entity.getRNG())) {
                     attacker.attackEntityFrom(DamageSource.causeThornsDamage(entity), ThornsEnchantment.getDamage(encThorns, MathHelper.RANDOM));
                 }
                 // DISPLACEMENT
-                int encDisplacement = getEnchantmentLevel(DISPLACEMENT, armor);
+                int encDisplacement = getItemEnchantmentLevel(DISPLACEMENT, armor);
                 if (DisplacementEnchantment.shouldHit(encDisplacement, entity.getRNG())) {
                     DisplacementEnchantment.onHit(entity, attacker, encDisplacement);
                 }
                 // FIRE REBUKE
-                int encFireRebuke = getEnchantmentLevel(FIRE_REBUKE, armor);
+                int encFireRebuke = getItemEnchantmentLevel(FIRE_REBUKE, armor);
                 if (FireRebukeEnchantment.shouldHit(encFireRebuke, entity.getRNG())) {
                     FireRebukeEnchantment.onHit(entity, attacker, encFireRebuke);
                 }
                 // FROST REBUKE
-                int encFrostRebuke = getEnchantmentLevel(FROST_REBUKE, armor);
+                int encFrostRebuke = getItemEnchantmentLevel(FROST_REBUKE, armor);
                 if (FrostRebukeEnchantment.shouldHit(encFrostRebuke, entity.getRNG())) {
                     FrostRebukeEnchantment.onHit(entity, attacker, encFrostRebuke);
                 }
@@ -138,7 +138,7 @@ public class HorseEnchEvents {
         ItemStack armor = ((AbstractHorseEntity) entity).horseChest.getStackInSlot(1);
         if (!armor.isEmpty()) {
             // FROST WALKER
-            int encFrostWalker = getEnchantmentLevel(FROST_WALKER, armor);
+            int encFrostWalker = getItemEnchantmentLevel(FROST_WALKER, armor);
             if (encFrostWalker > 0) {
                 FrostWalkerEnchantment.freezeNearby(entity, entity.world, entity.getPosition(), encFrostWalker);
                 FrostWalkerEnchantmentImp.freezeNearby(entity, entity.world, entity.getPosition(), encFrostWalker);

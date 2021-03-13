@@ -133,6 +133,8 @@
   "effect.cofh_core.sundered": "Sundered",
   "effect.cofh_core.wrenched": "Wrenched!",
 
+  "enchantment.cofh_core.disabled": "Shimmer",
+  "enchantment.cofh_core.disabled.desc": "A disabled enchantment which does nothing.",
   "enchantment.cofh_core.holding": "Holding",
   "enchantment.cofh_core.holding.desc": "Increases the storage capacity of certain items.",
 

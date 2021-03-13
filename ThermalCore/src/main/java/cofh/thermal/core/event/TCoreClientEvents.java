@@ -42,10 +42,16 @@ public class TCoreClientEvents {
             }
             String type = augmentData.getString(TAG_TYPE);
             if (!type.isEmpty()) {
+                IFormattableTextComponent typeText = getTextComponent("info.thermal.augment.type." + type).mergeStyle(TextFormatting.WHITE);
+
+                if (isTypeExclusive(type)) {
+                    typeText.mergeStyle(TextFormatting.UNDERLINE);
+                }
                 tooltip.add(getTextComponent("info.cofh.type")
                         .mergeStyle(TextFormatting.YELLOW)
                         .appendString(": ")
-                        .append(getTextComponent("info.thermal.augment.type." + type).mergeStyle(TextFormatting.WHITE)));
+                        .append(typeText)
+                );
             }
             for (String mod : augmentData.keySet()) {
                 if (mod.equals(TAG_TYPE) || !canLocalize("info.thermal.augment.attr." + mod)) {
@@ -62,7 +68,7 @@ public class TCoreClientEvents {
                         .mergeStyle(bad ? TextFormatting.RED : TextFormatting.GREEN);
 
                 if (isMaximized(mod)) {
-                    modText.mergeStyle(TextFormatting.BOLD);
+                    modText.mergeStyle(TextFormatting.UNDERLINE);
                 }
                 tooltip.add(getTextComponent("info.thermal.augment.attr." + mod)
                         .appendString(": ")

@@ -3,6 +3,7 @@ package cofh.thermal.core.item;
 import cofh.core.item.BlockItemAugmentable;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.energy.IEnergyContainerItem;
+import cofh.lib.item.ContainerType;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
@@ -14,6 +15,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static cofh.lib.item.ContainerType.ENERGY;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
 import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
@@ -32,7 +34,7 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
     @Override
     protected void tooltipDelegate(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-        boolean creative = isCreative(stack);
+        boolean creative = isCreative(stack, ENERGY);
         if (getMaxEnergyStored(stack) > 0) {
             tooltip.add(creative
                     ? getTextComponent("info.cofh.infinite_source")
@@ -51,12 +53,6 @@ public class BlockItemEnergyCell extends BlockItemAugmentable implements IEnergy
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_STORAGE);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_XFER);
         setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_RF_CREATIVE);
-    }
-
-    @Override
-    public boolean isCreative(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_RF_CREATIVE, 0.0F) > 0;
     }
 
     //    @Override

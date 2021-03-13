@@ -20,9 +20,9 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.Map;
 
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
+import static cofh.lib.util.Utils.getMaxEquippedEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
-import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
-import static net.minecraft.enchantment.EnchantmentHelper.getMaxEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.FEATHER_FALLING;
 import static net.minecraft.enchantment.Enchantments.MENDING;
 
@@ -44,7 +44,7 @@ public class CoreCommonEvents {
         }
         Entity entity = event.getEntity();
         if (entity instanceof LivingEntity) {
-            int encFeatherFalling = getMaxEnchantmentLevel(FEATHER_FALLING, (LivingEntity) entity);
+            int encFeatherFalling = getMaxEquippedEnchantmentLevel((LivingEntity) entity, FEATHER_FALLING);
             if (encFeatherFalling > 0) {
                 event.setCanceled(true);
             }
@@ -125,7 +125,7 @@ public class CoreCommonEvents {
 
         for (Map.Entry<EquipmentSlotType, ItemStack> entry : map.entrySet()) {
             ItemStack stack = entry.getValue();
-            if (!stack.isEmpty() && getEnchantmentLevel(MENDING, stack) > 0) {
+            if (!stack.isEmpty() && getItemEnchantmentLevel(MENDING, stack) > 0) {
                 if (calcDurabilityRatio(stack) > durability) {
                     mostDamaged = entry;
                     durability = calcDurabilityRatio(stack);

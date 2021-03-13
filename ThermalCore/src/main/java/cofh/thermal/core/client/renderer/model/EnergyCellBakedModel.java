@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import static cofh.lib.item.ContainerType.ENERGY;
 import static cofh.lib.util.constants.NBTTags.TAG_BLOCK_ENTITY;
 import static cofh.lib.util.constants.NBTTags.TAG_SIDES;
 import static cofh.thermal.core.client.gui.ThermalTextures.*;
@@ -191,7 +192,7 @@ public class EnergyCellBakedModel extends BakedModelWrapper<IBakedModel> impleme
     private int getLevel(ItemStack stack) {
 
         Item item = stack.getItem();
-        if (item instanceof ICoFHItem && ((ICoFHItem) item).isCreative(stack)) {
+        if (item instanceof ICoFHItem && ((ICoFHItem) item).isCreative(stack, ENERGY)) {
             return -1;
         }
         if (item instanceof IEnergyContainerItem && ((IEnergyContainerItem) item).getEnergyStored(stack) > 0) {

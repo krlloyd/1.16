@@ -1,5 +1,6 @@
 package cofh.lib.util;
 
+import cofh.lib.enchantment.EnchantmentCoFH;
 import cofh.lib.util.helpers.MathHelper;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
@@ -51,6 +52,7 @@ import java.util.Random;
 import static cofh.lib.util.constants.Constants.MAX_CAPACITY;
 import static cofh.lib.util.constants.NBTTags.TAG_ENCHANTMENTS;
 import static net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel;
+import static net.minecraft.enchantment.EnchantmentHelper.getMaxEnchantmentLevel;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_LIST;
 
@@ -293,9 +295,28 @@ public class Utils {
         return MathHelper.clamp(amount + amount * holding / 2, 0, MAX_CAPACITY);
     }
 
+    public static int getItemEnchantmentLevel(Enchantment ench, ItemStack stack) {
+
+        if (ench instanceof EnchantmentCoFH && !((EnchantmentCoFH) ench).isEnabled()) {
+            return 0;
+        }
+        return getEnchantmentLevel(ench, stack);
+    }
+
     public static int getHeldEnchantmentLevel(LivingEntity living, Enchantment ench) {
 
+        if (ench instanceof EnchantmentCoFH && !((EnchantmentCoFH) ench).isEnabled()) {
+            return 0;
+        }
         return Math.max(getEnchantmentLevel(ench, living.getHeldItemMainhand()), getEnchantmentLevel(ench, living.getHeldItemOffhand()));
+    }
+
+    public static int getMaxEquippedEnchantmentLevel(LivingEntity living, Enchantment ench) {
+
+        if (ench instanceof EnchantmentCoFH && !((EnchantmentCoFH) ench).isEnabled()) {
+            return 0;
+        }
+        return getMaxEnchantmentLevel(ench, living);
     }
 
     public static void addEnchantment(ItemStack stack, Enchantment ench, int level) {

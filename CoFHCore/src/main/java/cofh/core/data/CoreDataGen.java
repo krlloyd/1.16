@@ -30,6 +30,8 @@ public class CoreDataGen {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
+        gen.addProvider(new CoreTagsProvider.Fluid(gen, exFileHelper));
+
         gen.addProvider(new CoreLootTableProvider(gen));
         gen.addProvider(new CoreRecipeProvider(gen));
     }

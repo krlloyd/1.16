@@ -1,7 +1,7 @@
 {
   "type": "thermal:insolator",
   "ingredient": {
-    "item": "quark:"pink_blossom_sapling"
+    "item": "quark:pink_blossom_sapling"
   },
   "result": [
     {

@@ -22,6 +22,7 @@ public abstract class EnchantmentCoFH extends Enchantment {
     public EnchantmentCoFH setEnable(boolean enable) {
 
         this.enable = enable;
+        name = enable ? getName() : "enchantment.cofh_core.disabled";
         return this;
     }
 
@@ -41,6 +42,11 @@ public abstract class EnchantmentCoFH extends Enchantment {
 
         this.maxLevel = maxLevel;
         return this;
+    }
+
+    public boolean isEnabled() {
+
+        return enable;
     }
 
     protected boolean supportsEnchantment(ItemStack stack) {

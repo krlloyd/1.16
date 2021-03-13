@@ -1,9 +1,8 @@
 package cofh.thermal.innovation.item;
 
-import cofh.core.item.FluidContainerItem;
+import cofh.core.item.FluidContainerItemAugmentable;
 import cofh.core.util.ProxyUtils;
 import cofh.core.util.helpers.ChatHelper;
-import cofh.lib.item.IAugmentableItem;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.ItemHelper;
@@ -23,43 +22,16 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.BiPredicate;
-import java.util.function.IntSupplier;
 
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
 import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
 import static cofh.lib.util.helpers.StringHelper.getTextComponent;
-import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
-public class FluidReservoirItem extends FluidContainerItem implements IAugmentableItem, IMultiModeItem {
+public class FluidReservoirItem extends FluidContainerItemAugmentable implements IMultiModeItem {
 
     protected static final int FILL = 0;
     protected static final int EMPTY = 1;
-
-    protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
-    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (newAugment, augments) -> {
-
-        String newType = AugmentDataHelper.getAugmentType(newAugment);
-        if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID))) {
-            return false;
-        }
-        if (ThermalAugmentRules.isTypeExclusive(newType)) {
-            for (ItemStack augment : augments) {
-                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                    return false;
-                }
-            }
-        }
-        if (ThermalAugmentRules.isUnique(newAugment)) {
-            for (ItemStack augment : augments) {
-                if (ItemHelper.itemsEqual(newAugment, augment)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    };
 
     public FluidReservoirItem(Properties builder, int fluidCapacity) {
 
@@ -67,18 +39,30 @@ public class FluidReservoirItem extends FluidContainerItem implements IAugmentab
 
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
-    }
 
-    public FluidReservoirItem setNumSlots(IntSupplier numSlots) {
+        numSlots = () -> ThermalConfig.toolAugments;
+        augValidator = (newAugment, augments) -> {
 
-        this.numSlots = numSlots;
-        return this;
-    }
-
-    public FluidReservoirItem setAugValidator(BiPredicate<ItemStack, List<ItemStack>> augValidator) {
-
-        this.augValidator = augValidator;
-        return this;
+            String newType = AugmentDataHelper.getAugmentType(newAugment);
+            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID))) {
+                return false;
+            }
+            if (ThermalAugmentRules.isTypeExclusive(newType)) {
+                for (ItemStack augment : augments) {
+                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                        return false;
+                    }
+                }
+            }
+            if (ThermalAugmentRules.isUnique(newAugment)) {
+                for (ItemStack augment : augments) {
+                    if (ItemHelper.itemsEqual(newAugment, augment)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        };
     }
 
     @Override
@@ -94,51 +78,7 @@ public class FluidReservoirItem extends FluidContainerItem implements IAugmentab
         super.tooltipDelegate(stack, worldIn, tooltip, flagIn);
     }
 
-    @Override
-    public int getItemEnchantability(ItemStack stack) {
-
-        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
-        return Math.round(super.getItemEnchantability(stack) * base);
-    }
-
-    @Override
-    public boolean isCreative(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_FLUID_CREATIVE, 0.0F) > 0;
-    }
-
-    // region HELPERS
-    protected boolean isActive(ItemStack stack) {
-
-        return stack.getOrCreateTag().getBoolean(TAG_ACTIVE);
-    }
-
-    protected void setActive(ItemStack stack, boolean state) {
-
-        stack.getOrCreateTag().putBoolean(TAG_ACTIVE, state);
-    }
-
-    protected void setAttributesFromAugment(ItemStack container, CompoundNBT augmentData) {
-
-        CompoundNBT subTag = container.getChildTag(TAG_PROPERTIES);
-        if (subTag == null) {
-            return;
-        }
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_CREATIVE);
-    }
-    // endregion
-
     // region IFluidContainerItem
-    @Override
-    public int getCapacity(ItemStack container) {
-
-        float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_FLUID_STORAGE, 1.0F);
-        return getMaxStored(container, Math.round(fluidCapacity * mod * base));
-    }
-
     // TODO: Determine if there should be limitations.
     //    @Override
     //    public int fill(ItemStack container, FluidStack resource, FluidAction action) {
@@ -157,37 +97,6 @@ public class FluidReservoirItem extends FluidContainerItem implements IAugmentab
     //        }
     //        return super.drain(container, maxDrain, action);
     //    }
-    // endregion
-
-    // region IAugmentableItem
-    @Override
-    public int getAugmentSlots(ItemStack augmentable) {
-
-        return numSlots.getAsInt();
-    }
-
-    @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
-
-        return augValidator.test(augment, augments);
-    }
-
-    @Override
-    public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
-
-        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
-        for (ItemStack augment : augments) {
-            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
-            if (augmentData == null) {
-                continue;
-            }
-            setAttributesFromAugment(container, augmentData);
-        }
-        int fluidExcess = getFluidAmount(container) - getCapacity(container);
-        if (fluidExcess > 0) {
-            drain(container, fluidExcess, EXECUTE);
-        }
-    }
     // endregion
 
     // region IMultiModeItem

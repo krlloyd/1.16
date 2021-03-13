@@ -1,6 +1,6 @@
 package cofh.thermal.innovation.item;
 
-import cofh.core.item.FluidContainerItem;
+import cofh.core.item.FluidContainerItemAugmentable;
 import cofh.core.util.ProxyUtils;
 import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.helpers.FluidHelper;
@@ -8,7 +8,7 @@ import cofh.lib.capability.CapabilityArchery;
 import cofh.lib.capability.IArcheryAmmoItem;
 import cofh.lib.fluid.FluidContainerItemWrapper;
 import cofh.lib.fluid.IFluidContainerItem;
-import cofh.lib.item.IAugmentableItem;
+import cofh.lib.item.ContainerType;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.AugmentDataHelper;
@@ -16,7 +16,6 @@ import cofh.lib.util.helpers.ItemHelper;
 import cofh.thermal.core.common.ThermalAugmentRules;
 import cofh.thermal.core.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -38,47 +37,22 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiPredicate;
-import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.lib.util.constants.Constants.MAX_POTION_AMPLIFIER;
-import static cofh.lib.util.constants.Constants.MAX_POTION_DURATION;
+import static cofh.lib.item.ContainerType.ITEM;
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.ArcheryHelper.findArrows;
-import static cofh.lib.util.helpers.AugmentableHelper.*;
+import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
+import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentAdd;
 import static cofh.lib.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
 import static cofh.lib.util.helpers.StringHelper.*;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 
-public class PotionQuiverItem extends FluidContainerItem implements IAugmentableItem, IMultiModeItem {
+public class PotionQuiverItem extends FluidContainerItemAugmentable implements IMultiModeItem {
 
     protected static final int MB_PER_USE = 50;
-
-    protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
-    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (newAugment, augments) -> {
-
-        String newType = AugmentDataHelper.getAugmentType(newAugment);
-        if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_POTION))) {
-            return false;
-        }
-        if (ThermalAugmentRules.isTypeExclusive(newType)) {
-            for (ItemStack augment : augments) {
-                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                    return false;
-                }
-            }
-        }
-        if (ThermalAugmentRules.isUnique(newAugment)) {
-            for (ItemStack augment : augments) {
-                if (ItemHelper.itemsEqual(newAugment, augment)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    };
 
     protected int arrowCapacity;
 
@@ -91,24 +65,36 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
 
         ProxyUtils.registerColorable(this);
+
+        numSlots = () -> ThermalConfig.toolAugments;
+        augValidator = (newAugment, augments) -> {
+
+            String newType = AugmentDataHelper.getAugmentType(newAugment);
+            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_POTION))) {
+                return false;
+            }
+            if (ThermalAugmentRules.isTypeExclusive(newType)) {
+                for (ItemStack augment : augments) {
+                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
+                        return false;
+                    }
+                }
+            }
+            if (ThermalAugmentRules.isUnique(newAugment)) {
+                for (ItemStack augment : augments) {
+                    if (ItemHelper.itemsEqual(newAugment, augment)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        };
     }
 
     public PotionQuiverItem(Properties builder, int fluidCapacity, int arrowCapacity, Predicate<FluidStack> validator) {
 
         super(builder, fluidCapacity, validator);
         this.arrowCapacity = arrowCapacity;
-    }
-
-    public PotionQuiverItem setNumSlots(IntSupplier numSlots) {
-
-        this.numSlots = numSlots;
-        return this;
-    }
-
-    public PotionQuiverItem setAugValidator(BiPredicate<ItemStack, List<ItemStack>> augValidator) {
-
-        this.augValidator = augValidator;
-        return this;
     }
 
     @Override
@@ -120,7 +106,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         tooltip.add(getTextComponent("info.thermal.quiver.mode." + getMode(stack)).mergeStyle(TextFormatting.ITALIC));
         addIncrementModeChangeTooltip(stack, worldIn, tooltip, flagIn);
 
-        tooltip.add(getTextComponent(localize("info.cofh.arrows") + ": " + (isCreative(stack)
+        tooltip.add(getTextComponent(localize("info.cofh.arrows") + ": " + (isCreative(stack, ITEM)
                 ? localize("info.cofh.infinite")
                 : getStoredArrows(stack) + " / " + format(getMaxArrows(stack)))));
 
@@ -130,13 +116,6 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
             effects.add(new EffectInstance(effect.getPotion(), getEffectDuration(effect, stack), getEffectAmplifier(effect, stack), effect.isAmbient(), effect.doesShowParticles()));
         }
         potionTooltip(stack, worldIn, tooltip, flagIn, effects, 0.125F);
-    }
-
-    @Override
-    public int getItemEnchantability(ItemStack stack) {
-
-        float base = getPropertyWithDefault(stack, TAG_AUGMENT_BASE_MOD, 1.0F);
-        return Math.round(super.getItemEnchantability(stack) * base);
     }
 
     @Override
@@ -167,12 +146,6 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         return useDelegate(stack, context.getPlayer(), context.getHand()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
     }
 
-    @Override
-    public boolean isCreative(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_FLUID_CREATIVE, 0.0F) > 0;
-    }
-
     // region HELPERS
     protected void setAttributesFromAugment(ItemStack container, CompoundNBT augmentData) {
 
@@ -183,9 +156,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_POTION_AMPLIFIER);
         setAttributeFromAugmentAdd(subTag, augmentData, TAG_AUGMENT_POTION_DURATION);
 
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_BASE_MOD);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_STORAGE);
-        setAttributeFromAugmentMax(subTag, augmentData, TAG_AUGMENT_FLUID_CREATIVE);
+        super.setAttributesFromAugment(container, augmentData);
     }
 
     protected boolean useDelegate(ItemStack stack, PlayerEntity player, Hand hand) {
@@ -217,7 +188,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
 
     protected int getStoredArrows(ItemStack stack) {
 
-        return isCreative(stack) ? getMaxArrows(stack) : stack.getOrCreateTag().getInt(TAG_ARROWS);
+        return isCreative(stack, ITEM) ? getMaxArrows(stack) : stack.getOrCreateTag().getInt(TAG_ARROWS);
     }
 
     protected int getMaxArrows(ItemStack stack) {
@@ -231,7 +202,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         int stored = getStoredArrows(stack);
         int toAdd = Math.min(maxArrows, getMaxArrows(stack) - stored);
 
-        if (!simulate && !isCreative(stack)) {
+        if (!simulate && !isCreative(stack, ITEM)) {
             stored += toAdd;
             stack.getOrCreateTag().putInt(TAG_ARROWS, stored);
         }
@@ -240,7 +211,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
 
     protected int removeArrows(ItemStack stack, int maxArrows, boolean simulate) {
 
-        if (isCreative(stack)) {
+        if (isCreative(stack, ITEM)) {
             return maxArrows;
         }
         int stored = Math.min(stack.getOrCreateTag().getInt(TAG_ARROWS), getMaxArrows(stack));
@@ -251,26 +222,6 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         }
         return toRemove;
     }
-
-    protected int getEffectAmplifier(EffectInstance effect, ItemStack stack) {
-
-        return Math.min(MAX_POTION_AMPLIFIER, Math.round(effect.getAmplifier() + getAmplifierMod(stack)));
-    }
-
-    protected int getEffectDuration(EffectInstance effect, ItemStack stack) {
-
-        return Math.min(MAX_POTION_DURATION, Math.round(effect.getDuration() * getDurationMod(stack)));
-    }
-
-    protected float getAmplifierMod(ItemStack stack) {
-
-        return getPropertyWithDefault(stack, TAG_AUGMENT_POTION_AMPLIFIER, 0.0F);
-    }
-
-    protected float getDurationMod(ItemStack stack) {
-
-        return 1.0F + getPropertyWithDefault(stack, TAG_AUGMENT_POTION_DURATION, 0.0F);
-    }
     // endregion
 
     @Override
@@ -279,44 +230,12 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         return new PotionQuiverItemWrapper(stack, this);
     }
 
-    // region IFluidContainerItem
-    @Override
-    public int getCapacity(ItemStack container) {
-
-        float base = getPropertyWithDefault(container, TAG_AUGMENT_BASE_MOD, 1.0F);
-        float mod = getPropertyWithDefault(container, TAG_AUGMENT_FLUID_STORAGE, 1.0F);
-        return getMaxStored(container, Math.round(fluidCapacity * mod * base));
-    }
-    // endregion
-
     // region IAugmentableItem
-    @Override
-    public int getAugmentSlots(ItemStack augmentable) {
-
-        return numSlots.getAsInt();
-    }
-
-    @Override
-    public boolean validAugment(ItemStack augmentable, ItemStack augment, List<ItemStack> augments) {
-
-        return augValidator.test(augment, augments);
-    }
-
     @Override
     public void updateAugmentState(ItemStack container, List<ItemStack> augments) {
 
-        container.getOrCreateTag().put(TAG_PROPERTIES, new CompoundNBT());
-        for (ItemStack augment : augments) {
-            CompoundNBT augmentData = AugmentDataHelper.getAugmentData(augment);
-            if (augmentData == null) {
-                continue;
-            }
-            setAttributesFromAugment(container, augmentData);
-        }
-        int fluidExcess = getFluidAmount(container) - getCapacity(container);
-        if (fluidExcess > 0) {
-            drain(container, fluidExcess, EXECUTE);
-        }
+        super.updateAugmentState(container, augments);
+
         int arrowExcess = getStoredArrows(container) - getMaxArrows(container);
         if (arrowExcess > 0) {
             removeArrows(container, arrowExcess, false);
@@ -376,7 +295,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         @Override
         public boolean isEmpty(PlayerEntity shooter) {
 
-            if (isCreative(container) || (shooter != null && shooter.abilities.isCreativeMode)) {
+            if (isCreative(container, ITEM) || (shooter != null && shooter.abilities.isCreativeMode)) {
                 return false;
             }
             return getStoredArrows(container) <= 0;
@@ -385,7 +304,7 @@ public class PotionQuiverItem extends FluidContainerItem implements IAugmentable
         @Override
         public boolean isInfinite(ItemStack bow, PlayerEntity shooter) {
 
-            return shooter != null && shooter.abilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, bow) > 0;
+            return shooter != null && shooter.abilities.isCreativeMode || getItemEnchantmentLevel(Enchantments.INFINITY, bow) > 0;
         }
 
         // region ICapabilityProvider

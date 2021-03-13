@@ -48,11 +48,11 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.List;
 
 import static cofh.lib.util.Utils.getHeldEnchantmentLevel;
+import static cofh.lib.util.Utils.getMaxEquippedEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.*;
 import static cofh.lib.util.references.EnsorcIDs.ID_REACH;
 import static cofh.lib.util.references.EnsorcIDs.ID_VITALITY;
 import static cofh.lib.util.references.EnsorcReferences.*;
-import static net.minecraft.enchantment.EnchantmentHelper.getMaxEnchantmentLevel;
 import static net.minecraft.enchantment.Enchantments.EFFICIENCY;
 import static net.minecraft.enchantment.Enchantments.FROST_WALKER;
 import static net.minecraft.entity.ai.attributes.AttributeModifier.Operation.ADDITION;
@@ -207,7 +207,7 @@ public class CommonEvents {
         LivingEntity entity = event.getEntityLiving();
 
         // REACH
-        int encReach = getMaxEnchantmentLevel(REACH, entity);
+        int encReach = getMaxEquippedEnchantmentLevel(entity, REACH);
         ModifiableAttributeInstance reachAttr = entity.getAttribute(ForgeMod.REACH_DISTANCE.get());
         if (reachAttr != null) {
             reachAttr.removeModifier(UUID_ENCH_REACH_DISTANCE);
@@ -216,7 +216,7 @@ public class CommonEvents {
             }
         }
         // VITALITY
-        int encVitality = getMaxEnchantmentLevel(VITALITY, entity);
+        int encVitality = getMaxEquippedEnchantmentLevel(entity, VITALITY);
         ModifiableAttributeInstance healthAttr = entity.getAttribute(Attributes.MAX_HEALTH);
         if (healthAttr != null) {
             healthAttr.removeModifier(UUID_ENCH_VITALITY_HEALTH);
@@ -226,7 +226,7 @@ public class CommonEvents {
         }
         // Shield must be ACTIVE; see handleLivingUpdateEvent in ShieldEnchEvents.
         //        // BULWARK
-        //        int encBulwark = getMaxEnchantmentLevel(BULWARK, entity);
+        //        int encBulwark = getMaxEquippedEnchantmentLevel(BULWARK, entity);
         //        ModifiableAttributeInstance knockbackResAttr = entity.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
         //        if (knockbackResAttr != null) {
         //            knockbackResAttr.removeModifier(UUID_ENCH_BULWARK_KNOCKBACK_RESISTANCE);
@@ -235,7 +235,7 @@ public class CommonEvents {
         //            }
         //        }
         //        // PHALANX
-        //        int encPhalanx = getMaxEnchantmentLevel(PHALANX, entity);
+        //        int encPhalanx = getMaxEquippedEnchantmentLevel(PHALANX, entity);
         //        ModifiableAttributeInstance moveSpeedAttr = entity.getAttribute(Attributes.MOVEMENT_SPEED);
         //        if (moveSpeedAttr != null) {
         //            moveSpeedAttr.removeModifier(UUID_ENCH_PHALANX_MOVEMENT_SPEED);
@@ -255,14 +255,14 @@ public class CommonEvents {
 
         if (player != null) {
             // CURSE OF FOOLISHNESS
-            int encFool = getMaxEnchantmentLevel(CURSE_FOOL, player);
+            int encFool = getMaxEquippedEnchantmentLevel(player, CURSE_FOOL);
             if (encFool > 0) {
                 event.setDroppedExperience(0);
                 event.setCanceled(true);
                 return;
             }
             // EXP BOOST
-            int encExpBoost = getMaxEnchantmentLevel(XP_BOOST, player);
+            int encExpBoost = getMaxEquippedEnchantmentLevel(player, XP_BOOST);
             if (encExpBoost > 0) {
                 event.setDroppedExperience(XpBoostEnchantment.getExp(event.getDroppedExperience(), encExpBoost, player.world.rand));
             }
@@ -337,7 +337,7 @@ public class CommonEvents {
         }
         LivingEntity entity = event.getEntityLiving();
         // FROST WALKER
-        int encFrostWalker = getMaxEnchantmentLevel(FROST_WALKER, entity);
+        int encFrostWalker = getMaxEquippedEnchantmentLevel(entity, FROST_WALKER);
         if (encFrostWalker > 0) {
             FrostWalkerEnchantment.freezeNearby(entity, entity.world, entity.getPosition(), encFrostWalker);
             FrostWalkerEnchantmentImp.freezeNearby(entity, entity.world, entity.getPosition(), encFrostWalker);
@@ -354,7 +354,7 @@ public class CommonEvents {
         Food food = event.getItem().getItem().getFood();
         if (food != null) {
             // GOURMAND
-            int encGourmand = getMaxEnchantmentLevel(GOURMAND, entity);
+            int encGourmand = getMaxEquippedEnchantmentLevel(entity, GOURMAND);
             if (encGourmand > 0 && food != null) {
                 int foodLevel = food.getHealing();
                 float foodSaturation = food.getSaturation();
@@ -413,7 +413,7 @@ public class CommonEvents {
             }
         }
         // EXP BOOST
-        int encExpBoost = getMaxEnchantmentLevel(XP_BOOST, player);
+        int encExpBoost = getMaxEquippedEnchantmentLevel(player, XP_BOOST);
         if (encExpBoost > 0) {
             hook.world.addEntity(new ExperienceOrbEntity(player.world, player.getPosX(), player.getPosY() + 0.5D, player.getPosZ() + 0.5D, XpBoostEnchantment.getExp(0, encExpBoost, player.world.rand)));
         }
@@ -426,7 +426,7 @@ public class CommonEvents {
         ExperienceOrbEntity orb = event.getOrb();
 
         // CURSE OF FOOLISHNESS
-        int encFool = getMaxEnchantmentLevel(CURSE_FOOL, player);
+        int encFool = getMaxEquippedEnchantmentLevel(player, CURSE_FOOL);
         if (encFool > 0) {
             orb.xpValue = 0;
             orb.remove();
@@ -484,13 +484,13 @@ public class CommonEvents {
         }
         if (event.getExpToDrop() > 0) {
             // CURSE OF FOOLISHNESS
-            int encFool = getMaxEnchantmentLevel(CURSE_FOOL, player);
+            int encFool = getMaxEquippedEnchantmentLevel(player, CURSE_FOOL);
             if (encFool > 0) {
                 event.setExpToDrop(0);
                 return;
             }
             // EXP BOOST
-            int encExpBoost = getMaxEnchantmentLevel(XP_BOOST, player);
+            int encExpBoost = getMaxEquippedEnchantmentLevel(player, XP_BOOST);
             if (encExpBoost > 0) {
                 event.setExpToDrop(XpBoostEnchantment.getExp(event.getExpToDrop(), encExpBoost, player.world.rand));
             }
@@ -505,7 +505,7 @@ public class CommonEvents {
         }
         PlayerEntity player = event.getPlayer();
         // AIR AFFINITY
-        int encAirAffinity = getMaxEnchantmentLevel(AIR_AFFINITY, player);
+        int encAirAffinity = getMaxEquippedEnchantmentLevel(player, AIR_AFFINITY);
         if (encAirAffinity > 0 && !player.isOnGround()) {
             event.setNewSpeed(Math.max(event.getNewSpeed(), event.getOriginalSpeed() * 5.0F));
         }

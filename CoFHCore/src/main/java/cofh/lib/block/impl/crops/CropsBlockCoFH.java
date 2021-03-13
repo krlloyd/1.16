@@ -6,7 +6,6 @@ import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -30,6 +29,7 @@ import net.minecraftforge.common.PlantType;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import static cofh.lib.util.Utils.getItemEnchantmentLevel;
 import static cofh.lib.util.constants.Constants.CROPS_BY_AGE;
 
 public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
@@ -116,7 +116,7 @@ public class CropsBlockCoFH extends CropsBlock implements IHarvestable {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 
         if (player.getHeldItemMainhand().isEmpty()) {
-            return harvest(worldIn, pos, state, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, player.getHeldItem(handIn))) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+            return harvest(worldIn, pos, state, getItemEnchantmentLevel(Enchantments.FORTUNE, player.getHeldItem(handIn))) ? ActionResultType.SUCCESS : ActionResultType.PASS;
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
