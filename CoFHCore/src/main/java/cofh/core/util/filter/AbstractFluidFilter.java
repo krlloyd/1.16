@@ -21,6 +21,8 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public abstract class AbstractFluidFilter implements IFilter, IFilterOptions {
 
+    public static final int SIZE = 12;
+
     protected List<FluidStack> fluids;
     protected Predicate<FluidStack> rules;
 

@@ -87,7 +87,7 @@ public interface IFluidContainerItem extends IContainerItem {
         if (isCreative(container, FLUID)) {
             if (action.execute()) {
                 CompoundNBT fluidTag = resource.writeToNBT(new CompoundNBT());
-                fluidTag.putInt(TAG_AMOUNT, capacity - BUCKET_VOLUME);
+                fluidTag.putInt(TAG_AMOUNT, capacity);
                 containerTag.put(TAG_FLUID, fluidTag);
             }
             return resource.getAmount();
@@ -149,8 +149,9 @@ public interface IFluidContainerItem extends IContainerItem {
         if (stack.isEmpty()) {
             return FluidStack.EMPTY;
         }
-        int drained = isCreative(container, FLUID) ? maxDrain : Math.min(stack.getAmount(), maxDrain);
-        if (action.execute() && !isCreative(container, FLUID)) {
+        boolean creative = isCreative(container, FLUID);
+        int drained = creative ? maxDrain : Math.min(stack.getAmount(), maxDrain);
+        if (action.execute() && !creative) {
             if (maxDrain >= stack.getAmount()) {
                 containerTag.remove(TAG_FLUID);
                 return stack;

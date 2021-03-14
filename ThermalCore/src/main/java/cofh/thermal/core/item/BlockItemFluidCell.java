@@ -4,7 +4,6 @@ import cofh.core.item.BlockItemAugmentable;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.fluid.IFluidContainerItem;
-import cofh.lib.item.ContainerType;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.tileentity.storage.FluidCellTile;
@@ -23,7 +22,6 @@ import java.util.List;
 
 import static cofh.core.util.helpers.FluidHelper.addPotionTooltip;
 import static cofh.lib.item.ContainerType.FLUID;
-import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
 import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
@@ -118,10 +116,11 @@ public class BlockItemFluidCell extends BlockItemAugmentable implements IFluidCo
             return 0;
         }
         FluidStorageCoFH tank = new FluidStorageCoFH(FluidCellTile.BASE_CAPACITY).setCapacity(getCapacity(container)).read(containerTag);
-        // TODO: Add creative logic to tank object.
         if (isCreative(container, FLUID)) {
-            tank.setFluidStack(new FluidStack(resource, tank.getCapacity() - BUCKET_VOLUME));
-            tank.write(containerTag);
+            if (action.execute()) {
+                tank.setFluidStack(new FluidStack(resource, tank.getCapacity()));
+                tank.write(containerTag);
+            }
             return resource.getAmount();
         }
         int ret = tank.fill(resource, action);
@@ -129,6 +128,7 @@ public class BlockItemFluidCell extends BlockItemAugmentable implements IFluidCo
         return ret;
     }
 
+    @Override
     public FluidStack drain(ItemStack container, int maxDrain, FluidAction action) {
 
         CompoundNBT containerTag = getOrCreateTankTag(container);

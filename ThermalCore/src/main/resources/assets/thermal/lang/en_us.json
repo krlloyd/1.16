@@ -829,6 +829,9 @@
   "info.thermal.quiver.use": "Use to place arrows into the quiver.",
   "info.thermal.quiver.use.sneak": "Use while sneaking to remove arrows.",
 
+  "item.thermal.fluid_reservoir": "Reservoir",
+  "item.thermal.fluid_reservoir.desc": "",
+
   "item.thermal.flux_capacitor": "Flux Capacitor",
   "item.thermal.flux_capacitor.desc": "Stores Redstone Flux and recharges other items.",
 

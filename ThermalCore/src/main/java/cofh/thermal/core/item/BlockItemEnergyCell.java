@@ -3,7 +3,6 @@ package cofh.thermal.core.item;
 import cofh.core.item.BlockItemAugmentable;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.energy.IEnergyContainerItem;
-import cofh.lib.item.ContainerType;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
