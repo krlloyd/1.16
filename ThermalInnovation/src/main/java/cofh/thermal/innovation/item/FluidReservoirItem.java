@@ -4,14 +4,10 @@ import cofh.core.item.FluidContainerItemAugmentable;
 import cofh.core.util.ProxyUtils;
 import cofh.core.util.helpers.ChatHelper;
 import cofh.lib.item.IMultiModeItem;
-import cofh.lib.util.helpers.AugmentDataHelper;
-import cofh.lib.util.helpers.ItemHelper;
-import cofh.thermal.core.common.ThermalAugmentRules;
-import cofh.thermal.core.common.ThermalConfig;
+import cofh.thermal.lib.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -23,10 +19,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static cofh.lib.util.constants.NBTTags.*;
-import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
-import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentMax;
 import static cofh.lib.util.helpers.StringHelper.getTextComponent;
+import static cofh.thermal.lib.common.ThermalAugmentRules.FLUID_VALIDATOR;
 
 public class FluidReservoirItem extends FluidContainerItemAugmentable implements IMultiModeItem {
 
@@ -41,28 +35,7 @@ public class FluidReservoirItem extends FluidContainerItemAugmentable implements
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
 
         numSlots = () -> ThermalConfig.toolAugments;
-        augValidator = (newAugment, augments) -> {
-
-            String newType = AugmentDataHelper.getAugmentType(newAugment);
-            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID))) {
-                return false;
-            }
-            if (ThermalAugmentRules.isTypeExclusive(newType)) {
-                for (ItemStack augment : augments) {
-                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                        return false;
-                    }
-                }
-            }
-            if (ThermalAugmentRules.isUnique(newAugment)) {
-                for (ItemStack augment : augments) {
-                    if (ItemHelper.itemsEqual(newAugment, augment)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        };
+        augValidator = FLUID_VALIDATOR;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package cofh.thermal.core.entity.monster;
 
-import cofh.thermal.core.common.ThermalConfig;
-import cofh.thermal.core.common.ThermalFlags;
 import cofh.thermal.core.entity.projectile.BasalzProjectileEntity;
+import cofh.thermal.lib.common.ThermalConfig;
+import cofh.thermal.lib.common.ThermalFlags;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -30,8 +30,8 @@ import java.util.EnumSet;
 import java.util.Random;
 
 import static cofh.thermal.core.ThermalCore.ITEMS;
-import static cofh.thermal.core.common.ThermalFlags.FLAG_MOB_BASALZ;
 import static cofh.thermal.core.init.TCoreSounds.*;
+import static cofh.thermal.lib.common.ThermalFlags.FLAG_MOB_BASALZ;
 
 public class BasalzEntity extends MonsterEntity {
 

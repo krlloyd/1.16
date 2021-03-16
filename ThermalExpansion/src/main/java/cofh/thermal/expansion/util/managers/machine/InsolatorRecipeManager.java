@@ -1,14 +1,14 @@
 package cofh.thermal.expansion.util.managers.machine;
 
 import cofh.lib.inventory.FalseIInventory;
-import cofh.thermal.core.util.IMachineInventory;
-import cofh.thermal.core.util.managers.SingleItemRecipeManager;
-import cofh.thermal.core.util.recipes.ThermalCatalyst;
-import cofh.thermal.core.util.recipes.internal.CatalyzedMachineRecipe;
-import cofh.thermal.core.util.recipes.internal.IMachineRecipe;
-import cofh.thermal.core.util.recipes.internal.IRecipeCatalyst;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.util.recipes.machine.InsolatorRecipe;
+import cofh.thermal.lib.util.managers.SingleItemRecipeManager;
+import cofh.thermal.lib.util.recipes.IMachineInventory;
+import cofh.thermal.lib.util.recipes.ThermalCatalyst;
+import cofh.thermal.lib.util.recipes.internal.CatalyzedMachineRecipe;
+import cofh.thermal.lib.util.recipes.internal.IMachineRecipe;
+import cofh.thermal.lib.util.recipes.internal.IRecipeCatalyst;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;

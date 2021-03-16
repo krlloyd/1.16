@@ -4,7 +4,7 @@ import cofh.thermal.core.util.managers.device.PotionDiffuserManager;
 import cofh.thermal.core.util.managers.device.RockGenManager;
 import cofh.thermal.core.util.managers.device.TreeExtractorManager;
 
-import static cofh.thermal.core.common.ThermalRecipeManagers.registerManager;
+import static cofh.thermal.lib.common.ThermalRecipeManagers.registerManager;
 
 public class TCoreRecipeManagers {
 

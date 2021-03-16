@@ -1,12 +1,12 @@
 package cofh.thermal.expansion.init;
 
-import cofh.thermal.core.util.recipes.ThermalCatalystSerializer;
-import cofh.thermal.core.util.recipes.ThermalFuelSerializer;
-import cofh.thermal.core.util.recipes.ThermalRecipeSerializer;
 import cofh.thermal.expansion.util.managers.dynamo.*;
 import cofh.thermal.expansion.util.managers.machine.*;
 import cofh.thermal.expansion.util.recipes.dynamo.*;
 import cofh.thermal.expansion.util.recipes.machine.*;
+import cofh.thermal.lib.util.recipes.ThermalCatalystSerializer;
+import cofh.thermal.lib.util.recipes.ThermalFuelSerializer;
+import cofh.thermal.lib.util.recipes.ThermalRecipeSerializer;
 
 import static cofh.thermal.core.ThermalCore.RECIPE_SERIALIZERS;
 import static cofh.thermal.expansion.init.TExpRecipeTypes.*;

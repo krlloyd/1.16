@@ -24,8 +24,8 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 import static cofh.lib.util.references.CoreReferences.GLOSSED_MAGMA;
-import static cofh.thermal.core.common.ThermalConfig.permanentLava;
-import static cofh.thermal.core.common.ThermalConfig.permanentWater;
+import static cofh.thermal.lib.common.ThermalConfig.permanentLava;
+import static cofh.thermal.lib.common.ThermalConfig.permanentWater;
 import static net.minecraft.block.Blocks.*;
 
 public class IceChargeItem extends ItemCoFH {

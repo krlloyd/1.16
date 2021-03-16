@@ -1,7 +1,7 @@
 package cofh.thermal.expansion.compat.jei.machine;
 
-import cofh.thermal.core.compat.jei.ThermalCatalystCategory;
 import cofh.thermal.expansion.util.recipes.machine.SmelterCatalyst;
+import cofh.thermal.lib.compat.jei.ThermalCatalystCategory;
 import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

@@ -1,9 +1,9 @@
 package cofh.thermal.expansion.tileentity.machine;
 
 import cofh.lib.inventory.ItemStorageCoFH;
-import cofh.thermal.core.tileentity.MachineTileProcess;
 import cofh.thermal.expansion.inventory.container.machine.MachineSawmillContainer;
 import cofh.thermal.expansion.util.managers.machine.SawmillRecipeManager;
+import cofh.thermal.lib.tileentity.MachineTileProcess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -11,8 +11,8 @@ import net.minecraft.inventory.container.Container;
 import javax.annotation.Nullable;
 
 import static cofh.lib.util.StorageGroup.*;
-import static cofh.thermal.core.common.ThermalConfig.machineAugments;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_SAWMILL_TILE;
+import static cofh.thermal.lib.common.ThermalConfig.machineAugments;
 
 public class MachineSawmillTile extends MachineTileProcess {
 

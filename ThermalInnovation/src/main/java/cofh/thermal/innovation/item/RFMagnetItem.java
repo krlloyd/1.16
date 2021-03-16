@@ -10,11 +10,8 @@ import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
 import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.filter.IFilterableItem;
-import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.FilterHelper;
-import cofh.lib.util.helpers.ItemHelper;
-import cofh.thermal.core.common.ThermalAugmentRules;
-import cofh.thermal.core.common.ThermalConfig;
+import cofh.thermal.lib.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
@@ -44,6 +41,7 @@ import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.*;
 import static cofh.lib.util.helpers.StringHelper.getTextComponent;
 import static cofh.thermal.core.init.TCoreSounds.SOUND_MAGNET;
+import static cofh.thermal.lib.common.ThermalAugmentRules.createAllowValidator;
 
 public class RFMagnetItem extends EnergyContainerItemAugmentable implements IFilterableItem, IMultiModeItem {
 
@@ -67,28 +65,7 @@ public class RFMagnetItem extends EnergyContainerItemAugmentable implements IFil
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getEnergyStored(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
 
         numSlots = () -> ThermalConfig.toolAugments;
-        augValidator = (newAugment, augments) -> {
-
-            String newType = AugmentDataHelper.getAugmentType(newAugment);
-            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_RF) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT) || newType.equals(TAG_AUGMENT_TYPE_FILTER))) {
-                return false;
-            }
-            if (ThermalAugmentRules.isTypeExclusive(newType)) {
-                for (ItemStack augment : augments) {
-                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                        return false;
-                    }
-                }
-            }
-            if (ThermalAugmentRules.isUnique(newAugment)) {
-                for (ItemStack augment : augments) {
-                    if (ItemHelper.itemsEqual(newAugment, augment)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        };
+        augValidator = createAllowValidator(TAG_AUGMENT_TYPE_UPGRADE, TAG_AUGMENT_TYPE_RF, TAG_AUGMENT_TYPE_AREA_EFFECT, TAG_AUGMENT_TYPE_FILTER);
     }
 
     @Override

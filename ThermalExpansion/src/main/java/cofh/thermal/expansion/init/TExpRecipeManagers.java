@@ -3,7 +3,7 @@ package cofh.thermal.expansion.init;
 import cofh.thermal.expansion.util.managers.dynamo.*;
 import cofh.thermal.expansion.util.managers.machine.*;
 
-import static cofh.thermal.core.common.ThermalRecipeManagers.registerManager;
+import static cofh.thermal.lib.common.ThermalRecipeManagers.registerManager;
 
 public class TExpRecipeManagers {
 

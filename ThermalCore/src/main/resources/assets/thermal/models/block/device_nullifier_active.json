@@ -1,0 +1,10 @@
+{
+  "parent": "thermal:block/device_nullifier",
+  "textures": {
+    "up": "thermal:block/devices/device_nullifier_top_active",
+    "east": "thermal:block/devices/device_nullifier_side_active",
+    "west": "thermal:block/devices/device_nullifier_side_active",
+    "north": "thermal:block/devices/device_nullifier_active",
+    "south": "thermal:block/devices/device_nullifier_side_active"
+  }
+}

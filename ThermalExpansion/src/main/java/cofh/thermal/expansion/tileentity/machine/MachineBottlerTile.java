@@ -3,9 +3,9 @@ package cofh.thermal.expansion.tileentity.machine;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.inventory.ItemStorageCoFH;
-import cofh.thermal.core.tileentity.MachineTileProcess;
 import cofh.thermal.expansion.inventory.container.machine.MachineBottlerContainer;
 import cofh.thermal.expansion.util.managers.machine.BottlerRecipeManager;
+import cofh.thermal.lib.tileentity.MachineTileProcess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -16,8 +16,8 @@ import javax.annotation.Nullable;
 import static cofh.lib.util.StorageGroup.*;
 import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.lib.util.constants.Constants.TANK_MEDIUM;
-import static cofh.thermal.core.common.ThermalConfig.machineAugments;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_BOTTLER_TILE;
+import static cofh.thermal.lib.common.ThermalConfig.machineAugments;
 
 public class MachineBottlerTile extends MachineTileProcess {
 

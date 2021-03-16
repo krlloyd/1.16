@@ -3,12 +3,14 @@ package cofh.thermal.core.tileentity.storage;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.lib.energy.EmptyEnergyHandler;
 import cofh.lib.energy.EnergyStorageAdjustable;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.BlockHelper;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
-import cofh.thermal.core.tileentity.CellTileBase;
+import cofh.thermal.lib.tileentity.CellTileBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -19,10 +21,12 @@ import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 import static cofh.core.client.renderer.model.ModelUtils.*;
-import static cofh.thermal.core.common.ThermalConfig.storageAugments;
 import static cofh.thermal.core.init.TCoreReferences.ENERGY_CELL_TILE;
+import static cofh.thermal.lib.common.ThermalAugmentRules.ENERGY_VALIDATOR;
+import static cofh.thermal.lib.common.ThermalConfig.storageAugments;
 
 public class EnergyCellTile extends CellTileBase implements ITickableTileEntity {
 
@@ -158,6 +162,12 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
                 TileStatePacket.sendToClient(this);
             }
         }
+    }
+
+    @Override
+    protected Predicate<ItemStack> augValidator() {
+
+        return item -> AugmentDataHelper.hasAugmentData(item) && ENERGY_VALIDATOR.test(item, getAugmentsAsList());
     }
 
     // region CAPABILITIES

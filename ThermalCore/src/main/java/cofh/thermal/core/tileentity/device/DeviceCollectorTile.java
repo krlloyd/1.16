@@ -1,10 +1,11 @@
 package cofh.thermal.core.tileentity.device;
 
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.InventoryHelper;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.core.client.gui.ThermalTextures;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
-import cofh.thermal.core.tileentity.DeviceTileBase;
+import cofh.thermal.lib.tileentity.DeviceTileBase;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,16 +23,20 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import static cofh.core.client.renderer.model.ModelUtils.UNDERLAY;
 import static cofh.lib.util.StorageGroup.ACCESSIBLE;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
-import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_COLLECTOR_TILE;
+import static cofh.thermal.lib.common.ThermalAugmentRules.createAllowValidator;
+import static cofh.thermal.lib.common.ThermalConfig.deviceAugments;
 
 public class DeviceCollectorTile extends DeviceTileBase implements ITickableTileEntity {
+
+    public static final BiPredicate<ItemStack, List<ItemStack>> AUG_VALIDATOR = createAllowValidator(TAG_AUGMENT_TYPE_AREA_EFFECT, TAG_AUGMENT_TYPE_FILTER);
 
     protected static final int TICK_RATE = 20;
 
@@ -159,6 +164,12 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     // endregion
 
     // region AUGMENTS
+    @Override
+    protected Predicate<ItemStack> augValidator() {
+
+        return item -> AugmentDataHelper.hasAugmentData(item) && AUG_VALIDATOR.test(item, getAugmentsAsList());
+    }
+
     @Override
     protected void resetAttributes() {
 

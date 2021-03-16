@@ -1,10 +1,10 @@
 package cofh.thermal.expansion.compat.jei.machine;
 
 import cofh.core.util.helpers.RenderHelper;
-import cofh.thermal.core.compat.jei.Drawables;
-import cofh.thermal.core.compat.jei.ThermalRecipeCategory;
 import cofh.thermal.expansion.client.gui.machine.MachineBrewerScreen;
 import cofh.thermal.expansion.util.recipes.machine.BrewerRecipe;
+import cofh.thermal.lib.compat.jei.Drawables;
+import cofh.thermal.lib.compat.jei.ThermalRecipeCategory;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;

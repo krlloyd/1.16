@@ -8,13 +8,9 @@ import cofh.lib.capability.CapabilityArchery;
 import cofh.lib.capability.IArcheryAmmoItem;
 import cofh.lib.fluid.FluidContainerItemWrapper;
 import cofh.lib.fluid.IFluidContainerItem;
-import cofh.lib.item.ContainerType;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.Utils;
-import cofh.lib.util.helpers.AugmentDataHelper;
-import cofh.lib.util.helpers.ItemHelper;
-import cofh.thermal.core.common.ThermalAugmentRules;
-import cofh.thermal.core.common.ThermalConfig;
+import cofh.thermal.lib.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -47,6 +43,7 @@ import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
 import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentAdd;
 import static cofh.lib.util.helpers.ItemHelper.areItemStacksEqualIgnoreTags;
 import static cofh.lib.util.helpers.StringHelper.*;
+import static cofh.thermal.lib.common.ThermalAugmentRules.createAllowValidator;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 
@@ -67,28 +64,7 @@ public class PotionQuiverItem extends FluidContainerItemAugmentable implements I
         ProxyUtils.registerColorable(this);
 
         numSlots = () -> ThermalConfig.toolAugments;
-        augValidator = (newAugment, augments) -> {
-
-            String newType = AugmentDataHelper.getAugmentType(newAugment);
-            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_POTION))) {
-                return false;
-            }
-            if (ThermalAugmentRules.isTypeExclusive(newType)) {
-                for (ItemStack augment : augments) {
-                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                        return false;
-                    }
-                }
-            }
-            if (ThermalAugmentRules.isUnique(newAugment)) {
-                for (ItemStack augment : augments) {
-                    if (ItemHelper.itemsEqual(newAugment, augment)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        };
+        augValidator = createAllowValidator(TAG_AUGMENT_TYPE_UPGRADE, TAG_AUGMENT_TYPE_RF, TAG_AUGMENT_TYPE_POTION, TAG_AUGMENT_TYPE_FILTER);
     }
 
     public PotionQuiverItem(Properties builder, int fluidCapacity, int arrowCapacity, Predicate<FluidStack> validator) {

@@ -3,13 +3,15 @@ package cofh.thermal.core.tileentity.device;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.inventory.ItemStorageCoFH;
+import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
-import cofh.thermal.core.tileentity.DeviceTileBase;
+import cofh.thermal.lib.tileentity.DeviceTileBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
@@ -19,6 +21,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static cofh.core.client.renderer.model.ModelUtils.FLUID;
@@ -26,11 +31,15 @@ import static cofh.lib.util.StorageGroup.INTERNAL;
 import static cofh.lib.util.StorageGroup.OUTPUT;
 import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.lib.util.constants.Constants.TANK_SMALL;
-import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
+import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_WATER_GEN_TILE;
+import static cofh.thermal.lib.common.ThermalAugmentRules.createAllowValidator;
+import static cofh.thermal.lib.common.ThermalConfig.deviceAugments;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileEntity {
+
+    public static final BiPredicate<ItemStack, List<ItemStack>> AUG_VALIDATOR = createAllowValidator(TAG_AUGMENT_TYPE_UPGRADE, TAG_AUGMENT_TYPE_FLUID, TAG_AUGMENT_TYPE_FILTER);
 
     protected static final int GENERATION_RATE = 250;
     protected static final Supplier<FluidStack> WATER = () -> new FluidStack(Fluids.WATER, 0);
@@ -138,4 +147,11 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
         return new DeviceWaterGenContainer(i, world, pos, inventory, player);
     }
 
+    // region AUGMENTS
+    @Override
+    protected Predicate<ItemStack> augValidator() {
+
+        return item -> AugmentDataHelper.hasAugmentData(item) && AUG_VALIDATOR.test(item, getAugmentsAsList());
+    }
+    // endregion
 }

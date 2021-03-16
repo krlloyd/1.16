@@ -9,9 +9,9 @@ import cofh.core.util.helpers.GuiHelper;
 import cofh.core.util.helpers.RenderHelper;
 import cofh.lib.client.gui.IGuiAccess;
 import cofh.lib.util.helpers.BlockHelper;
-import cofh.thermal.core.tileentity.CellTileBase;
-import cofh.thermal.core.tileentity.ReconfigurableTile4Way;
-import cofh.thermal.core.tileentity.ThermalTileBase;
+import cofh.thermal.lib.tileentity.CellTileBase;
+import cofh.thermal.lib.tileentity.ReconfigurableTile4Way;
+import cofh.thermal.lib.tileentity.ThermalTileBase;
 
 import static cofh.core.util.helpers.RenderHelper.getFluidTexture;
 import static cofh.core.util.helpers.RenderHelper.textureExists;

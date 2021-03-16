@@ -1,11 +1,11 @@
 package cofh.thermal.expansion.util.managers.dynamo;
 
 import cofh.lib.inventory.FalseIInventory;
-import cofh.thermal.core.util.managers.SingleItemFuelManager;
-import cofh.thermal.core.util.recipes.ThermalFuel;
-import cofh.thermal.core.util.recipes.internal.IDynamoFuel;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.util.recipes.dynamo.StirlingFuel;
+import cofh.thermal.lib.util.managers.SingleItemFuelManager;
+import cofh.thermal.lib.util.recipes.ThermalFuel;
+import cofh.thermal.lib.util.recipes.internal.IDynamoFuel;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

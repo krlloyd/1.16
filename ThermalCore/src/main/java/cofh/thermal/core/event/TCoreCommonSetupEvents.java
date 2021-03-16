@@ -1,7 +1,7 @@
 package cofh.thermal.core.event;
 
-import cofh.thermal.core.common.ThermalRecipeManagers;
 import cofh.thermal.core.world.biome.ThermalBiomeFeatures;
+import cofh.thermal.lib.common.ThermalRecipeManagers;
 import net.minecraft.client.resources.ReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;

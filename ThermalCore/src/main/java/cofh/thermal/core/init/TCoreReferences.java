@@ -143,6 +143,13 @@ public class TCoreReferences {
     public static final TileEntityType<DevicePotionDiffuserTile> DEVICE_POTION_DIFFUSER_TILE = null;
     @ObjectHolder(ID_DEVICE_POTION_DIFFUSER)
     public static final ContainerType<DevicePotionDiffuserContainer> DEVICE_POTION_DIFFUSER_CONTAINER = null;
+
+    @ObjectHolder(ID_DEVICE_NULLIFIER)
+    public static final Block DEVICE_NULLIFIER_BLOCK = null;
+    @ObjectHolder(ID_DEVICE_NULLIFIER)
+    public static final TileEntityType<DeviceNullifierTile> DEVICE_NULLIFIER_TILE = null;
+    @ObjectHolder(ID_DEVICE_NULLIFIER)
+    public static final ContainerType<DeviceNullifierContainer> DEVICE_NULLIFIER_CONTAINER = null;
     // endregion
 
     // region STORAGE

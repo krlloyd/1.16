@@ -1,9 +1,9 @@
 package cofh.thermal.expansion.compat.crt.dynamo;
 
-import cofh.thermal.core.compat.crt.actions.ActionRemoveThermalFuelByOutput;
-import cofh.thermal.core.compat.crt.base.CRTFuel;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.util.recipes.dynamo.StirlingFuel;
+import cofh.thermal.lib.compat.crt.actions.ActionRemoveThermalFuelByOutput;
+import cofh.thermal.lib.compat.crt.base.CRTFuel;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IIngredient;

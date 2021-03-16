@@ -8,10 +8,10 @@ import cofh.lib.block.impl.SoilBlock;
 import cofh.lib.block.impl.TilledSoilBlock;
 import cofh.lib.block.impl.crops.AttachedStemBlockCoFH;
 import cofh.lib.block.impl.crops.StemBlockCoFH;
-import cofh.thermal.core.common.ThermalConfig;
 import cofh.thermal.cultivation.block.FrostMelonBlock;
 import cofh.thermal.cultivation.inventory.container.device.DeviceSoilInfuserContainer;
 import cofh.thermal.cultivation.tileentity.DeviceSoilInfuserTile;
+import cofh.thermal.lib.common.ThermalConfig;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -26,10 +26,10 @@ import static cofh.lib.util.constants.Constants.ACTIVE;
 import static cofh.lib.util.constants.Constants.CHARGED;
 import static cofh.lib.util.helpers.BlockHelper.lightValue;
 import static cofh.thermal.core.ThermalCore.*;
-import static cofh.thermal.core.common.ThermalAugmentRules.DEVICE_VALIDATOR;
 import static cofh.thermal.core.util.RegistrationHelper.*;
 import static cofh.thermal.cultivation.init.TCulIDs.*;
 import static cofh.thermal.cultivation.init.TCulReferences.DEVICE_SOIL_INFUSER_BLOCK;
+import static cofh.thermal.lib.common.ThermalAugmentRules.DEVICE_VALIDATOR;
 import static net.minecraft.block.AbstractBlock.Properties.create;
 
 public class TCulBlocks {

@@ -1,7 +1,7 @@
 package cofh.thermal.expansion.util.recipes.machine;
 
-import cofh.thermal.core.util.recipes.ThermalRecipe;
-import cofh.thermal.core.util.recipes.ThermalRecipeSerializer;
+import cofh.thermal.lib.util.recipes.ThermalRecipe;
+import cofh.thermal.lib.util.recipes.ThermalRecipeSerializer;
 import com.google.gson.JsonObject;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;

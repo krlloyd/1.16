@@ -1,9 +1,9 @@
 package cofh.thermal.expansion.compat.jei.dynamo;
 
-import cofh.thermal.core.compat.jei.Drawables;
-import cofh.thermal.core.compat.jei.ThermalFuelCategory;
 import cofh.thermal.expansion.client.gui.dynamo.DynamoLapidaryScreen;
 import cofh.thermal.expansion.util.recipes.dynamo.LapidaryFuel;
+import cofh.thermal.lib.compat.jei.Drawables;
+import cofh.thermal.lib.compat.jei.ThermalFuelCategory;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;

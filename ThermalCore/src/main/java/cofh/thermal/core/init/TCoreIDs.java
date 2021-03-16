@@ -109,6 +109,8 @@ public class TCoreIDs {
 
     public static final String ID_DEVICE_COLLECTOR = "device_collector";
     public static final String ID_DEVICE_POTION_DIFFUSER = "device_potion_diffuser";
+
+    public static final String ID_DEVICE_NULLIFIER = "device_nullifier";
     // endregion
 
     // region STORAGE

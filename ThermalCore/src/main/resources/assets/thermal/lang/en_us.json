@@ -428,6 +428,7 @@
 
   "block.thermal.device_collector": "Vacuumulator",
   "block.thermal.device_hive_extractor": "Hive Hopper",
+  "block.thermal.device_nullifier": "Nullifier",
   "block.thermal.device_potion_diffuser": "Decoctive Diffuser",
   "block.thermal.device_rock_gen": "Igneous Extruder",
   "block.thermal.device_tree_extractor": "Arboreal Extractor",
@@ -449,13 +450,16 @@
   "info.thermal.device_hive_extractor.1": "Good for bees and keepers alike!",
   "info.thermal.device_hive_extractor.2": "Buzz buzz.",
 
+  "info.thermal.device_nullifier.0": "Destroys anything placed into it.",
+  "info.thermal.device_nullifier.1": "A filter can be used to restrict what is accepted.",
+
   "info.thermal.device_potion_diffuser.0": "Spreads potions within the nearby area.",
   "info.thermal.device_potion_diffuser.1": "Use reagents to boost effectiveness.",
   "info.thermal.device_potion_diffuser.2": "Breathe deep.",
 
   "info.thermal.device_rock_gen.0": "Generates various types of stone.",
   "info.thermal.device_rock_gen.1": "Requires an adjacent lava source and cooling.",
-  "info.thermal.device_rock_gen.2": "Are you ready to rock?",
+  "info.thermal.device_rock_gen.2": "The block beneath may also affect the product.",
 
   "info.thermal.device_tree_extractor.0": "Extracts fluids from adjacent trees.",
   "info.thermal.device_tree_extractor.1": "Use fertilizer to boost production.",

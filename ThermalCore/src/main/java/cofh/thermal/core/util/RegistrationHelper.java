@@ -23,9 +23,9 @@ import java.util.function.Supplier;
 import static cofh.lib.util.constants.Constants.TRUE;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
-import static cofh.thermal.core.common.ThermalFlags.*;
-import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_BLOCKS;
-import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_ITEMS;
+import static cofh.thermal.lib.common.ThermalFlags.*;
+import static cofh.thermal.lib.common.ThermalItemGroups.THERMAL_BLOCKS;
+import static cofh.thermal.lib.common.ThermalItemGroups.THERMAL_ITEMS;
 import static net.minecraft.block.AbstractBlock.Properties.create;
 
 public class RegistrationHelper {

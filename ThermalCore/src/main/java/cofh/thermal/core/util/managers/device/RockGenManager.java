@@ -2,8 +2,8 @@ package cofh.thermal.core.util.managers.device;
 
 import cofh.lib.inventory.FalseIInventory;
 import cofh.thermal.core.init.TCoreRecipeTypes;
-import cofh.thermal.core.util.managers.AbstractManager;
 import cofh.thermal.core.util.recipes.device.RockGenMapping;
+import cofh.thermal.lib.util.managers.AbstractManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class RockGenManager extends AbstractManager {
 
     private static final RockGenManager INSTANCE = new RockGenManager();
-    protected static final RockGenRecipe DEFAULT_RECIPE = new RockGenRecipe(instance().getDefaultEnergy(), ItemStack.EMPTY);
+    protected static final RockGenRecipe DEFAULT_RECIPE = new RockGenRecipe(instance().getDefaultEnergy(), Blocks.AIR, Blocks.AIR, ItemStack.EMPTY);
 
     protected Map<Block, Map<Block, RockGenRecipe>> recipeMap = new IdentityHashMap<>();
     protected Map<Block, RockGenRecipe> defaultRecipeMap = new IdentityHashMap<>();
@@ -66,13 +66,13 @@ public class RockGenManager extends AbstractManager {
             return false;
         }
         if (below == Blocks.AIR) {
-            defaultRecipeMap.put(adjacent, new RockGenRecipe(time, stack));
+            defaultRecipeMap.put(adjacent, new RockGenRecipe(time, below, adjacent, stack));
             return true;
         }
         if (!recipeMap.containsKey(below)) {
             recipeMap.put(below, new Object2ObjectOpenHashMap<>());
         }
-        recipeMap.get(below).put(adjacent, new RockGenRecipe(time, stack));
+        recipeMap.get(below).put(adjacent, new RockGenRecipe(time, below, adjacent, stack));
         return true;
     }
 
@@ -103,11 +103,15 @@ public class RockGenManager extends AbstractManager {
     public static class RockGenRecipe {
 
         protected final int time;
+        protected final Block below;
+        protected final Block adjacent;
         protected final ItemStack result;
 
-        public RockGenRecipe(int time, ItemStack result) {
+        public RockGenRecipe(int time, Block below, Block adjacent, ItemStack result) {
 
             this.time = time;
+            this.below = below;
+            this.adjacent = adjacent;
             this.result = result;
         }
 
@@ -115,6 +119,16 @@ public class RockGenManager extends AbstractManager {
 
             return time;
 
+        }
+
+        public Block getAdjacent() {
+
+            return adjacent;
+        }
+
+        public Block getBelow() {
+
+            return below;
         }
 
         public ItemStack getResult() {

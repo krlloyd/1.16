@@ -9,11 +9,11 @@ import cofh.thermal.core.client.gui.storage.EnergyCellScreen;
 import cofh.thermal.core.client.gui.storage.FluidCellScreen;
 import cofh.thermal.core.client.gui.workbench.TinkerBenchScreen;
 import cofh.thermal.core.client.renderer.entity.*;
-import cofh.thermal.core.common.ThermalConfig;
-import cofh.thermal.core.common.ThermalProxy;
-import cofh.thermal.core.common.ThermalProxyClient;
 import cofh.thermal.core.init.*;
 import cofh.thermal.core.world.gen.feature.ThermalFeatures;
+import cofh.thermal.lib.common.ThermalConfig;
+import cofh.thermal.lib.common.ThermalProxy;
+import cofh.thermal.lib.common.ThermalProxyClient;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -37,9 +37,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static cofh.lib.util.constants.Constants.ID_THERMAL;
-import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.init.TCoreIDs.*;
 import static cofh.thermal.core.init.TCoreReferences.*;
+import static cofh.thermal.lib.common.ThermalFlags.*;
 
 @Mod(ID_THERMAL)
 public class ThermalCore {
@@ -145,6 +145,7 @@ public class ThermalCore {
         ScreenManager.registerFactory(DEVICE_ROCK_GEN_CONTAINER, DeviceRockGenScreen::new);
         ScreenManager.registerFactory(DEVICE_COLLECTOR_CONTAINER, DeviceCollectorScreen::new);
         ScreenManager.registerFactory(DEVICE_POTION_DIFFUSER_CONTAINER, DevicePotionDiffuserScreen::new);
+        ScreenManager.registerFactory(DEVICE_NULLIFIER_CONTAINER, DeviceNullifierScreen::new);
 
         ScreenManager.registerFactory(TINKER_BENCH_CONTAINER, TinkerBenchScreen::new);
 
@@ -163,17 +164,18 @@ public class ThermalCore {
 
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_MACHINE_FRAME), cutout);
 
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_TREE_EXTRACTOR), cutout);
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_WATER_GEN), cutout);
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_ROCK_GEN), cutout);
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_COLLECTOR), cutout);
-        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_POTION_DIFFUSER), cutout);
-
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ENERGY_CELL_FRAME), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_ENERGY_CELL), cutout);
 
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_FLUID_CELL_FRAME), cutout);
         RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_FLUID_CELL), cutout);
+
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_TREE_EXTRACTOR), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_WATER_GEN), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_ROCK_GEN), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_COLLECTOR), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_POTION_DIFFUSER), cutout);
+        RenderTypeLookup.setRenderLayer(BLOCKS.get(ID_DEVICE_NULLIFIER), cutout);
     }
 
     private void registerEntityRenderingHandlers() {

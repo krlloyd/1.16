@@ -14,10 +14,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static cofh.lib.util.constants.Constants.ID_THERMAL_EXPANSION;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
-import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.init.TCoreIDs.*;
 import static cofh.thermal.expansion.init.TExpIDs.*;
 import static cofh.thermal.expansion.init.TExpReferences.*;
+import static cofh.thermal.lib.common.ThermalFlags.*;
 
 @Mod(ID_THERMAL_EXPANSION)
 public class ThermalExpansion {
@@ -61,6 +61,7 @@ public class ThermalExpansion {
         setFlag(ID_DEVICE_ROCK_GEN, true);
         setFlag(ID_DEVICE_COLLECTOR, true);
         setFlag(ID_DEVICE_POTION_DIFFUSER, true);
+        setFlag(ID_DEVICE_NULLIFIER, true);
 
         setFlag(ID_ENERGY_CELL_FRAME, true);
         setFlag(ID_ENERGY_CELL, true);

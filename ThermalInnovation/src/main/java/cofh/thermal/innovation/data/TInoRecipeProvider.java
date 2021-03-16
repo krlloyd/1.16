@@ -3,7 +3,7 @@ package cofh.thermal.innovation.data;
 import cofh.lib.data.RecipeProviderCoFH;
 import cofh.lib.util.DeferredRegisterCoFH;
 import cofh.lib.util.references.ItemTagsCoFH;
-import cofh.thermal.core.common.ThermalFlags;
+import cofh.thermal.lib.common.ThermalFlags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;

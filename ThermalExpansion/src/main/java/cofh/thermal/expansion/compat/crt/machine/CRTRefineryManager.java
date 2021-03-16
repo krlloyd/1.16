@@ -1,9 +1,9 @@
 package cofh.thermal.expansion.compat.crt.machine;
 
-import cofh.thermal.core.compat.crt.actions.ActionRemoveThermalRecipeByOutput;
-import cofh.thermal.core.compat.crt.base.CRTRecipe;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.util.recipes.machine.RefineryRecipe;
+import cofh.thermal.lib.compat.crt.actions.ActionRemoveThermalRecipeByOutput;
+import cofh.thermal.lib.compat.crt.base.CRTRecipe;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;

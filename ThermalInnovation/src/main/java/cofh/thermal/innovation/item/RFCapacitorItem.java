@@ -5,10 +5,7 @@ import cofh.core.util.ProxyUtils;
 import cofh.core.util.helpers.ChatHelper;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.Utils;
-import cofh.lib.util.helpers.AugmentDataHelper;
-import cofh.lib.util.helpers.ItemHelper;
-import cofh.thermal.core.common.ThermalAugmentRules;
-import cofh.thermal.core.common.ThermalConfig;
+import cofh.thermal.lib.common.ThermalConfig;
 import com.google.common.collect.Iterables;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -26,9 +23,8 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
-import static cofh.lib.util.constants.NBTTags.TAG_AUGMENT_TYPE_RF;
-import static cofh.lib.util.constants.NBTTags.TAG_AUGMENT_TYPE_UPGRADE;
 import static cofh.lib.util.helpers.StringHelper.getTextComponent;
+import static cofh.thermal.lib.common.ThermalAugmentRules.ENERGY_VALIDATOR;
 
 public class RFCapacitorItem extends EnergyContainerItemAugmentable implements IMultiModeItem {
 
@@ -42,28 +38,7 @@ public class RFCapacitorItem extends EnergyContainerItemAugmentable implements I
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("state"), (stack, world, entity) -> getMode(stack) / 6.0F + (isActive(stack) ? 0.5F : 0));
 
         numSlots = () -> ThermalConfig.storageAugments;
-        augValidator = (newAugment, augments) -> {
-
-            String newType = AugmentDataHelper.getAugmentType(newAugment);
-            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_RF))) {
-                return false;
-            }
-            if (ThermalAugmentRules.isTypeExclusive(newType)) {
-                for (ItemStack augment : augments) {
-                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                        return false;
-                    }
-                }
-            }
-            if (ThermalAugmentRules.isUnique(newAugment)) {
-                for (ItemStack augment : augments) {
-                    if (ItemHelper.itemsEqual(newAugment, augment)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        };
+        augValidator = ENERGY_VALIDATOR;
     }
 
     @Override

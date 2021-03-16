@@ -6,10 +6,7 @@ import cofh.core.util.helpers.ChatHelper;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.RayTracer;
 import cofh.lib.util.Utils;
-import cofh.lib.util.helpers.AugmentDataHelper;
-import cofh.lib.util.helpers.ItemHelper;
-import cofh.thermal.core.common.ThermalAugmentRules;
-import cofh.thermal.core.common.ThermalConfig;
+import cofh.thermal.lib.common.ThermalConfig;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.*;
 import net.minecraft.client.util.ITooltipFlag;
@@ -45,6 +42,7 @@ import static cofh.lib.util.constants.Constants.RGB_DURABILITY_WATER;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.getPropertyWithDefault;
 import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentAdd;
+import static cofh.thermal.lib.common.ThermalAugmentRules.createAllowValidator;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class WateringCanItem extends FluidContainerItemAugmentable implements IMultiModeItem {
@@ -71,28 +69,7 @@ public class WateringCanItem extends FluidContainerItemAugmentable implements IM
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && hasActiveTag(stack) ? 1F : 0F);
 
         numSlots = () -> ThermalConfig.toolAugments;
-        augValidator = (newAugment, augments) -> {
-
-            String newType = AugmentDataHelper.getAugmentType(newAugment);
-            if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_AREA_EFFECT))) {
-                return false;
-            }
-            if (ThermalAugmentRules.isTypeExclusive(newType)) {
-                for (ItemStack augment : augments) {
-                    if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                        return false;
-                    }
-                }
-            }
-            if (ThermalAugmentRules.isUnique(newAugment)) {
-                for (ItemStack augment : augments) {
-                    if (ItemHelper.itemsEqual(newAugment, augment)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        };
+        augValidator = createAllowValidator(TAG_AUGMENT_TYPE_UPGRADE, TAG_AUGMENT_TYPE_FLUID, TAG_AUGMENT_TYPE_AREA_EFFECT);
     }
 
     @Override

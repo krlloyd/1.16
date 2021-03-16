@@ -1,8 +1,8 @@
 package cofh.thermal.expansion.util.managers.machine;
 
-import cofh.thermal.core.util.managers.IManager;
-import cofh.thermal.core.util.recipes.internal.IMachineRecipe;
 import cofh.thermal.expansion.util.recipes.machine.CrafterRecipe;
+import cofh.thermal.lib.util.managers.IManager;
+import cofh.thermal.lib.util.recipes.internal.IMachineRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;

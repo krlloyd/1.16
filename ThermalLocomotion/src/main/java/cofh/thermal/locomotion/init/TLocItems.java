@@ -1,7 +1,7 @@
 package cofh.thermal.locomotion.init;
 
 import cofh.core.item.MinecartItemCoFH;
-import cofh.thermal.core.common.ThermalItemGroups;
+import cofh.thermal.lib.common.ThermalItemGroups;
 import cofh.thermal.locomotion.entity.*;
 import cofh.thermal.locomotion.item.UnderwaterMinecartItem;
 import net.minecraft.item.Item;
@@ -9,7 +9,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Rarity;
 
 import static cofh.thermal.core.ThermalCore.ITEMS;
-import static cofh.thermal.core.common.ThermalFlags.*;
+import static cofh.thermal.lib.common.ThermalFlags.*;
 import static cofh.thermal.locomotion.init.TLocIDs.*;
 
 public class TLocItems {

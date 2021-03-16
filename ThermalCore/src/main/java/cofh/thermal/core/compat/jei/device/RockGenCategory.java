@@ -1,9 +1,13 @@
 package cofh.thermal.core.compat.jei.device;
 
+import cofh.thermal.core.client.gui.device.DeviceRockGenScreen;
 import cofh.thermal.core.util.recipes.device.RockGenMapping;
-import cofh.thermal.core.util.recipes.device.TreeExtractorMapping;
+import cofh.thermal.lib.compat.jei.Drawables;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -21,11 +25,21 @@ public class RockGenCategory implements IRecipeCategory<RockGenMapping> {
     protected IDrawable icon;
     protected ITextComponent name;
 
+    protected IDrawableStatic progressFluidBackground;
+    protected IDrawableAnimated progressFluid;
+
     public RockGenCategory(IGuiHelper guiHelper, ItemStack icon, ResourceLocation uid) {
 
         this.uid = uid;
         this.icon = guiHelper.createDrawableIngredient(icon);
-        this.name = getTextComponent(DEVICE_ROCK_GEN_BLOCK.getTranslationKey());
+
+        background = guiHelper.drawableBuilder(DeviceRockGenScreen.TEXTURE, 26, 11, 124, 62)
+                .addPadding(0, 0, 16, 24)
+                .build();
+        name = getTextComponent(DEVICE_ROCK_GEN_BLOCK.getTranslationKey());
+
+        progressFluidBackground = Drawables.getDrawables(guiHelper).getProgressFill(Drawables.PROGRESS_ARROW_FLUID);
+        progressFluid = guiHelper.createAnimatedDrawable(Drawables.getDrawables(guiHelper).getProgress(Drawables.PROGRESS_ARROW_FLUID), 40, IDrawableAnimated.StartDirection.LEFT, true);
     }
 
     // region IRecipeCategory
@@ -66,6 +80,11 @@ public class RockGenCategory implements IRecipeCategory<RockGenMapping> {
 
     @Override
     public void setRecipe(IRecipeLayout layout, RockGenMapping recipe, IIngredients ingredients) {
+
+    }
+
+    @Override
+    public void draw(RockGenMapping recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 
     }
 

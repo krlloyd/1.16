@@ -1,6 +1,6 @@
 package cofh.thermal.foundation;
 
-import static cofh.thermal.core.common.ThermalFlags.*;
+import static cofh.thermal.lib.common.ThermalFlags.*;
 
 // @Mod(ID_THERMAL_FOUNDATION)
 public class ThermalFoundation {

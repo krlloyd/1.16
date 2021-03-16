@@ -6,10 +6,7 @@ import cofh.core.util.helpers.ChatHelper;
 import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.Utils;
-import cofh.lib.util.helpers.AugmentDataHelper;
-import cofh.lib.util.helpers.ItemHelper;
-import cofh.thermal.core.common.ThermalAugmentRules;
-import cofh.thermal.core.common.ThermalConfig;
+import cofh.thermal.lib.common.ThermalConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -33,11 +30,10 @@ import java.util.function.BiPredicate;
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 
-import static cofh.lib.util.constants.Constants.MAX_POTION_AMPLIFIER;
-import static cofh.lib.util.constants.Constants.MAX_POTION_DURATION;
 import static cofh.lib.util.constants.NBTTags.*;
-import static cofh.lib.util.helpers.AugmentableHelper.*;
+import static cofh.lib.util.helpers.AugmentableHelper.setAttributeFromAugmentAdd;
 import static cofh.lib.util.helpers.StringHelper.getTextComponent;
+import static cofh.thermal.lib.common.ThermalAugmentRules.createAllowValidator;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class PotionInfuserItem extends FluidContainerItemAugmentable implements IMultiModeItem {
@@ -47,30 +43,6 @@ public class PotionInfuserItem extends FluidContainerItemAugmentable implements 
     protected static final int MB_PER_CYCLE = 50;
     protected static final int MB_PER_USE = 250;
 
-    protected IntSupplier numSlots = () -> ThermalConfig.toolAugments;
-    protected BiPredicate<ItemStack, List<ItemStack>> augValidator = (newAugment, augments) -> {
-
-        String newType = AugmentDataHelper.getAugmentType(newAugment);
-        if (!(newType.equals(TAG_AUGMENT_TYPE_UPGRADE) || newType.equals(TAG_AUGMENT_TYPE_FLUID) || newType.equals(TAG_AUGMENT_TYPE_POTION))) {
-            return false;
-        }
-        if (ThermalAugmentRules.isTypeExclusive(newType)) {
-            for (ItemStack augment : augments) {
-                if (newType.equals(AugmentDataHelper.getAugmentType(augment))) {
-                    return false;
-                }
-            }
-        }
-        if (ThermalAugmentRules.isUnique(newAugment)) {
-            for (ItemStack augment : augments) {
-                if (ItemHelper.itemsEqual(newAugment, augment)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    };
-
     public PotionInfuserItem(Properties builder, int fluidCapacity) {
 
         this(builder, fluidCapacity, FluidHelper::hasPotionTag);
@@ -78,8 +50,10 @@ public class PotionInfuserItem extends FluidContainerItemAugmentable implements 
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("filled"), (stack, world, entity) -> getFluidAmount(stack) > 0 ? 1F : 0F);
         ProxyUtils.registerItemModelProperty(this, new ResourceLocation("active"), (stack, world, entity) -> getFluidAmount(stack) > 0 && getMode(stack) > 0 ? 1F : 0F);
 
-
         ProxyUtils.registerColorable(this);
+
+        numSlots = () -> ThermalConfig.toolAugments;
+        augValidator = createAllowValidator(TAG_AUGMENT_TYPE_UPGRADE, TAG_AUGMENT_TYPE_RF, TAG_AUGMENT_TYPE_POTION, TAG_AUGMENT_TYPE_FILTER);
     }
 
     public PotionInfuserItem(Properties builder, int fluidCapacity, Predicate<FluidStack> validator) {

@@ -5,8 +5,8 @@ import cofh.lib.block.impl.SoilBlock;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.inventory.ItemStorageCoFH;
 import cofh.lib.util.TimeTracker;
-import cofh.thermal.core.tileentity.ThermalTileBase;
 import cofh.thermal.cultivation.inventory.container.device.DeviceSoilInfuserContainer;
+import cofh.thermal.lib.tileentity.ThermalTileBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,8 +25,8 @@ import static cofh.lib.util.StorageGroup.INTERNAL;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
 import static cofh.lib.util.helpers.AugmentableHelper.getAttributeModWithDefault;
-import static cofh.thermal.core.common.ThermalConfig.deviceAugments;
 import static cofh.thermal.cultivation.init.TCulReferences.DEVICE_SOIL_INFUSER_TILE;
+import static cofh.thermal.lib.common.ThermalConfig.deviceAugments;
 
 public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableTileEntity {
 

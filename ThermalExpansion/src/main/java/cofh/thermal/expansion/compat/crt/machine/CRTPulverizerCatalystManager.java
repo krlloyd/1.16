@@ -1,9 +1,9 @@
 package cofh.thermal.expansion.compat.crt.machine;
 
-import cofh.thermal.core.compat.crt.actions.ActionRemoveThermalCatalystByOutput;
-import cofh.thermal.core.compat.crt.base.CRTCatalyst;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
 import cofh.thermal.expansion.util.recipes.machine.PulverizerCatalyst;
+import cofh.thermal.lib.compat.crt.actions.ActionRemoveThermalCatalystByOutput;
+import cofh.thermal.lib.compat.crt.base.CRTCatalyst;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IIngredient;

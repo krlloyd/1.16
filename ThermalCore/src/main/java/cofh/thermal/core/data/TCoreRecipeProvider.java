@@ -3,7 +3,7 @@ package cofh.thermal.core.data;
 import cofh.lib.data.RecipeProviderCoFH;
 import cofh.lib.util.DeferredRegisterCoFH;
 import cofh.lib.util.references.ItemTagsCoFH;
-import cofh.thermal.core.common.ThermalFlags;
+import cofh.thermal.lib.common.ThermalFlags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -19,8 +19,8 @@ import java.util.function.Consumer;
 
 import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.thermal.core.ThermalCore.ITEMS;
-import static cofh.thermal.core.common.ThermalFlags.*;
 import static cofh.thermal.core.init.TCoreIDs.*;
+import static cofh.thermal.lib.common.ThermalFlags.*;
 
 public class TCoreRecipeProvider extends RecipeProviderCoFH {
 
@@ -1392,6 +1392,18 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .patternLine("IPI")
                 .addCriterion("has_redstone_servo", hasItem(redstoneServo))
                 .build(withConditions(consumer).flag(ID_DEVICE_POTION_DIFFUSER));
+
+        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_DEVICE_NULLIFIER))
+                .key('C', Items.LAVA_BUCKET)
+                .key('G', Tags.Items.GLASS)
+                .key('I', ItemTagsCoFH.INGOTS_TIN)
+                .key('P', redstoneServo)
+                .key('X', Tags.Items.DUSTS_REDSTONE)
+                .patternLine("IXI")
+                .patternLine("GCG")
+                .patternLine("IPI")
+                .addCriterion("has_redstone_servo", hasItem(redstoneServo))
+                .build(withConditions(consumer).flag(ID_DEVICE_NULLIFIER));
 
         ShapedRecipeBuilder.shapedRecipe(reg.get(ID_ENERGY_CELL))
                 .key('C', energyCellFrame)

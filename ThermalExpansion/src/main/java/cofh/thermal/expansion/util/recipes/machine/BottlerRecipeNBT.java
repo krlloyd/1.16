@@ -1,7 +1,7 @@
 package cofh.thermal.expansion.util.recipes.machine;
 
-import cofh.thermal.core.util.IMachineInventory;
-import cofh.thermal.core.util.recipes.internal.BaseMachineRecipe;
+import cofh.thermal.lib.util.recipes.IMachineInventory;
+import cofh.thermal.lib.util.recipes.internal.BaseMachineRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 

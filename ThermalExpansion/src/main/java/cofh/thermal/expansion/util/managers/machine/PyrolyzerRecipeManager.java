@@ -1,9 +1,9 @@
 package cofh.thermal.expansion.util.managers.machine;
 
 import cofh.lib.inventory.FalseIInventory;
-import cofh.thermal.core.util.managers.SingleItemRecipeManager;
-import cofh.thermal.core.util.recipes.ThermalRecipe;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
+import cofh.thermal.lib.util.managers.SingleItemRecipeManager;
+import cofh.thermal.lib.util.recipes.ThermalRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;

@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 
 import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.lib.util.constants.Constants.ID_THERMAL;
-import static cofh.thermal.core.common.ThermalConfig.jeiBucketTanks;
+import static cofh.thermal.lib.common.ThermalConfig.jeiBucketTanks;
 
 // TODO: Implement as necessary.
 // @JeiPlugin

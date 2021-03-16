@@ -1,6 +1,7 @@
 package cofh.lib.util.constants;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
@@ -161,6 +162,7 @@ public class Constants {
     public static final BooleanSupplier TRUE = () -> true;
     public static final BooleanSupplier FALSE = () -> false;
 
+    public static final Supplier<Block> EMPTY_BLOCK = () -> Blocks.AIR;
     public static final Supplier<ItemStack> EMPTY_ITEM = () -> ItemStack.EMPTY;
     public static final Supplier<FluidStack> EMPTY_FLUID = () -> FluidStack.EMPTY;
 

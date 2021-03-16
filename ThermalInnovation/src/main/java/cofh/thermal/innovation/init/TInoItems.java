@@ -4,8 +4,8 @@ import cofh.thermal.innovation.item.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 
-import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_TOOLS;
 import static cofh.thermal.core.util.RegistrationHelper.registerItem;
+import static cofh.thermal.lib.common.ThermalItemGroups.THERMAL_TOOLS;
 
 public class TInoItems {
 

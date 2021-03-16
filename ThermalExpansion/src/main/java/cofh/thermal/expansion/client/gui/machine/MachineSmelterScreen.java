@@ -1,9 +1,9 @@
 package cofh.thermal.expansion.client.gui.machine;
 
 import cofh.lib.util.helpers.StringHelper;
-import cofh.thermal.core.client.gui.MachineScreenReconfigurable;
 import cofh.thermal.core.client.gui.ThermalGuiHelper;
 import cofh.thermal.expansion.inventory.container.machine.MachineSmelterContainer;
+import cofh.thermal.lib.client.gui.MachineScreenReconfigurable;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

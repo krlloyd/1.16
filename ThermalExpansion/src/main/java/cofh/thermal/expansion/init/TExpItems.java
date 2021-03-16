@@ -1,7 +1,7 @@
 package cofh.thermal.expansion.init;
 
 import cofh.core.item.ItemCoFH;
-import cofh.thermal.core.common.ThermalItemGroups;
+import cofh.thermal.lib.common.ThermalItemGroups;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 

@@ -1,8 +1,8 @@
 package cofh.thermal.core.client.gui.device;
 
 import cofh.lib.util.helpers.StringHelper;
-import cofh.thermal.core.client.gui.ThermalTileScreenBase;
 import cofh.thermal.core.inventory.container.device.DeviceWaterGenContainer;
+import cofh.thermal.lib.client.gui.ThermalTileScreenBase;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

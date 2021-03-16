@@ -25,13 +25,13 @@ import static cofh.lib.util.constants.Constants.TRUE;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.thermal.core.ThermalCore.BLOCKS;
 import static cofh.thermal.core.ThermalCore.ITEMS;
-import static cofh.thermal.core.common.ThermalAugmentRules.flagUniqueAugment;
-import static cofh.thermal.core.common.ThermalFlags.*;
-import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_ITEMS;
-import static cofh.thermal.core.common.ThermalItemGroups.THERMAL_TOOLS;
 import static cofh.thermal.core.init.TCoreIDs.*;
 import static cofh.thermal.core.init.TCoreReferences.*;
 import static cofh.thermal.core.util.RegistrationHelper.*;
+import static cofh.thermal.lib.common.ThermalAugmentRules.flagUniqueAugment;
+import static cofh.thermal.lib.common.ThermalFlags.*;
+import static cofh.thermal.lib.common.ThermalItemGroups.THERMAL_ITEMS;
+import static cofh.thermal.lib.common.ThermalItemGroups.THERMAL_TOOLS;
 
 public class TCoreItems {
 

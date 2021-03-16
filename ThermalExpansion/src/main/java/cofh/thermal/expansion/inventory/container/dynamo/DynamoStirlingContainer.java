@@ -3,7 +3,7 @@ package cofh.thermal.expansion.inventory.container.dynamo;
 import cofh.core.inventory.container.TileContainer;
 import cofh.lib.inventory.container.slot.SlotCoFH;
 import cofh.lib.inventory.wrapper.InvWrapperCoFH;
-import cofh.thermal.core.tileentity.DynamoTileBase;
+import cofh.thermal.lib.tileentity.DynamoTileBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.math.BlockPos;

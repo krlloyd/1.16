@@ -1,7 +1,7 @@
 package cofh.thermal.core.fluid;
 
 import cofh.lib.fluid.FluidCoFH;
-import cofh.thermal.core.common.ThermalItemGroups;
+import cofh.thermal.lib.common.ThermalItemGroups;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;

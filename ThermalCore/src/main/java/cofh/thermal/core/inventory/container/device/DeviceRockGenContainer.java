@@ -3,7 +3,7 @@ package cofh.thermal.core.inventory.container.device;
 import cofh.core.inventory.container.TileContainer;
 import cofh.lib.inventory.container.slot.SlotRemoveOnly;
 import cofh.lib.inventory.wrapper.InvWrapperCoFH;
-import cofh.thermal.core.tileentity.ThermalTileBase;
+import cofh.thermal.lib.tileentity.ThermalTileBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +21,7 @@ public class DeviceRockGenContainer extends TileContainer {
         this.tile = (ThermalTileBase) world.getTileEntity(pos);
         InvWrapperCoFH tileInv = new InvWrapperCoFH(this.tile.getItemInv());
 
-        addSlot(new SlotRemoveOnly(tileInv, 0, 44, 35));
+        addSlot(new SlotRemoveOnly(tileInv, 0, 116, 35));
 
         bindAugmentSlots(tileInv, 1, this.tile.augSize());
         bindPlayerInventory(inventory);

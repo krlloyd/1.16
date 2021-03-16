@@ -23,10 +23,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 import static cofh.lib.util.references.CoreReferences.CHILLED;
-import static cofh.thermal.core.common.ThermalConfig.permanentLava;
-import static cofh.thermal.core.common.ThermalConfig.permanentWater;
 import static cofh.thermal.core.init.TCoreReferences.ICE_GRENADE_ENTITY;
 import static cofh.thermal.core.init.TCoreReferences.ICE_GRENADE_ITEM;
+import static cofh.thermal.lib.common.ThermalConfig.permanentLava;
+import static cofh.thermal.lib.common.ThermalConfig.permanentWater;
 
 public class IceGrenadeEntity extends AbstractGrenadeEntity {
 

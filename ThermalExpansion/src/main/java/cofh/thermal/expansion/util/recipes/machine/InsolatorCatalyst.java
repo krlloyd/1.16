@@ -1,7 +1,7 @@
 package cofh.thermal.expansion.util.recipes.machine;
 
-import cofh.thermal.core.util.recipes.ThermalCatalyst;
 import cofh.thermal.expansion.init.TExpRecipeTypes;
+import cofh.thermal.lib.util.recipes.ThermalCatalyst;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
