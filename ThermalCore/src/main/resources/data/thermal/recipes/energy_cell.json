@@ -19,7 +19,7 @@
       "item": "thermal:cured_rubber"
     },
     "X": {
-      "item": "minecraft:redstone_block"
+      "tag": "forge:storage_blocks/redstone"
     }
   },
   "result": {

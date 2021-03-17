@@ -164,11 +164,13 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
         }
     }
 
+    // region AUGMENTS
     @Override
     protected Predicate<ItemStack> augValidator() {
 
         return item -> AugmentDataHelper.hasAugmentData(item) && ENERGY_VALIDATOR.test(item, getAugmentsAsList());
     }
+    // endregion
 
     // region CAPABILITIES
     @Override

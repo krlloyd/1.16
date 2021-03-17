@@ -345,6 +345,24 @@ public class TExpRecipeProvider extends RecipeProviderCoFH {
                 .patternLine(" P ")
                 .addCriterion("has_bronze_plate", hasItem(ItemTagsCoFH.PLATES_BRONZE))
                 .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(reg.get("chiller_ingot_cast"))
+                .key('P', ItemTagsCoFH.PLATES_BRONZE)
+                .key('X', Items.NETHER_BRICK)
+                .patternLine(" P ")
+                .patternLine("PXP")
+                .patternLine(" P ")
+                .addCriterion("has_bronze_plate", hasItem(ItemTagsCoFH.PLATES_BRONZE))
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(reg.get("chiller_rod_cast"))
+                .key('P', ItemTagsCoFH.PLATES_BRONZE)
+                .key('X', Items.BLAZE_ROD)
+                .patternLine(" P ")
+                .patternLine("PXP")
+                .patternLine(" P ")
+                .addCriterion("has_bronze_plate", hasItem(ItemTagsCoFH.PLATES_BRONZE))
+                .build(consumer);
     }
 
 }

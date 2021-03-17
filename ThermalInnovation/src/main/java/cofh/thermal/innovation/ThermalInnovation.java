@@ -9,6 +9,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static cofh.lib.util.constants.Constants.ID_THERMAL_INNOVATION;
+import static cofh.thermal.core.init.TCoreIDs.ID_CHARGE_BENCH;
 import static cofh.thermal.core.init.TCoreIDs.ID_DEVICE_POTION_DIFFUSER;
 import static cofh.thermal.lib.common.ThermalFlags.*;
 
@@ -40,6 +41,8 @@ public class ThermalInnovation {
         setFlag(FLAG_TOOL_COMPONENTS, true);
 
         setFlag(FLAG_ELEMENTAL_EXPLOSIVES, true);
+
+        setFlag(ID_CHARGE_BENCH, true);
     }
 
     // region INITIALIZATION

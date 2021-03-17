@@ -1,6 +1,7 @@
 package cofh.thermal.core.inventory.container.workbench;
 
 import cofh.core.inventory.container.TileContainer;
+import cofh.lib.inventory.container.slot.SlotCoFH;
 import cofh.lib.inventory.wrapper.InvWrapperCoFH;
 import cofh.thermal.core.tileentity.workbench.ChargeBenchTile;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +21,14 @@ public class ChargeBenchContainer extends TileContainer {
         this.tile = (ChargeBenchTile) world.getTileEntity(pos);
         InvWrapperCoFH tileInv = new InvWrapperCoFH(this.tile.getItemInv());
 
-        bindAugmentSlots(tileInv, 3, this.tile.augSize());
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                addSlot(new SlotCoFH(tileInv, j + i * 3, 62 + j * 18, 17 + i * 18));
+            }
+        }
+        addSlot(new SlotCoFH(tileInv, 9, 8, 53));
+
+        bindAugmentSlots(tileInv, 10, this.tile.augSize());
         bindPlayerInventory(inventory);
     }
 

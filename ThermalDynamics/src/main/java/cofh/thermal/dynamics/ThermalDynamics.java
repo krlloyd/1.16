@@ -11,7 +11,13 @@ public class ThermalDynamics {
 
     public ThermalDynamics() {
 
+        setFeatureFlags();
+
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    }
+
+    private void setFeatureFlags() {
+
     }
 
 }

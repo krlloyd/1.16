@@ -55,6 +55,8 @@ public class TExpTagsProvider {
             getOrCreateBuilder(ItemTagsCoFH.MACHINE_DIES).add(ITEMS.get("press_unpacking_die"));
 
             getOrCreateBuilder(ItemTagsCoFH.MACHINE_CASTS).add(ITEMS.get("chiller_ball_cast"));
+            getOrCreateBuilder(ItemTagsCoFH.MACHINE_CASTS).add(ITEMS.get("chiller_ingot_cast"));
+            getOrCreateBuilder(ItemTagsCoFH.MACHINE_CASTS).add(ITEMS.get("chiller_rod_cast"));
         }
 
     }

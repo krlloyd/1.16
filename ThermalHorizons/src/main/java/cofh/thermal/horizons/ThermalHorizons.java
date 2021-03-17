@@ -11,7 +11,13 @@ public class ThermalHorizons {
 
     public ThermalHorizons() {
 
+        setFeatureFlags();
+
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    }
+
+    private void setFeatureFlags() {
+
     }
 
 }

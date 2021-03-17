@@ -1410,7 +1410,7 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .key('I', Tags.Items.INGOTS_IRON)
                 .key('P', rfCoil)
                 .key('R', reg.get("cured_rubber"))
-                .key('X', Items.REDSTONE_BLOCK)
+                .key('X', Tags.Items.STORAGE_BLOCKS_REDSTONE)
                 .patternLine("RXR")
                 .patternLine("ICI")
                 .patternLine("RPR")
@@ -1440,6 +1440,17 @@ public class TCoreRecipeProvider extends RecipeProviderCoFH {
                 .patternLine("XPX")
                 .addCriterion("has_rf_coil", hasItem(rfCoil))
                 .build(withConditions(consumer).flag(ID_TINKER_BENCH));
+
+        ShapedRecipeBuilder.shapedRecipe(reg.get(ID_CHARGE_BENCH))
+                .key('C', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                .key('I', ItemTagsCoFH.INGOTS_ELECTRUM)
+                .key('P', rfCoil)
+                .key('X', ItemTagsCoFH.INGOTS_LEAD)
+                .patternLine("III")
+                .patternLine("PCP")
+                .patternLine("XPX")
+                .addCriterion("has_rf_coil", hasItem(rfCoil))
+                .build(withConditions(consumer).flag(ID_CHARGE_BENCH));
     }
     // endregion
 }

@@ -1,7 +1,9 @@
 gradle.projectsEvaluated{
     def projects = [
             "ThermalCultivation",
+            "ThermalDynamics",
             "ThermalExpansion",
+            "ThermalHorizons",
             "ThermalInnovation",
             "ThermalLocomotion",
 

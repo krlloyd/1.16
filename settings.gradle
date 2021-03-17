@@ -7,7 +7,9 @@ include 'OMGourd'
 
 include 'ThermalCore'
 include 'ThermalCultivation'
+include 'ThermalDynamics'
 include 'ThermalExpansion'
+include 'ThermalHorizons'
 include 'ThermalInnovation'
 include 'ThermalLocomotion'
 

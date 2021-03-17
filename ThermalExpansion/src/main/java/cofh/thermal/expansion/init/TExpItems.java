@@ -24,6 +24,8 @@ public class TExpItems {
         registerItem("press_unpacking_die", () -> new ItemCoFH(new Item.Properties().maxStackSize(1).group(group)));
 
         registerItem("chiller_ball_cast", () -> new ItemCoFH(new Item.Properties().maxStackSize(1).group(group)));
+        registerItem("chiller_ingot_cast", () -> new ItemCoFH(new Item.Properties().maxStackSize(1).group(group)));
+        registerItem("chiller_rod_cast", () -> new ItemCoFH(new Item.Properties().maxStackSize(1).group(group)));
     }
 
 }

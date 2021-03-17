@@ -441,6 +441,7 @@
   "block.thermal.fluid_cell_frame": "Fluid Cell Frame",
 
   "block.thermal.tinker_bench": "Tinker's Workbench",
+  "block.thermal.charge_bench": "Charging Table",
 
   "info.thermal.device_collector.0": "Picks up things from the nearby area.",
   "info.thermal.device_collector.1": "Filter configuration will apply to this behavior.",
@@ -478,6 +479,10 @@
   "info.thermal.tinker_bench.0": "Multipurpose table for augmenting, recharging, and refilling.",
   "info.thermal.tinker_bench.1": "Storages may be filled using their respective slots.",
   "info.thermal.tinker_bench.2": "Tinker on!",
+
+  "info.thermal.charge_bench.0": "Charges items with Redstone Flux.",
+  "info.thermal.charge_bench.1": "Items can be inserted and removed with automation.",
+  "info.thermal.charge_bench.2": "Feel the hum.",
 
   "info.thermal.tinker_bench_mode_augment": "Mode: Augment",
   "info.thermal.tinker_bench_mode_charge": "Mode: Charge/Fill",
@@ -799,6 +804,8 @@
   "info.thermal.machine_smelter.2": "Will absolutely not cook food.",
 
   "item.thermal.chiller_ball_cast": "Ball Cast",
+  "item.thermal.chiller_ingot_cast": "Ingot Cast",
+  "item.thermal.chiller_rod_cast": "Rod Cast",
 
   "item.thermal.press_coin_die": "Numismatic Die",
   "item.thermal.press_gear_die": "Gearworking Die",

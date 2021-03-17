@@ -81,8 +81,14 @@ minecraft {
                 ThermalCultivation {
                     source project(':ThermalCultivation').sourceSets.main
                 }
+                ThermalDynamics {
+                    source project(':ThermalDynamics').sourceSets.main
+                }
                 ThermalExpansion {
                     source project(':ThermalExpansion').sourceSets.main
+                }
+                ThermalHorizons {
+                    source project(':ThermalHorizons').sourceSets.main
                 }
                 ThermalInnovation {
                     source project(':ThermalInnovation').sourceSets.main
@@ -129,8 +135,14 @@ minecraft {
                 ThermalCultivation {
                     source project(':ThermalCultivation').sourceSets.main
                 }
+                ThermalDynamics {
+                    source project(':ThermalDynamics').sourceSets.main
+                }
                 ThermalExpansion {
                     source project(':ThermalExpansion').sourceSets.main
+                }
+                ThermalHorizons {
+                    source project(':ThermalHorizons').sourceSets.main
                 }
                 ThermalInnovation {
                     source project(':ThermalInnovation').sourceSets.main
@@ -160,7 +172,9 @@ dependencies {
 
     compile project(':ThermalCore')
     compile project(':ThermalCultivation')
+    compile project(':ThermalDynamics')
     compile project(':ThermalExpansion')
+    compile project(':ThermalHorizons')
     compile project(':ThermalInnovation')
     compile project(':ThermalLocomotion')
 }

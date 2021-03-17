@@ -38,6 +38,9 @@ import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.SIM
 
 public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEntity {
 
+    public static final int BASE_CAPACITY = 500000;
+    public static final int BASE_XFER = 1000;
+
     protected static final byte REPLENISH = 0;
     protected static final byte AUGMENT = 1;
 
@@ -60,7 +63,7 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
 
         super(TINKER_BENCH_TILE);
 
-        energyStorage = new EnergyStorageCoFH(getBaseEnergyStorage(), getBaseEnergyXfer());
+        energyStorage = new EnergyStorageCoFH(BASE_CAPACITY, BASE_XFER);
 
         inventory.addSlot(tinkerSlot, INTERNAL);
         inventory.addSlot(chargeSlot, INTERNAL);
@@ -71,18 +74,6 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
         addAugmentSlots(storageAugments);
         initHandlers();
     }
-
-    // region BASE PARAMETERS
-    protected int getBaseEnergyStorage() {
-
-        return 500000;
-    }
-
-    protected int getBaseEnergyXfer() {
-
-        return 1000;
-    }
-    // endregion
 
     @Override
     public void tick() {
@@ -149,6 +140,13 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
         }
     }
 
+    @Nullable
+    @Override
+    public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
+
+        return new TinkerBenchContainer(i, world, pos, inventory, player);
+    }
+
     // region GUI
     @Override
     public boolean canOpenGui() {
@@ -204,12 +202,4 @@ public class TinkerBenchTile extends ThermalTileBase implements ITickableTileEnt
         return item -> AugmentDataHelper.hasAugmentData(item) && STORAGE_VALIDATOR.test(item, getAugmentsAsList());
     }
     // endregion
-
-    @Nullable
-    @Override
-    public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
-
-        return new TinkerBenchContainer(i, world, pos, inventory, player);
-    }
-
 }
