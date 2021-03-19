@@ -9,7 +9,7 @@ public class CurseMercyEnchantment extends EnchantmentCoFH {
     public CurseMercyEnchantment() {
 
         super(Rarity.VERY_RARE, CoreEnchantments.Types.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

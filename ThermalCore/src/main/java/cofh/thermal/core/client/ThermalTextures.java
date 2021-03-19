@@ -1,4 +1,4 @@
-package cofh.thermal.core.client.gui;
+package cofh.thermal.core.client;
 
 import cofh.thermal.core.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -72,6 +72,9 @@ public class ThermalTextures {
         CELL_CONFIG_OUTPUT = map.getSprite(CELL_CONFIG_OUTPUT_LOC);
         CELL_CONFIG_BOTH = map.getSprite(CELL_CONFIG_BOTH_LOC);
 
+        ENERGY_CELL_LEVELS = new TextureAtlasSprite[9];
+        FLUID_CELL_LEVELS = new TextureAtlasSprite[9];
+
         for (int i = 0; i < 9; ++i) {
             ENERGY_CELL_LEVELS[i] = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/energy_cell_level_" + i));
             FLUID_CELL_LEVELS[i] = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_" + i));
@@ -80,6 +83,8 @@ public class ThermalTextures {
         FLUID_CELL_LEVEL_0_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_0c"));
         FLUID_CELL_LEVEL_8_C = map.getSprite(new ResourceLocation(ID_THERMAL + ":block/cells/fluid_cell_level_8c"));
     }
+
+    public static ResourceLocation DEVICE_COLLECTOR_UNDERLAY_LOC = new ResourceLocation(ID_THERMAL + ":block/devices/device_collector_underlay");
 
     // region CONFIG
     private static final String CONFIG_ = ID_THERMAL + ":block/config/";
@@ -95,8 +100,6 @@ public class ThermalTextures {
     public static ResourceLocation CELL_CONFIG_OUTPUT_LOC = new ResourceLocation(CONFIG_ + "cell_config_output");
     public static ResourceLocation CELL_CONFIG_BOTH_LOC = new ResourceLocation(CONFIG_ + "cell_config_both");
 
-    public static ResourceLocation DEVICE_COLLECTOR_UNDERLAY_LOC = new ResourceLocation(ID_THERMAL + ":block/devices/device_collector_underlay");
-
     public static TextureAtlasSprite MACHINE_CONFIG_NONE;
     public static TextureAtlasSprite MACHINE_CONFIG_INPUT;
     public static TextureAtlasSprite MACHINE_CONFIG_OUTPUT;
@@ -108,10 +111,10 @@ public class ThermalTextures {
     public static TextureAtlasSprite CELL_CONFIG_OUTPUT;
     public static TextureAtlasSprite CELL_CONFIG_BOTH;
 
-    public static TextureAtlasSprite[] ENERGY_CELL_LEVELS = new TextureAtlasSprite[9];
+    public static TextureAtlasSprite[] ENERGY_CELL_LEVELS;
     public static TextureAtlasSprite ENERGY_CELL_LEVEL_8_C;
 
-    public static TextureAtlasSprite[] FLUID_CELL_LEVELS = new TextureAtlasSprite[9];
+    public static TextureAtlasSprite[] FLUID_CELL_LEVELS;
     public static TextureAtlasSprite FLUID_CELL_LEVEL_0_C;
     public static TextureAtlasSprite FLUID_CELL_LEVEL_8_C;
     // endregion

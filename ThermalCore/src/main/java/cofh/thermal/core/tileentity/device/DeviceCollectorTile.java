@@ -3,7 +3,7 @@ package cofh.thermal.core.tileentity.device;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.InventoryHelper;
 import cofh.lib.xp.XpStorage;
-import cofh.thermal.core.client.gui.ThermalTextures;
+import cofh.thermal.core.client.ThermalTextures;
 import cofh.thermal.core.inventory.container.device.DeviceCollectorContainer;
 import cofh.thermal.lib.tileentity.DeviceTileBase;
 import net.minecraft.entity.item.ExperienceOrbEntity;

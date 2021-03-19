@@ -12,7 +12,7 @@ public class ExcavatingEnchantment extends EnchantmentCoFH {
 
         super(Rarity.RARE, CoreEnchantments.Types.PICKAXE_OR_SHOVEL, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 2;
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

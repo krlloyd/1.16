@@ -1,11 +1,7 @@
 package cofh.thermal.expansion.init;
 
-import cofh.thermal.expansion.inventory.container.device.DeviceFluidBufferContainer;
-import cofh.thermal.expansion.inventory.container.device.DeviceItemBufferContainer;
 import cofh.thermal.expansion.inventory.container.dynamo.*;
 import cofh.thermal.expansion.inventory.container.machine.*;
-import cofh.thermal.expansion.tileentity.device.DeviceFluidBufferTile;
-import cofh.thermal.expansion.tileentity.device.DeviceItemBufferTile;
 import cofh.thermal.expansion.tileentity.dynamo.*;
 import cofh.thermal.expansion.tileentity.machine.*;
 import net.minecraft.block.Block;
@@ -22,22 +18,6 @@ public class TExpReferences {
     private TExpReferences() {
 
     }
-
-    // region DEVICES
-    @ObjectHolder(ID_DEVICE_FLUID_BUFFER)
-    public static final Block DEVICE_FLUID_BUFFER_BLOCK = null;
-    @ObjectHolder(ID_DEVICE_FLUID_BUFFER)
-    public static final TileEntityType<DeviceFluidBufferTile> DEVICE_FLUID_BUFFER_TILE = null;
-    @ObjectHolder(ID_DEVICE_FLUID_BUFFER)
-    public static final ContainerType<DeviceFluidBufferContainer> DEVICE_FLUID_BUFFER_CONTAINER = null;
-
-    @ObjectHolder(ID_DEVICE_ITEM_BUFFER)
-    public static final Block DEVICE_ITEM_BUFFER_BLOCK = null;
-    @ObjectHolder(ID_DEVICE_ITEM_BUFFER)
-    public static final TileEntityType<DeviceItemBufferTile> DEVICE_ITEM_BUFFER_TILE = null;
-    @ObjectHolder(ID_DEVICE_ITEM_BUFFER)
-    public static final ContainerType<DeviceItemBufferContainer> DEVICE_ITEM_BUFFER_CONTAINER = null;
-    // endregion
 
     // region DYNAMOS
     @ObjectHolder(ID_DYNAMO_STIRLING)

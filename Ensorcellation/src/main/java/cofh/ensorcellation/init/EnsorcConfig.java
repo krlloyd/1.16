@@ -648,26 +648,26 @@ public class EnsorcConfig {
         // ARMOR
         if (PROTECTION_MAGIC instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) PROTECTION_MAGIC).setEnable(enableProtectionMagic.get());
-            ((EnchantmentCoFH) PROTECTION_MAGIC).setTreasure(treasureProtectionMagic.get());
+            ((EnchantmentCoFH) PROTECTION_MAGIC).setTreasureEnchantment(treasureProtectionMagic.get());
             ((EnchantmentCoFH) PROTECTION_MAGIC).setMaxLevel(levelProtectionMagic.get());
         }
         if (DISPLACEMENT instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) DISPLACEMENT).setEnable(enableDisplacement.get());
-            ((EnchantmentCoFH) DISPLACEMENT).setTreasure(treasureDisplacement.get());
+            ((EnchantmentCoFH) DISPLACEMENT).setTreasureEnchantment(treasureDisplacement.get());
             ((EnchantmentCoFH) DISPLACEMENT).setMaxLevel(levelDisplacement.get());
             DisplacementEnchantment.chance = chanceDisplacement.get();
             DisplacementEnchantment.mobsAffectPlayers = allowMobsDisplacement.get();
         }
         if (FIRE_REBUKE instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) FIRE_REBUKE).setEnable(enableFireRebuke.get());
-            ((EnchantmentCoFH) FIRE_REBUKE).setTreasure(treasureFireRebuke.get());
+            ((EnchantmentCoFH) FIRE_REBUKE).setTreasureEnchantment(treasureFireRebuke.get());
             ((EnchantmentCoFH) FIRE_REBUKE).setMaxLevel(levelFireRebuke.get());
             FireRebukeEnchantment.chance = chanceFireRebuke.get();
             FireRebukeEnchantment.mobsAffectPlayers = allowMobsFireRebuke.get();
         }
         if (FROST_REBUKE instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) FROST_REBUKE).setEnable(enableFrostRebuke.get());
-            ((EnchantmentCoFH) FROST_REBUKE).setTreasure(treasureFrostRebuke.get());
+            ((EnchantmentCoFH) FROST_REBUKE).setTreasureEnchantment(treasureFrostRebuke.get());
             ((EnchantmentCoFH) FROST_REBUKE).setMaxLevel(levelFrostRebuke.get());
             FrostRebukeEnchantment.chance = chanceFrostRebuke.get();
             FrostRebukeEnchantment.mobsAffectPlayers = allowMobsFrostRebuke.get();
@@ -675,75 +675,75 @@ public class EnsorcConfig {
         // HELMET
         if (AIR_AFFINITY instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) AIR_AFFINITY).setEnable(enableAirAffinity.get());
-            ((EnchantmentCoFH) AIR_AFFINITY).setTreasure(treasureAirAffinity.get());
+            ((EnchantmentCoFH) AIR_AFFINITY).setTreasureEnchantment(treasureAirAffinity.get());
         }
         if (XP_BOOST instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) XP_BOOST).setEnable(enableXpBoost.get());
-            ((EnchantmentCoFH) XP_BOOST).setTreasure(treasureXpBoost.get());
+            ((EnchantmentCoFH) XP_BOOST).setTreasureEnchantment(treasureXpBoost.get());
             ((EnchantmentCoFH) XP_BOOST).setMaxLevel(levelXpBoost.get());
             XpBoostEnchantment.xp = amountXpBoost.get();
         }
         if (GOURMAND instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) GOURMAND).setEnable(enableGourmand.get());
-            ((EnchantmentCoFH) GOURMAND).setTreasure(treasureGourmand.get());
+            ((EnchantmentCoFH) GOURMAND).setTreasureEnchantment(treasureGourmand.get());
             ((EnchantmentCoFH) GOURMAND).setMaxLevel(levelGourmand.get());
         }
         // CHESTPLATE
         if (REACH instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) REACH).setEnable(enableReach.get());
-            ((EnchantmentCoFH) REACH).setTreasure(treasureReach.get());
+            ((EnchantmentCoFH) REACH).setTreasureEnchantment(treasureReach.get());
             ((EnchantmentCoFH) REACH).setMaxLevel(levelReach.get());
         }
         if (VITALITY instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) VITALITY).setEnable(enableVitality.get());
-            ((EnchantmentCoFH) VITALITY).setTreasure(treasureVitality.get());
+            ((EnchantmentCoFH) VITALITY).setTreasureEnchantment(treasureVitality.get());
             ((EnchantmentCoFH) VITALITY).setMaxLevel(levelVitality.get());
             VitalityEnchantment.health = healthLevelVitality.get();
         }
         // WEAPONS
         if (DAMAGE_ENDER instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) DAMAGE_ENDER).setEnable(enableDamageEnder.get());
-            ((EnchantmentCoFH) DAMAGE_ENDER).setTreasure(treasureDamageEnder.get());
+            ((EnchantmentCoFH) DAMAGE_ENDER).setTreasureEnchantment(treasureDamageEnder.get());
             ((EnchantmentCoFH) DAMAGE_ENDER).setMaxLevel(levelDamageEnder.get());
         }
         if (DAMAGE_ILLAGER instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) DAMAGE_ILLAGER).setEnable(enableDamageIllager.get());
-            ((EnchantmentCoFH) DAMAGE_ILLAGER).setTreasure(treasureDamageIllager.get());
+            ((EnchantmentCoFH) DAMAGE_ILLAGER).setTreasureEnchantment(treasureDamageIllager.get());
             ((EnchantmentCoFH) DAMAGE_ILLAGER).setMaxLevel(levelDamageIllager.get());
         }
         if (DAMAGE_VILLAGER instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) DAMAGE_VILLAGER).setEnable(enableDamageVillager.get());
-            ((EnchantmentCoFH) DAMAGE_VILLAGER).setTreasure(treasureDamageVillager.get());
+            ((EnchantmentCoFH) DAMAGE_VILLAGER).setTreasureEnchantment(treasureDamageVillager.get());
             ((EnchantmentCoFH) DAMAGE_VILLAGER).setMaxLevel(levelDamageVillager.get());
             DamageVillagerEnchantment.enableEmeraldDrops = dropsDamageVillager.get();
         }
         if (CAVALIER instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) CAVALIER).setEnable(enableCavalier.get());
-            ((EnchantmentCoFH) CAVALIER).setTreasure(treasureCavalier.get());
+            ((EnchantmentCoFH) CAVALIER).setTreasureEnchantment(treasureCavalier.get());
             ((EnchantmentCoFH) CAVALIER).setMaxLevel(levelCavalier.get());
         }
         if (FROST_ASPECT instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) FROST_ASPECT).setEnable(enableFrostAspect.get());
-            ((EnchantmentCoFH) FROST_ASPECT).setTreasure(treasureFrostAspect.get());
+            ((EnchantmentCoFH) FROST_ASPECT).setTreasureEnchantment(treasureFrostAspect.get());
             ((EnchantmentCoFH) FROST_ASPECT).setMaxLevel(levelFrostAspect.get());
         }
         if (INSTIGATING instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) INSTIGATING).setEnable(enableInstigating.get());
-            ((EnchantmentCoFH) INSTIGATING).setTreasure(treasureInstigating.get());
+            ((EnchantmentCoFH) INSTIGATING).setTreasureEnchantment(treasureInstigating.get());
         }
         if (LEECH instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) LEECH).setEnable(enableLeech.get());
-            ((EnchantmentCoFH) LEECH).setTreasure(treasureLeech.get());
+            ((EnchantmentCoFH) LEECH).setTreasureEnchantment(treasureLeech.get());
             ((EnchantmentCoFH) LEECH).setMaxLevel(levelLeech.get());
         }
         if (MAGIC_EDGE instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) MAGIC_EDGE).setEnable(enableMagicEdge.get());
-            ((EnchantmentCoFH) MAGIC_EDGE).setTreasure(treasureMagicEdge.get());
+            ((EnchantmentCoFH) MAGIC_EDGE).setTreasureEnchantment(treasureMagicEdge.get());
             ((EnchantmentCoFH) MAGIC_EDGE).setMaxLevel(levelMagicEdge.get());
         }
         if (VORPAL instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) VORPAL).setEnable(enableVorpal.get());
-            ((EnchantmentCoFH) VORPAL).setTreasure(treasureVorpal.get());
+            ((EnchantmentCoFH) VORPAL).setTreasureEnchantment(treasureVorpal.get());
             ((EnchantmentCoFH) VORPAL).setMaxLevel(levelVorpal.get());
             VorpalEnchantment.critBase = critBaseVorpal.get();
             VorpalEnchantment.critLevel = critLevelVorpal.get();
@@ -754,71 +754,71 @@ public class EnsorcConfig {
         // TOOLS
         if (EXCAVATING instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) EXCAVATING).setEnable(enableExcavating.get());
-            ((EnchantmentCoFH) EXCAVATING).setTreasure(treasureExcavating.get());
+            ((EnchantmentCoFH) EXCAVATING).setTreasureEnchantment(treasureExcavating.get());
             ((EnchantmentCoFH) EXCAVATING).setMaxLevel(levelExcavating.get());
         }
         // BOWS
         if (HUNTER instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) HUNTER).setEnable(enableHunter.get());
-            ((EnchantmentCoFH) HUNTER).setTreasure(treasureHunter.get());
+            ((EnchantmentCoFH) HUNTER).setTreasureEnchantment(treasureHunter.get());
             ((EnchantmentCoFH) HUNTER).setMaxLevel(levelHunter.get());
             HunterEnchantment.chance = chanceHunter.get();
         }
         if (QUICK_DRAW instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) QUICK_DRAW).setEnable(enableQuickDraw.get());
-            ((EnchantmentCoFH) QUICK_DRAW).setTreasure(treasureQuickDraw.get());
+            ((EnchantmentCoFH) QUICK_DRAW).setTreasureEnchantment(treasureQuickDraw.get());
             ((EnchantmentCoFH) QUICK_DRAW).setMaxLevel(levelQuickDraw.get());
         }
         if (TRUESHOT instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) TRUESHOT).setEnable(enableTrueshot.get());
-            ((EnchantmentCoFH) TRUESHOT).setTreasure(treasureTrueshot.get());
+            ((EnchantmentCoFH) TRUESHOT).setTreasureEnchantment(treasureTrueshot.get());
             ((EnchantmentCoFH) TRUESHOT).setMaxLevel(levelTrueshot.get());
         }
         if (VOLLEY instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) VOLLEY).setEnable(enableVolley.get());
-            ((EnchantmentCoFH) VOLLEY).setTreasure(treasureVolley.get());
+            ((EnchantmentCoFH) VOLLEY).setTreasureEnchantment(treasureVolley.get());
         }
         // FISHING RODS
         if (ANGLER instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) ANGLER).setEnable(enableAngler.get());
-            ((EnchantmentCoFH) ANGLER).setTreasure(treasureAngler.get());
+            ((EnchantmentCoFH) ANGLER).setTreasureEnchantment(treasureAngler.get());
             ((EnchantmentCoFH) ANGLER).setMaxLevel(levelAngler.get());
             AnglerEnchantment.chance = chanceAngler.get();
         }
         if (PILFERING instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) PILFERING).setEnable(enablePilfering.get());
-            ((EnchantmentCoFH) PILFERING).setTreasure(treasurePilfering.get());
+            ((EnchantmentCoFH) PILFERING).setTreasureEnchantment(treasurePilfering.get());
             PilferingEnchantment.allowPlayerStealing = playerStealPilfering.get();
         }
         // HOES
         if (FURROWING instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) FURROWING).setEnable(enableFurrowing.get());
-            ((EnchantmentCoFH) FURROWING).setTreasure(treasureFurrowing.get());
+            ((EnchantmentCoFH) FURROWING).setTreasureEnchantment(treasureFurrowing.get());
             ((EnchantmentCoFH) FURROWING).setMaxLevel(levelFurrowing.get());
         }
         if (TILLING instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) TILLING).setEnable(enableTilling.get());
-            ((EnchantmentCoFH) TILLING).setTreasure(treasureTilling.get());
+            ((EnchantmentCoFH) TILLING).setTreasureEnchantment(treasureTilling.get());
             ((EnchantmentCoFH) TILLING).setMaxLevel(levelTilling.get());
         }
         if (WEEDING instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) WEEDING).setEnable(enableWeeding.get());
-            ((EnchantmentCoFH) WEEDING).setTreasure(treasureWeeding.get());
+            ((EnchantmentCoFH) WEEDING).setTreasureEnchantment(treasureWeeding.get());
         }
         // SHIELDS
         if (BULWARK instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) BULWARK).setEnable(enableBulwark.get());
-            ((EnchantmentCoFH) BULWARK).setTreasure(treasureBulwark.get());
+            ((EnchantmentCoFH) BULWARK).setTreasureEnchantment(treasureBulwark.get());
         }
         if (PHALANX instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) PHALANX).setEnable(enablePhalanx.get());
-            ((EnchantmentCoFH) PHALANX).setTreasure(treasurePhalanx.get());
+            ((EnchantmentCoFH) PHALANX).setTreasureEnchantment(treasurePhalanx.get());
             ((EnchantmentCoFH) PHALANX).setMaxLevel(levelPhalanx.get());
         }
         // MISC
         if (SOULBOUND instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) SOULBOUND).setEnable(enableSoulbound.get());
-            ((EnchantmentCoFH) SOULBOUND).setTreasure(treasureSoulbound.get());
+            ((EnchantmentCoFH) SOULBOUND).setTreasureEnchantment(treasureSoulbound.get());
             ((EnchantmentCoFH) SOULBOUND).setMaxLevel(levelSoulbound.get());
             SoulboundEnchantment.permanent = permanentSoulbound.get();
         }
@@ -860,7 +860,7 @@ public class EnsorcConfig {
         }
         if (FROST_WALKER instanceof FrostWalkerEnchantmentImp) {
             ((EnchantmentCoFH) FROST_WALKER).setEnable(enableFrostWalker.get());
-            ((EnchantmentCoFH) FROST_WALKER).setTreasure(treasureFrostWalker.get());
+            ((EnchantmentCoFH) FROST_WALKER).setTreasureEnchantment(treasureFrostWalker.get());
             ((EnchantmentCoFH) FROST_WALKER).setMaxLevel(levelFrostWalker.get());
             ((FrostWalkerEnchantmentImp) FROST_WALKER).setFreezeLava(enableFreezeLava.get());
         }
@@ -879,7 +879,7 @@ public class EnsorcConfig {
         }
         if (MENDING instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) MENDING).setEnable(alternateMending.get());
-            ((EnchantmentCoFH) MENDING).setTreasure(treasureMending.get());
+            ((EnchantmentCoFH) MENDING).setTreasureEnchantment(treasureMending.get());
             MendingEnchantmentAlt.anvilDamage = damageMending.get() / 100F;
         }
     }

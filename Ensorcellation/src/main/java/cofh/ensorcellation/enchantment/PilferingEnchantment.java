@@ -11,7 +11,7 @@ public class PilferingEnchantment extends EnchantmentCoFH {
     public PilferingEnchantment() {
 
         super(Rarity.RARE, EnchantmentType.FISHING_ROD, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

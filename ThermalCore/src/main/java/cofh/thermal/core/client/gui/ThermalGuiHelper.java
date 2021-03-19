@@ -18,7 +18,7 @@ import static cofh.core.util.helpers.RenderHelper.textureExists;
 import static cofh.lib.util.constants.Constants.ID_THERMAL;
 import static cofh.lib.util.constants.Constants.TRUE;
 import static cofh.lib.util.control.IReconfigurable.SideConfig.*;
-import static cofh.thermal.core.client.gui.ThermalTextures.*;
+import static cofh.thermal.core.client.ThermalTextures.*;
 import static net.minecraft.util.Direction.DOWN;
 import static net.minecraft.util.Direction.UP;
 

@@ -9,7 +9,7 @@ public class CurseFoolEnchant extends EnchantmentCoFH {
     public CurseFoolEnchant() {
 
         super(Rarity.VERY_RARE, EnchantmentType.ARMOR_HEAD, new EquipmentSlotType[]{EquipmentSlotType.HEAD});
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

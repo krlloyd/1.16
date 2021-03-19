@@ -190,7 +190,7 @@ public class CoreConfig {
 
         if (HOLDING instanceof EnchantmentCoFH) {
             ((EnchantmentCoFH) HOLDING).setEnable(enableHolding.get());
-            ((EnchantmentCoFH) HOLDING).setTreasure(treasureHolding.get());
+            ((EnchantmentCoFH) HOLDING).setTreasureEnchantment(treasureHolding.get());
             ((EnchantmentCoFH) HOLDING).setMaxLevel(levelHolding.get());
         }
     }

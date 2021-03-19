@@ -12,7 +12,7 @@ public class AnglerEnchantment extends EnchantmentCoFH {
 
         super(Rarity.VERY_RARE, EnchantmentType.FISHING_ROD, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 2;
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

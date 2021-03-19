@@ -1,4 +1,4 @@
-package cofh.thermal.expansion.client.gui.device;
+package cofh.thermal.dynamics.client.gui.device;
 
 import cofh.core.client.gui.element.ElementBase;
 import cofh.core.client.gui.element.ElementButton;
@@ -7,8 +7,8 @@ import cofh.core.client.gui.element.panel.ConfigPanel;
 import cofh.core.network.packet.server.TileConfigPacket;
 import cofh.lib.util.helpers.StringHelper;
 import cofh.thermal.core.client.gui.ThermalGuiHelper;
-import cofh.thermal.expansion.inventory.container.device.DeviceFluidBufferContainer;
-import cofh.thermal.expansion.tileentity.device.DeviceFluidBufferTile;
+import cofh.thermal.dynamics.inventory.container.device.DeviceFluidBufferContainer;
+import cofh.thermal.dynamics.tileentity.device.DeviceFluidBufferTile;
 import cofh.thermal.lib.client.gui.ThermalTileScreenBase;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;

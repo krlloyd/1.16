@@ -1,13 +1,13 @@
-package cofh.thermal.expansion.inventory.container.device;
+package cofh.thermal.dynamics.inventory.container.device;
 
 import cofh.core.inventory.container.TileContainer;
-import cofh.thermal.expansion.tileentity.device.DeviceFluidBufferTile;
+import cofh.thermal.dynamics.tileentity.device.DeviceFluidBufferTile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import static cofh.thermal.expansion.init.TExpReferences.DEVICE_FLUID_BUFFER_CONTAINER;
+import static cofh.thermal.dynamics.init.TDynReferences.DEVICE_FLUID_BUFFER_CONTAINER;
 
 public class DeviceFluidBufferContainer extends TileContainer {
 

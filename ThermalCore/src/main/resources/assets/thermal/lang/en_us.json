@@ -441,7 +441,7 @@
   "block.thermal.fluid_cell_frame": "Fluid Cell Frame",
 
   "block.thermal.tinker_bench": "Tinker's Workbench",
-  "block.thermal.charge_bench": "Charging Table",
+  "block.thermal.charge_bench": "Energetic Infuser",
 
   "info.thermal.device_collector.0": "Picks up things from the nearby area.",
   "info.thermal.device_collector.1": "Filter configuration will apply to this behavior.",

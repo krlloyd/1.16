@@ -73,7 +73,7 @@ public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHa
 
     public void sendGuiNetworkData(Container container, IContainerListener player) {
 
-        if (player instanceof ServerPlayerEntity && (!(player instanceof FakePlayer))) {
+        if (hasGuiPacket() && player instanceof ServerPlayerEntity && (!(player instanceof FakePlayer))) {
             TileGuiPacket.sendToClient(this, (ServerPlayerEntity) player);
         }
     }
@@ -92,6 +92,11 @@ public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHa
     public boolean hasClientUpdate() {
 
         return false;
+    }
+
+    public boolean hasGuiPacket() {
+
+        return true;
     }
     // endregion
 
@@ -179,10 +184,6 @@ public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHa
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
 
         read(this.cachedBlockState, pkt.getNbtCompound());
-    }
-
-    public void setActive(boolean active) {
-
     }
     // endregion
 

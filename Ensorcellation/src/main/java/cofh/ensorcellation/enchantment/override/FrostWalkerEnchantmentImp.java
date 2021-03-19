@@ -30,7 +30,7 @@ public class FrostWalkerEnchantmentImp extends EnchantmentOverride {
 
         super(Rarity.RARE, EnchantmentType.ARMOR_FEET, new EquipmentSlotType[]{EquipmentSlotType.FEET});
         maxLevel = 2;
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

@@ -10,8 +10,12 @@ import static cofh.lib.capability.CapabilityEnchantableItem.ENCHANTABLE_ITEM_CAP
 public abstract class EnchantmentCoFH extends Enchantment {
 
     protected boolean enable = true;
+
+    protected boolean allowGenerateInLoot = true;
     protected boolean allowOnBooks = true;
-    protected boolean treasure = false;
+    protected boolean allowVillagerTrade = true;
+    protected boolean treasureEnchantment = false;
+
     protected int maxLevel = 1;
 
     protected EnchantmentCoFH(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType[] slots) {
@@ -26,9 +30,9 @@ public abstract class EnchantmentCoFH extends Enchantment {
         return this;
     }
 
-    public EnchantmentCoFH setTreasure(boolean treasure) {
+    public EnchantmentCoFH setTreasureEnchantment(boolean treasureEnchantment) {
 
-        this.treasure = treasure;
+        this.treasureEnchantment = treasureEnchantment;
         return this;
     }
 
@@ -84,9 +88,21 @@ public abstract class EnchantmentCoFH extends Enchantment {
     }
 
     @Override
+    public boolean canGenerateInLoot() {
+
+        return enable && allowGenerateInLoot;
+    }
+
+    @Override
+    public boolean canVillagerTrade() {
+
+        return enable && allowVillagerTrade;
+    }
+
+    @Override
     public boolean isTreasureEnchantment() {
 
-        return treasure;
+        return treasureEnchantment;
     }
 
 }

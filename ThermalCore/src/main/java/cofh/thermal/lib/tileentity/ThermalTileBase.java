@@ -21,7 +21,6 @@ import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.filter.IFilterableTile;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.FilterHelper;
-import cofh.lib.util.helpers.StringHelper;
 import cofh.lib.xp.EmptyXpStorage;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.lib.common.ThermalConfig;
@@ -46,6 +45,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -833,7 +833,7 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
     @Override
     public ITextComponent getDisplayName() {
 
-        return StringHelper.getTextComponent(this.getBlockState().getBlock().getTranslationKey());
+        return new TranslationTextComponent(this.getBlockState().getBlock().getTranslationKey());
     }
     // endregion
 

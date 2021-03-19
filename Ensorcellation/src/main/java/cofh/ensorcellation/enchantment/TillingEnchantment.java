@@ -13,7 +13,7 @@ public class TillingEnchantment extends EnchantmentCoFH {
 
         super(Rarity.RARE, CoreEnchantments.Types.HOE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 4;
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

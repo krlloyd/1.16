@@ -14,7 +14,7 @@ public class MagicEdgeEnchantment extends DamageEnchantmentCoFH {
 
         super(Rarity.RARE, CoreEnchantments.Types.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 3;
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

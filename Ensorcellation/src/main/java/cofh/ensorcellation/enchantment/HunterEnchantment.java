@@ -15,7 +15,7 @@ public class HunterEnchantment extends EnchantmentCoFH {
 
         super(Rarity.VERY_RARE, EnchantmentType.BOW, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 2;
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

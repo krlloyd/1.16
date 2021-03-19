@@ -33,7 +33,7 @@ import java.util.*;
 
 import static cofh.lib.item.ContainerType.FLUID;
 import static cofh.lib.util.constants.NBTTags.*;
-import static cofh.thermal.core.client.gui.ThermalTextures.*;
+import static cofh.thermal.core.client.ThermalTextures.*;
 import static cofh.thermal.lib.common.ThermalConfig.DEFAULT_CELL_SIDES_RAW;
 import static net.minecraft.util.Direction.*;
 import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;

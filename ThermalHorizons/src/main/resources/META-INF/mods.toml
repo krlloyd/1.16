@@ -12,7 +12,9 @@ logoFile = "logo.png"
 credits = "Team CoFH"
 authors = "King Lemming"
 description = '''
-Thermal Horizons!
+Expanding the world Thermally!
+
+Contains additional biomes and world features.
 '''
 [[dependencies.thermal_horizons]]
 modId = "minecraft"

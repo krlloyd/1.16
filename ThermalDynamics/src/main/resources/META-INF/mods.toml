@@ -12,7 +12,9 @@ logoFile = "logo.png"
 credits = "Team CoFH"
 authors = "King Lemming"
 description = '''
-Thermal Dynamics!
+Thermal gets dynamic!
+
+Contains various logistic options for technical gameplay!
 '''
 [[dependencies.thermal_dynamics]]
 modId = "minecraft"

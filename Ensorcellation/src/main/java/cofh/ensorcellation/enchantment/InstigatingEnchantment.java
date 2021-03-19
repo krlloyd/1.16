@@ -10,7 +10,7 @@ public class InstigatingEnchantment extends DamageEnchantmentCoFH {
 
         super(Rarity.UNCOMMON, CoreEnchantments.Types.SWORD_OR_AXE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
         maxLevel = 1;
-        treasure = true;
+        treasureEnchantment = true;
     }
 
     @Override

@@ -6,11 +6,6 @@ public class TExpIDs {
 
     }
 
-    // region DEVICES
-    public static final String ID_DEVICE_FLUID_BUFFER = "device_fluid_buffer";
-    public static final String ID_DEVICE_ITEM_BUFFER = "device_item_buffer";
-    // endregion
-
     // region DYNAMOS
     public static final String ID_DYNAMO_STIRLING = "dynamo_stirling";
     public static final String ID_DYNAMO_COMPRESSION = "dynamo_compression";

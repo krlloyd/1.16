@@ -14,7 +14,7 @@ authors = "King Lemming"
 description = '''
 Thermal Technology marches on. Adds Thermal-style tools and equipment!
 
-Contains a number of useful tools, gadgets, and armor.
+Contains player-centric power - useful tools, gadgets, and armor.
 '''
 [[dependencies.thermal_innovation]]
 modId = "minecraft"
