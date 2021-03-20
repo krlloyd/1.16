@@ -66,7 +66,7 @@ public class RSAConfig {
 
     // region CONFIGURATION
     @SubscribeEvent
-    public static void configLoading(final net.minecraftforge.fml.config.ModConfig.Loading event) {
+    public static void configLoading(ModConfig.Loading event) {
 
         switch (event.getConfig().getType()) {
             case CLIENT:
@@ -78,7 +78,7 @@ public class RSAConfig {
     }
 
     @SubscribeEvent
-    public static void configReloading(final net.minecraftforge.fml.config.ModConfig.Reloading event) {
+    public static void configReloading(ModConfig.Reloading event) {
 
         switch (event.getConfig().getType()) {
             case CLIENT:

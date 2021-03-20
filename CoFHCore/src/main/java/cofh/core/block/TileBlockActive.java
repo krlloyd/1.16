@@ -24,4 +24,15 @@ public class TileBlockActive extends TileBlockCoFH {
         builder.add(ACTIVE);
     }
 
+    //    @OnlyIn(Dist.CLIENT)
+    //    public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+    //
+    //        if (state.get(ACTIVE)) {
+    //            TileCoFH tile = (TileCoFH) world.getTileEntity(pos);
+    //            if (tile != null) {
+    //                tile.animateTick(state, world, pos, rand);
+    //            }
+    //        }
+    //    }
+
 }

@@ -31,6 +31,7 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHandler, IConveyableData {
 
@@ -97,6 +98,15 @@ public class TileCoFH extends TileEntity implements ITileCallback, ITilePacketHa
     public boolean hasGuiPacket() {
 
         return true;
+    }
+
+    public void animateTick(BlockState state, World worldIn, BlockPos pos, Random rand) {
+
+    }
+
+    protected Object getSound() {
+
+        return null;
     }
     // endregion
 

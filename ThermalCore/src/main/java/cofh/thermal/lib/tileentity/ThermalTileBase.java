@@ -21,6 +21,7 @@ import cofh.lib.util.filter.IFilter;
 import cofh.lib.util.filter.IFilterableTile;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.FilterHelper;
+import cofh.lib.util.helpers.SoundHelper;
 import cofh.lib.xp.EmptyXpStorage;
 import cofh.lib.xp.XpStorage;
 import cofh.thermal.lib.common.ThermalConfig;
@@ -533,8 +534,14 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
 
         super.handleStatePacket(buffer);
 
+        boolean prevActive = isActive;
+
         isActive = buffer.readBoolean();
         renderFluid = buffer.readFluidStack();
+
+        if (ThermalConfig.blockAmbientSounds && isActive && !prevActive) {
+            SoundHelper.playSound(getSound());
+        }
     }
     // endregion
 

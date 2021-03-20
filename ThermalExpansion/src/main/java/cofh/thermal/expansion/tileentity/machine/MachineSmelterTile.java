@@ -1,5 +1,6 @@
 package cofh.thermal.expansion.tileentity.machine;
 
+import cofh.lib.client.audio.ConditionalSound;
 import cofh.lib.inventory.ItemStorageCoFH;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.thermal.expansion.inventory.container.machine.MachineSmelterContainer;
@@ -10,6 +11,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.SoundCategory;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -20,6 +22,7 @@ import static cofh.lib.util.helpers.AugmentableHelper.getAttributeMod;
 import static cofh.lib.util.helpers.ItemHelper.itemsEqual;
 import static cofh.lib.util.helpers.ItemHelper.itemsEqualWithTags;
 import static cofh.thermal.expansion.init.TExpReferences.MACHINE_SMELTER_TILE;
+import static cofh.thermal.expansion.init.TExpSounds.SOUND_MACHINE_SMELTER;
 import static cofh.thermal.lib.common.ThermalConfig.machineAugments;
 
 public class MachineSmelterTile extends MachineTileProcess {
@@ -91,6 +94,12 @@ public class MachineSmelterTile extends MachineTileProcess {
     public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
 
         return new MachineSmelterContainer(i, world, pos, inventory, player);
+    }
+
+    @Override
+    protected Object getSound() {
+
+        return new ConditionalSound(SOUND_MACHINE_SMELTER, SoundCategory.AMBIENT, this, () -> !removed && isActive);
     }
 
     // region OPTIMIZATION

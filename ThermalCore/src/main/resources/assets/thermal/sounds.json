@@ -1,4 +1,55 @@
 {
+  "block.device_water_gen": {
+    "category": "block",
+    "sounds": [
+      "thermal:block/device/water_gen"
+    ],
+    "subtitle": "subtitle.thermal.block.device_water_gen"
+  },
+
+  "block.machine_bottler": {
+    "category": "block",
+    "sounds": [
+      "thermal:block/machine/bottler"
+    ],
+    "subtitle": "subtitle.thermal.block.machine_bottler"
+  },
+  "block.machine_crucible": {
+    "category": "block",
+    "sounds": [
+      "thermal:block/machine/crucible"
+    ],
+    "subtitle": "subtitle.thermal.block.machine_crucible"
+  },
+  "block.machine_furnace": {
+    "category": "block",
+    "sounds": [
+      "thermal:block/machine/furnace"
+    ],
+    "subtitle": "subtitle.thermal.block.machine_furnace"
+  },
+  "block.machine_pulverizer": {
+    "category": "block",
+    "sounds": [
+      "thermal:block/machine/pulverizer"
+    ],
+    "subtitle": "subtitle.thermal.block.machine_pulverizer"
+  },
+  "block.machine_sawmill": {
+    "category": "block",
+    "sounds": [
+      "thermal:block/machine/sawmill"
+    ],
+    "subtitle": "subtitle.thermal.block.machine_sawmill"
+  },
+  "block.machine_smelter": {
+    "category": "block",
+    "sounds": [
+      "thermal:block/machine/smelter"
+    ],
+    "subtitle": "subtitle.thermal.block.machine_smelter"
+  },
+
   "entity.basalz.ambient": {
     "category": "entity",
     "sounds": [

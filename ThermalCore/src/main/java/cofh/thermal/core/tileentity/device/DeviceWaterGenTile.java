@@ -1,6 +1,7 @@
 package cofh.thermal.core.tileentity.device;
 
 import cofh.core.util.helpers.FluidHelper;
+import cofh.lib.client.audio.ConditionalSound;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.inventory.ItemStorageCoFH;
 import cofh.lib.util.helpers.AugmentDataHelper;
@@ -13,6 +14,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
@@ -33,6 +35,7 @@ import static cofh.lib.util.constants.Constants.BUCKET_VOLUME;
 import static cofh.lib.util.constants.Constants.TANK_SMALL;
 import static cofh.lib.util.constants.NBTTags.*;
 import static cofh.thermal.core.init.TCoreReferences.DEVICE_WATER_GEN_TILE;
+import static cofh.thermal.core.init.TCoreSounds.SOUND_DEVICE_WATER_GEN;
 import static cofh.thermal.lib.common.ThermalAugmentRules.createAllowValidator;
 import static cofh.thermal.lib.common.ThermalConfig.deviceAugments;
 import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
@@ -145,6 +148,12 @@ public class DeviceWaterGenTile extends DeviceTileBase implements ITickableTileE
     public Container createMenu(int i, PlayerInventory inventory, PlayerEntity player) {
 
         return new DeviceWaterGenContainer(i, world, pos, inventory, player);
+    }
+
+    @Override
+    protected Object getSound() {
+
+        return new ConditionalSound(SOUND_DEVICE_WATER_GEN, SoundCategory.AMBIENT, this, () -> !removed && isActive);
     }
 
     // region AUGMENTS

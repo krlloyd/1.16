@@ -117,8 +117,12 @@ public class ThermalConfig {
 
         CLIENT_CONFIG.push("Sounds");
 
+        flagBlockAmbientSounds = CLIENT_CONFIG
+                .comment("If TRUE, some 'Thermal Series' Blocks will have ambient sounds.")
+                .define("Ambient Block Sounds", true);
+
         flagMobAmbientSounds = CLIENT_CONFIG
-                .comment("If TRUE, 'Thermal Series' Mobs will have ambient sounds.")
+                .comment("If TRUE, some 'Thermal Series' Mobs will have ambient sounds.")
                 .define("Ambient Mob Sounds", true);
 
         CLIENT_CONFIG.pop();
@@ -206,6 +210,7 @@ public class ThermalConfig {
 
     private static void refreshClientConfig() {
 
+        blockAmbientSounds = flagBlockAmbientSounds.get();
         mobAmbientSounds = flagMobAmbientSounds.get();
     }
 
@@ -265,14 +270,16 @@ public class ThermalConfig {
     // region CLIENT VARIABLES
     public static boolean jeiBucketTanks = true;
 
+    public static boolean blockAmbientSounds = true;
     public static boolean mobAmbientSounds = true;
 
+    public static BooleanValue flagBlockAmbientSounds;
     public static BooleanValue flagMobAmbientSounds;
     // endregion
 
     // region CONFIGURATION
     @SubscribeEvent
-    public static void configLoading(final net.minecraftforge.fml.config.ModConfig.Loading event) {
+    public static void configLoading(final ModConfig.Loading event) {
 
         switch (event.getConfig().getType()) {
             case CLIENT:
@@ -284,7 +291,7 @@ public class ThermalConfig {
     }
 
     @SubscribeEvent
-    public static void configReloading(final net.minecraftforge.fml.config.ModConfig.Reloading event) {
+    public static void configReloading(ModConfig.Reloading event) {
 
         switch (event.getConfig().getType()) {
             case CLIENT:

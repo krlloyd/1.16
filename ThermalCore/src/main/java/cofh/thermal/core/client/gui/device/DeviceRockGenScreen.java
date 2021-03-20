@@ -40,13 +40,13 @@ public class DeviceRockGenScreen extends ThermalTileScreenBase<DeviceRockGenCont
 
         super.init();
 
-        addElement(ThermalGuiHelper.createDefaultFluidProgress(this, 79, 34, PROG_ARROW_FLUID_RIGHT, tile));
+        addElement(ThermalGuiHelper.createDefaultFluidProgress(this, 84, 34, PROG_ARROW_FLUID_RIGHT, tile));
 
-        addElement(createSlot(this, 35, 46).setVisible(() -> myTile.isActive && myTile.getBelow() != Blocks.AIR));
+        addElement(createSlot(this, 44, 46).setVisible(() -> myTile.isActive && myTile.getBelow() != Blocks.AIR));
 
-        addElement(new ElementFluid(this, 24, 24).setFluid(LAVA).setSize(16, 16).setVisible(() -> myTile.getAdjLava() > 0));
-        addElement(new ElementBlock(this, 46, 24).setBlock(() -> myTile.getAdjacent()).setVisible(() -> myTile.isActive && myTile.getAdjacent() != Blocks.AIR));
-        addElement(new ElementBlock(this, 35, 46).setBlock(() -> myTile.getBelow()).setVisible(() -> myTile.isActive && myTile.getBelow() != Blocks.AIR));
+        addElement(new ElementFluid(this, 33, 24).setFluid(LAVA).setSize(16, 16).setVisible(() -> myTile.getAdjLava() > 0));
+        addElement(new ElementBlock(this, 55, 24).setBlock(() -> myTile.getAdjacent()).setVisible(() -> myTile.isActive && myTile.getAdjacent() != Blocks.AIR));
+        addElement(new ElementBlock(this, 44, 46).setBlock(() -> myTile.getBelow()).setVisible(() -> myTile.isActive && myTile.getBelow() != Blocks.AIR));
     }
 
 }

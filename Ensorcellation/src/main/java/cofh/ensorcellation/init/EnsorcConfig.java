@@ -11,6 +11,7 @@ import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static cofh.lib.util.constants.Constants.MAX_ENCHANT_LEVEL;
@@ -1084,7 +1085,7 @@ public class EnsorcConfig {
 
     // region CONFIGURATION
     @SubscribeEvent
-    public static void configLoading(final net.minecraftforge.fml.config.ModConfig.Loading event) {
+    public static void configLoading(ModConfig.Loading event) {
 
         switch (event.getConfig().getType()) {
             case CLIENT:
@@ -1096,7 +1097,7 @@ public class EnsorcConfig {
     }
 
     @SubscribeEvent
-    public static void configReloading(final net.minecraftforge.fml.config.ModConfig.Reloading event) {
+    public static void configReloading(ModConfig.Reloading event) {
 
         switch (event.getConfig().getType()) {
             case CLIENT:

@@ -1,11 +1,10 @@
 package cofh.thermal.core.init;
 
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import static cofh.lib.util.constants.Constants.ID_THERMAL;
-import static cofh.thermal.core.ThermalCore.SOUND_EVENTS;
+import static cofh.thermal.core.util.RegistrationHelper.registerSound;
 
 public class TCoreSounds {
 
@@ -15,29 +14,33 @@ public class TCoreSounds {
 
     public static void register() {
 
-        SOUND_EVENTS.register(ID_SOUND_BASALZ_AMBIENT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BASALZ_AMBIENT)));
-        SOUND_EVENTS.register(ID_SOUND_BASALZ_ROAM, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BASALZ_ROAM)));
-        SOUND_EVENTS.register(ID_SOUND_BASALZ_DEATH, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BASALZ_DEATH)));
-        SOUND_EVENTS.register(ID_SOUND_BASALZ_HURT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BASALZ_HURT)));
-        SOUND_EVENTS.register(ID_SOUND_BASALZ_SHOOT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BASALZ_SHOOT)));
+        registerSound(ID_SOUND_DEVICE_WATER_GEN);
 
-        SOUND_EVENTS.register(ID_SOUND_BLITZ_AMBIENT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLITZ_AMBIENT)));
-        SOUND_EVENTS.register(ID_SOUND_BLITZ_ROAM, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLITZ_ROAM)));
-        SOUND_EVENTS.register(ID_SOUND_BLITZ_DEATH, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLITZ_DEATH)));
-        SOUND_EVENTS.register(ID_SOUND_BLITZ_HURT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLITZ_HURT)));
-        SOUND_EVENTS.register(ID_SOUND_BLITZ_SHOOT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLITZ_SHOOT)));
+        registerSound(ID_SOUND_BASALZ_AMBIENT);
+        registerSound(ID_SOUND_BASALZ_ROAM);
+        registerSound(ID_SOUND_BASALZ_DEATH);
+        registerSound(ID_SOUND_BASALZ_HURT);
+        registerSound(ID_SOUND_BASALZ_SHOOT);
 
-        SOUND_EVENTS.register(ID_SOUND_BLIZZ_AMBIENT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLIZZ_AMBIENT)));
-        SOUND_EVENTS.register(ID_SOUND_BLIZZ_ROAM, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLIZZ_ROAM)));
-        SOUND_EVENTS.register(ID_SOUND_BLIZZ_DEATH, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLIZZ_DEATH)));
-        SOUND_EVENTS.register(ID_SOUND_BLIZZ_HURT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLIZZ_HURT)));
-        SOUND_EVENTS.register(ID_SOUND_BLIZZ_SHOOT, () -> new SoundEvent(new ResourceLocation(ID_SOUND_BLIZZ_SHOOT)));
+        registerSound(ID_SOUND_BLITZ_AMBIENT);
+        registerSound(ID_SOUND_BLITZ_ROAM);
+        registerSound(ID_SOUND_BLITZ_DEATH);
+        registerSound(ID_SOUND_BLITZ_HURT);
+        registerSound(ID_SOUND_BLITZ_SHOOT);
 
-        SOUND_EVENTS.register(ID_SOUND_MAGNET, () -> new SoundEvent(new ResourceLocation(ID_SOUND_MAGNET)));
-        SOUND_EVENTS.register(ID_SOUND_TINKER, () -> new SoundEvent(new ResourceLocation(ID_SOUND_TINKER)));
+        registerSound(ID_SOUND_BLIZZ_AMBIENT);
+        registerSound(ID_SOUND_BLIZZ_ROAM);
+        registerSound(ID_SOUND_BLIZZ_DEATH);
+        registerSound(ID_SOUND_BLIZZ_HURT);
+        registerSound(ID_SOUND_BLIZZ_SHOOT);
+
+        registerSound(ID_SOUND_MAGNET);
+        registerSound(ID_SOUND_TINKER);
     }
 
     // region IDs
+    public static final String ID_SOUND_DEVICE_WATER_GEN = ID_THERMAL + ":block.device_water_gen";
+
     public static final String ID_SOUND_BASALZ_AMBIENT = ID_THERMAL + ":entity.basalz.ambient";
     public static final String ID_SOUND_BASALZ_DEATH = ID_THERMAL + ":entity.basalz.death";
     public static final String ID_SOUND_BASALZ_HURT = ID_THERMAL + ":entity.basalz.hurt";
@@ -61,6 +64,9 @@ public class TCoreSounds {
     // endregion
 
     // region REFERENCES
+    @ObjectHolder(ID_SOUND_DEVICE_WATER_GEN)
+    public static final SoundEvent SOUND_DEVICE_WATER_GEN = null;
+
     @ObjectHolder(ID_SOUND_BASALZ_AMBIENT)
     public static final SoundEvent SOUND_BASALZ_AMBIENT = null;
     @ObjectHolder(ID_SOUND_BASALZ_DEATH)

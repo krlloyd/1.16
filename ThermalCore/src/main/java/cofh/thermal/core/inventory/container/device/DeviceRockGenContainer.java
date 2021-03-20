@@ -21,7 +21,7 @@ public class DeviceRockGenContainer extends TileContainer {
         this.tile = (ThermalTileBase) world.getTileEntity(pos);
         InvWrapperCoFH tileInv = new InvWrapperCoFH(this.tile.getItemInv());
 
-        addSlot(new SlotRemoveOnly(tileInv, 0, 116, 35));
+        addSlot(new SlotRemoveOnly(tileInv, 0, 125, 35));
 
         bindAugmentSlots(tileInv, 1, this.tile.augSize());
         bindPlayerInventory(inventory);

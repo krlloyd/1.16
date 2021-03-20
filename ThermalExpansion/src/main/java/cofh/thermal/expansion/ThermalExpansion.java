@@ -35,6 +35,7 @@ public class ThermalExpansion {
         TExpItems.register();
 
         TExpContainers.register();
+        TExpSounds.register();
 
         TExpRecipeManagers.register();
         TExpRecipeSerializers.register();

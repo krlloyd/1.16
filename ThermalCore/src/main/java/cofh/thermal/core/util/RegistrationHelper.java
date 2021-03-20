@@ -12,6 +12,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.util.List;
@@ -21,8 +23,7 @@ import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
 import static cofh.lib.util.constants.Constants.TRUE;
-import static cofh.thermal.core.ThermalCore.BLOCKS;
-import static cofh.thermal.core.ThermalCore.ITEMS;
+import static cofh.thermal.core.ThermalCore.*;
 import static cofh.thermal.lib.common.ThermalFlags.*;
 import static cofh.thermal.lib.common.ThermalItemGroups.THERMAL_BLOCKS;
 import static cofh.thermal.lib.common.ThermalItemGroups.THERMAL_ITEMS;
@@ -72,7 +73,7 @@ public class RegistrationHelper {
     }
     // endregion
 
-    // AUGMENTABLE BLOCKS
+    // region AUGMENTABLE BLOCKS
     public static void registerAugBlock(String name, Supplier<Block> sup, IntSupplier numSlots, BiPredicate<ItemStack, List<ItemStack>> validAugment) {
 
         registerAugBlock(name, sup, numSlots, validAugment, THERMAL_BLOCKS, Rarity.COMMON, TRUE);
@@ -245,6 +246,13 @@ public class RegistrationHelper {
     public static String seeds(String id) {
 
         return id + "_seeds";
+    }
+    // endregion
+
+    // region SOUND EVENTS
+    public static void registerSound(String soundID) {
+
+        SOUND_EVENTS.register(soundID, () -> new SoundEvent(new ResourceLocation(soundID)));
     }
     // endregion
 }
