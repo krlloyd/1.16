@@ -135,11 +135,7 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
 
         process = 0;
         isActive = false;
-        wasActive = true;
         clearRecipe();
-        if (world != null) {
-            timeTracker.markTime(world);
-        }
     }
 
     protected int processTick() {
@@ -238,10 +234,10 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
         for (FluidStack recipeOutput : recipeOutputFluids) {
             boolean matched = false;
             for (int i = 0; i < tankOutputs.size(); ++i) {
-                if (used[i] || tankOutputs.get(i).getSpace() <= 0) {
+                FluidStack output = tankOutputs.get(i).getFluidStack();
+                if (used[i] || tankOutputs.get(i).getSpace() < output.getAmount()) {
                     continue;
                 }
-                FluidStack output = tankOutputs.get(i).getFluidStack();
                 if (fluidsEqual(output, recipeOutput)) {
                     used[i] = true;
                     matched = true;

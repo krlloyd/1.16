@@ -101,7 +101,7 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
             if (canProcessFinish()) {
                 processFinish();
                 if (!redstoneControl.getState() || !canProcessStart()) {
-                    processOff();
+                    isActive = false;
                 } else {
                     processStart();
                 }
@@ -130,15 +130,6 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
 
     protected void processFinish() {
 
-    }
-
-    protected void processOff() {
-
-        isActive = false;
-        wasActive = true;
-        if (world != null) {
-            timeTracker.markTime(world);
-        }
     }
 
     protected int processTick() {

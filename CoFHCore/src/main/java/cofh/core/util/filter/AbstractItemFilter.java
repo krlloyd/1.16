@@ -21,7 +21,7 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_COMPOUND;
 
 public abstract class AbstractItemFilter implements IFilter, IFilterOptions {
 
-    public static final int SIZE = 12;
+    public static final int SIZE = 15;
 
     protected List<ItemStack> items;
     protected Predicate<ItemStack> rules;

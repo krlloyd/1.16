@@ -70,12 +70,12 @@ public class DeviceCollectorTile extends DeviceTileBase implements ITickableTile
     }
 
     @Override
-    protected void updateActiveState(boolean curActive) {
+    protected void updateActiveState(boolean prevActive) {
 
-        if (!curActive && isActive) {
+        if (!prevActive && isActive) {
             process = 1;
         }
-        super.updateActiveState(curActive);
+        super.updateActiveState(prevActive);
     }
 
     @Override

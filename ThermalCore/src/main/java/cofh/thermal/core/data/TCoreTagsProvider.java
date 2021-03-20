@@ -519,6 +519,7 @@ public class TCoreTagsProvider {
             getOrCreateBuilder(FluidTagsCoFH.LATEX).add(FLUIDS.get(ID_FLUID_LATEX));
 
             getOrCreateBuilder(FluidTagsCoFH.CREOSOTE).add(FLUIDS.get(ID_FLUID_CREOSOTE));
+            getOrCreateBuilder(FluidTagsCoFH.CRUDE_OIL).add(FLUIDS.get(ID_FLUID_CRUDE_OIL));
         }
 
     }

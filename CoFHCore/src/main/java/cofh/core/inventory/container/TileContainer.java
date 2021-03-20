@@ -28,7 +28,7 @@ public class TileContainer extends ContainerCoFH {
     }
 
     @Override
-    protected int getSizeInventory() {
+    protected int getMergeableSlotCount() {
 
         return baseTile == null ? 0 : baseTile.invSize();
     }

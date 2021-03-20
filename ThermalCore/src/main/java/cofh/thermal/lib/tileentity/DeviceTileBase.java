@@ -39,9 +39,9 @@ public abstract class DeviceTileBase extends ThermalTileBase {
     }
 
     @Override
-    protected void updateActiveState(boolean curActive) {
+    protected void updateActiveState(boolean prevActive) {
 
-        if (curActive != isActive) {
+        if (prevActive != isActive) {
             if (getBlockState().hasProperty(ACTIVE)) {
                 world.setBlockState(pos, getBlockState().with(ACTIVE, isActive));
             }

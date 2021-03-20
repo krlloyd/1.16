@@ -452,7 +452,11 @@
   "info.thermal.device_hive_extractor.2": "Buzz buzz.",
 
   "info.thermal.device_nullifier.0": "Destroys anything placed into it.",
-  "info.thermal.device_nullifier.1": "A filter can be used to restrict what is accepted.",
+  "info.thermal.device_nullifier.1": "Items and fluid inserted with automation are destroyed instantly.",
+  "info.thermal.device_nullifier.2": "Items inserted manually must be destroyed with the button.",
+  "info.thermal.device_nullifier.3": "A filter can be used to restrict what is accepted.",
+
+  "info.thermal.device_nullifier_empty_bin": "Destroy Items",
 
   "info.thermal.device_potion_diffuser.0": "Spreads potions within the nearby area.",
   "info.thermal.device_potion_diffuser.1": "Use reagents to boost effectiveness.",
@@ -480,12 +484,12 @@
   "info.thermal.tinker_bench.1": "Storages may be filled using their respective slots.",
   "info.thermal.tinker_bench.2": "Tinker on!",
 
+  "info.thermal.tinker_bench_mode_augment": "Mode: Augment",
+  "info.thermal.tinker_bench_mode_charge": "Mode: Charge/Fill",
+
   "info.thermal.charge_bench.0": "Charges items with Redstone Flux.",
   "info.thermal.charge_bench.1": "Items can be inserted and removed with automation.",
   "info.thermal.charge_bench.2": "Feel the hum.",
-
-  "info.thermal.tinker_bench_mode_augment": "Mode: Augment",
-  "info.thermal.tinker_bench_mode_charge": "Mode: Charge/Fill",
 
   "item.thermal.beekeeper_fabric": "Woven Fabric",
   "item.thermal.beekeeper_helmet": "Beekeeper's Hood",

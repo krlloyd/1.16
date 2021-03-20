@@ -33,7 +33,7 @@ public class ChargeBenchTile extends ThermalTileBase implements ITickableTileEnt
     public static final int BASE_XFER = 4000;
 
     protected ItemStorageCoFH[] benchSlots = new ItemStorageCoFH[9];
-    protected ItemStorageCoFH chargeSlot = new ItemStorageCoFH(EnergyHelper::hasEnergyHandlerCap);
+    protected ItemStorageCoFH chargeSlot = new ItemStorageCoFH(1, EnergyHelper::hasEnergyHandlerCap);
 
     public ChargeBenchTile() {
 
@@ -42,7 +42,7 @@ public class ChargeBenchTile extends ThermalTileBase implements ITickableTileEnt
         energyStorage = new EnergyStorageCoFH(BASE_CAPACITY, BASE_XFER);
 
         for (int i = 0; i < benchSlots.length; ++i) {
-            benchSlots[i] = new ItemStorageCoFH(EnergyHelper::hasEnergyHandlerCap);
+            benchSlots[i] = new ItemStorageCoFH(1, EnergyHelper::hasEnergyHandlerCap);
             inventory.addSlot(benchSlots[i], ACCESSIBLE);
         }
         inventory.addSlot(chargeSlot, INTERNAL);
@@ -54,9 +54,12 @@ public class ChargeBenchTile extends ThermalTileBase implements ITickableTileEnt
     @Override
     public void tick() {
 
+        boolean curActive = isActive;
+        isActive = false;
         if (redstoneControl().getState()) {
             chargeItems();
         }
+        updateActiveState(curActive);
         chargeEnergy();
     }
 
@@ -71,9 +74,12 @@ public class ChargeBenchTile extends ThermalTileBase implements ITickableTileEnt
     protected void chargeItems() {
 
         for (ItemStorageCoFH benchSlot : benchSlots) {
-            if (!benchSlot.isEmpty() && !energyStorage.isEmpty()) {
-                int maxTransfer = Math.min(energyStorage.getMaxExtract(), energyStorage.getEnergyStored());
-                benchSlot.getItemStack().getCapability(CapabilityEnergy.ENERGY, null).ifPresent(c -> energyStorage.extractEnergy(c.receiveEnergy(maxTransfer, false), false));
+            if (!benchSlot.isEmpty()) {
+                if (!energyStorage.isEmpty()) {
+                    int maxTransfer = Math.min(energyStorage.getMaxExtract(), energyStorage.getEnergyStored());
+                    benchSlot.getItemStack().getCapability(CapabilityEnergy.ENERGY, null).ifPresent(c -> energyStorage.extractEnergy(c.receiveEnergy(maxTransfer, false), false));
+                }
+                isActive = true;
             }
         }
     }

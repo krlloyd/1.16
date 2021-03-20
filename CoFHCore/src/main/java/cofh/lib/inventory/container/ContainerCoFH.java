@@ -78,7 +78,7 @@ public abstract class ContainerCoFH extends Container {
         return 84;
     }
 
-    protected abstract int getSizeInventory();
+    protected abstract int getMergeableSlotCount();
 
     protected boolean supportsShiftClick(PlayerEntity player, int index) {
 
@@ -88,7 +88,7 @@ public abstract class ContainerCoFH extends Container {
     protected boolean performMerge(int index, ItemStack stack) {
 
         // TODO: Consider reverting or allowing augment shift-click in some cases.
-        int invBase = getSizeInventory();
+        int invBase = getMergeableSlotCount();
         // int invBase = getSizeInventory() - getNumAugmentSlots();
         int invFull = inventorySlots.size();
         int invHotbar = invFull - 9;

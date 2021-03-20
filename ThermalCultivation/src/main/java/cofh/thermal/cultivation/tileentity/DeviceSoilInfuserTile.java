@@ -67,7 +67,7 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
                             .forEach(this::chargeSoil);
                 }
             } else {
-                processOff();
+                isActive = false;
             }
         } else if (redstoneControl.getState() && energyStorage.getEnergyStored() >= processTick) {
             isActive = true;
@@ -168,16 +168,6 @@ public class DeviceSoilInfuserTile extends ThermalTileBase implements ITickableT
             chargeSlot.getItemStack()
                     .getCapability(CapabilityEnergy.ENERGY, null)
                     .ifPresent(c -> energyStorage.receiveEnergy(c.extractEnergy(Math.min(energyStorage.getMaxReceive(), energyStorage.getSpace()), false), false));
-        }
-    }
-
-    protected void processOff() {
-
-        // This intentionally does not clear the process value.
-        isActive = false;
-        wasActive = true;
-        if (world != null) {
-            timeTracker.markTime(world);
         }
     }
     // endregion

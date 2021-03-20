@@ -96,18 +96,9 @@ public class MachineCrafterContainer extends TileContainer {
     }
 
     @Override
-    protected boolean performMerge(int index, ItemStack stack) {
+    protected int getMergeableSlotCount() {
 
-        int invBase = getSizeInventory() - getNumAugmentSlots() - 9 - 1;
-        int invFull = inventorySlots.size();
-        int invHotbar = invFull - 9;
-        int invPlayer = invHotbar - 27;
-
-        if (index < invPlayer) {
-            return mergeItemStack(stack, invPlayer, invFull, false);
-        } else {
-            return mergeItemStack(stack, 0, invBase, false);
-        }
+        return baseTile.invSize() - 9 - 1;
     }
 
     public boolean hasValidRecipe() {

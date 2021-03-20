@@ -57,7 +57,7 @@ public class TileItemFilterContainer extends TileContainer implements IFilterOpt
     }
 
     @Override
-    protected int getSizeInventory() {
+    protected int getMergeableSlotCount() {
 
         return filterInventory.getSizeInventory();
     }

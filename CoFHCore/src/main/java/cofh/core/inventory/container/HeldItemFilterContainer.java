@@ -75,7 +75,7 @@ public class HeldItemFilterContainer extends ContainerCoFH implements IFilterOpt
     }
 
     @Override
-    protected int getSizeInventory() {
+    protected int getMergeableSlotCount() {
 
         return filterInventory.getSizeInventory();
     }

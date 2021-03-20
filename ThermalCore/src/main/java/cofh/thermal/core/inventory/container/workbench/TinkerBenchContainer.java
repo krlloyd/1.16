@@ -159,12 +159,6 @@ public class TinkerBenchContainer extends TileContainer {
 
     // region NETWORK
     @Override
-    public PacketBuffer getContainerPacket(PacketBuffer buffer) {
-
-        return buffer;
-    }
-
-    @Override
     public void handleContainerPacket(PacketBuffer buffer) {
 
         writeAugmentsToItem(tinkerSlot.getStack());

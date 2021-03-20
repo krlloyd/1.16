@@ -167,10 +167,19 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         tankInv.initHandlers();
     }
 
-    protected void updateActiveState(boolean curActive) {
+    protected void updateActiveState(boolean prevActive) {
 
-        // TODO: Config time delay
-        if (!wasActive && curActive != isActive || wasActive && (timeTracker.hasDelayPassed(world, 40) || timeTracker.notSet())) {
+        // If not active but WAS active this tick.
+        if (!isActive && prevActive) {
+            wasActive = true;
+            if (world != null) {
+                timeTracker.markTime(world);
+            }
+            return;
+        }
+        // Otherwise if IS active but was not, or WAS & delayed off OR Empty Tracker (Instant)
+        if (prevActive != isActive || wasActive && (timeTracker.hasDelayPassed(world, 40) || timeTracker.notSet())) {
+            // TODO: Config time delay
             wasActive = false;
             if (getBlockState().hasProperty(ACTIVE)) {
                 world.setBlockState(pos, getBlockState().with(ACTIVE, isActive));
@@ -536,7 +545,6 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         super.read(state, nbt);
 
         isActive = nbt.getBoolean(TAG_ACTIVE);
-        wasActive = nbt.getBoolean(TAG_ACTIVE_TRACK);
 
         enchantments = nbt.getList(TAG_ENCHANTMENTS, 10);
 
@@ -564,7 +572,6 @@ public abstract class ThermalTileBase extends TileCoFH implements ISecurableTile
         super.write(nbt);
 
         nbt.putBoolean(TAG_ACTIVE, isActive);
-        nbt.putBoolean(TAG_ACTIVE_TRACK, wasActive);
 
         nbt.put(TAG_ENCHANTMENTS, enchantments);
 

@@ -384,8 +384,8 @@ public class TCoreItems {
         registerItem("rf_coil_creative_augment", () -> new AugmentItem(new Item.Properties().group(group).rarity(Rarity.EPIC),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_RF)
-                        .mod(TAG_AUGMENT_RF_STORAGE, 8.0F)
-                        .mod(TAG_AUGMENT_RF_XFER, 8.0F)
+                        .mod(TAG_AUGMENT_RF_STORAGE, 16.0F)
+                        .mod(TAG_AUGMENT_RF_XFER, 16.0F)
                         .mod(TAG_AUGMENT_RF_CREATIVE, 1.0F)
                         .build()).setShowInGroups(getFlag(FLAG_CREATIVE_STORAGE_AUGMENTS)));
 
@@ -398,7 +398,7 @@ public class TCoreItems {
         registerItem("fluid_tank_creative_augment", () -> new AugmentItem(new Item.Properties().group(group).rarity(Rarity.EPIC),
                 AugmentDataHelper.builder()
                         .type(TAG_AUGMENT_TYPE_FLUID)
-                        .mod(TAG_AUGMENT_FLUID_STORAGE, 8.0F)
+                        .mod(TAG_AUGMENT_FLUID_STORAGE, 16.0F)
                         .mod(TAG_AUGMENT_FLUID_CREATIVE, 1.0F)
                         .build()).setShowInGroups(getFlag(FLAG_CREATIVE_STORAGE_AUGMENTS)));
     }
@@ -530,7 +530,7 @@ public class TCoreItems {
         ItemGroup group = THERMAL_ITEMS;
 
         registerItem("basalz_spawn_egg", () -> new SpawnEggItemCoFH(() -> BASALZ_ENTITY, 0x363840, 0x080407, new Item.Properties().group(group)).setShowInGroups(getFlag(FLAG_MOB_BASALZ)));
-        registerItem("blizz_spawn_egg", () -> new SpawnEggItemCoFH(() -> BLIZZ_ENTITY, 0x7BD4FF, 0x0D6FD9, new Item.Properties().group(group)).setShowInGroups(getFlag(FLAG_MOB_BLIZZ)));
+        registerItem("blizz_spawn_egg", () -> new SpawnEggItemCoFH(() -> BLIZZ_ENTITY, 0xD8DBE5, 0x5BB6E5, new Item.Properties().group(group)).setShowInGroups(getFlag(FLAG_MOB_BLIZZ)));
         registerItem("blitz_spawn_egg", () -> new SpawnEggItemCoFH(() -> BLITZ_ENTITY, 0xECFEFC, 0xFFD46D, new Item.Properties().group(group)).setShowInGroups(getFlag(FLAG_MOB_BLITZ)));
     }
     // endregion

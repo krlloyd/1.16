@@ -17,6 +17,7 @@ public class FluidTagsCoFH {
     public static final IOptionalNamedTag<Fluid> LATEX = forgeTag("latex");
 
     public static final IOptionalNamedTag<Fluid> CREOSOTE = forgeTag("creosote");
+    public static final IOptionalNamedTag<Fluid> CRUDE_OIL = forgeTag("crude_oil");
 
     // region HELPERS
     private static IOptionalNamedTag<Fluid> thermalTag(String name) {
