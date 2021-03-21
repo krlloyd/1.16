@@ -1,6 +1,7 @@
 package cofh.thermal.dynamics.tileentity.device;
 
 import cofh.lib.inventory.ItemStorageCoFH;
+import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.InventoryHelper;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.thermal.dynamics.inventory.container.device.DeviceItemBufferContainer;
@@ -44,7 +45,7 @@ public class DeviceItemBufferTile extends ReconfigurableTile4Way implements ITic
         boolean curActive = isActive;
 
         if (isActive) {
-            if (timeCheckHalf()) {
+            if (Utils.timeCheckHalf(world)) {
                 transferOutput();
                 transferInput();
             }

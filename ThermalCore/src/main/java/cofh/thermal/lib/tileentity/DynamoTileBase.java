@@ -3,6 +3,7 @@ package cofh.thermal.lib.tileentity;
 import cofh.core.tileentity.TileCoFH;
 import cofh.lib.energy.EnergyStorageCoFH;
 import cofh.lib.util.TimeTracker;
+import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.BlockHelper;
 import cofh.lib.util.helpers.MathHelper;
@@ -106,7 +107,7 @@ public abstract class DynamoTileBase extends ThermalTileBase implements ITickabl
                     processStart();
                 }
             }
-        } else if (timeCheckQuarter()) {
+        } else if (Utils.timeCheckQuarter(world)) {
             if (redstoneControl.getState() && canProcessStart()) {
                 processStart();
                 processTick();

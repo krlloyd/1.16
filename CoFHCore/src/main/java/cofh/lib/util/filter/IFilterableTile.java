@@ -13,11 +13,7 @@ public interface IFilterableTile extends INamedContainerProvider {
 
     boolean openGui(ServerPlayerEntity player);
 
-    // ItemStack getGuiIcon();
-
     boolean openFilterGui(ServerPlayerEntity player);
-
-    // ItemStack getFilterGuiIcon();
 
     BlockPos pos();
 

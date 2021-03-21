@@ -3,6 +3,7 @@ package cofh.thermal.core.tileentity.storage;
 import cofh.core.network.packet.client.TileStatePacket;
 import cofh.lib.energy.EmptyEnergyHandler;
 import cofh.lib.energy.EnergyStorageAdjustable;
+import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.BlockHelper;
 import cofh.thermal.core.inventory.container.storage.EnergyCellContainer;
@@ -62,7 +63,7 @@ public class EnergyCellTile extends CellTileBase implements ITickableTileEntity 
         if (redstoneControl.getState()) {
             transferRF();
         }
-        if (timeCheck()) {
+        if (Utils.timeCheck(world)) {
             updateTrackers(true);
         }
     }

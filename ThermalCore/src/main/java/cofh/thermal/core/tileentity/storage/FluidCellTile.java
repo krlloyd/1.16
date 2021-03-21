@@ -5,6 +5,7 @@ import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.fluid.FluidStorageAdjustable;
 import cofh.lib.fluid.FluidStorageCoFH;
 import cofh.lib.util.StorageGroup;
+import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.AugmentDataHelper;
 import cofh.lib.util.helpers.BlockHelper;
 import cofh.thermal.core.inventory.container.storage.FluidCellContainer;
@@ -69,7 +70,7 @@ public class FluidCellTile extends CellTileBase implements ITickableTileEntity {
         if (redstoneControl.getState()) {
             transferFluid();
         }
-        if (timeCheck() || fluidStorage.getFluidStack().getFluid() != renderFluid.getFluid()) {
+        if (Utils.timeCheck(world) || fluidStorage.getFluidStack().getFluid() != renderFluid.getFluid()) {
             updateTrackers(true);
         }
     }

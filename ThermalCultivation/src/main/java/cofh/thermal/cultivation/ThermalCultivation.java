@@ -3,6 +3,7 @@ package cofh.thermal.cultivation;
 import cofh.thermal.cultivation.client.gui.device.DeviceSoilInfuserScreen;
 import cofh.thermal.cultivation.init.TCulBlocks;
 import cofh.thermal.cultivation.init.TCulItems;
+import cofh.thermal.cultivation.loot.GrassLootModifier;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -15,8 +16,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static cofh.lib.util.constants.Constants.ID_THERMAL_CULTIVATION;
-import static cofh.thermal.core.ThermalCore.BLOCKS;
-import static cofh.thermal.core.ThermalCore.ITEMS;
+import static cofh.thermal.core.ThermalCore.*;
 import static cofh.thermal.core.init.TCoreIDs.ID_DEVICE_HIVE_EXTRACTOR;
 import static cofh.thermal.core.init.TCoreIDs.ID_DEVICE_TREE_EXTRACTOR;
 import static cofh.thermal.core.util.RegistrationHelper.seeds;
@@ -38,6 +38,8 @@ public class ThermalCultivation {
 
         TCulBlocks.register();
         TCulItems.register();
+
+        LOOT_SERIALIZERS.register("seeds_from_grass", GrassLootModifier.Serializer::new);
     }
 
     private void setFeatureFlags() {

@@ -114,6 +114,35 @@ public class Utils {
         return true;
     }
 
+    // region TIME CHECKS
+    public static final int TIME_CONSTANT = 32;
+    public static final int TIME_CONSTANT_2X = TIME_CONSTANT * 2;
+
+    public static final int TIME_CONSTANT_HALF = TIME_CONSTANT / 2;
+    public static final int TIME_CONSTANT_QUARTER = TIME_CONSTANT / 4;
+    public static final int TIME_CONSTANT_EIGHTH = TIME_CONSTANT / 8;
+
+    public static boolean timeCheck(World world) {
+
+        return world.getGameTime() % TIME_CONSTANT == 0;
+    }
+
+    public static boolean timeCheckHalf(World world) {
+
+        return world.getGameTime() % TIME_CONSTANT_HALF == 0;
+    }
+
+    public static boolean timeCheckQuarter(World world) {
+
+        return world.getGameTime() % TIME_CONSTANT_QUARTER == 0;
+    }
+
+    public static boolean timeCheckEighth(World world) {
+
+        return world.getGameTime() % TIME_CONSTANT_EIGHTH == 0;
+    }
+    // endregion
+
     // region PARTICLE UTILS
     public static void spawnBlockParticlesClient(World world, IParticleData particle, BlockPos pos, Random rand, int count) {
 

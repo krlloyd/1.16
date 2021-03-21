@@ -1,6 +1,7 @@
 package cofh.thermal.core.world.biome;
 
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -56,6 +57,7 @@ public class ThermalBiomeFeatures {
         if (spawnInfoBuilder.getSpawner(EntityClassification.MONSTER).isEmpty()) {
             return;
         }
+        ResourceLocation name = event.getName();
         Biome.Category category = event.getCategory();
         Biome.Climate climate = event.getClimate();
 
@@ -68,6 +70,10 @@ public class ThermalBiomeFeatures {
             }
             if (climate.precipitation == Biome.RainType.SNOW & climate.temperature <= 0.3F) {
                 withBlizz(spawnInfoBuilder);
+            }
+        } else if (isNetherBiome(category)) {
+            if (name != null && name.toString().equals("minecraft:basalt_deltas")) {
+                withBasalz(spawnInfoBuilder);
             }
         }
     }
@@ -149,6 +155,11 @@ public class ThermalBiomeFeatures {
     public static boolean isOverworldBiome(Biome.Category category) {
 
         return category != Biome.Category.NONE && category != Biome.Category.THEEND && category != Biome.Category.NETHER;
+    }
+
+    public static boolean isNetherBiome(Biome.Category category) {
+
+        return category == Biome.Category.NETHER;
     }
     // endregion
 }

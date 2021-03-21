@@ -78,11 +78,11 @@ public abstract class MachineTileProcess extends ReconfigurableTile4Way implemen
                 processOff();
             }
         } else if (redstoneControl.getState()) {
-            if (timeCheck()) {
+            if (Utils.timeCheck(world)) {
                 transferOutput();
                 transferInput();
             }
-            if (timeCheckQuarter() && canProcessStart()) {
+            if (Utils.timeCheckQuarter(world) && canProcessStart()) {
                 processStart();
                 processTick();
                 isActive = true;

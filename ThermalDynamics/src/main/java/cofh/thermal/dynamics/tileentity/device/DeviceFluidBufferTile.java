@@ -2,6 +2,7 @@ package cofh.thermal.dynamics.tileentity.device;
 
 import cofh.core.util.helpers.FluidHelper;
 import cofh.lib.fluid.FluidStorageCoFH;
+import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.thermal.dynamics.inventory.container.device.DeviceFluidBufferContainer;
 import cofh.thermal.lib.tileentity.ReconfigurableTile4Way;
@@ -46,7 +47,7 @@ public class DeviceFluidBufferTile extends ReconfigurableTile4Way implements ITi
         boolean curActive = isActive;
 
         if (isActive) {
-            if (timeCheckHalf()) {
+            if (Utils.timeCheckHalf(world)) {
                 transferOutput();
                 transferInput();
             }

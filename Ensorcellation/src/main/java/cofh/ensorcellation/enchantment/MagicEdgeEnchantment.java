@@ -3,6 +3,8 @@ package cofh.ensorcellation.enchantment;
 import cofh.core.init.CoreEnchantments;
 import cofh.lib.enchantment.DamageEnchantmentCoFH;
 import cofh.lib.util.Utils;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.particles.ParticleTypes;
@@ -27,6 +29,12 @@ public class MagicEdgeEnchantment extends DamageEnchantmentCoFH {
     protected int maxDelegate(int level) {
 
         return getMinEnchantability(level) + 50;
+    }
+
+    @Override
+    public boolean canApplyTogether(Enchantment ench) {
+
+        return super.canApplyTogether(ench) && ench != Enchantments.SWEEPING;
     }
 
     // region HELPERS
